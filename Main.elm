@@ -8,4 +8,5 @@ import Scorched.Model.World as World
 dimensions = {width=1024, height=768}
 
 main : Element
-main = renderWorld (World.default dimensions) dimensions
+main = renderMenu dimensions
+-- main = renderWorld (World.default dimensions) dimensions
