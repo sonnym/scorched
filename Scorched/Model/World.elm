@@ -2,6 +2,8 @@ module Scorched.Model.World where
 
 import List
 
+type alias Dimension = {width:Int, height:Int}
+
 type alias Terrain = List Int
 
 type alias World = {

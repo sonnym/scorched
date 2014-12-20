@@ -8,7 +8,7 @@ import Graphics.Collage (..)
 
 import Scorched.Model.World (..)
 
-renderWorld : World -> {width:Int, height:Int}-> Element
+renderWorld : World -> Dimension -> Element
 renderWorld {terrain} {width, height} = collage width height (drawTerrain terrain)
 
 drawTerrain : Terrain -> List Form
