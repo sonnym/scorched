@@ -28,7 +28,7 @@ background width height = toForm (color backgroundColor (size width height empty
 
 highlights : Float -> Float -> Form
 highlights width height =
-  (group >> (transformCoordinates width height))
+  (group >> (transformCoordinates width -height))
     [ filled shadowColorDark (polygon [(width - 3.0, 0.0), (width, 0.0), (width, height), ((width - 3.0), height)])
     , filled highlightColorLight (polygon [(0.0, 0.0), (2.0, 0.0), (2.0, height), (0.0, height)])
 

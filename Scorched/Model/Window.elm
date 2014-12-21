@@ -11,4 +11,4 @@ dimensions = {width=1024, height=768}
 
 transformCoordinates : Float -> Float -> Form -> Form
 transformCoordinates width height form =
-  move (-(width / 2), -(height / 2) + 1.0) form
+  move (-(width / 2), (height / 2) + 1.0) form
