@@ -17,12 +17,13 @@ shadowColorLight = Color.rgb 60 60 60
 highlightColorDark = Color.rgb 223 223 223
 highlightColorLight = Color.rgb 255 255 255
 
-build : Dimension -> Element
+build : Dimension -> Form
 build {width, height} =
-  layers
-    [ color backgroundColor (size width height empty)
-    , collage width height (highlights (toFloat width) (toFloat height))
-    ]
+  group
+   ((background width height) :: highlights (toFloat width) (toFloat height))
+
+background : Int -> Int -> Form
+background width height = toForm (color backgroundColor (size width height empty))
 
 highlights : Float -> Float -> List Form
 highlights width height =
