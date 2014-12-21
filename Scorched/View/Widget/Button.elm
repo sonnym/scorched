@@ -16,7 +16,7 @@ build channel content ({width, height} as dimensions) =
   let
     btn = collage width height
       [ BorderBox.build dimensions
-      , toForm (size width height (Text.centered (Text.fromString content)))
+      , moveY -4 (toForm (size width height (Text.centered (Text.fromString content))))
       ]
   in
     Input.customButton (Signal.send channel ()) btn btn btn
