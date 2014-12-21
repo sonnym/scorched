@@ -14,7 +14,7 @@ import Scorched.View.Widget.Button as Button
 renderMenu : Dimension -> Element
 renderMenu ({width, height} as dimensions) =
   collage width height
-    [ BorderBox.build dimensions
+    [ BorderBox.build dimensions False
     , buttons dimensions
     ]
 
