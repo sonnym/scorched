@@ -5,6 +5,8 @@ import Signal
 import Graphics.Element (..)
 import Graphics.Collage (..)
 
+import Scorched.Action as Action
+
 import Scorched.Model.World (Dimension)
 import Scorched.Model.Window (transformCoordinates)
 
@@ -27,8 +29,5 @@ buttons {width, height} =
       |> transformCoordinates (toFloat (width - (widthOf elem))) (toFloat (height - (heightOf elem)))
       |> move (10, -10)
 
-playChannel : Signal.Channel ()
-playChannel = Signal.channel ()
-
 playButton : Element
-playButton = Button.build playChannel "Play" {width=100, height=25}
+playButton = Button.build Action.Play "Play" {width=100, height=25}
