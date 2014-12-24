@@ -30,4 +30,4 @@ buttons {width, height} =
       |> move (10, -10)
 
 playButton : Element
-playButton = Button.build Action.Play "Play" {width=100, height=25}
+playButton = Button.build Action.Start "Start" {width=100, height=25}

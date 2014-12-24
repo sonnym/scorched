@@ -39,7 +39,7 @@ step : Action -> Model -> Model
 step action model =
   case action of
     Action.NoOp -> model
-    Action.Play -> { model | view <- Game }
+    Action.Start -> { model | view <- Game }
 
 default : Model
 default = { view = Menu, game = GameState.default }
