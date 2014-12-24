@@ -11,7 +11,7 @@ import Scorched.Model.Window (transformCoordinates)
 
 backgroundColor = Color.rgb 182 182 182
 
-shadowColorDark = Color.rgb 0 0 0
+shadowColorDark = Color.rgb 20 20 20
 shadowColorLight = Color.rgb 60 60 60
 
 highlightColorDark = Color.rgb 223 223 223
