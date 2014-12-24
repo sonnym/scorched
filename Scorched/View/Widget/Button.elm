@@ -16,9 +16,12 @@ import Scorched.View.Widget.BorderBox as BorderBox
 build : Action.Action -> String -> Dimension -> Element
 build channelValue content ({width, height} as dimensions) =
   let
-    text = moveY -4 (toForm (size width height (Text.centered (Text.fromString content))))
+    text = Text.fromString content
+    formattedText = Text.monospace text
 
-    btnUp = collage width height [BorderBox.build dimensions False, text]
-    btnDown = collage width height [BorderBox.build dimensions True, text]
+    positionedText = move (6, -3) (toForm (size width height (Text.leftAligned formattedText)))
+
+    btnUp = collage width height [BorderBox.build dimensions False, positionedText]
+    btnDown = collage width height [BorderBox.build dimensions True, positionedText]
   in
     Input.customButton (Signal.send Action.updates channelValue) btnUp btnUp btnDown
