@@ -2,20 +2,13 @@ module Scorched.View.Widget.BorderBox where
 
 import List
 
-import Color
 import Graphics.Element (color, size, empty)
 import Graphics.Collage (..)
 
 import Scorched.Model.World (Dimension)
 import Scorched.Model.Window (transformCoordinates)
 
-backgroundColor = Color.rgb 182 182 182
-
-shadowColorDark = Color.rgb 20 20 20
-shadowColorLight = Color.rgb 60 60 60
-
-highlightColorDark = Color.rgb 223 223 223
-highlightColorLight = Color.rgb 255 255 255
+import Scorched.View.Palette (..)
 
 build : Dimension -> Bool -> Form
 build {width, height} invert = group
