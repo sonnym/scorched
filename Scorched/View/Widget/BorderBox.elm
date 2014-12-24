@@ -12,12 +12,12 @@ import Scorched.View.Palette (..)
 
 build : Dimension -> Bool -> Form
 build {width, height} invert = group
-  [ background width height
+  [ backdrop width height
   , border (toFloat width) (toFloat height) invert
   ]
 
-background : Int -> Int -> Form
-background width height = toForm (color backgroundColor (size width height empty))
+backdrop : Int -> Int -> Form
+backdrop width height = toForm (color background (size width height empty))
 
 border : Float -> Float -> Bool -> Form
 border width height invert =
@@ -30,20 +30,20 @@ highlights width height invert =
 
 lines : Float -> Float -> List Form
 lines width height =
-  [ filled shadowColorDark (leftLine width height)
-  , filled highlightColorLight (rightLine width height)
+  [ filled shadowDark (leftLine width height)
+  , filled highlightLight (rightLine width height)
 
-  , filled shadowColorLight (bottomLine width height)
-  , filled highlightColorDark (topLine width height)
+  , filled shadowLight (bottomLine width height)
+  , filled highlightDark (topLine width height)
   ]
 
 invertedLines : Float -> Float -> List Form
 invertedLines width height =
-  [ filled shadowColorDark (rightLine width height)
-  , filled highlightColorLight (leftLine width height)
+  [ filled shadowDark (rightLine width height)
+  , filled highlightLight (leftLine width height)
 
-  , filled shadowColorLight (topLine width height)
-  , filled highlightColorDark (bottomLine width height)
+  , filled shadowLight (topLine width height)
+  , filled highlightDark (bottomLine width height)
   ]
 
 leftLine : Float -> Float -> Shape
