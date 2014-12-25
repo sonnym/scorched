@@ -13,6 +13,9 @@ import Scorched.Model.World (Dimension)
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
 
+import Scorched.View.Widget.NumericField (defaultSettings)
+import Scorched.View.Widget.NumericField as NumericField
+
 renderMenu : Dimension -> Element
 renderMenu ({width, height} as dimensions) =
   collage width height
@@ -23,7 +26,8 @@ renderMenu ({width, height} as dimensions) =
 buttons : Dimension -> Form
 buttons {width, height} =
   let
-    elem = flow down [playButton]
+    btns = [playButton, playerCount]
+    elem = flow down btns
   in
     toForm elem
       |> move
@@ -33,3 +37,6 @@ buttons {width, height} =
 
 playButton : Element
 playButton = Button.build Action.Start "Start" {width=100, height=25}
+
+playerCount : Element
+playerCount = NumericField.build {defaultSettings | text <- "Players"}
