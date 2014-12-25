@@ -1,27 +1,28 @@
 module Scorched.View.Widget.Button where
 
-import Signal
-import Text
+import Signal (send)
+import Text (leftAligned, fromString, monospace)
 
-import Graphics.Input as Input
-import Graphics.Element (..)
+import Graphics.Input (customButton)
+
 import Graphics.Collage (..)
+import Graphics.Element (Element, size)
 
-import Scorched.Action as Action
+import Scorched.Action (Action, updates)
 
 import Scorched.Model.World (Dimension)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 
-build : Action.Action -> String -> Dimension -> Element
+build : Action -> String -> Dimension -> Element
 build channelValue content ({width, height} as dimensions) =
   let
-    text = Text.fromString content
-    formattedText = Text.monospace text
+    text = fromString content
+    formattedText = monospace text
 
-    positionedText = move (6, -3) (toForm (size width height (Text.leftAligned formattedText)))
+    positionedText = move (6, -3) (toForm (size width height (leftAligned formattedText)))
 
     btnUp = collage width height [BorderBox.build dimensions False, positionedText]
     btnDown = collage width height [BorderBox.build dimensions True, positionedText]
   in
-    Input.customButton (Signal.send Action.updates channelValue) btnUp btnUp btnDown
+    customButton (send updates channelValue) btnUp btnUp btnDown

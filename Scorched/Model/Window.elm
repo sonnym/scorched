@@ -1,8 +1,5 @@
 module Scorched.Model.Window where
 
-import Graphics.Collage (Form, groupTransform)
-import Transform2D (translation)
-
 import Scorched.Model.World (Dimension)
 
 (width, height) = (1024, 768)

@@ -1,14 +1,12 @@
 module Scorched.View.Menu where
 
-import List
-import Signal
+import Signal (send)
 
 import Graphics.Element (..)
 import Graphics.Collage (..)
 
 import Scorched.Model (Model)
-import Scorched.Action (updates)
-import Scorched.Action as Action
+import Scorched.Action (Action(PlayerCount), updates)
 
 import Scorched.Model.World (Dimension)
 
@@ -38,11 +36,11 @@ buttons model {width, height} =
         )
 
 playButton : Element
-playButton = Button.build Action.Start "Start" {width=100, height=25}
+playButton = Button.build Start "Start" {width=100, height=25}
 
 playerCount : Int -> Element
 playerCount value =
   NumericField.build
     {defaultSettings | value <- value
                      , text <- "Players"
-                     , messenger <- (\value -> Signal.send updates (Action.PlayerCount value))}
+                     , messenger <- (\value -> send updates (PlayerCount value))}

@@ -12,8 +12,6 @@ import Scorched.Action (Action(NoOp), updates)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
 
-import Scorched.Action (PlayerCount)
-
 type Operation = Increment | Decrement
 
 type alias Settings = {

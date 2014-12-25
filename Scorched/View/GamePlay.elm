@@ -1,13 +1,13 @@
 module Scorched.View.GamePlay where
 
-import List
+import List (indexedMap)
 
 import Color (..)
-import Graphics.Element (..)
 import Graphics.Collage (..)
+import Graphics.Element (Element)
 
 import Scorched.Model (Model)
-import Scorched.Model.World (..)
+import Scorched.Model.World (Dimension, Terrain)
 
 renderWorld : Model -> Dimension -> Element
 renderWorld {game} ({width, height} as dimensions) =
@@ -20,7 +20,7 @@ placeWorld terrain {width, height} =
     (group (drawTerrain terrain))
 
 drawTerrain : Terrain -> List Form
-drawTerrain terrain = List.indexedMap drawLine terrain
+drawTerrain terrain = indexedMap drawLine terrain
 
 drawLine : Int -> Int -> Form
 drawLine x height = traced (solid black) (terrainLine height) |> moveX (toFloat x)

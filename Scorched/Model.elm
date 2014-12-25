@@ -2,8 +2,7 @@ module Scorched.Model where
 
 import Signal
 
-import Scorched.Action (Action)
-import Scorched.Action as Action
+import Scorched.Action (Action(NoOp, PlayerCount, Start), updates)
 
 import Scorched.Model.GameState (GameState)
 import Scorched.Model.GameState as GameState
@@ -17,14 +16,14 @@ type alias Model = {
 }
 
 state : Signal Model
-state = Signal.foldp step default (Signal.subscribe Action.updates)
+state = Signal.foldp step default (Signal.subscribe updates)
 
 step : Action -> Model -> Model
 step action model =
   case action of
-    Action.NoOp -> model
-    Action.PlayerCount value -> { model | playerCount <- value }
-    Action.Start ->
+    NoOp -> model
+    PlayerCount value -> { model | playerCount <- value }
+    Start ->
       { model | view <- Game
               , game <- GameState.default }
 

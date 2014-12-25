@@ -1,11 +1,11 @@
 module Scorched.Action where
 
-import Signal
+import Signal (Signal, Channel, channel)
 
 type Action
   = NoOp
   | PlayerCount Int
   | Start
 
-updates : Signal.Channel Action
-updates = Signal.channel NoOp
+updates : Channel Action
+updates = channel NoOp
