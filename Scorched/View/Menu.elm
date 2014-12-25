@@ -7,6 +7,7 @@ import Graphics.Element (..)
 import Graphics.Collage (..)
 
 import Scorched.Model (Model)
+import Scorched.Action (updates)
 import Scorched.Action as Action
 
 import Scorched.Model.World (Dimension)
@@ -21,13 +22,13 @@ renderMenu : Model -> Dimension -> Element
 renderMenu model ({width, height} as dimensions) =
   collage width height
     [ BorderBox.build dimensions False
-    , buttons dimensions
+    , buttons model dimensions
     ]
 
-buttons : Dimension -> Form
-buttons {width, height} =
+buttons : Model -> Dimension -> Form
+buttons model {width, height} =
   let
-    btns = [playButton, playerCount]
+    btns = [playButton, (playerCount model.playerCount)]
     elem = flow down btns
   in
     toForm elem
@@ -39,7 +40,9 @@ buttons {width, height} =
 playButton : Element
 playButton = Button.build Action.Start "Start" {width=100, height=25}
 
-playerCount : Element
-playerCount = NumericField.build
-  {defaultSettings | action <- Action.PlayerCount,
-                     text <- "Players"}
+playerCount : Int -> Element
+playerCount value =
+  NumericField.build
+    {defaultSettings | value <- value
+                     , text <- "Players"
+                     , messenger <- (\value -> Signal.send updates (Action.PlayerCount value))}

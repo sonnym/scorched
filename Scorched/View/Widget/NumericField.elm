@@ -12,10 +12,12 @@ import Scorched.Action (Action(NoOp), updates)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
 
+import Scorched.Action (PlayerCount)
+
 type Operation = Increment | Decrement
 
 type alias Settings = {
-  action: Action,
+  messenger: (Int -> Message),
   text: String,
   value: Int,
   min: Int,
@@ -25,7 +27,7 @@ type alias Settings = {
 
 defaultSettings : Settings
 defaultSettings =
-  { action = NoOp
+  { messenger = (\v -> send updates NoOp)
   , text = "Number"
   , value = 2
   , min = 2
@@ -34,7 +36,7 @@ defaultSettings =
   }
 
 build : Settings -> Element
-build settings  =
+build settings =
   let
     labelElement = label settings.text settings.value
   in
@@ -51,14 +53,14 @@ decrement : Settings -> Form
 decrement settings = button settings BorderTriangle.Down
 
 button : Settings -> BorderTriangle.Direction -> Form
-button ({action,value} as settings) direction =
+button ({value,messenger} as settings) direction =
   let
     btn = collage 15 15 [BorderTriangle.build 7 False direction]
     btnPressed = collage 15 15 [BorderTriangle.build 7 True direction]
 
     operation = if direction == BorderTriangle.Up then Increment else Decrement
   in
-    toForm (customButton (send updates action) btn btn btnPressed)
+    toForm (customButton (messenger (guard settings operation)) btn btn btnPressed)
 
 label : String -> Int -> Element
 label text value =
@@ -67,8 +69,9 @@ label text value =
   in
     leftAligned formattedText
 
-guard {min,max,step} operation current =
-  clamp min max (new operation current step)
+guard : Settings -> Operation -> Int
+guard {value,min,max,step} operation =
+  clamp min max (new operation value step)
 
 new : Operation -> Int -> Int -> Int
 new operation current step =

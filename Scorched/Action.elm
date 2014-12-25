@@ -4,7 +4,7 @@ import Signal
 
 type Action
   = NoOp
-  | PlayerCount
+  | PlayerCount Int
   | Start
 
 updates : Signal.Channel Action

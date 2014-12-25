@@ -23,7 +23,7 @@ step : Action -> Model -> Model
 step action model =
   case action of
     Action.NoOp -> model
-    Action.PlayerCount -> { model | playerCount <- model.playerCount + 1 }
+    Action.PlayerCount value -> { model | playerCount <- value }
     Action.Start ->
       { model | view <- Game
               , game <- GameState.default }
