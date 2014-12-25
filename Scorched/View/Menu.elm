@@ -26,7 +26,10 @@ renderMenu model ({width, height} as dimensions) =
 buttons : Model -> Dimension -> Form
 buttons model {width, height} =
   let
-    btns = [playButton, (playerCount model.playerCount)]
+    btns = [ playButton
+           , (playerCount model.playerCount)
+           , (roundCount model.roundCount)
+           ]
     elem = flow down btns
   in
     toForm elem
@@ -44,3 +47,13 @@ playerCount value =
     {defaultSettings | value <- value
                      , text <- "Players"
                      , messenger <- (\value -> send updates (PlayerCount value))}
+
+roundCount : Int -> Element
+roundCount value =
+  NumericField.build
+    {defaultSettings | value <- value
+                     , min <- 5
+                     , max <- 1000
+                     , step <- 5
+                     , text <- "Rounds"
+                     , messenger <- (\value -> send updates (RoundCount value))}

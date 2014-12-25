@@ -5,6 +5,7 @@ import Signal (Signal, Channel, channel)
 type Action
   = NoOp
   | PlayerCount Int
+  | RoundCount Int
   | Start
 
 updates : Channel Action
