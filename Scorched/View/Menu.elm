@@ -39,4 +39,6 @@ playButton : Element
 playButton = Button.build Action.Start "Start" {width=100, height=25}
 
 playerCount : Element
-playerCount = NumericField.build {defaultSettings | text <- "Players"}
+playerCount = NumericField.build
+  {defaultSettings | action <- Action.PlayerCount,
+                     text <- "Players"}

@@ -20,6 +20,7 @@ type View = Menu | Game
 
 type alias Model = {
   view: View,
+  playerCount: Int,
   game: GameState
 }
 
@@ -39,7 +40,11 @@ step : Action -> Model -> Model
 step action model =
   case action of
     Action.NoOp -> model
+    Action.PlayerCount -> { model | playerCount <- model.playerCount + 1 }
     Action.Start -> { model | view <- Game }
 
 default : Model
-default = { view = Menu, game = GameState.default }
+default = {
+  view = Menu,
+  playerCount = 2,
+  game = GameState.default }

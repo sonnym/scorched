@@ -2,7 +2,10 @@ module Scorched.Action where
 
 import Signal
 
-type Action = NoOp | Start
+type Action
+  = NoOp
+  | PlayerCount
+  | Start
 
 updates : Signal.Channel Action
 updates = Signal.channel NoOp

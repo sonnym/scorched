@@ -1,6 +1,6 @@
 module Scorched.View.Widget.NumericField where
 
-import Signal
+import Signal (Message, send)
 import Text (fromString, leftAligned, monospace)
 
 import Graphics.Collage (Form, collage, toForm, moveX, move)
@@ -12,47 +12,66 @@ import Scorched.Action (Action(NoOp), updates)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
 
+type Operation = Increment | Decrement
+
 type alias Settings = {
-  actionInc: Action,
-  actionDec: Action,
-  text: String
+  action: Action,
+  text: String,
+  value: Int,
+  min: Int,
+  max: Int,
+  step: Int
 }
 
 defaultSettings : Settings
 defaultSettings =
-  { actionInc = NoOp
-  , actionDec = NoOp
+  { action = NoOp
   , text = "Number"
+  , value = 2
+  , min = 2
+  , max = 10
+  , step = 1
   }
 
 build : Settings -> Element
 build settings  =
   let
-    labelElement = label settings.text
+    labelElement = label settings.text settings.value
   in
     collage 100 30
-      [ increment settings.actionInc |> moveX -45
-      , decrement settings.actionDec |> move (-45, -10)
-      , labelElement |> toForm |> move (-(toFloat (widthOf labelElement) / 2) + 25, -5)
+      [ increment settings |> moveX -45
+      , decrement settings |> move (-45, -10)
+      , labelElement |> toForm |> move (-(toFloat (widthOf labelElement) / 2) + 35, -3)
       ]
 
-increment : Action -> Form
-increment action = button action BorderTriangle.Up
+increment : Settings -> Form
+increment settings = button settings BorderTriangle.Up
 
-decrement : Action -> Form
-decrement action = button action BorderTriangle.Down
+decrement : Settings -> Form
+decrement settings = button settings BorderTriangle.Down
 
-button : Action -> BorderTriangle.Direction -> Form
-button action direction =
+button : Settings -> BorderTriangle.Direction -> Form
+button ({action,value} as settings) direction =
   let
     btn = collage 15 15 [BorderTriangle.build 7 False direction]
     btnPressed = collage 15 15 [BorderTriangle.build 7 True direction]
-  in
-    toForm (customButton (Signal.send updates action) btn btn btnPressed)
 
-label : String -> Element
-label text =
+    operation = if direction == BorderTriangle.Up then Increment else Decrement
+  in
+    toForm (customButton (send updates action) btn btn btnPressed)
+
+label : String -> Int -> Element
+label text value =
   let
-    formattedText = monospace (fromString (text ++ ":"))
+    formattedText = monospace (fromString (text ++ ": " ++ (toString value)))
   in
     leftAligned formattedText
+
+guard {min,max,step} operation current =
+  clamp min max (new operation current step)
+
+new : Operation -> Int -> Int -> Int
+new operation current step =
+  case operation of
+    Increment -> current + step
+    Decrement -> current - step
