@@ -6,7 +6,6 @@ import Graphics.Element (color, size, empty)
 import Graphics.Collage (..)
 
 import Scorched.Model.World (Dimension)
-import Scorched.Model.Window (transformCoordinates)
 
 import Scorched.View.Palette (..)
 
@@ -21,43 +20,65 @@ backdrop width height = toForm (color background (size width height empty))
 
 border : Float -> Float -> Bool -> Form
 border width height invert =
-  (group >> (transformCoordinates width -height))
-    (highlights width height invert)
+  group (highlights width height invert)
 
 highlights : Float -> Float -> Bool -> List Form
 highlights width height invert =
-  if invert then invertedLines width height else lines width height
+  let
+    halfWidth = width / 2
+    halfHeight = height /2
+  in
+    if invert then invertedLines halfWidth halfHeight else lines halfWidth halfHeight
 
 lines : Float -> Float -> List Form
-lines width height =
-  [ filled shadowDark (leftLine width height)
-  , filled highlightLight (rightLine width height)
+lines x y =
+  [ filled shadowDark (rightLine x y)
+  , filled highlightLight (leftLine x y)
 
-  , filled shadowLight (bottomLine width height)
-  , filled highlightDark (topLine width height)
+  , filled shadowLight (bottomLine x y)
+  , filled highlightDark (topLine x y)
   ]
 
 invertedLines : Float -> Float -> List Form
-invertedLines width height =
-  [ filled shadowDark (rightLine width height)
-  , filled highlightLight (leftLine width height)
+invertedLines x y =
+  [ filled shadowDark (leftLine x y)
+  , filled highlightLight (rightLine x y)
 
-  , filled shadowLight (topLine width height)
-  , filled highlightDark (bottomLine width height)
+  , filled shadowLight (topLine x y)
+  , filled highlightDark (bottomLine x y)
   ]
 
 leftLine : Float -> Float -> Shape
-leftLine width height =
-  polygon [(width - 3.0, 0.0), (width, 0.0), (width, height), ((width - 3.0), height)]
+leftLine x y =
+  polygon
+    [ (-x, -y)
+    , (-x + 2.0, -y)
+    , (-x + 2.0, y)
+    , (-x, y)
+    ]
 
 rightLine : Float -> Float -> Shape
-rightLine width height =
-  polygon [(0.0, 0.0), (2.0, 0.0), (2.0, height), (0.0, height)]
-
-bottomLine : Float -> Float -> Shape
-bottomLine width height =
-  polygon [(0.0, 0.0), (2.0, 2.0), (width - 3.0, 2.0), (width, 0.0)]
+rightLine x y =
+  polygon
+    [ (x - 3.0, -y)
+    , (x, -y)
+    , (x, y)
+    , ((x - 3.0), y)
+    ]
 
 topLine : Float -> Float -> Shape
-topLine width height =
-  polygon [(0.0, height - 1.0), (2.0, height - 3.0), (width - 3.0, height - 3.0), (width, height)]
+topLine x y =
+  polygon
+    [ (-x, y)
+    , (-x + 2.0, y - 3.0)
+    , (x - 3.0, y - 3.0)
+    , (x, y)]
+
+bottomLine : Float -> Float -> Shape
+bottomLine x y =
+  polygon
+    [ (-x, -y)
+    , (-x + 2.0, -y + 3.0)
+    , (x - 3.0, -y + 3.0)
+    , (x, -y)
+    ]
