@@ -1,5 +1,6 @@
 module Scorched.View.Menu where
 
+import List
 import Signal
 
 import Graphics.Element (..)
@@ -8,7 +9,6 @@ import Graphics.Collage (..)
 import Scorched.Action as Action
 
 import Scorched.Model.World (Dimension)
-import Scorched.Model.Window (transformCoordinates)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
@@ -26,8 +26,10 @@ buttons {width, height} =
     elem = flow down [playButton]
   in
     toForm elem
-      |> transformCoordinates (toFloat (width - (widthOf elem))) (toFloat (height - (heightOf elem)))
-      |> move (10, -10)
+      |> move
+        ( toFloat (-(((width - (widthOf elem)) // 2)) + 15)
+        , toFloat (((height - (heightOf elem)) // 2) - 15)
+        )
 
 playButton : Element
 playButton = Button.build Action.Start "Start" {width=100, height=25}

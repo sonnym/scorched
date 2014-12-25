@@ -1,6 +1,7 @@
 module Scorched.Model.Window where
 
-import Graphics.Collage (..)
+import Graphics.Collage (Form, groupTransform)
+import Transform2D (translation)
 
 import Scorched.Model.World (Dimension)
 
@@ -8,7 +9,3 @@ import Scorched.Model.World (Dimension)
 
 dimensions : Dimension
 dimensions = {width=1024, height=768}
-
-transformCoordinates : Float -> Float -> Form -> Form
-transformCoordinates width height form =
-  move (-(width / 2), (height / 2) + 1.0) form

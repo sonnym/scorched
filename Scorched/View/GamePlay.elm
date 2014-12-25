@@ -7,7 +7,6 @@ import Graphics.Element (..)
 import Graphics.Collage (..)
 
 import Scorched.Model.World (..)
-import Scorched.Model.Window (transformCoordinates)
 
 renderWorld : World -> Dimension -> Element
 renderWorld {terrain} ({width, height} as dimensions) =
@@ -15,9 +14,8 @@ renderWorld {terrain} ({width, height} as dimensions) =
 
 placeWorld : Terrain -> Dimension -> Form
 placeWorld terrain {width, height} =
-  transformCoordinates
-    (toFloat width)
-    (toFloat -(height // 2))
+  move
+    ((toFloat -(width // 2)), (toFloat -(height // 2) + 300))
     (group (drawTerrain terrain))
 
 drawTerrain : Terrain -> List Form
