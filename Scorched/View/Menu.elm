@@ -46,6 +46,7 @@ playerCount value =
   NumericField.build
     {defaultSettings | value <- value
                      , text <- "Players"
+                     , key <- 'P'
                      , messenger <- (\value -> send updates (PlayerCount value))}
 
 roundCount : Int -> Element
@@ -56,4 +57,5 @@ roundCount value =
                      , max <- 1000
                      , step <- 5
                      , text <- "Rounds"
+                     , key <- 'R'
                      , messenger <- (\value -> send updates (RoundCount value))}

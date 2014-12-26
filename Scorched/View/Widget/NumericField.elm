@@ -11,12 +11,14 @@ import Graphics.Input (customButton)
 import Scorched.Action (Action(NoOp), updates)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
+import Scorched.View.Widget.KeyedLabel as KeyedLabel
 
 type Operation = Increment | Decrement
 
 type alias Settings = {
   messenger: (Int -> Message),
   text: String,
+  key: Char,
   value: Int,
   min: Int,
   max: Int,
@@ -27,6 +29,7 @@ defaultSettings : Settings
 defaultSettings =
   { messenger = (\v -> send updates NoOp)
   , text = "Number"
+  , key = ' '
   , value = 2
   , min = 2
   , max = 10
@@ -37,7 +40,7 @@ build : Settings -> Element
 build settings =
   let
     width = 100
-    labelElement = label settings.text settings.value
+    labelElement = label settings
   in
     collage width 30
       [ increment settings |> moveX -45
@@ -61,12 +64,9 @@ button ({value,messenger} as settings) direction =
   in
     toForm (customButton (messenger (guard settings operation)) btn btn btnPressed)
 
-label : String -> Int -> Element
-label text value =
-  let
-    formattedText = monospace (fromString (text ++ ": " ++ (toString value)))
-  in
-    justified formattedText
+label : Settings -> Element
+label {text,key,value} =
+  KeyedLabel.build (text ++ ": " ++ (toString value)) key
 
 guard : Settings -> Operation -> Int
 guard {value,min,max,step} operation =
