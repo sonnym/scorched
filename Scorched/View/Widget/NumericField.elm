@@ -36,12 +36,13 @@ defaultSettings =
 build : Settings -> Element
 build settings =
   let
+    width = 100
     labelElement = label settings.text settings.value
   in
-    collage 100 30
+    collage width 30
       [ increment settings |> moveX -45
       , decrement settings |> move (-45, -10)
-      , labelElement |> toForm |> move (-(toFloat (widthOf labelElement) / 2) + 35, -3)
+      , labelElement |> toForm |> move (-(toFloat (width - (widthOf labelElement)) / 2) + 14, -3)
       ]
 
 increment : Settings -> Form
