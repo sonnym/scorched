@@ -39,7 +39,7 @@ buttons model {width, height} =
         )
 
 playButton : Element
-playButton = Button.build Start "Start" {width=100, height=25}
+playButton = Button.build Start "Start" 'S' {width=100, height=25}
 
 playerCount : Int -> Element
 playerCount value =

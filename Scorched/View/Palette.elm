@@ -10,3 +10,4 @@ shadowLight = rgb 60 60 60
 highlightDark = rgb 223 223 223
 highlightLight = rgb 255 255 255
 
+cyan = rgb 40 255 255

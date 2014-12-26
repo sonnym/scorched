@@ -13,14 +13,13 @@ import Scorched.Action (Action, updates)
 import Scorched.Model.World (Dimension)
 
 import Scorched.View.Widget.BorderBox as BorderBox
+import Scorched.View.Widget.KeyedLabel as KeyedLabel
 
-build : Action -> String -> Dimension -> Element
-build action content ({width, height} as dimensions) =
+build : Action -> String -> Char -> Dimension -> Element
+build action content key ({width, height} as dimensions) =
   let
-    text = fromString content
-    formattedText = monospace text
-
-    positionedText = move (6, -3) (toForm (size width height (leftAligned formattedText)))
+    label = KeyedLabel.build content key
+    positionedText = move (6, -3) (toForm (size width height label))
 
     btnUp = collage width height [BorderBox.build dimensions False, positionedText]
     btnDown = collage width height [BorderBox.build dimensions True, positionedText]
