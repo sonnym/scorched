@@ -15,7 +15,7 @@ import Scorched.Model.World (Dimension)
 import Scorched.View.Widget.BorderBox as BorderBox
 
 build : Action -> String -> Dimension -> Element
-build channelValue content ({width, height} as dimensions) =
+build action content ({width, height} as dimensions) =
   let
     text = fromString content
     formattedText = monospace text
@@ -25,4 +25,4 @@ build channelValue content ({width, height} as dimensions) =
     btnUp = collage width height [BorderBox.build dimensions False, positionedText]
     btnDown = collage width height [BorderBox.build dimensions True, positionedText]
   in
-    customButton (send updates channelValue) btnUp btnUp btnDown
+    customButton (send updates action) btnUp btnUp btnDown
