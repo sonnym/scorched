@@ -1,7 +1,7 @@
 module Scorched.View.Widget.NumericField where
 
 import Signal (Message, send)
-import Text (fromString, leftAligned, monospace)
+import Text (fromString, justified, monospace)
 
 import Graphics.Collage (Form, collage, toForm, moveX, move)
 import Graphics.Element (Element, widthOf)
@@ -66,7 +66,7 @@ label text value =
   let
     formattedText = monospace (fromString (text ++ ": " ++ (toString value)))
   in
-    leftAligned formattedText
+    justified formattedText
 
 guard : Settings -> Operation -> Int
 guard {value,min,max,step} operation =
