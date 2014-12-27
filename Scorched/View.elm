@@ -2,14 +2,16 @@ module Scorched.View where
 
 import Graphics.Element (Element)
 
+import Scorched.Input (Input)
+
 import Scorched.Model (Model, View(Menu, Game))
 import Scorched.Model.Window as Window
 
 import Scorched.View.Menu (renderMenu)
 import Scorched.View.GamePlay (renderWorld)
 
-scene : Model -> Element
-scene model =
+scene : Model -> Input -> Element
+scene model input =
   case model.view of
-    Menu -> renderMenu model Window.dimensions
-    Game -> renderWorld model Window.dimensions
+    Menu -> renderMenu model input Window.dimensions
+    Game -> renderWorld model input Window.dimensions

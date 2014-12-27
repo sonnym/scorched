@@ -6,11 +6,13 @@ import Color (..)
 import Graphics.Collage (..)
 import Graphics.Element (Element)
 
+import Scorched.Input (Input)
+
 import Scorched.Model (Model)
 import Scorched.Model.World (Dimension, Terrain)
 
-renderWorld : Model -> Dimension -> Element
-renderWorld {game} ({width, height} as dimensions) =
+renderWorld : Model -> Input -> Dimension -> Element
+renderWorld {game} input ({width, height} as dimensions) =
   collage width height [placeWorld game.world.terrain dimensions]
 
 placeWorld : Terrain -> Dimension -> Form

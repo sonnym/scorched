@@ -5,6 +5,8 @@ import Signal (send)
 import Graphics.Element (..)
 import Graphics.Collage (..)
 
+import Scorched.Input (Input)
+
 import Scorched.Model (Model)
 import Scorched.Action (Action(PlayerCount), updates)
 
@@ -16,8 +18,8 @@ import Scorched.View.Widget.Button as Button
 import Scorched.View.Widget.NumericField (defaultSettings)
 import Scorched.View.Widget.NumericField as NumericField
 
-renderMenu : Model -> Dimension -> Element
-renderMenu model ({width, height} as dimensions) =
+renderMenu : Model -> Input -> Dimension -> Element
+renderMenu model input ({width, height} as dimensions) =
   collage width height
     [ BorderBox.build dimensions False
     , buttons model dimensions
