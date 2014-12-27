@@ -23,7 +23,16 @@ renderMenu model input ({width, height} as dimensions) =
   collage width height
     [ BorderBox.build dimensions 2 False
     , buttons model dimensions
+    , sample dimensions
     ]
+
+sample : Dimension -> Form
+sample {width,height} =
+  let
+    outline = BorderBox.build {width=908, height=726} 1 True
+  in
+    outline
+      |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 369)
 
 buttons : Model -> Dimension -> Form
 buttons model {width, height} =
