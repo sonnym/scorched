@@ -21,7 +21,7 @@ build action content key ({width, height} as dimensions) =
     label = KeyedLabel.build content key
     positionedText = move (6, -3) (toForm (size width height label))
 
-    btnUp = collage width height [BorderBox.build dimensions False, positionedText]
-    btnDown = collage width height [BorderBox.build dimensions True, positionedText]
+    btnUp = collage width height [BorderBox.build dimensions 2 False, positionedText]
+    btnDown = collage width height [BorderBox.build dimensions 2 True, positionedText]
   in
     customButton (send updates action) btnUp btnUp btnDown

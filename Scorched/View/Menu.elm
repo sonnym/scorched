@@ -21,7 +21,7 @@ import Scorched.View.Widget.NumericField as NumericField
 renderMenu : Model -> Input -> Dimension -> Element
 renderMenu model input ({width, height} as dimensions) =
   collage width height
-    [ BorderBox.build dimensions False
+    [ BorderBox.build dimensions 2 False
     , buttons model dimensions
     ]
 

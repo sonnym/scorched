@@ -9,76 +9,77 @@ import Scorched.Model.World (Dimension)
 
 import Scorched.View.Palette (..)
 
-build : Dimension -> Bool -> Form
-build {width, height} invert = group
+build : Dimension -> Int -> Bool -> Form
+build {width, height} stroke invert = group
   [ backdrop width height
-  , border (toFloat width) (toFloat height) invert
+  , border (toFloat width) (toFloat height) (toFloat stroke) invert
   ]
 
 backdrop : Int -> Int -> Form
 backdrop width height = toForm (color background (size width height empty))
 
-border : Float -> Float -> Bool -> Form
-border width height invert =
-  group (highlights width height invert)
+border : Float -> Float -> Float -> Bool -> Form
+border width height stroke invert =
+  group (highlights width height stroke invert)
 
-highlights : Float -> Float -> Bool -> List Form
-highlights width height invert =
+highlights : Float -> Float -> Float -> Bool -> List Form
+highlights width height stroke invert =
   let
     halfWidth = width / 2
     halfHeight = height /2
   in
-    if invert then invertedLines halfWidth halfHeight else lines halfWidth halfHeight
+    if | invert -> invertedLines halfWidth halfHeight stroke
+       | otherwise -> lines halfWidth halfHeight stroke
 
-lines : Float -> Float -> List Form
-lines x y =
-  [ filled shadowDark (rightLine x y)
-  , filled highlightLight (leftLine x y)
+lines : Float -> Float -> Float -> List Form
+lines x y stroke =
+  [ filled shadowDark (rightLine x y stroke)
+  , filled highlightLight (leftLine x y stroke)
 
-  , filled shadowLight (bottomLine x y)
-  , filled highlightDark (topLine x y)
+  , filled shadowLight (bottomLine x y stroke)
+  , filled highlightDark (topLine x y stroke)
   ]
 
-invertedLines : Float -> Float -> List Form
-invertedLines x y =
-  [ filled shadowDark (leftLine x y)
-  , filled highlightLight (rightLine x y)
+invertedLines : Float -> Float -> Float -> List Form
+invertedLines x y stroke =
+  [ filled shadowDark (leftLine x y stroke)
+  , filled highlightLight (rightLine x y stroke)
 
-  , filled shadowLight (topLine x y)
-  , filled highlightDark (bottomLine x y)
+  , filled shadowLight (topLine x y stroke)
+  , filled highlightDark (bottomLine x y stroke)
   ]
 
-leftLine : Float -> Float -> Shape
-leftLine x y =
+leftLine : Float -> Float -> Float -> Shape
+leftLine x y stroke =
   polygon
     [ (-x, -y)
-    , (-x + 2.0, -y)
-    , (-x + 2.0, y)
+    , (-x + stroke, -y)
+    , (-x + stroke, y)
     , (-x, y)
     ]
 
-rightLine : Float -> Float -> Shape
-rightLine x y =
+rightLine : Float -> Float -> Float -> Shape
+rightLine x y stroke =
   polygon
-    [ (x - 3.0, -y)
+    [ (x - stroke, -y)
     , (x, -y)
     , (x, y)
-    , ((x - 3.0), y)
+    , ((x - stroke), y)
     ]
 
-topLine : Float -> Float -> Shape
-topLine x y =
+topLine : Float -> Float -> Float -> Shape
+topLine x y stroke =
   polygon
     [ (-x, y)
-    , (-x + 2.0, y - 3.0)
-    , (x - 3.0, y - 3.0)
+    , (-x + stroke, y - stroke)
+    , (x - stroke, y - stroke)
     , (x, y)]
 
-bottomLine : Float -> Float -> Shape
-bottomLine x y =
+bottomLine : Float -> Float -> Float -> Shape
+bottomLine x y stroke =
   polygon
     [ (-x, -y)
-    , (-x + 2.0, -y + 3.0)
-    , (x - 3.0, -y + 3.0)
+    , (-x + stroke, -y + stroke)
+    , (x - stroke, -y + stroke)
     , (x, -y)
     ]
