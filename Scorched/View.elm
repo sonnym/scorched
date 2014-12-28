@@ -5,7 +5,6 @@ import Graphics.Element (Element)
 import Scorched.Input (Input)
 
 import Scorched.Model (Model, View(Menu, Game))
-import Scorched.Model.Window as Window
 
 import Scorched.View.Menu (renderMenu)
 import Scorched.View.GamePlay (renderWorld)
