@@ -32,7 +32,7 @@ sample {width,height} =
     outline = BorderBox.build {width=908, height=726} 1 True
   in
     outline
-      |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 369)
+      |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
 
 buttons : Model -> Dimension -> Form
 buttons model {width, height} =
