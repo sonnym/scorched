@@ -11,9 +11,12 @@ import Scorched.Input (Input)
 import Scorched.Model (Model)
 import Scorched.Model.World (Dimension, Terrain)
 
-renderWorld : Model -> Input -> Dimension -> Element
-renderWorld {game} input ({width, height} as dimensions) =
-  collage width height [placeWorld game.world.terrain dimensions]
+renderWorld : Model -> Input -> Element
+renderWorld {game,dimensions} input =
+  collage
+    dimensions.width
+    dimensions.height
+    [placeWorld game.world.terrain dimensions]
 
 placeWorld : Terrain -> Dimension -> Form
 placeWorld terrain {width, height} =

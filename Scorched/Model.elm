@@ -4,6 +4,8 @@ import Signal
 
 import Scorched.Action (Action(NoOp, PlayerCount, Start), updates)
 
+import Scorched.Model.World (Dimension)
+
 import Scorched.Model.GameState (GameState)
 import Scorched.Model.GameState as GameState
 
@@ -11,6 +13,7 @@ type View = Menu | Game
 
 type alias Model = {
   view: View,
+  dimensions: Dimension,
   playerCount: Int,
   roundCount: Int,
   game: GameState
@@ -32,6 +35,7 @@ step action model =
 default : Model
 default = {
   view = Menu,
+  dimensions = {width=1024, height=768},
   playerCount = 2,
   roundCount = 10,
   game = GameState.default }

@@ -13,5 +13,5 @@ import Scorched.View.GamePlay (renderWorld)
 scene : Model -> Input -> Element
 scene model input =
   case model.view of
-    Menu -> renderMenu model input Window.dimensions
-    Game -> renderWorld model input Window.dimensions
+    Menu -> renderMenu model input
+    Game -> renderWorld model input

@@ -11,4 +11,4 @@ type alias World = {
 }
 
 default : Dimension -> World
-default {width, height} = {terrain=(List.repeat width 500)}
+default {width} = {terrain=(List.repeat width 500)}

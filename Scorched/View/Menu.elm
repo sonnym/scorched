@@ -18,13 +18,15 @@ import Scorched.View.Widget.Button as Button
 import Scorched.View.Widget.NumericField (defaultSettings)
 import Scorched.View.Widget.NumericField as NumericField
 
-renderMenu : Model -> Input -> Dimension -> Element
-renderMenu model input ({width, height} as dimensions) =
-  collage width height
-    [ BorderBox.build dimensions 2 False
-    , sample dimensions
-    , buttons model dimensions
-    ]
+renderMenu : Model -> Input -> Element
+renderMenu ({dimensions} as model) input =
+  collage
+    dimensions.width
+    dimensions.height
+      [ BorderBox.build dimensions 2 False
+      , sample dimensions
+      , buttons model dimensions
+      ]
 
 sample : Dimension -> Form
 sample {width,height} =
