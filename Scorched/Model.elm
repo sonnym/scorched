@@ -11,6 +11,8 @@ import Scorched.Model.GameState as GameState
 
 type View = Menu | Game
 
+type alias Messenger = Int -> Signal.Message
+
 type alias Model = {
   view: View,
   dimensions: Dimension,

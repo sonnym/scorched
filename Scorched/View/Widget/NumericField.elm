@@ -8,6 +8,7 @@ import Graphics.Element (Element, widthOf)
 
 import Graphics.Input (customButton)
 
+import Scorched.Model (Messenger)
 import Scorched.Action (Action(NoOp), updates)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
@@ -16,7 +17,7 @@ import Scorched.View.Widget.KeyedLabel as KeyedLabel
 type Operation = Increment | Decrement
 
 type alias Settings = {
-  messenger: (Int -> Message),
+  messenger: Messenger,
   text: String,
   key: Char,
   value: Int,
