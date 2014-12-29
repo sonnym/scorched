@@ -70,7 +70,12 @@ label {text,key,value} =
 
 guard : Settings -> Operation -> Int
 guard {value,min,max,step} operation =
-  clamp min max (new operation value step)
+  let
+    newVal = new operation value step
+  in
+    if | newVal > max -> min
+       | newVal < min -> max
+       | otherwise -> newVal
 
 new : Operation -> Int -> Int -> Int
 new operation current step =
