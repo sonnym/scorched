@@ -11,4 +11,4 @@ type alias World = {
 }
 
 generate : Dimension -> World
-generate {width} = {terrain=(List.repeat width 500)}
+generate {width, height} = {terrain=(List.repeat width (height // 2))}

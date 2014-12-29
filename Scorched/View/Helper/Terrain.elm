@@ -3,16 +3,22 @@ module Scorched.View.Helper.Terrain where
 import List (indexedMap)
 
 import Color (..)
+
 import Graphics.Collage (..)
+import Graphics.Collage as Collage
+
+import Graphics.Element as Element
 import Graphics.Element (Element)
+
+import Transform2D (translation)
 
 import Scorched.Model.World (Dimension, Terrain)
 
 toForm : Terrain -> Dimension -> Form
 toForm terrain {width, height} =
-  move
-    ((toFloat -(width // 2)), (toFloat -(height // 2) + 300))
-    (group (drawTerrain terrain))
+  groupTransform
+    (translation -(toFloat width / 2) 0.0)
+    (drawTerrain terrain)
 
 drawTerrain : Terrain -> List Form
 drawTerrain terrain = indexedMap drawLine terrain
