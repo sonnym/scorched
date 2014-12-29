@@ -66,7 +66,7 @@ button ({value,messenger} as settings) direction =
 
 label : Settings -> Element
 label {text,key,value} =
-  KeyedLabel.build (text ++ ": " ++ (toString value)) key
+  KeyedLabel.build (text ++ ":" ++ (toString value)) key
 
 guard : Settings -> Operation -> Int
 guard {value,min,max,step} operation =
