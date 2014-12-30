@@ -1,6 +1,6 @@
 module Scorched.Model where
 
-import Signal
+import Signal (Signal, Message, foldp, subscribe)
 
 import Scorched.Action (Action(NoOp, PlayerCount, Start), updates)
 
@@ -11,7 +11,7 @@ import Scorched.Model.GameState as GameState
 
 type View = Menu | Game
 
-type alias Messenger = Int -> Signal.Message
+type alias Messenger = Int -> Message
 
 type alias Model = {
   view: View,
@@ -22,7 +22,7 @@ type alias Model = {
 }
 
 state : Signal Model
-state = Signal.foldp step default (Signal.subscribe updates)
+state = foldp step default (subscribe updates)
 
 step : Action -> Model -> Model
 step action model =
