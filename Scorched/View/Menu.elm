@@ -20,7 +20,7 @@ import Scorched.View.Helper.Terrain as TerrainHelper
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
 
-import Scorched.View.Widget.NumericField (defaultSettings)
+import Scorched.Model.View.NumericField (defaultSettings)
 import Scorched.View.Widget.NumericField as NumericField
 
 renderMenu : Model -> Input -> Element
