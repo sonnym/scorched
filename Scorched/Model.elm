@@ -4,15 +4,20 @@ import List
 import List ((::), filter, length, head)
 
 import Signal
-import Signal (Signal, Message, foldp, subscribe, merge)
+import Signal (Signal, Message, foldp, subscribe, merge, mergeMany)
 
 import Char (toCode)
 import Keyboard (KeyCode)
 
 import Scorched.Input (Input, keypress)
-import Scorched.Action (Action(NoOp, PlayerCount, Start), updates)
+
+import Scorched.Action as Action
+import Scorched.Action (Action(NoOp, Start), updates)
 
 import Scorched.Model.World (Dimension)
+
+import Scorched.Model.Configuration (Configuration)
+import Scorched.Model.Configuration as Configuration
 
 import Scorched.Model.GameState (GameState)
 import Scorched.Model.GameState as GameState
@@ -25,8 +30,7 @@ type alias Model = {
   view: View,
   hooks: List (Char, Action),
   dimensions: Dimension,
-  playerCount: Int,
-  roundCount: Int,
+  config: Configuration,
   game: GameState
 }
 
@@ -47,8 +51,9 @@ apply : Action -> Model -> Model
 apply action model =
   case action of
     NoOp -> model
-    PlayerCount value -> { model | playerCount <- value }
-    RoundCount value -> { model | roundCount <- value }
+
+    Configuration a -> { model | config <- Configuration.step a model.config }
+
     Start ->
       { model | view <- Game
               , game <- GameState.default }
@@ -66,6 +71,5 @@ default = {
   view = Menu,
   hooks = [],
   dimensions = {width=1024, height=768},
-  playerCount = 2,
-  roundCount = 10,
+  config = Configuration.default,
   game = GameState.default }

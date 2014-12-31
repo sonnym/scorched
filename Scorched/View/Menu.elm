@@ -8,7 +8,9 @@ import Graphics.Collage (..)
 import Scorched.Input (Input)
 
 import Scorched.Model (Model)
-import Scorched.Action (Action(PlayerCount), updates)
+
+import Scorched.Action (Action(Start), updates)
+import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
 
 import Scorched.Model.World as World
 import Scorched.Model.World (Dimension)
@@ -51,8 +53,8 @@ buttons : Model -> Dimension -> Form
 buttons model {width, height} =
   let
     btns = [ playButton
-           , (playerCount model.playerCount)
-           , (roundCount model.roundCount)
+           , (playerCount model.config.playerCount)
+           , (roundCount model.config.roundCount)
            ]
     elem = flow down btns
   in
@@ -71,7 +73,7 @@ playerCount value =
     {defaultSettings | value <- value
                      , text <- "Players"
                      , key <- 'P'
-                     , messenger <- (\value -> send updates (PlayerCount value))}
+                     , messenger <- (\value -> send updates (Configuration (PlayerCount value)))}
 
 roundCount : Int -> Element
 roundCount value =
@@ -82,4 +84,4 @@ roundCount value =
                      , step <- 5
                      , text <- "Rounds"
                      , key <- 'R'
-                     , messenger <- (\value -> send updates (RoundCount value))}
+                     , messenger <- (\value -> send updates (Configuration (RoundCount value)))}
