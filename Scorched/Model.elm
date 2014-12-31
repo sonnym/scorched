@@ -24,11 +24,12 @@ import Scorched.Model.GameState as GameState
 
 type View = Menu | Game
 
+type alias Hook = (Char, Action)
 type alias Messenger = Int -> Message
 
 type alias Model = {
   view: View,
-  hooks: List (Char, Action),
+  hooks: List Hook,
   dimensions: Dimension,
   config: Configuration,
   game: GameState
@@ -58,7 +59,7 @@ apply action model =
       { model | view <- Game
               , game <- GameState.default }
 
-lookup : List (Char, Action) -> KeyCode -> Action
+lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
   let
     match = filter (\pair -> (toCode (fst pair)) == keyCode) hooks
