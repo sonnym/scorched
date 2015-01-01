@@ -1,9 +1,10 @@
 module Scorched.Action where
 
-import Signal (Signal, Channel, channel)
+import Signal (Signal, Channel, Message, channel)
 
 import Scorched.Model.Configuration as Configuration
 
+type alias Messenger = Int -> Message
 type alias Hook = (Char, Action)
 
 type Action

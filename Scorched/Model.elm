@@ -25,8 +25,6 @@ import Scorched.Model.View.Menu as MenuModel
 
 type View = Menu | Game
 
-type alias Messenger = Int -> Message
-
 type alias Model = {
   view: View,
   hooks: List Hook,

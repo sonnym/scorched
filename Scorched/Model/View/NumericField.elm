@@ -2,8 +2,7 @@ module Scorched.Model.View.NumericField where
 
 import Signal (Message, send)
 
-import Scorched.Model (Messenger)
-import Scorched.Action (Action(NoOp), updates)
+import Scorched.Action (Action(NoOp), Messenger, updates)
 
 type Operation = Increment | Decrement
 
