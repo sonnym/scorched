@@ -11,8 +11,7 @@ import Keyboard (KeyCode)
 
 import Scorched.Input (Input, keypress)
 
-import Scorched.Action as Action
-import Scorched.Action (Action(NoOp, Start), updates)
+import Scorched.Action (Hook, Action(NoOp, Start), updates)
 
 import Scorched.Model.World (Dimension)
 
@@ -22,9 +21,10 @@ import Scorched.Model.Configuration as Configuration
 import Scorched.Model.GameState (GameState)
 import Scorched.Model.GameState as GameState
 
+import Scorched.Model.View.Menu as MenuModel
+
 type View = Menu | Game
 
-type alias Hook = (Char, Action)
 type alias Messenger = Int -> Message
 
 type alias Model = {
@@ -70,7 +70,7 @@ lookup hooks keyCode =
 default : Model
 default = {
   view = Menu,
-  hooks = [],
+  hooks = MenuModel.hooks,
   dimensions = {width=1024, height=768},
   config = Configuration.default,
   game = GameState.default }

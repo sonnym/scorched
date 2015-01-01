@@ -1,5 +1,6 @@
 module Scorched.View.Menu where
 
+import Char (toCode)
 import Signal (send)
 
 import Graphics.Element (..)
@@ -7,13 +8,15 @@ import Graphics.Collage (..)
 
 import Scorched.Input (Input)
 
-import Scorched.Model (Model)
+import Scorched.Model (Model, lookup)
 
-import Scorched.Action (Action(Start), updates)
+import Scorched.Action (Action(Configuration), updates)
 import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
 
 import Scorched.Model.World as World
 import Scorched.Model.World (Dimension)
+
+import Scorched.Model.View.Menu (hooks)
 
 import Scorched.View.Helper.Terrain as TerrainHelper
 
@@ -65,7 +68,7 @@ buttons model {width, height} =
         )
 
 playButton : Element
-playButton = Button.build Start "Start" 'S' {width=90, height=25}
+playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
 
 playerCount : Int -> Element
 playerCount value =
