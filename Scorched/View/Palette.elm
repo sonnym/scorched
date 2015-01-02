@@ -1,6 +1,6 @@
 module Scorched.View.Palette where
 
-import List (repeat, indexedMap)
+import List (map)
 import Color (Color, rgb, toRgb)
 
 background = rgb 182 182 182
@@ -25,9 +25,9 @@ gradient start end steps =
       blue = (endComponents.blue - startComponents.blue) // steps
     }
   in
-    indexedMap
-      (\i _ ->
+    map
+      (\i ->
         rgb (startComponents.red + (differences.red * i))
             (startComponents.green + (differences.green * i))
             (startComponents.blue + (differences.blue * i)))
-      (repeat steps Nothing)
+      [0..(steps - 1)]
