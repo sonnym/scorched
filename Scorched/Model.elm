@@ -3,11 +3,13 @@ module Scorched.Model where
 import List
 import List ((::), filter, length, head)
 
-import Signal
-import Signal (Signal, Message, foldp, subscribe, merge, mergeMany)
+import Signal (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany)
+import Time (timestamp)
 
 import Char (toCode)
 import Keyboard (KeyCode)
+
+import Random (Seed, initialSeed)
 
 import Scorched.Input (Input, keypress)
 import Scorched.Action (Hook, Action(NoOp, Start), updates)
@@ -33,10 +35,13 @@ type alias Model = {
 }
 
 state : Signal Model
-state = foldp step default (Signal.map2 (,) (subscribe updates) keypress)
+state = foldp step default (map3 (\action input seed -> (action, input, seed)) (subscribe updates) keypress seeds)
 
-step : (Action, Input) -> Model -> Model
-step (action, input) ({hooks} as model) =
+seeds : Signal Seed
+seeds = map (\(time, _) -> initialSeed (round time)) (timestamp (constant ()))
+
+step : (Action, Input, Seed) -> Model -> Model
+step (action, input, seed) ({hooks} as model) =
   applicator (action :: (List.map (lookup hooks) input)) model
 
 applicator : List Action -> Model -> Model
