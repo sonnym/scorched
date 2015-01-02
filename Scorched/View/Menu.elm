@@ -39,15 +39,18 @@ renderMenu ({dimensions} as model) input =
 sample : Dimension -> Form
 sample {width,height} =
   let
+    world = World.generate {width=906, height=724}
     outline = BorderBox.build {width=908, height=726} 1 True
 
     terrain = TerrainHelper.toForm
-      (World.generate {width=906, height=724}).terrain
+      world.terrain
       {width=906, height=724}
   in
     group
       [ outline
          |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
+      , world.sky
+        |> move (-(toFloat width) /2 + 563, -(toFloat height) / 2 + 397)
       , terrain
          |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
       ]
