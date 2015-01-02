@@ -1,6 +1,6 @@
 module Scorched.View.Helper.World where
 
-import Graphics.Collage (Form, group)
+import Graphics.Collage (Form, group, moveY)
 
 import Scorched.Model.Geometry (Dimension)
 
@@ -14,5 +14,7 @@ toForm world ({height} as dimensions) =
   let
     sky = SkyHelper.toForm world.sky dimensions
     terrain = TerrainHelper.toForm world.terrain dimensions
+
+    terrainHeight = TerrainHelper.height world.terrain
   in
-    group [sky, terrain]
+    group [sky, (terrain |> moveY -((toFloat (height - terrainHeight)) / 2.0))]

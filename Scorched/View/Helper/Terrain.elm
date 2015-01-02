@@ -1,6 +1,6 @@
 module Scorched.View.Helper.Terrain where
 
-import List (indexedMap)
+import List (indexedMap, maximum)
 
 import Color (..)
 
@@ -20,6 +20,9 @@ toForm terrain {width, height} =
   groupTransform
     (translation -(toFloat width / 2) 0.0)
     (drawTerrain terrain)
+
+height : Terrain -> Int
+height terrain = maximum terrain
 
 drawTerrain : Terrain -> List Form
 drawTerrain terrain = indexedMap drawLine terrain
