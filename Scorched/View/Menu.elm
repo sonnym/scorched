@@ -19,6 +19,7 @@ import Scorched.Model.World (Dimension)
 import Scorched.Model.View.Menu (hooks)
 
 import Scorched.View.Helper.Terrain as TerrainHelper
+import Scorched.View.Helper.Sky as SkyHelper
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
@@ -37,19 +38,20 @@ renderMenu ({dimensions} as model) input =
       ]
 
 sample : Dimension -> Form
-sample {width,height} =
+sample ({width,height} as dimensions) =
   let
-    world = World.generate {width=906, height=724}
-    outline = BorderBox.build {width=908, height=726} 1 True
+    innerDimensions = {width=906, height=724}
 
-    terrain = TerrainHelper.toForm
-      world.terrain
-      {width=906, height=724}
+    world = World.generate innerDimensions
+    sky = SkyHelper.toForm world.sky innerDimensions
+    terrain = TerrainHelper.toForm world.terrain innerDimensions
+
+    outline = BorderBox.build {width=908, height=726} 1 True
   in
     group
       [ outline
          |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
-      , world.sky
+      , sky
         |> move (-(toFloat width) /2 + 563, -(toFloat height) / 2 + 397)
       , terrain
          |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
