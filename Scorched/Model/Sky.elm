@@ -1,11 +1,26 @@
 module Scorched.Model.Sky where
 
-import Color (Color, rgb)
+import Color (Color)
 
-import Scorched.View.Palette (gradient)
+import Maybe (withDefault)
+import Array (Array, fromList, get)
 
-type alias Sky = List Color
+import Scorched.Model.Sky.Sunset as SunsetModel
+
+type SkyType
+  = SunsetType
+
+type Sky
+  = Sunset (List Color)
 
 generate : Sky
 generate =
-  gradient (rgb 51 52 150) (rgb 255 235 4) 28
+  let
+    skyType = withDefault SunsetType (get 0 types)
+  in
+    case skyType of
+      SunsetType -> Sunset (SunsetModel.generate)
+
+types : Array SkyType
+types =
+  fromList [SunsetType]

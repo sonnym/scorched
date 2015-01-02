@@ -1,6 +1,7 @@
 module Scorched.Model.World where
 
 import List
+import Color (Color)
 
 import Scorched.Model.Geometry (Dimension)
 
