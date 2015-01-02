@@ -1,7 +1,7 @@
 module Scorched.Model where
 
 import List
-import List ((::), filter, length, head)
+import List ((::), foldr, filter, length, head)
 
 import Signal (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany)
 import Time (timestamp)
@@ -42,13 +42,10 @@ seeds = map (\(time, _) -> initialSeed (round time)) (timestamp (constant ()))
 
 step : (Action, Input, Seed) -> Model -> Model
 step (action, input, seed) ({hooks} as model) =
-  applicator (action :: (List.map (lookup hooks) input)) model
-
-applicator : List Action -> Model -> Model
-applicator actions model =
-  case actions of
-    action::rest -> applicator rest (apply action model)
-    [] -> model
+  let
+    actions = action :: (List.map (lookup hooks) input)
+  in
+    foldr apply model actions
 
 apply : Action -> Model -> Model
 apply action model =
