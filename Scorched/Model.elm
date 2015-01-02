@@ -10,10 +10,9 @@ import Char (toCode)
 import Keyboard (KeyCode)
 
 import Scorched.Input (Input, keypress)
-
 import Scorched.Action (Hook, Action(NoOp, Start), updates)
 
-import Scorched.Model.World (Dimension)
+import Scorched.Model.Geometry (Dimension)
 
 import Scorched.Model.Configuration (Configuration)
 import Scorched.Model.Configuration as Configuration
@@ -55,7 +54,7 @@ apply action model =
 
     Start ->
       { model | view <- Game
-              , game <- GameState.default }
+              , game <- GameState.default dimensions }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
@@ -69,6 +68,9 @@ default : Model
 default = {
   view = Menu,
   hooks = MenuModel.hooks,
-  dimensions = {width=1024, height=768},
+  dimensions = dimensions,
   config = Configuration.default,
-  game = GameState.default }
+  game = GameState.default dimensions }
+
+dimensions : Dimension
+dimensions = {width=1024, height=768}

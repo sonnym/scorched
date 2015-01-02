@@ -12,7 +12,8 @@ import Graphics.Element (Element)
 
 import Transform2D (translation)
 
-import Scorched.Model.World (Dimension, Terrain)
+import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.World (Terrain)
 
 toForm : Terrain -> Dimension -> Form
 toForm terrain {width, height} =

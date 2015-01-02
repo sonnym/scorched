@@ -5,7 +5,7 @@ import List
 import Graphics.Element (color, size, empty)
 import Graphics.Collage (..)
 
-import Scorched.Model.World (Dimension)
+import Scorched.Model.Geometry (Dimension)
 
 import Scorched.View.Palette (..)
 

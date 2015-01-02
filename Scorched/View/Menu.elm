@@ -13,8 +13,9 @@ import Scorched.Model (Model, lookup)
 import Scorched.Action (Action(Configuration), updates)
 import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
 
+import Scorched.Model.Geometry (Dimension)
+
 import Scorched.Model.World as World
-import Scorched.Model.World (Dimension)
 
 import Scorched.Model.View.Menu (hooks)
 

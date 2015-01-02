@@ -10,7 +10,7 @@ import Graphics.Element (Element, size)
 
 import Scorched.Action (Action, updates)
 
-import Scorched.Model.World (Dimension)
+import Scorched.Model.Geometry (Dimension)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.KeyedLabel as KeyedLabel

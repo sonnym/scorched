@@ -7,8 +7,8 @@ import Graphics.Collage as Collage
 
 import Graphics.Element (flow, down, empty, size, color)
 
+import Scorched.Model.Geometry (Dimension)
 import Scorched.Model.Sky (Sky)
-import Scorched.Model.World (Dimension)
 
 toForm : Sky -> Dimension -> Form
 toForm sky {width,height} =

@@ -2,10 +2,10 @@ module Scorched.Model.World where
 
 import List
 
+import Scorched.Model.Geometry (Dimension)
+
 import Scorched.Model.Sky (Sky)
 import Scorched.Model.Sky as Sky
-
-type alias Dimension = {width:Int, height:Int}
 
 type alias Terrain = List Int
 
