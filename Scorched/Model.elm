@@ -40,7 +40,7 @@ state = foldp step default signal
 signal : Signal (Action, Input, Seed)
 signal =
   let
-    actions = merge (subscribe updates) (constant Initialize)
+    actions = merge (constant Initialize) (subscribe updates)
   in
     map3 (\action input seed -> (action, input, seed)) actions keypress seeds
 
