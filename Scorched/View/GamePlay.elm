@@ -6,7 +6,7 @@ import Graphics.Element (Element, empty)
 import Scorched.Input (Input)
 import Scorched.Model (Model)
 
-import Scorched.View.Helper.Terrain as TerrainHelper
+import Scorched.View.Helper.World as WorldHelper
 
 renderWorld : Model -> Input -> Element
 renderWorld {viewData,dimensions} input =
@@ -15,6 +15,6 @@ renderWorld {viewData,dimensions} input =
       collage
         dimensions.width
         dimensions.height
-        [TerrainHelper.toForm data.game.world.terrain dimensions]
+        [WorldHelper.toForm data.game.world dimensions]
 
     Nothing -> empty
