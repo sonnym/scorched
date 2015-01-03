@@ -36,7 +36,7 @@ renderMenu ({dimensions} as model) =
       ]
 
 sample : Dimension -> Form
-sample ({width,height} as dimensions) =
+sample {width,height} =
   let
     innerDimensions = {width=906, height=724}
 
