@@ -11,10 +11,9 @@ import Transform2D (scaleY)
 import Graphics.Element (flow, down, empty, size, color, heightOf)
 
 import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Sky.Sunset (Sunset)
 
-import Scorched.Model.Sky (Sky(Sunset))
-
-toForm : List Color -> Dimension -> Form
+toForm : Sunset -> Dimension -> Form
 toForm sky {width,height} =
   let
     bandHeight = ceiling ((toFloat height) / (toFloat (length sky)))

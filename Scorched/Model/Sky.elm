@@ -11,7 +11,7 @@ type SkyType
   = SunsetType
 
 type Sky
-  = Sunset (List Color)
+  = Sunset SunsetModel.Sunset
 
 generate : Sky
 generate =
