@@ -9,6 +9,7 @@ type alias Hook = (Char, Action)
 
 type Action
   = NoOp
+  | Initialize
   | Start
   | Configuration Configuration.Action
 

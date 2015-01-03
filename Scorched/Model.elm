@@ -12,7 +12,7 @@ import Keyboard (KeyCode)
 import Random (Seed, initialSeed)
 
 import Scorched.Input (Input, keypress)
-import Scorched.Action (Hook, Action(NoOp, Start), updates)
+import Scorched.Action (Hook, Action(NoOp, Initialize, Start), updates)
 
 import Scorched.Model.Geometry (Dimension)
 
@@ -35,7 +35,14 @@ type alias Model = {
 }
 
 state : Signal Model
-state = foldp step default (map3 (\action input seed -> (action, input, seed)) (subscribe updates) keypress seeds)
+state = foldp step default signal
+
+signal : Signal (Action, Input, Seed)
+signal =
+  let
+    actions = merge (subscribe updates) (constant Initialize)
+  in
+    map3 (\action input seed -> (action, input, seed)) actions keypress seeds
 
 seeds : Signal Seed
 seeds = map (\(time, _) -> initialSeed (round time)) (timestamp (constant ()))
@@ -51,6 +58,7 @@ apply : Action -> Model -> Model
 apply action model =
   case action of
     NoOp -> model
+    Initialize -> { model | hooks <- MenuModel.hooks }
 
     Configuration a -> { model | config <- Configuration.step a model.config }
 
@@ -69,7 +77,7 @@ lookup hooks keyCode =
 default : Model
 default = {
   view = Menu,
-  hooks = MenuModel.hooks,
+  hooks = [],
   dimensions = dimensions,
   config = Configuration.default,
   game = GameState.default dimensions }
