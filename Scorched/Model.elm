@@ -28,10 +28,10 @@ type View = Menu | Game
 
 type alias Model = {
   view: View,
+  viewData: Maybe { game: GameState },
   hooks: List Hook,
   dimensions: Dimension,
-  config: Configuration,
-  game: GameState
+  config: Configuration
 }
 
 state : Signal Model
@@ -64,7 +64,7 @@ apply action model =
 
     Start ->
       { model | view <- Game
-              , game <- GameState.default dimensions }
+              , viewData <- Just ({ game = GameState.default dimensions }) }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
@@ -77,10 +77,11 @@ lookup hooks keyCode =
 default : Model
 default = {
   view = Menu,
+  viewData = Nothing,
+
   hooks = [],
   dimensions = dimensions,
-  config = Configuration.default,
-  game = GameState.default dimensions }
+  config = Configuration.default }
 
 dimensions : Dimension
 dimensions = {width=1024, height=768}
