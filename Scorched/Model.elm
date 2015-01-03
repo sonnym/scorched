@@ -64,7 +64,7 @@ apply action model =
 
     Start ->
       { model | view <- Game
-              , viewData <- Just ({ game = GameState.default dimensions }) }
+              , viewData <- Just ({ game = GameState.default model.dimensions }) }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
@@ -80,8 +80,6 @@ default = {
   viewData = Nothing,
 
   hooks = [],
-  dimensions = dimensions,
-  config = Configuration.default }
 
-dimensions : Dimension
-dimensions = {width=1024, height=768}
+  dimensions = {width=1024, height=768},
+  config = Configuration.default }
