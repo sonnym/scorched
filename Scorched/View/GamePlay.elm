@@ -3,13 +3,12 @@ module Scorched.View.GamePlay where
 import Graphics.Collage (collage)
 import Graphics.Element (Element, empty)
 
-import Scorched.Input (Input)
 import Scorched.Model (Model)
 
 import Scorched.View.Helper.World as WorldHelper
 
-renderWorld : Model -> Input -> Element
-renderWorld {viewData,dimensions} input =
+renderWorld : Model -> Element
+renderWorld {viewData,dimensions} =
   case viewData of
     Just data ->
       collage

@@ -6,8 +6,6 @@ import Signal (send)
 import Graphics.Element (..)
 import Graphics.Collage (..)
 
-import Scorched.Input (Input)
-
 import Scorched.Model (Model, lookup)
 
 import Scorched.Action (Action(Configuration), updates)
@@ -27,8 +25,8 @@ import Scorched.View.Widget.NumericField as NumericField
 
 import Scorched.View.Helper.World as WorldHelper
 
-renderMenu : Model -> Input -> Element
-renderMenu ({dimensions} as model) input =
+renderMenu : Model -> Element
+renderMenu ({dimensions} as model) =
   collage
     dimensions.width
     dimensions.height
