@@ -3,8 +3,8 @@ module Scorched.Model where
 import List
 import List ((::), foldr, filter, length, head)
 
-import Signal (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany)
-import Time (timestamp)
+import Signal (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany, sampleOn)
+import Time (timestamp, fps)
 
 import Char (toCode)
 import Keyboard (KeyCode)
@@ -28,7 +28,7 @@ type View = Menu | Game
 
 type alias Model = {
   view: View,
-  viewData: Maybe { game: GameState },
+  viewData: { game: GameState },
   hooks: List Hook,
   dimensions: Dimension,
   config: Configuration
@@ -41,8 +41,9 @@ signal : Signal (Action, Input, Seed)
 signal =
   let
     actions = merge (constant Initialize) (subscribe updates)
+    combination = map3 (\action input seed -> (action, input, seed)) actions keypress seeds
   in
-    map3 (\action input seed -> (action, input, seed)) actions keypress seeds
+    sampleOn (fps 60) combination
 
 seeds : Signal Seed
 seeds = map (\(time, _) -> initialSeed (round time)) (timestamp (constant ()))
@@ -58,13 +59,14 @@ apply : Action -> Model -> Model
 apply action model =
   case action of
     NoOp -> model
-    Initialize -> { model | hooks <- MenuModel.hooks }
+    Initialize -> { model | hooks <- MenuModel.hooks
+                          , viewData <- {game=GameState.default MenuModel.worldDimensions} }
 
     Configuration a -> { model | config <- Configuration.step a model.config }
 
     Start ->
       { model | view <- Game
-              , viewData <- Just ({ game = GameState.default model.dimensions }) }
+              , viewData <- {game=GameState.default model.dimensions} }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
@@ -77,7 +79,7 @@ lookup hooks keyCode =
 default : Model
 default = {
   view = Menu,
-  viewData = Nothing,
+  viewData = {game=GameState.empty},
 
   hooks = [],
 

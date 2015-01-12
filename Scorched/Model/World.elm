@@ -18,3 +18,6 @@ generate : Dimension -> World
 generate ({width, height} as dimensions) = {
   terrain = (List.repeat width (height // 2)),
   sky = Sky.generate}
+
+empty : World
+empty = { terrain=[], sky=Sky.empty }

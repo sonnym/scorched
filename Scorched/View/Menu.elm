@@ -13,9 +13,9 @@ import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
 
 import Scorched.Model.Geometry (Dimension)
 
-import Scorched.Model.World as World
+import Scorched.Model.GameState as GameState
 
-import Scorched.Model.View.Menu (hooks)
+import Scorched.Model.View.Menu (hooks, worldDimensions)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
@@ -31,16 +31,14 @@ renderMenu ({dimensions} as model) =
     dimensions.width
     dimensions.height
       [ BorderBox.build dimensions 2 False
-      , sample dimensions
+      , sample model dimensions
       , buttons model dimensions
       ]
 
-sample : Dimension -> Form
-sample {width,height} =
+sample : Model -> Dimension -> Form
+sample model {width,height} =
   let
-    innerDimensions = {width=906, height=724}
-
-    world = WorldHelper.toForm (World.generate innerDimensions) innerDimensions
+    world = WorldHelper.toForm model.viewData.game.world worldDimensions
     outline = BorderBox.build {width=908, height=726} 1 True
   in
     group

@@ -12,6 +12,7 @@ type SkyType
 
 type Sky
   = Sunset SunsetModel.Sunset
+  | Empty
 
 generate : Sky
 generate =
@@ -24,3 +25,6 @@ generate =
 types : Array SkyType
 types =
   fromList [SunsetType]
+
+empty : Sky
+empty = Empty

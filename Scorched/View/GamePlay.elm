@@ -9,11 +9,7 @@ import Scorched.View.Helper.World as WorldHelper
 
 renderWorld : Model -> Element
 renderWorld {viewData,dimensions} =
-  case viewData of
-    Just data ->
-      collage
-        dimensions.width
-        dimensions.height
-        [WorldHelper.toForm data.game.world dimensions]
-
-    Nothing -> empty
+  collage
+    dimensions.width
+    dimensions.height
+    [WorldHelper.toForm viewData.game.world dimensions]

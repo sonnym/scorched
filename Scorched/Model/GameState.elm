@@ -11,3 +11,6 @@ type alias GameState = {
 
 default : Dimension -> GameState
 default dimensions = {world=World.generate dimensions}
+
+empty : GameState
+empty = { world=World.empty }
