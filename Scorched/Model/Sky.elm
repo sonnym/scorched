@@ -9,14 +9,17 @@ import Maybe (withDefault)
 import Array (Array, fromList, get, length)
 
 import Scorched.Model.Sky.Sunset as SunsetModel
+import Scorched.Model.Sky.Plain as PlainModel
 import Scorched.Model.Sky.PitchBlack as PitchBlackModel
 
 type SkyType
   = SunsetType
+  | PlainType
   | PitchBlackType
 
 type Sky
   = Sunset SunsetModel.Sunset
+  | Plain PlainModel.Plain
   | PitchBlack PitchBlackModel.PitchBlack
   | Empty
 
@@ -28,11 +31,12 @@ generate seed =
   in
     case skyType of
       SunsetType -> Sunset (SunsetModel.generate)
+      PlainType -> Plain (PlainModel.generate)
       PitchBlackType -> PitchBlack (PitchBlackModel.generate)
 
 types : Array SkyType
 types =
-  fromList [SunsetType, PitchBlackType]
+  fromList [SunsetType, PlainType, PitchBlackType]
 
 empty : Sky
 empty = Empty
