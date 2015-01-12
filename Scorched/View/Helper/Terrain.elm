@@ -2,13 +2,8 @@ module Scorched.View.Helper.Terrain where
 
 import List (indexedMap, maximum)
 
-import Color (..)
-
-import Graphics.Collage (..)
-import Graphics.Collage as Collage
-
-import Graphics.Element as Element
-import Graphics.Element (Element)
+import Color (black)
+import Graphics.Collage (Form, Path, groupTransform, traced, solid, moveX, rect)
 
 import Transform2D (translation)
 
