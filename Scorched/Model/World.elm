@@ -1,6 +1,7 @@
 module Scorched.Model.World where
 
 import List
+import Random (Seed)
 
 import Scorched.Model.Geometry (Dimension)
 
@@ -14,10 +15,10 @@ type alias World = {
   sky: Sky
 }
 
-generate : Dimension -> World
-generate ({width, height} as dimensions) = {
+generate : Seed -> Dimension -> World
+generate seed ({width, height} as dimensions) = {
   terrain = (List.repeat width (height // 2)),
-  sky = Sky.generate}
+  sky = Sky.generate seed}
 
 empty : World
 empty = { terrain=[], sky=Sky.empty }

@@ -1,6 +1,7 @@
 module Scorched.Model.Sky where
 
 import Color (Color)
+import Random (Seed)
 
 import Maybe (withDefault)
 import Array (Array, fromList, get)
@@ -14,8 +15,8 @@ type Sky
   = Sunset SunsetModel.Sunset
   | Empty
 
-generate : Sky
-generate =
+generate : Seed -> Sky
+generate seed =
   let
     skyType = withDefault SunsetType (get 0 types)
   in

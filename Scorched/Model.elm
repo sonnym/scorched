@@ -53,20 +53,20 @@ step (action, input, seed) ({hooks} as model) =
   let
     actions = action :: (List.map (lookup hooks) input)
   in
-    foldr apply model actions
+    foldr (apply seed) model actions
 
-apply : Action -> Model -> Model
-apply action model =
+apply : Seed -> Action -> Model -> Model
+apply seed action model =
   case action of
     NoOp -> model
     Initialize -> { model | hooks <- MenuModel.hooks
-                          , viewData <- {game=GameState.default MenuModel.worldDimensions} }
+                          , viewData <- {game=GameState.default seed MenuModel.worldDimensions} }
 
     Configuration a -> { model | config <- Configuration.step a model.config }
 
     Start ->
       { model | view <- Game
-              , viewData <- {game=GameState.default model.dimensions} }
+              , viewData <- {game=GameState.default seed model.dimensions} }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
