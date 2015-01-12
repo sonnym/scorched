@@ -6,7 +6,8 @@ import Signal (send)
 import Graphics.Element (..)
 import Graphics.Collage (..)
 
-import Scorched.Model (Model, lookup)
+import Scorched.State (lookup)
+import Scorched.Model (Model)
 
 import Scorched.Action (Action(Configuration), updates)
 import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
