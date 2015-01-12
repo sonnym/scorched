@@ -28,6 +28,6 @@ fullWorld world ({height} as dimensions) =
     sky = SkyHelper.toForm world.sky dimensions
     terrain = TerrainHelper.toForm world.terrain dimensions
 
-    terrainHeight = TerrainHelper.height world.terrain
+    terrainHeight = TerrainHelper.maxHeight world.terrain
   in
     group [sky, (terrain |> moveY -((toFloat (height - terrainHeight)) / 2.0))]

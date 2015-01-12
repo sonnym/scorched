@@ -3,7 +3,7 @@ module Scorched.View.Helper.Terrain where
 import List (indexedMap, maximum)
 
 import Color (rgb)
-import Graphics.Collage (Form, Path, groupTransform, traced, solid, moveX, rect)
+import Graphics.Collage (Form, Path, groupTransform, traced, solid, move, rect)
 
 import Transform2D (translation)
 
@@ -16,14 +16,21 @@ toForm terrain {width, height} =
     (translation -(toFloat width / 2) 0.0)
     (drawTerrain terrain)
 
-height : Terrain -> Int
-height terrain = maximum terrain
+maxHeight : Terrain -> Int
+maxHeight terrain = maximum terrain
 
 drawTerrain : Terrain -> List Form
-drawTerrain terrain = indexedMap drawLine terrain
+drawTerrain terrain =
+  let
+    max = maxHeight terrain
+  in
+    indexedMap (drawLine max) terrain
 
-drawLine : Int -> Int -> Form
-drawLine x height = traced (solid (rgb 154 101 69)) (terrainLine height) |> moveX (toFloat x)
+drawLine : Int -> Int -> Int -> Form
+drawLine max x height =
+  terrainLine height
+    |> traced (solid (rgb 154 101 69))
+    |> move (toFloat x, -(toFloat (max - height)) / 2)
 
 terrainLine : Int -> Path
 terrainLine height = rect 1.0 (toFloat height)
