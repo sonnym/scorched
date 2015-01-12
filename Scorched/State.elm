@@ -48,13 +48,13 @@ apply seed action model =
   case action of
     NoOp -> model
     Initialize -> { model | hooks <- MenuModel.hooks
-                          , viewData <- {game=GameState.default seed MenuModel.worldDimensions} }
+                          , viewData <- {game=GameState.init seed MenuModel.worldDimensions} }
 
     Configuration a -> { model | config <- Configuration.step a model.config }
 
     Start ->
       { model | view <- Game
-              , viewData <- {game=GameState.default seed model.dimensions} }
+              , viewData <- {game=GameState.init seed model.dimensions} }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =

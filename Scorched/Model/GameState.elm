@@ -11,8 +11,8 @@ type alias GameState = {
   world: World
 }
 
-default : Seed -> Dimension -> GameState
-default seed dimensions = {world=World.generate seed dimensions}
+init : Seed -> Dimension -> GameState
+init seed dimensions = {world=World.generate seed dimensions}
 
 empty : GameState
 empty = { world=World.empty }
