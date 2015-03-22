@@ -1,0 +1,19 @@
+{
+  "name": "scorched",
+  "version": "0.0.1",
+  "description": "A clone of scorched earth.",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sonnym/scorched.git"
+  },
+
+  "author": "Sonny Michaud <michaud.sonny@gmail.com> (https://github.com/sonnym)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonnym/scorched/issues"
+  },
+
+  "homepage": "https://github.com/sonnym/scorched",
+  "private": true
+}
