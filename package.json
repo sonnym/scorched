@@ -8,6 +8,10 @@
     "url": "https://github.com/sonnym/scorched.git"
   },
 
+  "dependencies": {
+    "elm-expressway": "*"
+  },
+
   "author": "Sonny Michaud <michaud.sonny@gmail.com> (https://github.com/sonnym)",
   "license": "MIT",
   "bugs": {
