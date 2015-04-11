@@ -1,8 +1,8 @@
 module Scorched.Model.Sky.Sunset where
 
-import Color (Color, rgb)
+import Color exposing (Color, rgb)
 
-import Scorched.View.Palette (gradient)
+import Scorched.View.Palette exposing (gradient)
 
 type alias Sunset = List Color
 

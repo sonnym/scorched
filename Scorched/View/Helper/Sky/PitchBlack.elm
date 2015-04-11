@@ -1,11 +1,11 @@
 module Scorched.View.Helper.Sky.PitchBlack where
 
-import Color (rgb)
-import Graphics.Collage (Form, rect, filled)
+import Color exposing (rgb)
+import Graphics.Collage exposing (Form, rect, filled)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Sky.PitchBlack (PitchBlack)
+import Scorched.Model.Sky.PitchBlack exposing (PitchBlack)
 
 toForm : PitchBlack -> Dimension -> Form
 toForm _ {width,height} =

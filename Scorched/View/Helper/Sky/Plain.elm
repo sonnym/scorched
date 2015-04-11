@@ -1,11 +1,11 @@
 module Scorched.View.Helper.Sky.Plain where
 
-import Color (rgb)
-import Graphics.Collage (Form, rect, filled)
+import Color exposing (rgb)
+import Graphics.Collage exposing (Form, rect, filled)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Sky.Plain (Plain)
+import Scorched.Model.Sky.Plain exposing (Plain)
 
 toForm : Plain -> Dimension -> Form
 toForm _ {width,height} =

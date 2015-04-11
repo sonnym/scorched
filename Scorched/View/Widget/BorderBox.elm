@@ -1,13 +1,11 @@
 module Scorched.View.Widget.BorderBox where
 
-import List
+import Graphics.Element exposing (color, size, empty)
+import Graphics.Collage exposing (..)
 
-import Graphics.Element (color, size, empty)
-import Graphics.Collage (..)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Geometry (Dimension)
-
-import Scorched.View.Palette (..)
+import Scorched.View.Palette exposing (..)
 
 build : Dimension -> Int -> Bool -> Form
 build {width, height} stroke invert = group

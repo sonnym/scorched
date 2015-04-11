@@ -1,8 +1,7 @@
-import Signal (Signal, map)
-import Graphics.Element (Element)
+import Graphics.Element exposing (Element)
 
 import Scorched.State as State
 import Scorched.View as View
 
 main : Signal Element
-main = map View.scene State.state
+main = Signal.map View.scene State.state

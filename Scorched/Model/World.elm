@@ -1,14 +1,12 @@
 module Scorched.Model.World where
 
-import Random (Seed)
+import Random exposing (Seed)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Terrain (Terrain)
-import Scorched.Model.Terrain as Terrain
+import Scorched.Model.Terrain as Terrain exposing (Terrain)
 
-import Scorched.Model.Sky (Sky)
-import Scorched.Model.Sky as Sky
+import Scorched.Model.Sky as Sky exposing (Sky)
 
 type alias World = {
   terrain: Terrain,

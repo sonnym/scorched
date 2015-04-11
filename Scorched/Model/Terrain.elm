@@ -1,9 +1,8 @@
 module Scorched.Model.Terrain where
 
-import Random
-import Random (Seed, list, int)
+import Random exposing (Seed, list, int)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
 type alias Terrain = List Int
 

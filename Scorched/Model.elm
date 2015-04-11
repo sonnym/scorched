@@ -1,13 +1,10 @@
 module Scorched.Model where
 
-import Scorched.Action (Hook)
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Action exposing (Hook)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.GameState (GameState)
-import Scorched.Model.GameState as GameState
-
-import Scorched.Model.Configuration (Configuration)
-import Scorched.Model.Configuration as Configuration
+import Scorched.Model.GameState as GameState exposing (GameState)
+import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
 type View = Menu | Game
 

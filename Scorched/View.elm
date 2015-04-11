@@ -1,11 +1,11 @@
 module Scorched.View where
 
-import Graphics.Element (Element)
+import Graphics.Element exposing (Element)
 
-import Scorched.Model (Model, View(Menu, Game))
+import Scorched.Model exposing (Model, View(Menu, Game))
 
-import Scorched.View.Menu (renderMenu)
-import Scorched.View.GamePlay (renderWorld)
+import Scorched.View.Menu exposing (renderMenu)
+import Scorched.View.GamePlay exposing (renderWorld)
 
 scene : Model -> Element
 scene model =

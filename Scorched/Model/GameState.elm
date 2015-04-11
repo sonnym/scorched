@@ -1,11 +1,10 @@
 module Scorched.Model.GameState where
 
-import Random (Seed)
+import Random exposing (Seed)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.World (World)
-import Scorched.Model.World as World
+import Scorched.Model.World as World exposing (World)
 
 type alias GameState = {
   world: World

@@ -1,24 +1,22 @@
 module Scorched.State where
 
-import List
-import List ((::), foldr, filter, length, head)
+import List exposing ((::), foldr, filter, length, head)
 
-import Signal (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany, sampleOn)
-import Time (timestamp, fps)
+import Signal exposing (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany, sampleOn)
+import Time exposing (timestamp, fps)
 
-import Char (toCode)
-import Keyboard (KeyCode)
+import Char exposing (toCode)
+import Keyboard exposing (KeyCode)
 
-import Random (Seed, initialSeed)
+import Random exposing (Seed, initialSeed)
 
-import Scorched.Model (Model, View(Game), default)
-import Scorched.Input (Input, keypress)
+import Scorched.Model exposing (Model, View(Game), default)
+import Scorched.Input exposing (Input, keypress)
 
-import Scorched.Action (Hook, Action(NoOp, Initialize, Start), updates)
+import Scorched.Action exposing (Hook, Action(NoOp, Initialize, Start), updates)
 import Scorched.Model.GameState as GameState
 
-import Scorched.Model.Configuration (Configuration)
-import Scorched.Model.Configuration as Configuration
+import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
 import Scorched.Model.View.Menu as MenuModel
 

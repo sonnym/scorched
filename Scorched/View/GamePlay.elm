@@ -1,9 +1,9 @@
 module Scorched.View.GamePlay where
 
-import Graphics.Collage (collage)
-import Graphics.Element (Element, empty)
+import Graphics.Collage exposing (collage)
+import Graphics.Element exposing (Element, empty)
 
-import Scorched.Model (Model)
+import Scorched.Model exposing (Model)
 
 import Scorched.View.Helper.World as WorldHelper
 

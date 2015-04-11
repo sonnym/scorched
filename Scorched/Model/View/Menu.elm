@@ -1,8 +1,8 @@
 module Scorched.Model.View.Menu where
 
-import Scorched.Action (Hook, Action(Start))
+import Scorched.Action exposing (Hook, Action(Start))
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
 hooks : List Hook
 hooks = [('S', Start)]

@@ -1,8 +1,8 @@
 module Scorched.View.Helper.Sky where
 
-import Graphics.Collage (Form)
-import Scorched.Model.Geometry (Dimension)
-import Scorched.Model.Sky (Sky(Sunset, PitchBlack))
+import Graphics.Collage exposing (Form)
+import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Sky exposing (Sky(Sunset, PitchBlack))
 
 import Scorched.View.Helper.Sky.Sunset as SunsetHelper
 import Scorched.View.Helper.Sky.Plain as PlainHelper

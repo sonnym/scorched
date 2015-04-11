@@ -1,13 +1,13 @@
 module Scorched.View.Widget.NumericField where
 
-import Text (fromString, justified, monospace)
+import Text exposing (fromString, justified, monospace)
 
-import Graphics.Collage (Form, collage, toForm, moveX, move)
-import Graphics.Element (Element, widthOf)
+import Graphics.Collage exposing (Form, collage, toForm, moveX, move)
+import Graphics.Element exposing (Element, widthOf)
 
-import Graphics.Input (customButton)
+import Graphics.Input exposing (customButton)
 
-import Scorched.Model.View.NumericField (..)
+import Scorched.Model.View.NumericField exposing (..)
 
 import Scorched.View.Widget.BorderTriangle as BorderTriangle
 import Scorched.View.Widget.KeyedLabel as KeyedLabel

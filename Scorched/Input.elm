@@ -1,7 +1,7 @@
 module Scorched.Input where
 
-import Signal (Signal, map)
-import Keyboard (KeyCode, keysDown)
+import Signal exposing (Signal, map)
+import Keyboard exposing (KeyCode, keysDown)
 
 type alias Input = List KeyCode
 

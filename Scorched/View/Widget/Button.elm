@@ -1,16 +1,16 @@
 module Scorched.View.Widget.Button where
 
-import Signal (send)
-import Text (leftAligned, fromString, monospace)
+import Signal exposing (send)
+import Text exposing (leftAligned, fromString, monospace)
 
-import Graphics.Input (customButton)
+import Graphics.Input exposing (customButton)
 
-import Graphics.Collage (..)
-import Graphics.Element (Element, size)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (Element, size)
 
-import Scorched.Action (Action, updates)
+import Scorched.Action exposing (Action, updates)
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.KeyedLabel as KeyedLabel

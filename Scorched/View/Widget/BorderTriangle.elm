@@ -1,11 +1,10 @@
 module Scorched.View.Widget.BorderTriangle where
 
-import Color (Color)
-import List
+import Color exposing (Color)
 
-import Graphics.Collage (..)
+import Graphics.Collage exposing (..)
 
-import Scorched.View.Palette (..)
+import Scorched.View.Palette exposing (..)
 
 type Direction = Up | Down
 

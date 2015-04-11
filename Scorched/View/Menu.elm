@@ -1,28 +1,27 @@
 module Scorched.View.Menu where
 
-import Char (toCode)
-import Signal (send)
+import Char exposing (toCode)
+import Signal exposing (send)
 
-import Graphics.Element (..)
-import Graphics.Collage (..)
+import Graphics.Element exposing (..)
+import Graphics.Collage exposing (..)
 
-import Scorched.State (lookup)
-import Scorched.Model (Model)
+import Scorched.State exposing (lookup)
+import Scorched.Model exposing (Model)
 
-import Scorched.Action (Action(Configuration), updates)
-import Scorched.Model.Configuration (Action(PlayerCount, RoundCount))
+import Scorched.Action exposing (Action(Configuration), updates)
+import Scorched.Model.Configuration exposing (Action(PlayerCount, RoundCount))
 
-import Scorched.Model.Geometry (Dimension)
+import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.GameState as GameState
 
-import Scorched.Model.View.Menu (hooks, worldDimensions)
+import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
 import Scorched.View.Widget.BorderBox as BorderBox
 import Scorched.View.Widget.Button as Button
 
-import Scorched.Model.View.NumericField (defaultSettings)
-import Scorched.View.Widget.NumericField as NumericField
+import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
 import Scorched.View.Helper.World as WorldHelper
 

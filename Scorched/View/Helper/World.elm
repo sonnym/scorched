@@ -1,22 +1,19 @@
 module Scorched.View.Helper.World where
 
-import List (length)
+import Graphics.Element exposing (empty)
 
-import Graphics.Element (empty)
+import Graphics.Collage as Collage exposing (Form, group, moveY)
 
-import Graphics.Collage as Collage
-import Graphics.Collage (Form, group, moveY)
+import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Geometry (Dimension)
-
-import Scorched.Model.World (World)
+import Scorched.Model.World exposing (World)
 
 import Scorched.View.Helper.Terrain as TerrainHelper
 import Scorched.View.Helper.Sky as SkyHelper
 
 toForm : World -> Dimension -> Form
 toForm world dimensions =
-  if | (length world.terrain) == 0 -> emptyWorld
+  if | (List.length world.terrain) == 0 -> emptyWorld
      | otherwise -> fullWorld world dimensions
 
 emptyWorld : Form

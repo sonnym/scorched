@@ -1,6 +1,6 @@
 module Scorched.Model.Configuration where
 
-import Signal (Channel, channel)
+import Signal exposing (Channel, channel)
 
 type Action
   = NoOp

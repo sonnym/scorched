@@ -1,12 +1,11 @@
 module Scorched.Model.Sky where
 
-import Color (Color)
+import Color exposing (Color)
 
-import Random
-import Random (Seed)
+import Random exposing (Seed)
 
-import Maybe (withDefault)
-import Array (Array, fromList, get, length)
+import Maybe exposing (withDefault)
+import Array exposing (Array, fromList, get, length)
 
 import Scorched.Model.Sky.Sunset as SunsetModel
 import Scorched.Model.Sky.Plain as PlainModel

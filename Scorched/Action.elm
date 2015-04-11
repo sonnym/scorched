@@ -1,6 +1,6 @@
 module Scorched.Action where
 
-import Signal (Signal, Channel, Message, channel)
+import Signal exposing (Signal, Channel, Message, channel)
 
 import Scorched.Model.Configuration as Configuration
 

@@ -1,15 +1,15 @@
 module Scorched.View.Widget.KeyedLabel where
 
-import Signal (Message)
-import List (head)
+import Signal exposing (Message)
+import List exposing (head)
 
 import Char
-import String (fromChar, length, indices, left, right)
-import Text (fromString, concat, color, justified, monospace)
+import String exposing (fromChar, length, indices, left, right)
+import Text exposing (fromString, concat, color, justified, monospace)
 
-import Graphics.Element (Element)
+import Graphics.Element exposing (Element)
 
-import Scorched.View.Palette (cyan)
+import Scorched.View.Palette exposing (cyan)
 
 build : String -> Char -> Element
 build label key =
