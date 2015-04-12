@@ -1,6 +1,6 @@
 module Scorched.Action where
 
-import Signal exposing (Signal, Channel, Message, channel)
+import Signal exposing (Signal, Mailbox, Message, channel)
 
 import Scorched.Model.Configuration as Configuration
 
@@ -13,5 +13,5 @@ type Action
   | Start
   | Configuration Configuration.Action
 
-updates : Channel Action
+updates : Mailbox Action
 updates = channel NoOp
