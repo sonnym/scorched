@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Sky.PitchBlack where
+module Scorched.View.Helper.Sky.PitchBlack exposing (..)
 
 import Color exposing (rgb)
 import Graphics.Collage exposing (Form, rect, filled)

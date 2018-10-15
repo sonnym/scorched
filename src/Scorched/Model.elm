@@ -1,4 +1,4 @@
-module Scorched.Model where
+module Scorched.Model exposing (..)
 
 import Scorched.Action exposing (Hook)
 import Scorched.Model.Geometry exposing (Dimension)

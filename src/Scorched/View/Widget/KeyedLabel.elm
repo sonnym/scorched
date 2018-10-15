@@ -1,4 +1,4 @@
-module Scorched.View.Widget.KeyedLabel where
+module Scorched.View.Widget.KeyedLabel exposing (..)
 
 import Signal exposing (Message)
 import List exposing (head)

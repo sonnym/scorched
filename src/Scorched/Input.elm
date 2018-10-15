@@ -1,4 +1,4 @@
-module Scorched.Input where
+module Scorched.Input exposing (..)
 
 import Signal exposing (Signal, map)
 import Keyboard exposing (KeyCode, keysDown)

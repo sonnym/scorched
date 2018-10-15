@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Sky.Plain where
+module Scorched.View.Helper.Sky.Plain exposing (..)
 
 import Color exposing (rgb)
 import Graphics.Collage exposing (Form, rect, filled)

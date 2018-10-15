@@ -1,4 +1,4 @@
-module Scorched.Action where
+module Scorched.Action exposing (..)
 
 import Signal exposing (Signal, Mailbox, Message, mailbox)
 

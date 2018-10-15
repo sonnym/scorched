@@ -1,4 +1,4 @@
-module Scorched.View.Widget.BorderTriangle where
+module Scorched.View.Widget.BorderTriangle exposing (..)
 
 import Color exposing (Color)
 

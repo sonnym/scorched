@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Sky.Sunset where
+module Scorched.View.Helper.Sky.Sunset exposing (..)
 
 import Color exposing (Color)
 

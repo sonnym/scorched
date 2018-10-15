@@ -1,4 +1,4 @@
-module Scorched.Model.World where
+module Scorched.Model.World exposing (..)
 
 import Random exposing (Seed)
 

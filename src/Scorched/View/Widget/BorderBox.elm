@@ -1,4 +1,4 @@
-module Scorched.View.Widget.BorderBox where
+module Scorched.View.Widget.BorderBox exposing (..)
 
 import Graphics.Element exposing (color, size, empty)
 import Graphics.Collage exposing (..)

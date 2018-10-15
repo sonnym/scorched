@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Sky where
+module Scorched.View.Helper.Sky exposing (..)
 
 import Graphics.Collage exposing (Form)
 import Scorched.Model.Geometry exposing (Dimension)

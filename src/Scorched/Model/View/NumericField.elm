@@ -1,4 +1,4 @@
-module Scorched.Model.View.NumericField where
+module Scorched.Model.View.NumericField exposing (..)
 
 import Signal exposing (Message, send)
 

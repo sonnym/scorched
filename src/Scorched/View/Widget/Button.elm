@@ -1,4 +1,4 @@
-module Scorched.View.Widget.Button where
+module Scorched.View.Widget.Button exposing (..)
 
 import Signal exposing (send)
 import Text exposing (leftAligned, fromString, monospace)

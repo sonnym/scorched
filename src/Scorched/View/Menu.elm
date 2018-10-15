@@ -1,4 +1,4 @@
-module Scorched.View.Menu where
+module Scorched.View.Menu exposing (..)
 
 import Char exposing (toCode)
 import Signal exposing (send)

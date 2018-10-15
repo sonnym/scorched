@@ -1,4 +1,4 @@
-module Scorched.Model.Configuration where
+module Scorched.Model.Configuration exposing (..)
 
 import Signal exposing (Mailbox, mailbox)
 

@@ -1,4 +1,4 @@
-module Scorched.Model.View.Menu where
+module Scorched.Model.View.Menu exposing (..)
 
 import Scorched.Action exposing (Hook, Action(Start))
 

@@ -1,4 +1,4 @@
-module Scorched.View.Palette where
+module Scorched.View.Palette exposing (..)
 
 import Color exposing (Color, rgb, toRgb)
 

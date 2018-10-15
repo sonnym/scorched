@@ -1,4 +1,4 @@
-module Scorched.Model.GameState where
+module Scorched.Model.GameState exposing (..)
 
 import Random exposing (Seed)
 

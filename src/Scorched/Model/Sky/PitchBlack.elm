@@ -1,4 +1,4 @@
-module Scorched.Model.Sky.PitchBlack where
+module Scorched.Model.Sky.PitchBlack exposing (..)
 
 type alias PitchBlack = Int
 

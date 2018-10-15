@@ -1,4 +1,4 @@
-module Scorched.Model.Sky.Sunset where
+module Scorched.Model.Sky.Sunset exposing (..)
 
 import Color exposing (Color, rgb)
 

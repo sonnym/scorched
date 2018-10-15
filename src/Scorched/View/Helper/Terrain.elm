@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Terrain where
+module Scorched.View.Helper.Terrain exposing (..)
 
 import Color exposing (rgb)
 import Graphics.Collage exposing (Form, Path, groupTransform, traced, solid, move, rect)

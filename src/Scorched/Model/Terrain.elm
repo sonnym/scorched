@@ -1,4 +1,4 @@
-module Scorched.Model.Terrain where
+module Scorched.Model.Terrain exposing (..)
 
 import Random exposing (Seed, list, int)
 

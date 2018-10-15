@@ -1,4 +1,4 @@
-module Scorched.View.Widget.NumericField where
+module Scorched.View.Widget.NumericField exposing (..)
 
 import Text exposing (fromString, justified, monospace)
 

@@ -1,4 +1,4 @@
-module Scorched.View.Helper.World where
+module Scorched.View.Helper.World exposing (..)
 
 import Graphics.Element exposing (empty)
 

@@ -1,4 +1,4 @@
-module Scorched.View.GamePlay where
+module Scorched.View.GamePlay exposing (..)
 
 import Graphics.Collage exposing (collage)
 import Graphics.Element exposing (Element, empty)

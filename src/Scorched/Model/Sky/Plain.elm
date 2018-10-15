@@ -1,4 +1,4 @@
-module Scorched.Model.Sky.Plain where
+module Scorched.Model.Sky.Plain exposing (..)
 
 type alias Plain = Int
 
