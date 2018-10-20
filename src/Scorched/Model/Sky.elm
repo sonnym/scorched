@@ -1,7 +1,5 @@
 module Scorched.Model.Sky exposing (..)
 
-import Color exposing (Color)
-
 import Random exposing (Seed)
 
 import Maybe exposing (withDefault)

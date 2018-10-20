@@ -2,23 +2,22 @@ module Scorched.State exposing (..)
 
 import List exposing ((::), foldr, filter, length, head)
 
-import Signal exposing (Signal, Message, foldp, map, map3, constant, subscribe, merge, mergeMany, sampleOn)
-import Time exposing (timestamp, fps)
+-- import Time exposing (timestamp, fps)
 
 import Char exposing (toCode)
-import Keyboard exposing (KeyCode)
+-- import Keyboard exposing (KeyCode)
 
 import Random exposing (Seed, initialSeed)
 
-import Scorched.Model exposing (Model, View(Game), default)
-import Scorched.Input exposing (Input, keypress)
+-- import Scorched.Model exposing (Model, View(..), default)
+-- import Scorched.Input exposing (Input, keypress)
 
-import Scorched.Action exposing (Hook, Action(NoOp, Initialize, Start), updates)
-import Scorched.Model.GameState as GameState
+-- import Scorched.Action exposing (Hook, Action(..), updates)
+-- import Scorched.Model.GameState as GameState
 
-import Scorched.Model.Configuration as Configuration exposing (Configuration)
+-- import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
-import Scorched.Model.View.Menu as MenuModel
+-- import Scorched.Model.View.Menu as MenuModel
 
 state : Signal Model
 state = foldp step default signal
@@ -45,19 +44,19 @@ apply : Seed -> Action -> Model -> Model
 apply seed action model =
   case action of
     NoOp -> model
-    Initialize -> { model | hooks <- MenuModel.hooks
-                          , viewData <- {game=GameState.init seed MenuModel.worldDimensions} }
-
-    Configuration a -> { model | config <- Configuration.step a model.config }
-
+    Initialize ->
+      { model = hooks <- MenuModel.hooks
+      , viewData = {game=GameState.init seed MenuModel.worldDimensions}
+      }
+    Configuration a -> { model = config Configuration.step a model.config }
     Start ->
-      { model | view <- Game
-              , viewData <- {game=GameState.init seed model.dimensions} }
+      { model = view <- Game
+      , viewData = {game=GameState.init seed model.dimensions}
+      }
 
 lookup : List Hook -> KeyCode -> Action
 lookup hooks keyCode =
   let
     match = filter (\pair -> (toCode (fst pair)) == keyCode) hooks
   in
-    if | length match > 0 -> snd (head match)
-       | otherwise -> NoOp
+    if length match > 0 then snd (head match) else NoOp

@@ -2,6 +2,7 @@ import Browser
 import Html exposing (Html, h1, text)
 -- import Graphics.Element exposing (Element)
 
+import Scorched.Model as Model exposing (Model)
 -- import Scorched.State as State
 -- import Scorched.View as View
 
@@ -13,20 +14,20 @@ main =
     , view = view
     }
 
-init : () -> (Int, Cmd msg)
+init : () -> (Model, Cmd msg)
 init flags =
-  ( 1
+  ( Model.default
   , Cmd.none
   )
 
-update : msg -> Int -> (Int, Cmd msg)
+update : msg -> Model -> (Model, Cmd msg)
 update msg model =
-  ( 1
+  ( Model.default
   , Cmd.none
   )
 
-subscriptions : Int -> Sub msg
+subscriptions : Model -> Sub msg
 subscriptions model = Sub.none
 
-view : Int -> Html msg
-view model = h1 [] [ text (String.fromInt model) ]
+view : Model -> Html msg
+view model = h1 [] [ text "" ]
