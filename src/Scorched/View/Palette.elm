@@ -1,6 +1,6 @@
 module Scorched.View.Palette exposing (..)
 
-import Color exposing (Color, rgb, toRgb)
+-- import Color exposing (Color, rgb, toRgb)
 
 background = rgb 182 182 182
 

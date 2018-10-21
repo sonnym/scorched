@@ -1,10 +1,9 @@
 module Scorched.View.Menu exposing (..)
 
-import Html exposing (Html, h1, text)
-import Char exposing (toCode)
+-- import Char exposing (toCode)
 
--- import Graphics.Element exposing (..)
--- import Graphics.Collage exposing (..)
+import Svg exposing(..)
+import Svg.Attributes exposing(..)
 
 import Scorched.State exposing (..)
 import Scorched.Model exposing (Model)
@@ -18,19 +17,23 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
--- import Scorched.View.Widget.BorderBox as BorderBox
+import Scorched.View.Widget.BorderBox as BorderBox
 -- import Scorched.View.Widget.Button as Button
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
 -- import Scorched.View.Helper.World as WorldHelper
 
-renderMenu : Model -> Html msg
-renderMenu ({dimensions} as model) = h1 [] [ text "" ]
+renderMenu : Model -> Svg msg
+renderMenu ({dimensions} as model) =
+  svg
+    [ width (String.fromInt dimensions.width)
+    , height (String.fromInt dimensions.height)
+    ]
+    [ BorderBox.build dimensions.width dimensions.height 2 False ]
+
+
 {--
-  collage
-    dimensions.width
-    dimensions.height
       [ BorderBox.build dimensions 2 False
       , sample model dimensions
       , buttons model dimensions

@@ -1,14 +1,24 @@
 module Scorched.View.Widget.BorderBox exposing (..)
 
-import Graphics.Element exposing (color, size, empty)
-import Graphics.Collage exposing (..)
+import Svg exposing(..)
+import Svg.Attributes exposing(..)
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.View.Palette exposing (..)
+-- import Scorched.View.Palette exposing (..)
 
-build : Dimension -> Int -> Bool -> Form
-build {width, height} stroke invert = group
+build : Int -> Int -> Int -> Bool -> Svg msg
+build w h stroke invert =
+  rect
+    [ x "0"
+    , y "0"
+    , width (String.fromInt w)
+    , height (String.fromInt h)
+    , fill "rgb(182, 182, 182)"
+    ]
+    []
+
+{--
   [ backdrop width height
   , border (toFloat width) (toFloat height) (toFloat stroke) invert
   ]
@@ -81,3 +91,4 @@ bottomLine x y stroke =
     , (x - stroke, -y + stroke)
     , (x, -y)
     ]
+--}
