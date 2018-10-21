@@ -1,22 +1,19 @@
-module Scorched.View.Widget.Button exposing (..)
+module Scorched.View.Component.Button exposing (..)
 
-import Signal exposing (send)
-import Text exposing (leftAligned, fromString, monospace)
-
-import Graphics.Input exposing (customButton)
-
-import Graphics.Collage exposing (..)
-import Graphics.Element exposing (Element, size)
+-- import Text exposing (leftAligned, fromString, monospace)
+import Svg exposing(..)
 
 import Scorched.Action exposing (Action, updates)
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.View.Widget.BorderBox as BorderBox
-import Scorched.View.Widget.KeyedLabel as KeyedLabel
+import Scorched.View.Component.BorderBox as BorderBox
+import Scorched.View.Component.KeyedLabel as KeyedLabel
 
-build : Action -> String -> Char -> Dimension -> Element
+build : Action -> String -> Char -> Dimension -> Svg msg
 build action content key ({width, height} as dimensions) =
+  text content
+{--
   let
     label = KeyedLabel.build content key
     positionedText = move (6, -3) (toForm (size width height label))
@@ -25,3 +22,4 @@ build action content key ({width, height} as dimensions) =
     btnDown = collage width height [BorderBox.build dimensions 2 True, positionedText]
   in
     customButton (send updates action) btnUp btnUp btnDown
+--}

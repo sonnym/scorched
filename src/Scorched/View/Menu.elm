@@ -8,7 +8,7 @@ import Svg.Attributes exposing(..)
 import Scorched.State exposing (..)
 import Scorched.Model exposing (Model)
 
-import Scorched.Action exposing (Action(..), updates)
+import Scorched.Action as Action exposing (Action(..), updates)
 import Scorched.Model.Configuration exposing (Action(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
@@ -18,7 +18,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
 import Scorched.View.Component.BorderBox as BorderBox
--- import Scorched.View.Widget.Button as Button
+import Scorched.View.Component.Button as Button
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
@@ -30,13 +30,12 @@ renderMenu ({dimensions} as model) =
     [ width (String.fromInt dimensions.width)
     , height (String.fromInt dimensions.height)
     ]
-    [ BorderBox.build dimensions.width dimensions.height 2 False ]
-
+    [ BorderBox.build dimensions.width dimensions.height 2 False
+    , buttons model dimensions
+    ]
 
 {--
-      [ BorderBox.build dimensions 2 False
       , sample model dimensions
-      , buttons model dimensions
       ]
 
 sample : Model -> Dimension -> Form
@@ -51,9 +50,12 @@ sample model {width,height} =
       , world
          |> move (-(toFloat width) /2 + 563, -(toFloat height) / 2 + 397)
       ]
+--}
 
-buttons : Model -> Dimension -> Form
+buttons : Model -> Dimension -> Svg msg
 buttons model {width, height} =
+  playButton
+  {--
   let
     btns = [ playButton
            , (playerCount model.config.playerCount)
@@ -66,9 +68,13 @@ buttons model {width, height} =
         ( toFloat (-(((width - (widthOf elem)) // 2)) + 15)
         , toFloat (((height - (heightOf elem)) // 2) - 15)
         )
+  --}
 
-playButton : Element
-playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
+playButton : Svg msg
+playButton = Button.build Action.NoOp "Start" 'S' {width=90, height=25}
+-- playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
+
+{--
 
 playerCount : Int -> Element
 playerCount value =

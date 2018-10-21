@@ -1,18 +1,19 @@
-module Scorched.View.Widget.KeyedLabel exposing (..)
+module Scorched.View.Component.KeyedLabel exposing (..)
 
-import Signal exposing (Message)
 import List exposing (head)
 
 import Char
 import String exposing (fromChar, length, indices, left, right)
-import Text exposing (fromString, concat, color, justified, monospace)
+-- import Text exposing (fromString, concat, color, justified, monospace)
 
-import Graphics.Element exposing (Element)
+import Html exposing (..)
 
-import Scorched.View.Palette exposing (cyan)
+-- import Scorched.View.Palette exposing (cyan)
 
-build : String -> Char -> Element
+build : String -> Char -> Html msg
 build label key =
+  span [] [ text label ]
+{--
   let
     location = head (indices (fromChar key) label)
     prefix = left location label
@@ -23,4 +24,4 @@ build label key =
       , color cyan (fromString (fromChar key))
       , fromString suffix
       ]))
-
+--}
