@@ -17,7 +17,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
-import Scorched.View.Widget.BorderBox as BorderBox
+import Scorched.View.Component.BorderBox as BorderBox
 -- import Scorched.View.Widget.Button as Button
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)

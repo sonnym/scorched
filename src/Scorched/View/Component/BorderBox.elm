@@ -1,4 +1,4 @@
-module Scorched.View.Widget.BorderBox exposing (..)
+module Scorched.View.Component.BorderBox exposing (..)
 
 import Svg exposing(..)
 import Svg.Attributes exposing(..)
