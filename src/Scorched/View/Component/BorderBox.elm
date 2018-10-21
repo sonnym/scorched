@@ -1,22 +1,22 @@
 module Scorched.View.Component.BorderBox exposing (..)
 
 import Svg exposing(..)
-import Svg.Attributes exposing(..)
+import Svg.Attributes as Attr
 
 import Scorched.Model.Geometry exposing (Dimension)
 
 -- import Scorched.View.Palette exposing (..)
 
-build : Int -> Int -> Int -> Bool -> Svg msg
-build w h stroke invert =
+build : Int -> Int -> Int -> Bool -> List (Svg msg) -> Svg msg
+build width height stroke invert children =
   rect
-    [ x "0"
-    , y "0"
-    , width (String.fromInt w)
-    , height (String.fromInt h)
-    , fill "rgb(182, 182, 182)"
+    [ Attr.x "0"
+    , Attr.y "0"
+    , Attr.width (String.fromInt width)
+    , Attr.height (String.fromInt height)
+    , Attr.fill "rgb(182, 182, 182)"
     ]
-    []
+    children
 
 {--
   [ backdrop width height

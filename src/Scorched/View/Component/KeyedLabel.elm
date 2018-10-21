@@ -1,18 +1,18 @@
 module Scorched.View.Component.KeyedLabel exposing (..)
 
-import List exposing (head)
+-- import List exposing (head)
 
 import Char
-import String exposing (fromChar, length, indices, left, right)
+-- import String exposing (fromChar, length, indices, left, right)
 -- import Text exposing (fromString, concat, color, justified, monospace)
 
-import Html exposing (..)
+import Svg exposing (..)
 
 -- import Scorched.View.Palette exposing (cyan)
 
-build : String -> Char -> Html msg
+build : String -> Char -> Svg msg
 build label key =
-  span [] [ text label ]
+  text label
 {--
   let
     location = head (indices (fromChar key) label)

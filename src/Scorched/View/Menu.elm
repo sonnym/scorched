@@ -30,8 +30,12 @@ renderMenu ({dimensions} as model) =
     [ width (String.fromInt dimensions.width)
     , height (String.fromInt dimensions.height)
     ]
-    [ BorderBox.build dimensions.width dimensions.height 2 False
-    , buttons model dimensions
+    [ BorderBox.build
+      dimensions.width
+      dimensions.height
+      2
+      False
+      [ buttons model dimensions ]
     ]
 
 {--
