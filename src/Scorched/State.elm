@@ -1,27 +1,24 @@
 module Scorched.State exposing (..)
 
 import List exposing ((::), foldr, filter, length, head)
-
--- import Time exposing (timestamp, fps)
-
 import Char exposing (toCode)
--- import Keyboard exposing (KeyCode)
 
 import Random exposing (Seed, initialSeed)
 
--- import Scorched.Model exposing (Model, View(..), default)
--- import Scorched.Input exposing (Input, keypress)
+import Scorched.Model exposing (Model, View(..), default)
+import Scorched.Input exposing (Input, keypress)
 
--- import Scorched.Action exposing (Hook, Action(..), updates)
+import Scorched.Action exposing (Hook, Action(..), updates)
 -- import Scorched.Model.GameState as GameState
 
 -- import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
 -- import Scorched.Model.View.Menu as MenuModel
 
-state : Signal Model
-state = foldp step default signal
+state : Model
+state = default
 
+{--
 signal : Signal (Action, Input, Seed)
 signal =
   let
@@ -54,9 +51,10 @@ apply seed action model =
       , viewData = {game=GameState.init seed model.dimensions}
       }
 
-lookup : List Hook -> KeyCode -> Action
+lookup : List Hook -> Int -> Action
 lookup hooks keyCode =
   let
     match = filter (\pair -> (toCode (fst pair)) == keyCode) hooks
   in
     if length match > 0 then snd (head match) else NoOp
+--}

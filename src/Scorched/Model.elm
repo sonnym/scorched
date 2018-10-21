@@ -6,7 +6,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.GameState as GameState exposing (GameState)
 import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
-type View = Menu | Game
+type View = Menu -- | Game
 
 type alias Model =
   { view: View

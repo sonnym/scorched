@@ -1,6 +1,6 @@
 module Scorched.Model.View.Menu exposing (..)
 
-import Scorched.Action exposing (Hook, Action(Start))
+import Scorched.Action exposing (Hook, Action(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
 

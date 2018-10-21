@@ -1,32 +1,33 @@
 module Scorched.View.Menu exposing (..)
 
+import Html exposing (Html, h1, text)
 import Char exposing (toCode)
-import Signal exposing (send)
 
-import Graphics.Element exposing (..)
-import Graphics.Collage exposing (..)
+-- import Graphics.Element exposing (..)
+-- import Graphics.Collage exposing (..)
 
-import Scorched.State exposing (lookup)
+import Scorched.State exposing (..)
 import Scorched.Model exposing (Model)
 
-import Scorched.Action exposing (Action(Configuration), updates)
-import Scorched.Model.Configuration exposing (Action(PlayerCount, RoundCount))
+import Scorched.Action exposing (Action(..), updates)
+import Scorched.Model.Configuration exposing (Action(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.GameState as GameState
+-- import Scorched.Model.GameState as GameState
 
 import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
-import Scorched.View.Widget.BorderBox as BorderBox
-import Scorched.View.Widget.Button as Button
+-- import Scorched.View.Widget.BorderBox as BorderBox
+-- import Scorched.View.Widget.Button as Button
 
-import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
+-- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
-import Scorched.View.Helper.World as WorldHelper
+-- import Scorched.View.Helper.World as WorldHelper
 
-renderMenu : Model -> Element
-renderMenu ({dimensions} as model) =
+renderMenu : Model -> Html msg
+renderMenu ({dimensions} as model) = h1 [] [ text "" ]
+{--
   collage
     dimensions.width
     dimensions.height
@@ -69,18 +70,21 @@ playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, hei
 playerCount : Int -> Element
 playerCount value =
   NumericField.build
-    {defaultSettings | value <- value
-                     , text <- "Players"
-                     , key <- 'P'
-                     , messenger <- (\value -> send updates (Configuration (PlayerCount value)))}
+    { defaultSettings | value = value
+    , text = "Players"
+    , key = 'P'
+    , messenger = (\value -> send updates (Configuration (PlayerCount value)))
+    }
 
 roundCount : Int -> Element
 roundCount value =
   NumericField.build
-    {defaultSettings | value <- value
-                     , min <- 5
-                     , max <- 1000
-                     , step <- 5
-                     , text <- "Rounds"
-                     , key <- 'R'
-                     , messenger <- (\value -> send updates (Configuration (RoundCount value)))}
+    { defaultSettings | value = value
+    , min = 5
+    , max = 1000
+    , step = 5
+    , text = "Rounds"
+    , key = 'R'
+    , messenger = (\value -> send updates (Configuration (RoundCount value)))
+    }
+--}
