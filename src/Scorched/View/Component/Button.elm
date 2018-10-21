@@ -12,7 +12,7 @@ import Scorched.View.Component.KeyedLabel as KeyedLabel
 
 build : Action -> String -> Char -> Dimension -> Svg msg
 build action content key ({width, height} as dimensions) =
-  text content
+  text_ [] [ text content ]
 {--
   let
     label = KeyedLabel.build content key
