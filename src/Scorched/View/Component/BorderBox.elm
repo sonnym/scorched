@@ -7,8 +7,8 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 -- import Scorched.View.Palette exposing (..)
 
-build : Int -> Int -> Int -> Bool -> List (Svg msg) -> Svg msg
-build width height stroke invert children =
+build : Int -> Int -> Int -> Bool -> Svg msg
+build width height stroke invert =
   rect
     [ Attr.x "0"
     , Attr.y "0"
@@ -16,7 +16,7 @@ build width height stroke invert children =
     , Attr.height (String.fromInt height)
     , Attr.fill "rgb(182, 182, 182)"
     ]
-    children
+    []
 
 {--
   [ backdrop width height

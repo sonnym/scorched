@@ -35,7 +35,7 @@ renderMenu ({dimensions} as model) =
       dimensions.height
       2
       False
-      [ buttons model dimensions ]
+    , buttons model dimensions
     ]
 
 {--
