@@ -23,7 +23,7 @@ import Scorched.View.Component.Button as Button
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
-import Scorched.View.Helper.World as WorldHelper
+import Scorched.View.World as WorldView
 
 render : Model -> Svg msg
 render ({dimensions, sampleWorld} as model) =
@@ -40,7 +40,7 @@ render ({dimensions, sampleWorld} as model) =
 sample : World -> Svg msg
 sample sampleWorld =
   let
-     world = WorldHelper.build sampleWorld worldDimensions
+     world = WorldView.build sampleWorld worldDimensions
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g

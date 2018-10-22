@@ -1,4 +1,4 @@
-module Scorched.View.Helper.World exposing (..)
+module Scorched.View.World exposing (..)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
