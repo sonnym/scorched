@@ -11,7 +11,7 @@ main =
     { init = init
     , update = Model.update
     , subscriptions = subscriptions
-    , view = View.scene
+    , view = View.render
     }
 
 init : () -> (Model, Cmd Sky.Msg)

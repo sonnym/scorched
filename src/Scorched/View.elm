@@ -6,11 +6,11 @@ import Html exposing (Html)
 
 import Scorched.Model exposing (Model, View(..))
 
-import Scorched.View.Menu exposing (renderMenu)
+import Scorched.View.Menu as Menu
 -- import Scorched.View.GamePlay exposing (renderWorld)
 
-scene : Model -> Html msg
-scene model =
+render : Model -> Html msg
+render model =
   case model.view of
-    Menu -> renderMenu model
+    Menu -> Menu.render model
     -- Game -> renderWorld model

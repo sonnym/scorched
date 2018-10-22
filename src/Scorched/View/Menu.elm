@@ -8,8 +8,8 @@ import Svg.Attributes as Attr
 import Scorched.State exposing (..)
 import Scorched.Model exposing (Model)
 
-import Scorched.Action as Action exposing (Action(..), updates)
-import Scorched.Model.Configuration exposing (Action(..))
+import Scorched.Action as Action exposing (Action(..))
+-- import Scorched.Model.Configuration exposing (Action(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.World exposing (World)
@@ -25,8 +25,8 @@ import Scorched.View.Component.Button as Button
 
 import Scorched.View.Helper.World as WorldHelper
 
-renderMenu : Model -> Svg msg
-renderMenu ({dimensions, sampleWorld} as model) =
+render : Model -> Svg msg
+render ({dimensions, sampleWorld} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
