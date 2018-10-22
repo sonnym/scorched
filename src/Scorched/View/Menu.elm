@@ -2,8 +2,8 @@ module Scorched.View.Menu exposing (..)
 
 -- import Char exposing (toCode)
 
-import Svg exposing(..)
-import Svg.Attributes exposing(..)
+import Svg exposing(Svg)
+import Svg.Attributes as Attr
 
 import Scorched.State exposing (..)
 import Scorched.Model exposing (Model)
@@ -26,24 +26,26 @@ import Scorched.View.Component.Button as Button
 
 renderMenu : Model -> Svg msg
 renderMenu ({dimensions} as model) =
-  svg
-    [ width (String.fromInt dimensions.width)
-    , height (String.fromInt dimensions.height)
+  Svg.svg
+    [ Attr.width (String.fromInt dimensions.width)
+    , Attr.height (String.fromInt dimensions.height)
     ]
     [ BorderBox.build dimensions 2 False
-    , buttons model dimensions
+    , buttons
+    , sample
     ]
 
-{--
-      , sample model dimensions
-      ]
-
-sample : Model -> Dimension -> Form
-sample model {width,height} =
+sample : Svg msg
+sample =
   let
-    world = WorldHelper.toForm model.viewData.game.world worldDimensions
+    -- world = WorldHelper.toForm model.viewData.game.world worldDimensions
     outline = BorderBox.build {width=908, height=726} 1 True
   in
+    Svg.g
+      [ Attr.transform ("translate(109, 6)") ]
+      [ outline ]
+
+{--
     group
       [ outline
          |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
@@ -52,8 +54,8 @@ sample model {width,height} =
       ]
 --}
 
-buttons : Model -> Dimension -> Svg msg
-buttons model {width, height} =
+buttons : Svg msg
+buttons =
   playButton
   {--
   let
@@ -71,7 +73,7 @@ buttons model {width, height} =
   --}
 
 playButton : Svg msg
-playButton = Button.build Action.NoOp "Start" 'S' {width=90, height=25} {x=13, y=12}
+playButton = Button.build Action.NoOp "Start" 'S' {width=80, height=19} {x=13, y=12}
 -- playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
 
 {--
