@@ -1,16 +1,28 @@
 module Scorched.View.Helper.Sky exposing (..)
 
-import Graphics.Collage exposing (Form)
+import Svg exposing (Svg)
+import Svg.Attributes as Attr
+
 import Scorched.Model.Geometry exposing (Dimension)
-import Scorched.Model.Sky exposing (Sky(Sunset, PitchBlack))
+import Scorched.Model.Sky exposing (Sky(..))
 
-import Scorched.View.Helper.Sky.Sunset as SunsetHelper
-import Scorched.View.Helper.Sky.Plain as PlainHelper
-import Scorched.View.Helper.Sky.PitchBlack as PitchBlackHelper
+-- import Scorched.View.Helper.Sky.Sunset as SunsetHelper
+-- import Scorched.View.Helper.Sky.Plain as PlainHelper
 
-toForm : Sky -> Dimension -> Form
-toForm sky dimensions =
+build : Sky -> Dimension -> Svg msg
+build sky dimensions =
   case sky of
-    Sunset sunset -> SunsetHelper.toForm sunset dimensions
-    Plain pitchblack -> PlainHelper.toForm pitchblack dimensions
-    PitchBlack pitchblack -> PitchBlackHelper.toForm pitchblack dimensions
+    -- Sunset sunset -> SunsetHelper.toForm sunset dimensions
+    -- Plain pitchblack -> PlainHelper.toForm pitchblack dimensions
+    PitchBlack pitchblack -> buildPitchBlack dimensions
+
+buildPitchBlack : Dimension -> Svg msg
+buildPitchBlack {width, height} =
+  Svg.rect
+  [ Attr.fill "black"
+  , Attr.x "0"
+  , Attr.y "0"
+  , Attr.width (String.fromInt width)
+  , Attr.height (String.fromInt height)
+  ]
+  []

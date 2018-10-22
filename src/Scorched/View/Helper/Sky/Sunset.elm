@@ -1,16 +1,14 @@
 module Scorched.View.Helper.Sky.Sunset exposing (..)
 
-import Color exposing (Color)
-
-import Graphics.Collage exposing (Form, groupTransform, moveY, filled, rect)
-
-import Transform2D exposing (translation)
+import Svg exposing (Svg)
 
 import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.Sky.Sunset exposing (Sunset)
 
-toForm : Sunset -> Dimension -> Form
+toForm : Sunset -> Dimension -> Svg msg
 toForm sky {width,height} =
+  Svg.rect [] []
+{--
   let
     bandHeight = (toFloat height) / (toFloat (List.length sky))
     translationY = ((toFloat height) - bandHeight) / 2.0
@@ -21,3 +19,4 @@ toForm sky {width,height} =
         rect (toFloat width) bandHeight
           |> filled color
           |> moveY -(bandHeight * (toFloat i))) sky)
+--}

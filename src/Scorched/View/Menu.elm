@@ -15,14 +15,14 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 -- import Scorched.Model.GameState as GameState
 
-import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
+-- import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.Button as Button
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
--- import Scorched.View.Helper.World as WorldHelper
+import Scorched.View.Helper.World as WorldHelper
 
 renderMenu : Model -> Svg msg
 renderMenu ({dimensions} as model) =
@@ -32,27 +32,18 @@ renderMenu ({dimensions} as model) =
     ]
     [ BorderBox.build dimensions 2 False
     , buttons
-    , sample
+    , sample model
     ]
 
-sample : Svg msg
-sample =
+sample : Model -> Svg msg
+sample model =
   let
-    -- world = WorldHelper.toForm model.viewData.game.world worldDimensions
-    outline = BorderBox.build {width=908, height=726} 1 True
+     world = WorldHelper.build model.viewData.game.world worldDimensions
+     outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g
       [ Attr.transform ("translate(109, 6)") ]
-      [ outline ]
-
-{--
-    group
-      [ outline
-         |> move (-(toFloat width) / 2 + 563, -(toFloat height) / 2 + 397)
-      , world
-         |> move (-(toFloat width) /2 + 563, -(toFloat height) / 2 + 397)
-      ]
---}
+      [ outline, world ]
 
 buttons : Svg msg
 buttons =
@@ -99,3 +90,6 @@ roundCount value =
     , messenger = (\value -> send updates (Configuration (RoundCount value)))
     }
 --}
+
+worldDimensions : Dimension
+worldDimensions = {width=906, height=724}

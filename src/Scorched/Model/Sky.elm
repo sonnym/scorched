@@ -5,15 +5,21 @@ import Random exposing (Seed)
 import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)
 
-import Scorched.Model.Sky.Sunset as SunsetModel
-import Scorched.Model.Sky.Plain as PlainModel
+-- import Scorched.Model.Sky.Sunset as SunsetModel
+-- import Scorched.Model.Sky.Plain as PlainModel
 import Scorched.Model.Sky.PitchBlack as PitchBlackModel
 
+{--
 type SkyType
   = SunsetType
   | PlainType
   | PitchBlackType
+--}
 
+type Sky
+  = PitchBlack PitchBlackModel.PitchBlack
+
+{--
 type Sky
   = Sunset SunsetModel.Sunset
   | Plain PlainModel.Plain
@@ -27,13 +33,11 @@ generate seed =
     skyType = withDefault SunsetType (get random types)
   in
     case skyType of
-      SunsetType -> Sunset (SunsetModel.generate)
-      PlainType -> Plain (PlainModel.generate)
+      -- SunsetType -> Sunset (SunsetModel.generate)
+      -- PlainType -> Plain (PlainModel.generate)
       PitchBlackType -> PitchBlack (PitchBlackModel.generate)
 
 types : Array SkyType
 types =
   fromList [SunsetType, PlainType, PitchBlackType]
-
-empty : Sky
-empty = Empty
+--}
