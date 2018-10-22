@@ -15,7 +15,7 @@ build : Action -> String -> Char -> Dimension -> Svg msg
 build action content key ({width, height}) =
   g [ ]
   [ BorderBox.build width height 2 False
-  , text_ [] [ text content ]
+  , text_ [ Attr.x "12", Attr.y "17.5" ] [ text content ]
   ]
 {--
   let
