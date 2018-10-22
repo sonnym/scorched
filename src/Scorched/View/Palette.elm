@@ -11,13 +11,19 @@ toString : Color -> String
 toString {r, g, b} =
   "rgb(" ++ fromInt r ++ ", " ++ fromInt g ++ ", " ++ fromInt b ++ ")"
 
+shadowDark : Color
+shadowDark = { r = 20, g = 20, b = 20 }
+
+shadowLight : Color
+shadowLight = { r = 60, g = 60, b = 60 }
+
+highlightDark : Color
+highlightDark = { r = 223, g = 223, b = 223 }
+
+highlightLight : Color
+highlightLight = { r = 255, g = 255, b = 255 }
+
 {--
-shadowDark = rgb 20 20 20
-shadowLight = rgb 60 60 60
-
-highlightDark = rgb 223 223 223
-highlightLight = rgb 255 255 255
-
 cyan = rgb 40 255 255
 
 gradient : Color -> Color -> Int -> List Color
