@@ -75,7 +75,7 @@ buttons model {width, height} =
   --}
 
 playButton : Svg msg
-playButton = Button.build Action.NoOp "Start" 'S' {width=90, height=25}
+playButton = Button.build Action.NoOp "Start" 'S' {width=90, height=25} {x=13, y=12}
 -- playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
 
 {--
