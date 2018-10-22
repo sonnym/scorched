@@ -1,20 +1,26 @@
 module Scorched.View.Component.BorderBox exposing (..)
 
-import Svg exposing(..)
+import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.Model.Geometry exposing (Dimension)
 
--- import Scorched.View.Palette exposing (..)
+import Scorched.View.Palette as Palette
 
 build : Int -> Int -> Int -> Bool -> Svg msg
 build width height stroke invert =
-  rect
+  Svg.g
+    [ ]
+    [ background width height ]
+
+background : Int -> Int -> Svg msg
+background width height =
+  Svg.rect
     [ Attr.x "0"
     , Attr.y "0"
     , Attr.width (String.fromInt width)
     , Attr.height (String.fromInt height)
-    , Attr.fill "rgb(182, 182, 182)"
+    , Attr.fill (Palette.toString Palette.background)
     ]
     []
 

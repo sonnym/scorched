@@ -1,9 +1,17 @@
 module Scorched.View.Palette exposing (..)
 
--- import Color exposing (Color, rgb, toRgb)
+import String exposing (fromInt)
 
-background = rgb 182 182 182
+type alias Color = { r: Int , g: Int , b: Int }
 
+background : Color
+background = { r = 182, g = 182, b = 182 }
+
+toString : Color -> String
+toString {r, g, b} =
+  "rgb(" ++ fromInt r ++ ", " ++ fromInt g ++ ", " ++ fromInt b ++ ")"
+
+{--
 shadowDark = rgb 20 20 20
 shadowLight = rgb 60 60 60
 
@@ -30,3 +38,4 @@ gradient start end steps =
             (startComponents.green + (differences.green * i))
             (startComponents.blue + (differences.blue * i)))
       [0..(steps - 1)]
+--}
