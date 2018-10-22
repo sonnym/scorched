@@ -6,6 +6,8 @@ import Svg.Attributes as Attr
 import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.Sky exposing (Sky(..))
 
+import Scorched.View.Palette as Palette
+
 build : Sky -> Dimension -> Svg msg
 build sky dimensions =
   case sky of
@@ -36,19 +38,23 @@ buildPitchBlack {width, height} =
     []
 
 buildSunset : Dimension -> Svg msg
-buildSunset {width, height} =
-  Svg.rect [] []
-  {--
-  gradient (rgb 51 52 150) (rgb 255 235 4) 28
+buildSunset dimensions =
+  Svg.g [] (sunsetBands dimensions)
 
+sunsetBands : Dimension -> List (Svg msg)
+sunsetBands {width, height} =
   let
-    bandHeight = (toFloat height) / (toFloat (List.length sky))
-    translationY = ((toFloat height) - bandHeight) / 2.0
+    count = List.length Palette.sunset
+    bandHeight = toFloat height / toFloat count
   in
-    groupTransform
-      (translation 0.0 translationY)
-      (List.indexedMap (\i color ->
-        rect (toFloat width) bandHeight
-          |> filled color
-          |> moveY -(bandHeight * (toFloat i))) sky)
---}
+    List.map2
+      (\color offset ->
+        Svg.rect
+          [ Attr.fill (Palette.toString color)
+          , Attr.x "0"
+          , Attr.y (String.fromFloat (toFloat offset * bandHeight))
+          , Attr.width (String.fromInt width)
+          , Attr.height (String.fromFloat bandHeight)
+          ]
+          []
+      ) Palette.sunset (List.range 0 (count - 1))
