@@ -9,7 +9,7 @@ import Scorched.Model.World exposing (World)
 
 -- import Scorched.View.Helper.Terrain as TerrainHelper
 import Scorched.Model.Sky exposing (Sky(..))
-import Scorched.View.Helper.Sky as SkyHelper
+import Scorched.View.Sky as Sky
 
 build : World -> Dimension -> Svg msg
 build world dimensions =
@@ -17,7 +17,7 @@ build world dimensions =
 
 sky : Dimension -> Svg msg
 sky dimensions =
-  SkyHelper.build (PitchBlack 0) dimensions
+  Sky.build (PitchBlack 0) dimensions
 
 {--
   if | (List.length world.terrain) == 0 -> emptyWorld
