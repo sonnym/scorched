@@ -30,6 +30,7 @@ renderMenu ({dimensions, sampleWorld} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
+    , Attr.fontFamily "monospace"
     ]
     [ BorderBox.build dimensions 2 False
     , buttons

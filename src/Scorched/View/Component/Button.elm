@@ -16,7 +16,7 @@ build action content key dimensions offset =
   Svg.g
   [ Attr.transform ("translate(" ++ String.fromInt offset.x ++ ", " ++ String.fromInt offset.y ++ ")") ]
   [ BorderBox.build dimensions 2 False
-  , Svg.text_ [ Attr.x "10", Attr.y "13" ] [ Svg.text content ]
+  , Svg.text_ [ Attr.x "10", Attr.y "12.5" ] [ Svg.text content ]
   ]
 
 {--
