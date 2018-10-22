@@ -1,18 +1,21 @@
 module Scorched.View.Helper.World exposing (..)
 
-import Graphics.Element exposing (empty)
-
-import Graphics.Collage as Collage exposing (Form, group, moveY)
+import Svg exposing (Svg)
+import Svg.Attributes as Attr
 
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.World exposing (World)
 
-import Scorched.View.Helper.Terrain as TerrainHelper
-import Scorched.View.Helper.Sky as SkyHelper
+-- import Scorched.View.Helper.Terrain as TerrainHelper
+import Scorched.Model.Sky exposing (Sky(..))
+import Scorched.View.Sky as Sky
 
-toForm : World -> Dimension -> Form
-toForm world dimensions =
+build : World -> Dimension -> Svg msg
+build world dimensions =
+  Svg.g [] [ Sky.build world.sky dimensions ]
+
+{--
   if | (List.length world.terrain) == 0 -> emptyWorld
      | otherwise -> fullWorld world dimensions
 
@@ -28,3 +31,4 @@ fullWorld world ({height} as dimensions) =
     terrainHeight = TerrainHelper.maxHeight world.terrain
   in
     group [sky, (terrain |> moveY -((toFloat (height - terrainHeight)) / 2.0))]
+--}

@@ -1,10 +1,8 @@
 module Scorched.Action exposing (..)
 
-import Signal exposing (Signal, Mailbox, Message, mailbox)
-
 import Scorched.Model.Configuration as Configuration
 
-type alias Messenger = Int -> Message
+-- type alias Messenger = Int -> Message
 type alias Hook = (Char, Action)
 
 type Action
@@ -13,5 +11,5 @@ type Action
   | Start
   | Configuration Configuration.Action
 
-updates : Mailbox Action
-updates = mailbox NoOp
+updates : Cmd Action
+updates = Cmd.none
