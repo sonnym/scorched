@@ -1,15 +1,17 @@
 module Scorched.View.Component.BorderBox exposing (..)
 
+import List
+
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.View.Palette as Palette
+import Scorched.View.Palette as Palette exposing(Color)
 
 build : Dimension -> Int -> Bool -> Svg msg
 build dimensions stroke invert =
-  Svg.g [] (background dimensions :: border dimensions stroke)
+  Svg.g [] (background dimensions :: border dimensions stroke invert)
 
 background : Dimension -> Svg msg
 background {width, height} =
@@ -22,40 +24,54 @@ background {width, height} =
     ]
     []
 
-border : Dimension -> Int -> List (Svg msg)
-border {width, height} stroke =
-  [ topLine width stroke
-  , rightLine width height stroke
-  , bottomLine height width stroke
-  , leftLine height stroke
-  ]
+border : Dimension -> Int -> Bool -> List (Svg msg)
+border {width, height} stroke invert =
+  let
+    colors = if invert then invertedColors else regularColors
+  in
+    List.map2
+      (<|)
+      [ topLine width stroke
+      , rightLine width height stroke
+      , bottomLine height width stroke
+      , leftLine height stroke
+      ]
+      colors
 
-topLine : Int -> Int -> Svg msg
-topLine width stroke =
+invertedColors : List Color
+invertedColors =
+  [ Palette.shadowLight, Palette.highlightLight, Palette.highlightDark, Palette.shadowDark ]
+
+regularColors : List Color
+regularColors =
+  [ Palette.highlightDark, Palette.shadowDark, Palette.shadowLight, Palette.highlightLight ]
+
+topLine : Int -> Int -> Color -> Svg msg
+topLine width stroke color =
   Svg.line
     [ Attr.x1 "0"
     , Attr.x2 (String.fromInt width)
     , Attr.y1 "0"
     , Attr.y2 "0"
     , Attr.strokeWidth (String.fromInt stroke)
-    , Attr.stroke (Palette.toString Palette.highlightDark)
+    , Attr.stroke (Palette.toString color)
     ]
     []
 
-leftLine : Int -> Int -> Svg msg
-leftLine height stroke =
+leftLine : Int -> Int -> Color -> Svg msg
+leftLine height stroke color =
   Svg.line
     [ Attr.x1 "0"
     , Attr.x2 "0"
     , Attr.y1 "0"
     , Attr.y2 (String.fromInt height)
     , Attr.strokeWidth (String.fromInt stroke)
-    , Attr.stroke (Palette.toString Palette.highlightLight)
+    , Attr.stroke (Palette.toString color)
     ]
     []
 
-rightLine : Int -> Int -> Int -> Svg msg
-rightLine offset height stroke =
+rightLine : Int -> Int -> Int -> Color -> Svg msg
+rightLine offset height stroke color =
   let
     offsetAttr = String.fromInt (offset - stroke)
   in
@@ -65,12 +81,12 @@ rightLine offset height stroke =
       , Attr.y1 "0"
       , Attr.y2 (String.fromInt (height - 1))
       , Attr.strokeWidth (String.fromInt stroke)
-      , Attr.stroke (Palette.toString Palette.shadowDark)
+      , Attr.stroke (Palette.toString color)
       ]
       []
 
-bottomLine : Int -> Int -> Int -> Svg msg
-bottomLine offset width stroke =
+bottomLine : Int -> Int -> Int -> Color -> Svg msg
+bottomLine offset width stroke color =
   let
     offsetAttr = String.fromInt (offset - stroke)
   in
@@ -80,6 +96,6 @@ bottomLine offset width stroke =
       , Attr.y1 offsetAttr
       , Attr.y2 offsetAttr
       , Attr.strokeWidth (String.fromInt stroke)
-      , Attr.stroke (Palette.toString Palette.shadowLight)
+      , Attr.stroke (Palette.toString color)
       ]
       []
