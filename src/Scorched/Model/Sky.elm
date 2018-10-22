@@ -1,6 +1,7 @@
 module Scorched.Model.Sky exposing (..)
 
-import Random exposing (Seed)
+import Array
+import Random
 
 import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)
@@ -9,35 +10,26 @@ import Array exposing (Array, fromList, get, length)
 -- import Scorched.Model.Sky.Plain as PlainModel
 import Scorched.Model.Sky.PitchBlack as PitchBlackModel
 
-{--
-type SkyType
-  = SunsetType
-  | PlainType
-  | PitchBlackType
---}
-
 type Sky
   = PitchBlack PitchBlackModel.PitchBlack
-
-{--
-type Sky
-  = Sunset SunsetModel.Sunset
-  | Plain PlainModel.Plain
-  | PitchBlack PitchBlackModel.PitchBlack
   | Empty
 
-generate : Seed -> Sky
-generate seed =
-  let
-    (random, _) = Random.generate (Random.int 0 ((length types) - 1)) seed
-    skyType = withDefault SunsetType (get random types)
-  in
-    case skyType of
-      -- SunsetType -> Sunset (SunsetModel.generate)
-      -- PlainType -> Plain (PlainModel.generate)
-      PitchBlackType -> PitchBlack (PitchBlackModel.generate)
+type Msg
+  = MenuSky Int
 
-types : Array SkyType
-types =
-  fromList [SunsetType, PlainType, PitchBlackType]
---}
+random : Cmd Msg
+random =
+  Random.generate MenuSky (Random.int 0 0)
+
+getSky : Int -> Sky
+getSky n =
+  let
+    types = Array.fromList [ PitchBlack 0 ]
+  in
+    case Array.get n types of
+      Just (PitchBlack m) -> PitchBlack m
+      Just Empty -> PitchBlack 0
+      Nothing -> PitchBlack 0
+
+empty : Sky
+empty = Empty

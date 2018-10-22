@@ -13,11 +13,7 @@ import Scorched.View.Sky as Sky
 
 build : World -> Dimension -> Svg msg
 build world dimensions =
-  Svg.g [] [ sky dimensions ]
-
-sky : Dimension -> Svg msg
-sky dimensions =
-  Sky.build (PitchBlack 0) dimensions
+  Svg.g [] [ Sky.build world.sky dimensions ]
 
 {--
   if | (List.length world.terrain) == 0 -> emptyWorld

@@ -12,6 +12,7 @@ import Scorched.Action as Action exposing (Action(..), updates)
 import Scorched.Model.Configuration exposing (Action(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.World exposing (World)
 
 -- import Scorched.Model.GameState as GameState
 
@@ -25,20 +26,20 @@ import Scorched.View.Component.Button as Button
 import Scorched.View.Helper.World as WorldHelper
 
 renderMenu : Model -> Svg msg
-renderMenu ({dimensions} as model) =
+renderMenu ({dimensions, sampleWorld} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     ]
     [ BorderBox.build dimensions 2 False
     , buttons
-    , sample model
+    , sample sampleWorld
     ]
 
-sample : Model -> Svg msg
-sample model =
+sample : World -> Svg msg
+sample sampleWorld =
   let
-     world = WorldHelper.build model.viewData.game.world worldDimensions
+     world = WorldHelper.build sampleWorld worldDimensions
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g

@@ -15,6 +15,7 @@ build sky dimensions =
     -- Sunset sunset -> SunsetHelper.toForm sunset dimensions
     -- Plain pitchblack -> PlainHelper.toForm pitchblack dimensions
     PitchBlack pitchblack -> buildPitchBlack dimensions
+    Empty -> Svg.rect [] []
 
 buildPitchBlack : Dimension -> Svg msg
 buildPitchBlack {width, height} =

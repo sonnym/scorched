@@ -2,27 +2,22 @@ import Browser
 -- import Graphics.Element exposing (Element)
 
 import Scorched.Model as Model exposing (Model)
+import Scorched.Model.Sky as Sky
 -- import Scorched.State as State
 import Scorched.View as View
 
 main =
   Browser.element
     { init = init
-    , update = update
+    , update = Model.update
     , subscriptions = subscriptions
     , view = View.scene
     }
 
-init : () -> (Model, Cmd msg)
+init : () -> (Model, Cmd Sky.Msg)
 init flags =
   ( Model.default
-  , Cmd.none
-  )
-
-update : msg -> Model -> (Model, Cmd msg)
-update msg model =
-  ( Model.default
-  , Cmd.none
+  , Model.init
   )
 
 subscriptions : Model -> Sub msg
