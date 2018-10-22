@@ -1,27 +1,18 @@
 module Scorched.View.Component.KeyedLabel exposing (..)
 
--- import List exposing (head)
-
-import Char
--- import String exposing (fromChar, length, indices, left, right)
--- import Text exposing (fromString, concat, color, justified, monospace)
-
 import Svg exposing (..)
+import Svg.Attributes as Attr
 
--- import Scorched.View.Palette exposing (cyan)
+import Scorched.View.Palette as Palette
 
-build : String -> Char -> Svg msg
+build : String -> Char -> List (Svg msg)
 build label key =
-  text label
-{--
   let
-    location = head (indices (fromChar key) label)
-    prefix = left location label
-    suffix = right ((length label) - location - 1) label
+    location = Maybe.withDefault 0 (List.head (String.indices (String.fromChar key) label))
+    prefix = String.left location label
+    suffix = String.right ((String.length label) - location - 1) label
   in
-    justified (monospace (concat
-      [ fromString prefix
-      , color cyan (fromString (fromChar key))
-      , fromString suffix
-      ]))
---}
+    [ Svg.text prefix
+    , Svg.tspan [ Attr.fill (Palette.toString Palette.cyan) ] [ Svg.text (String.fromChar key) ]
+    , Svg.text suffix
+    ]

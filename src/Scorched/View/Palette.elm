@@ -48,6 +48,5 @@ sunset =
   , { r = 255, g = 214, b = 16 }
   ]
 
-{--
-cyan = rgb 40 255 255
---}
+cyan : Color
+cyan = { r = 40, g = 255, b = 255 }

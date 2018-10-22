@@ -1,6 +1,5 @@
 module Scorched.View.Component.Button exposing (..)
 
--- import Text exposing (leftAligned, fromString, monospace)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
@@ -12,19 +11,9 @@ import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.KeyedLabel as KeyedLabel
 
 build : Action -> String -> Char -> Dimension -> Offset -> Svg msg
-build action content key dimensions offset =
+build action label key dimensions offset =
   Svg.g
   [ Attr.transform ("translate(" ++ String.fromInt offset.x ++ ", " ++ String.fromInt offset.y ++ ")") ]
   [ BorderBox.build dimensions 2 False
-  , Svg.text_ [ Attr.x "10", Attr.y "12.5" ] [ Svg.text content ]
+  , Svg.text_ [ Attr.x "10", Attr.y "12.5" ] (KeyedLabel.build label key)
   ]
-
-{--
-  let
-    label = KeyedLabel.build content key
-
-    btnUp = collage width height [BorderBox.build dimensions 2 False, positionedText]
-    btnDown = collage width height [BorderBox.build dimensions 2 True, positionedText]
-  in
-    customButton (send updates action) btnUp btnUp btnDown
---}
