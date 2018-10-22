@@ -7,12 +7,12 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.View.Palette as Palette
 
-build : Int -> Int -> Int -> Bool -> Svg msg
-build width height stroke invert =
-  Svg.g [] (background width height :: border width height stroke)
+build : Dimension -> Int -> Bool -> Svg msg
+build dimensions stroke invert =
+  Svg.g [] (background dimensions :: border dimensions stroke)
 
-background : Int -> Int -> Svg msg
-background width height =
+background : Dimension -> Svg msg
+background {width, height} =
   Svg.rect
     [ Attr.x "0"
     , Attr.y "0"
@@ -22,8 +22,8 @@ background width height =
     ]
     []
 
-border : Int -> Int -> Int -> List (Svg msg)
-border width height stroke =
+border : Dimension -> Int -> List (Svg msg)
+border {width, height} stroke =
   [ topLine width stroke
   , rightLine width height stroke
   , bottomLine height width stroke
