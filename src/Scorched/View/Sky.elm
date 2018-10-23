@@ -39,7 +39,7 @@ buildPitchBlack {width, height} =
 
 buildSunset : Dimension -> Svg msg
 buildSunset dimensions =
-  Svg.g [] (sunsetBands dimensions)
+  Svg.g [] (List.append (sunsetBands dimensions) [ sun dimensions ])
 
 sunsetBands : Dimension -> List (Svg msg)
 sunsetBands {width, height} =
@@ -58,3 +58,29 @@ sunsetBands {width, height} =
           ]
           []
       ) Palette.sunset (List.range 0 (count - 1))
+
+sun : Dimension -> Svg msg
+sun {width, height} =
+  Svg.g
+    [ Attr.transform "translate(156, 414)" ]
+    [ Svg.defs [] [
+        Svg.clipPath
+          [ Attr.id "truncate-sun" ]
+          [ Svg.rect
+            [ Attr.x "0"
+            , Attr.y "0"
+            , Attr.width "620"
+            , Attr.height "310"
+            ]
+            []
+          ]
+      ]
+    , Svg.circle
+      [ Attr.r "310"
+      , Attr.cx "310"
+      , Attr.cy "310"
+      , Attr.fill "rgb(255, 255, 0)"
+      , Attr.clipPath "url(#truncate-sun)"
+      ]
+      []
+    ]
