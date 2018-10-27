@@ -34,7 +34,7 @@ type alias Button =
   , action: Action
   }
 
-render : Model -> Svg msg
+render : Model -> Svg Action
 render ({dimensions} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
@@ -43,11 +43,11 @@ render ({dimensions} as model) =
     ]
     (List.append (background model) buttons)
 
-background : Model -> List (Svg msg)
+background : Model -> List (Svg Action)
 background {dimensions, sampleWorld} =
   [ BorderBox.build dimensions 2 False, sample sampleWorld ]
 
-sample : World -> Svg msg
+sample : World -> Svg Action
 sample sampleWorld =
   let
      world = WorldView.build sampleWorld worldDimensions
@@ -57,7 +57,7 @@ sample sampleWorld =
       [ Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-buttons : List (Svg msg)
+buttons : List (Svg Action)
 buttons =
   List.map
     (\button -> Button.build button.action button.label button.key button.dimensions button.offset)

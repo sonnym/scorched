@@ -3,8 +3,8 @@ module Scorched.View.Sky exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
+import Scorched.Action exposing (Sky(..))
 import Scorched.Model.Geometry exposing (Dimension)
-import Scorched.Model.Sky exposing (Sky(..))
 
 import Scorched.View.Palette as Palette
 

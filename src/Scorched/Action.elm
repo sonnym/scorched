@@ -1,15 +1,16 @@
 module Scorched.Action exposing (..)
 
-import Scorched.Model.Configuration as Configuration
-
--- type alias Messenger = Int -> Message
-type alias Hook = (Char, Action)
+type Sky
+  = Plain
+  | Sunset
+  | PitchBlack
 
 type Action
-  = NoOp
-  | Initialize
-  | Start
-  | Configuration Configuration.Action
+  = MenuSky Int
+  |  NoOp
+  -- | Initialize
+  -- | Start
+  -- | Configuration Configuration.Action
 
 updates : Cmd Action
 updates = Cmd.none

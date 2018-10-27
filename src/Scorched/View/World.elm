@@ -3,12 +3,12 @@ module Scorched.View.World exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
+import Scorched.Action exposing (Sky(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.World exposing (World)
 
 -- import Scorched.View.Helper.Terrain as TerrainHelper
-import Scorched.Model.Sky exposing (Sky(..))
 import Scorched.View.Sky as Sky
 
 build : World -> Dimension -> Svg msg

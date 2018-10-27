@@ -1,8 +1,9 @@
 module Scorched.Model exposing (..)
 
+import Scorched.Action exposing (Action(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Sky as Sky exposing(Msg(..))
+import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World exposing (World)
 
 -- import Scorched.Model.GameState as GameState exposing (GameState)
@@ -27,10 +28,10 @@ default =
   -- , config = Configuration.default
   }
 
-init : Cmd Msg
+init : Cmd Action
 init = Sky.random
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Action -> Model -> (Model, Cmd Action)
 update msg model =
   case msg of
     MenuSky n ->
@@ -39,3 +40,4 @@ update msg model =
         newWorld = { world | sky = Sky.getSky n }
       in
         ({ model | sampleWorld = newWorld }, Cmd.none)
+    NoOp -> (model, Cmd.none)

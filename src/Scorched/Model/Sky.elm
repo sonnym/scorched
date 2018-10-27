@@ -3,18 +3,12 @@ module Scorched.Model.Sky exposing (..)
 import Array
 import Random
 
+import Scorched.Action exposing (Action(..), Sky(..))
+
 import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)
 
-type Sky
-  = Plain
-  | Sunset
-  | PitchBlack
-
-type Msg
-  = MenuSky Int
-
-random : Cmd Msg
+random : Cmd Action
 random = Random.generate MenuSky (Random.int 0 2)
 
 getSky : Int -> Sky

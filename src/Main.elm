@@ -2,8 +2,8 @@ import Browser
 -- import Graphics.Element exposing (Element)
 
 import Scorched.Model as Model exposing (Model)
-import Scorched.Model.Sky as Sky
--- import Scorched.State as State
+import Scorched.Action exposing (Action(..))
+
 import Scorched.View as View
 
 main =
@@ -14,11 +14,11 @@ main =
     , view = View.render
     }
 
-init : () -> (Model, Cmd Sky.Msg)
+init : () -> (Model, Cmd Action)
 init flags =
   ( Model.default
   , Model.init
   )
 
-subscriptions : Model -> Sub msg
+subscriptions : Model -> Sub Action
 subscriptions model = Sub.none

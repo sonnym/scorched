@@ -8,7 +8,7 @@ import Random exposing (Seed, initialSeed)
 import Scorched.Model exposing (Model, View(..), default)
 import Scorched.Input exposing (Input, keypress)
 
-import Scorched.Action exposing (Hook, Action(..), updates)
+-- import Scorched.Action exposing (Hook, Action(..), updates)
 -- import Scorched.Model.GameState as GameState
 
 -- import Scorched.Model.Configuration as Configuration exposing (Configuration)
