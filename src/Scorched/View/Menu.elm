@@ -19,20 +19,11 @@ import Scorched.Model.World exposing (World)
 -- import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
 
 import Scorched.View.Component.BorderBox as BorderBox
-import Scorched.View.Component.Button as Button
+import Scorched.View.Component.Button as Button exposing (Button)
 
 -- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
 import Scorched.View.World as WorldView
-
-type alias Button =
-  { label: String
-  , key: Char
-  , dimensions: Dimension
-  , offset: Offset
-  , inverted: Bool
-  , action: Action
-  }
 
 render : Model -> Svg Action
 render ({dimensions} as model) =
@@ -58,10 +49,7 @@ sample sampleWorld =
       [ outline, world ]
 
 buttons : List (Svg Action)
-buttons =
-  List.map
-    (\button -> Button.build button.action button.label button.key button.dimensions button.offset)
-    buttonDefinitions
+buttons = List.map Button.build buttonDefinitions
 
 buttonDefinitions : List Button
 buttonDefinitions = [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
