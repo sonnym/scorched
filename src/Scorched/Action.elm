@@ -7,7 +7,7 @@ type Sky
 
 type Action
   = MenuSky Int
-  |  NoOp
+  | NoOp
   -- | Initialize
   -- | Start
   -- | Configuration Configuration.Action
