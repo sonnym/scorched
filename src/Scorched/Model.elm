@@ -43,4 +43,11 @@ update msg model =
         newWorld = { world | sky = Sky.getSky n }
       in
         ({ model | sampleWorld = newWorld }, Cmd.none)
+
+    ButtonDown label ->
+      let
+        menuData = Menu.updateMenuData model.menuData label
+      in
+        ({ model | menuData = menuData }, Cmd.none)
+
     NoOp -> (model, Cmd.none)

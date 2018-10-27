@@ -7,6 +7,7 @@ type Sky
 
 type Action
   = MenuSky Int
+  | ButtonDown String
   | NoOp
   -- | Initialize
   -- | Start
