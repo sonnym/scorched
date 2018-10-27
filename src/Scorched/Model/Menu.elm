@@ -28,5 +28,5 @@ updateButtons buttons label = Dict.update label updateButton buttons
 updateButton : Maybe Button -> Maybe Button
 updateButton maybeButton =
   case maybeButton of
-    Just button -> Just { button | inverted = True }
+    Just button -> Just { button | inverted = not button.inverted }
     Nothing -> Nothing

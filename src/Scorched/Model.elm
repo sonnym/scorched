@@ -44,6 +44,12 @@ update msg model =
       in
         ({ model | sampleWorld = newWorld }, Cmd.none)
 
+    ButtonUp label ->
+      let
+        menuData = Menu.updateMenuData model.menuData label
+      in
+        ({ model | menuData = menuData }, Cmd.none)
+
     ButtonDown label ->
       let
         menuData = Menu.updateMenuData model.menuData label
