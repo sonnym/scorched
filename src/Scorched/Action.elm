@@ -11,6 +11,3 @@ type Action
   -- | Initialize
   -- | Start
   -- | Configuration Configuration.Action
-
-updates : Cmd Action
-updates = Cmd.none
