@@ -28,8 +28,8 @@ render ({dimensions, menuData} as model) =
     (List.append (background model) (buttons (Dict.values menuData.buttons)))
 
 background : Model -> List (Svg Action)
-background {dimensions, sampleWorld} =
-  [ BorderBox.build dimensions 2 False, sample sampleWorld ]
+background {dimensions, menuData} =
+  [ BorderBox.build dimensions 2 False, sample menuData.world ]
 
 sample : World -> Svg Action
 sample sampleWorld =

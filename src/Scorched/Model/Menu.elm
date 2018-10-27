@@ -3,12 +3,22 @@ module Scorched.Model.Menu exposing (..)
 import Dict exposing (Dict)
 
 import Scorched.Action as Action exposing (Action(..))
+
+import Scorched.Model.Sky as Sky
+import Scorched.Model.World as World exposing (World)
+
 import Scorched.View.Component.Button exposing (Button)
 
-type alias MenuData = { buttons: Dict String Button }
+type alias MenuData =
+  { buttons: Dict String Button
+  , world: World
+  }
 
 default : MenuData
-default = { buttons = defaultButtons }
+default =
+  { buttons = defaultButtons
+  , world = World.empty
+  }
 
 defaultButtons : Dict String Button
 defaultButtons =
@@ -30,3 +40,11 @@ updateButton maybeButton =
   case maybeButton of
     Just button -> Just { button | inverted = not button.inverted }
     Nothing -> Nothing
+
+updateMenuWorld : MenuData -> Int -> MenuData
+updateMenuWorld menuData n =
+  let
+    world = menuData.world
+    newWorld = { world | sky = Sky.getSky n }
+  in
+    { menuData | world = newWorld }
