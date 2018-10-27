@@ -3,6 +3,7 @@ module Scorched.Model exposing (..)
 import Scorched.Action exposing (Action(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
+import Scorched.Model.Menu as Menu exposing (MenuData)
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World exposing (World)
 
@@ -14,6 +15,7 @@ type View = Menu -- | Game
 type alias Model =
   { view: View
   , sampleWorld: World
+  , menuData: MenuData
   -- , viewData: { game: GameState }
   , dimensions: Dimension
   -- , config: Configuration
@@ -23,6 +25,7 @@ default : Model
 default =
   { view = Menu
   , sampleWorld = World.empty
+  , menuData = Menu.default
   -- , viewData = {game=GameState.empty}
   , dimensions = {width=1024, height=768}
   -- , config = Configuration.default

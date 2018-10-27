@@ -9,19 +9,21 @@ import Scorched.Model exposing (Model)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 import Scorched.Model.World exposing (World)
 
+import Scorched.Model.Menu as Menu
+
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.Button as Button exposing (Button)
 
 import Scorched.View.World as WorldView
 
 render : Model -> Svg Action
-render ({dimensions} as model) =
+render ({dimensions, menuData} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
     ]
-    (List.append (background model) buttons)
+    (List.append (background model) (buttons menuData.buttons))
 
 background : Model -> List (Svg Action)
 background {dimensions, sampleWorld} =
@@ -37,11 +39,8 @@ sample sampleWorld =
       [ Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-buttons : List (Svg Action)
-buttons = List.map Button.build buttonDefinitions
-
-buttonDefinitions : List Button
-buttonDefinitions = [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
+buttons : List Button -> List (Svg Action)
+buttons definitions = List.map Button.build definitions
 
 worldDimensions : Dimension
 worldDimensions = {width=906, height=724}
