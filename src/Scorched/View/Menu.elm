@@ -1,27 +1,16 @@
 module Scorched.View.Menu exposing (..)
 
--- import Char exposing (toCode)
-
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
-import Scorched.State exposing (..)
-import Scorched.Model exposing (Model)
-
 import Scorched.Action as Action exposing (Action(..))
--- import Scorched.Model.Configuration exposing (Action(..))
 
+import Scorched.Model exposing (Model)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 import Scorched.Model.World exposing (World)
 
--- import Scorched.Model.GameState as GameState
-
--- import Scorched.Model.View.Menu exposing (hooks, worldDimensions)
-
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.Button as Button exposing (Button)
-
--- import Scorched.View.Widget.NumericField as NumericField exposing (defaultSettings)
 
 import Scorched.View.World as WorldView
 
