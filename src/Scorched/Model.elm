@@ -38,15 +38,9 @@ update msg model =
       ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
 
     ButtonUp label ->
-      let
-        menuData = Menu.updateMenuData model.menuData label
-      in
-        ({ model | menuData = menuData }, Cmd.none)
+      ({ model | menuData = Menu.updateMenuData model.menuData label }, Cmd.none)
 
     ButtonDown label ->
-      let
-        menuData = Menu.updateMenuData model.menuData label
-      in
-        ({ model | menuData = menuData }, Cmd.none)
+      ({ model | menuData = Menu.updateMenuData model.menuData label }, Cmd.none)
 
     NoOp -> (model, Cmd.none)
