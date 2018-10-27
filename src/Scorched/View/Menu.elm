@@ -24,6 +24,7 @@ render ({dimensions, menuData} as model) =
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
+    , Attr.style "user-select: none"
     ]
     (List.append (background model) (buttons (Dict.values menuData.buttons)))
 
