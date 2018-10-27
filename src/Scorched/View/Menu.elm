@@ -1,5 +1,7 @@
 module Scorched.View.Menu exposing (..)
 
+import Dict exposing (Dict)
+
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
@@ -23,7 +25,7 @@ render ({dimensions, menuData} as model) =
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
     ]
-    (List.append (background model) (buttons menuData.buttons))
+    (List.append (background model) (buttons (Dict.values menuData.buttons)))
 
 background : Model -> List (Svg Action)
 background {dimensions, sampleWorld} =
