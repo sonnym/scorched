@@ -8,10 +8,10 @@ import Scorched.View.Component.Button exposing (Button)
 type alias MenuData = { buttons: Dict String Button }
 
 default : MenuData
-default = { buttons = buttons }
+default = { buttons = defaultButtons }
 
-buttons : Dict String Button
-buttons =
+defaultButtons : Dict String Button
+defaultButtons =
   Dict.fromList
     (List.map
       (\button -> (button.label, button))
@@ -19,4 +19,14 @@ buttons =
     )
 
 updateMenuData : MenuData -> String -> MenuData
-updateMenuData menuData label = menuData
+updateMenuData menuData label =
+  { menuData | buttons = updateButtons menuData.buttons label }
+
+updateButtons : Dict String Button -> String -> Dict String Button
+updateButtons buttons label = Dict.update label updateButton buttons
+
+updateButton : Maybe Button -> Maybe Button
+updateButton maybeButton =
+  case maybeButton of
+    Just button -> Just { button | inverted = True }
+    Nothing -> Nothing
