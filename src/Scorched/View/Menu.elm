@@ -11,7 +11,7 @@ import Scorched.Model exposing (Model)
 import Scorched.Action as Action exposing (Action(..))
 -- import Scorched.Model.Configuration exposing (Action(..))
 
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Geometry exposing (Dimension, Offset)
 import Scorched.Model.World exposing (World)
 
 -- import Scorched.Model.GameState as GameState
@@ -25,17 +25,27 @@ import Scorched.View.Component.Button as Button
 
 import Scorched.View.World as WorldView
 
+type alias Button =
+  { label: String
+  , key: Char
+  , dimensions: Dimension
+  , offset: Offset
+  , inverted: Bool
+  , action: Action
+  }
+
 render : Model -> Svg msg
-render ({dimensions, sampleWorld} as model) =
+render ({dimensions} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
     ]
-    [ BorderBox.build dimensions 2 False
-    , buttons
-    , sample sampleWorld
-    ]
+    (List.append (background model) buttons)
+
+background : Model -> List (Svg msg)
+background {dimensions, sampleWorld} =
+  [ BorderBox.build dimensions 2 False, sample sampleWorld ]
 
 sample : World -> Svg msg
 sample sampleWorld =
@@ -47,9 +57,11 @@ sample sampleWorld =
       [ Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-buttons : Svg msg
+buttons : List (Svg msg)
 buttons =
-  playButton
+  List.map
+    (\button -> Button.build button.action button.label button.key button.dimensions button.offset)
+    buttonDefinitions
   {--
   let
     btns = [ playButton
@@ -65,9 +77,8 @@ buttons =
         )
   --}
 
-playButton : Svg msg
-playButton = Button.build Action.NoOp "Start" 'S' {width=80, height=19} {x=13, y=12}
--- playButton = Button.build (lookup hooks (toCode 'S')) "Start" 'S' {width=90, height=25}
+buttonDefinitions : List Button
+buttonDefinitions = [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
 
 {--
 
