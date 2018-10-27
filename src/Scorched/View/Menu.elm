@@ -62,6 +62,13 @@ buttons =
   List.map
     (\button -> Button.build button.action button.label button.key button.dimensions button.offset)
     buttonDefinitions
+
+buttonDefinitions : List Button
+buttonDefinitions = [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
+
+worldDimensions : Dimension
+worldDimensions = {width=906, height=724}
+
   {--
   let
     btns = [ playButton
@@ -75,12 +82,6 @@ buttons =
         ( toFloat (-(((width - (widthOf elem)) // 2)) + 15)
         , toFloat (((height - (heightOf elem)) // 2) - 15)
         )
-  --}
-
-buttonDefinitions : List Button
-buttonDefinitions = [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
-
-{--
 
 playerCount : Int -> Element
 playerCount value =
@@ -103,6 +104,3 @@ roundCount value =
     , messenger = (\value -> send updates (Configuration (RoundCount value)))
     }
 --}
-
-worldDimensions : Dimension
-worldDimensions = {width=906, height=724}
