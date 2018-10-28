@@ -11,7 +11,7 @@ random dimension =
 
 generator : Dimension -> Random.Generator Terrain
 generator {width, height} =
-  Random.list width (Random.int 0 height)
+  Random.list width (Random.int 0 (height // 4))
 
 empty : Terrain
 empty = []
