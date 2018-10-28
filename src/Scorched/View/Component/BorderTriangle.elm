@@ -3,62 +3,51 @@ module Scorched.View.Component.BorderTriangle exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.View.Palette as Palette
+import Scorched.Model.Geometry exposing (Offset, Point)
+
+import Scorched.View.Helper as Helper
+
+import Scorched.View.Palette as Palette exposing (Color)
 
 type Direction = Up | Down
 
-build : Int -> Bool -> Direction -> Svg msg
-build size invert direction = Svg.g [] []
-{--
-build size invert direction = group
-  [ backdrop (toFloat size)
-  , border (toFloat size) invert direction
-  ]
+build : Bool -> Direction -> Offset -> Svg msg
+build invert direction offset =
+  Svg.g
+    [ Attr.transform (Helper.translate offset) ]
+    (lines invert direction)
 
-backdrop : Float -> Form
-backdrop size =
-  filled background (ngon 3 size)
-
-border : Float -> Bool -> Direction -> Form
-border size invert direction =
-  group (highlights size invert direction)
-
-highlights : Float -> Bool -> Direction -> List Form
-highlights size invert direction =
-  List.map2
-    traced
-    (List.map solid (colors invert direction))
-    (paths size direction)
-
-colors : Bool -> Direction -> List Color
-colors invert direction =
+lines : Bool -> Direction -> List (Svg msg)
+lines invert direction =
   case direction of
-    Up ->
-      if | invert -> [highlightLight, highlightDark, shadowDark]
-         | otherwise -> [shadowDark, shadowLight, highlightLight]
-    Down ->
-      if | invert -> [shadowLight, highlightLight, shadowDark]
-         | otherwise -> [highlightDark, shadowDark, highlightLight]
+    Up -> List.map2 line upLines upColors
+    Down -> List.map2 line downLines downColors
 
-paths : Float -> Direction -> List Path
-paths size direction =
-  let
-    vertices = points size direction
+line : (Point, Point) -> Color -> Svg msg
+line (start, end) color =
+  Svg.line
+    [ Attr.x1 (String.fromInt start.x)
+    , Attr.x2 (String.fromInt end.x)
+    , Attr.y1 (String.fromInt start.y)
+    , Attr.y2 (String.fromInt end.y)
+    , Attr.stroke (Palette.toString color)
+    ]
+    []
 
-    first = List.head vertices
-    rest = List.drop 1 vertices
-  in
-    List.map2 segment vertices (List.append rest [first])
+upLines : List (Point, Point)
+upLines = [ ({x=7, y=0}, {x=14, y=9})
+          , ({x=14, y=9}, {x=0, y=9})
+          , ({x=0, y=9}, {x=7, y=0})
+          ]
 
-points : Float -> Direction -> List (Float, Float)
-points size direction =
-  let
-    half = size / 2
-  in
-    case direction of
-      Up ->
-        [(0, half), (half, -half), (-half, -half)]
+downLines : List (Point, Point)
+downLines = [ ({x=0, y=0}, {x=14, y=0})
+            , ({x=14, y=0}, {x=7, y=9})
+            , ({x=7, y=9}, {x=0, y=0})
+            ]
 
-      Down ->
-        [(-half, half), (half, half), (0, -half)]
---}
+upColors : List Color
+upColors = [ Palette.shadowDark, Palette.shadowLight, Palette.highlightLight ]
+
+downColors : List Color
+downColors = [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]

@@ -36,8 +36,8 @@ defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ NumericField "Players" 'P' {x=13, y=35}
-      , NumericField "Rounds" 'R' {x=13, y=60}
+      [ NumericField "Players" 'P' {x=13, y=40}
+      , NumericField "Rounds" 'R' {x=13, y=70}
       ]
     )
 
