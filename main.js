@@ -839,6 +839,43 @@ var _Basics_xor = F2(function(a, b) { return a !== b; });
 
 
 
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
 // TASKS
 
 function _Scheduler_succeed(value)
@@ -1027,43 +1064,6 @@ function _Scheduler_step(proc)
 		}
 	}
 }
-
-
-
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
-};
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
 
 
 
@@ -1924,9 +1924,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
-		impl.aU,
-		impl.aR,
+		impl.aJ,
+		impl.aV,
+		impl.aS,
 		function() { return function() {} }
 	);
 });
@@ -3950,11 +3950,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
-		impl.aU,
-		impl.aR,
+		impl.aJ,
+		impl.aV,
+		impl.aS,
 		function(sendToApp, initialModel) {
-			var view = impl.aW;
+			var view = impl.aX;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3986,12 +3986,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aI,
-		impl.aU,
-		impl.aR,
+		impl.aJ,
+		impl.aV,
+		impl.aS,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.D && impl.D(sendToApp)
-			var view = impl.aW;
+			var view = impl.aX;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3999,12 +3999,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.az);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aA);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aT) && (_VirtualDom_doc.title = title = doc.aT);
+				(title !== doc.aU) && (_VirtualDom_doc.title = title = doc.aU);
 			});
 		}
 	);
@@ -4055,8 +4055,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aL;
-	var onUrlRequest = impl.aM;
+	var onUrlChange = impl.aM;
+	var onUrlRequest = impl.aN;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4076,9 +4076,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.an === next.an
+							&& curr.ao === next.ao
 							&& curr.ab === next.ab
-							&& curr.ak.a === next.ak.a
+							&& curr.al.a === next.al.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -4086,13 +4086,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aI: function(flags)
+		aJ: function(flags)
 		{
-			return A3(impl.aI, flags, _Browser_getUrl(), key);
+			return A3(impl.aJ, flags, _Browser_getUrl(), key);
 		},
-		aW: impl.aW,
-		aU: impl.aU,
-		aR: impl.aR
+		aX: impl.aX,
+		aV: impl.aV,
+		aS: impl.aS
 	});
 }
 
@@ -4158,17 +4158,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aG: 'hidden', B: 'visibilitychange' }
+		? { aH: 'hidden', B: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aG: 'mozHidden', B: 'mozvisibilitychange' }
+		? { aH: 'mozHidden', B: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aG: 'msHidden', B: 'msvisibilitychange' }
+		? { aH: 'msHidden', B: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aG: 'webkitHidden', B: 'webkitvisibilitychange' }
-		: { aG: 'hidden', B: 'visibilitychange' };
+		? { aH: 'webkitHidden', B: 'webkitvisibilitychange' }
+		: { aH: 'hidden', B: 'visibilitychange' };
 }
 
 
@@ -4249,12 +4249,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		as: _Browser_getScene(),
-		av: {
-			aZ: _Browser_window.pageXOffset,
-			a_: _Browser_window.pageYOffset,
-			aX: _Browser_doc.documentElement.clientWidth,
-			aF: _Browser_doc.documentElement.clientHeight
+		at: _Browser_getScene(),
+		aw: {
+			a_: _Browser_window.pageXOffset,
+			a$: _Browser_window.pageYOffset,
+			aY: _Browser_doc.documentElement.clientWidth,
+			aG: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4264,8 +4264,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aX: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		aF: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		aY: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		aG: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4288,15 +4288,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			as: {
-				aX: node.scrollWidth,
-				aF: node.scrollHeight
+			at: {
+				aY: node.scrollWidth,
+				aG: node.scrollHeight
 			},
-			av: {
-				aZ: node.scrollLeft,
-				a_: node.scrollTop,
-				aX: node.clientWidth,
-				aF: node.clientHeight
+			aw: {
+				a_: node.scrollLeft,
+				a$: node.scrollTop,
+				aY: node.clientWidth,
+				aG: node.clientHeight
 			}
 		};
 	});
@@ -4326,18 +4326,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			as: _Browser_getScene(),
-			av: {
-				aZ: x,
-				a_: y,
-				aX: _Browser_doc.documentElement.clientWidth,
-				aF: _Browser_doc.documentElement.clientHeight
+			at: _Browser_getScene(),
+			aw: {
+				a_: x,
+				a$: y,
+				aY: _Browser_doc.documentElement.clientWidth,
+				aG: _Browser_doc.documentElement.clientHeight
 			},
-			aC: {
-				aZ: x + rect.left,
-				a_: y + rect.top,
-				aX: rect.width,
-				aF: rect.height
+			aD: {
+				a_: x + rect.left,
+				a$: y + rect.top,
+				aY: rect.width,
+				aG: rect.height
 			}
 		};
 	});
@@ -4372,12 +4372,12 @@ function _Browser_load(url)
 		}
 	}));
 }
-var author$project$Scorched$Model$Configuration$default = {aj: 2, ar: 10};
+var author$project$Scorched$Model$Configuration$default = {ak: 2, as: 10};
 var author$project$Scorched$Model$Types$Button = F6(
 	function (label, key, dimensions, offset, inverted, action) {
-		return {ax: action, aB: dimensions, ac: inverted, ad: key, ae: label, ag: offset};
+		return {ay: action, aC: dimensions, ac: inverted, ad: key, ae: label, ag: offset};
 	});
-var author$project$Scorched$Model$Types$NoOp = {$: 5};
+var author$project$Scorched$Model$Types$NoOp = {$: 6};
 var elm$core$Basics$False = 1;
 var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
@@ -4687,70 +4687,70 @@ var author$project$Scorched$Model$Menu$defaultButtons = elm$core$Dict$fromList(
 				author$project$Scorched$Model$Types$Button,
 				'Start',
 				'S',
-				{aF: 19, aX: 82},
-				{aZ: 7, a_: 12},
+				{aG: 19, aY: 82},
+				{a_: 7, a$: 12},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Sound…',
 				'o',
-				{aF: 19, aX: 56},
-				{aZ: 7, a_: 102},
+				{aG: 19, aY: 56},
+				{a_: 7, a$: 102},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Hardware…',
 				'H',
-				{aF: 19, aX: 78},
-				{aZ: 7, a_: 132},
+				{aG: 19, aY: 78},
+				{a_: 7, a$: 132},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Economics…',
 				'E',
-				{aF: 19, aX: 84},
-				{aZ: 7, a_: 162},
+				{aG: 19, aY: 84},
+				{a_: 7, a$: 162},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Physics…',
 				'y',
-				{aF: 19, aX: 70},
-				{aZ: 7, a_: 192},
+				{aG: 19, aY: 70},
+				{a_: 7, a$: 192},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Landscape…',
 				'L',
-				{aF: 19, aX: 82},
-				{aZ: 7, a_: 222},
+				{aG: 19, aY: 82},
+				{a_: 7, a$: 222},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Play Options…',
 				't',
-				{aF: 19, aX: 98},
-				{aZ: 7, a_: 252},
+				{aG: 19, aY: 98},
+				{a_: 7, a$: 252},
 				false,
 				author$project$Scorched$Model$Types$NoOp),
 				A6(
 				author$project$Scorched$Model$Types$Button,
 				'Weapons…',
 				'W',
-				{aF: 19, aX: 68},
-				{aZ: 7, a_: 282},
+				{aG: 19, aY: 68},
+				{a_: 7, a$: 282},
 				false,
 				author$project$Scorched$Model$Types$NoOp)
 			])));
 var author$project$Scorched$Model$Types$Control = F5(
 	function (label, key, offset, invert, spec) {
-		return {aJ: invert, ad: key, ae: label, ag: offset, aQ: spec};
+		return {aK: invert, ad: key, ae: label, ag: offset, aR: spec};
 	});
 var author$project$Scorched$Model$Types$None = 2;
 var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
@@ -4765,11 +4765,11 @@ var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
 				author$project$Scorched$Model$Types$Control,
 				'Players',
 				'P',
-				{aZ: 8, a_: 40},
+				{a_: 8, a$: 40},
 				2,
 				{
 					M: function (config) {
-						return config.aj;
+						return config.ak;
 					},
 					N: 10,
 					P: 2,
@@ -4777,7 +4777,7 @@ var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
 						function (config, n) {
 							return _Utils_update(
 								config,
-								{aj: n});
+								{ak: n});
 						}),
 					U: 1
 				}),
@@ -4785,11 +4785,11 @@ var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
 				author$project$Scorched$Model$Types$Control,
 				'Rounds',
 				'R',
-				{aZ: 8, a_: 70},
+				{a_: 8, a$: 70},
 				2,
 				{
 					M: function (config) {
-						return config.ar;
+						return config.as;
 					},
 					N: 1000,
 					P: 5,
@@ -4797,7 +4797,7 @@ var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
 						function (config, n) {
 							return _Utils_update(
 								config,
-								{ar: n});
+								{as: n});
 						}),
 					U: 5
 				})
@@ -4805,36 +4805,393 @@ var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
 var author$project$Scorched$Model$Types$PitchBlack = 2;
 var author$project$Scorched$Model$Sky$empty = 2;
 var author$project$Scorched$Model$Terrain$empty = _List_Nil;
-var author$project$Scorched$Model$World$empty = {aP: author$project$Scorched$Model$Sky$empty, aS: author$project$Scorched$Model$Terrain$empty};
+var author$project$Scorched$Model$World$empty = {aQ: author$project$Scorched$Model$Sky$empty, aT: author$project$Scorched$Model$Terrain$empty};
 var author$project$Scorched$Model$Menu$default = {J: author$project$Scorched$Model$Menu$defaultButtons, L: author$project$Scorched$Model$Menu$defaultControls, I: author$project$Scorched$Model$World$empty};
+var author$project$Scorched$Model$Noise$defaultPermutation = _List_Nil;
 var author$project$Scorched$Model$Types$Menu = 0;
 var author$project$Scorched$Model$default = {
 	K: author$project$Scorched$Model$Configuration$default,
-	aB: {aF: 768, aX: 1024},
+	aC: {aG: 768, aY: 1024},
 	k: author$project$Scorched$Model$Menu$default,
-	aW: 0
+	ai: author$project$Scorched$Model$Noise$defaultPermutation,
+	aX: 0
 };
-var author$project$Scorched$Model$Menu$worldDimensions = {aF: 724, aX: 906};
-var author$project$Scorched$Model$Types$MenuSky = function (a) {
-	return {$: 0, a: a};
+var elm$core$Basics$le = _Utils_le;
+var elm$core$Basics$sub = _Basics_sub;
+var elm$core$List$rangeHelp = F3(
+	function (lo, hi, list) {
+		rangeHelp:
+		while (true) {
+			if (_Utils_cmp(lo, hi) < 1) {
+				var $temp$lo = lo,
+					$temp$hi = hi - 1,
+					$temp$list = A2(elm$core$List$cons, hi, list);
+				lo = $temp$lo;
+				hi = $temp$hi;
+				list = $temp$list;
+				continue rangeHelp;
+			} else {
+				return list;
+			}
+		}
+	});
+var elm$core$List$range = F2(
+	function (lo, hi) {
+		return A3(elm$core$List$rangeHelp, lo, hi, _List_Nil);
+	});
+var elm$core$Basics$apR = F2(
+	function (x, f) {
+		return f(x);
+	});
+var elm$core$Basics$True = 0;
+var elm$core$List$isEmpty = function (xs) {
+	if (!xs.b) {
+		return true;
+	} else {
+		return false;
+	}
+};
+var elm$core$Tuple$first = function (_n0) {
+	var x = _n0.a;
+	return x;
 };
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
-var elm$random$Random$Generate = elm$core$Basics$identity;
-var elm$core$Task$andThen = _Scheduler_andThen;
-var elm$core$Task$succeed = _Scheduler_succeed;
+var elm$random$Random$Generator = elm$core$Basics$identity;
+var elm$random$Random$andThen = F2(
+	function (callback, _n0) {
+		var genA = _n0;
+		return function (seed) {
+			var _n1 = genA(seed);
+			var result = _n1.a;
+			var newSeed = _n1.b;
+			var _n2 = callback(result);
+			var genB = _n2;
+			return genB(newSeed);
+		};
+	});
+var elm$random$Random$constant = function (value) {
+	return function (seed) {
+		return _Utils_Tuple2(value, seed);
+	};
+};
+var elm$random$Random$map = F2(
+	function (func, _n0) {
+		var genA = _n0;
+		return function (seed0) {
+			var _n1 = genA(seed0);
+			var a = _n1.a;
+			var seed1 = _n1.b;
+			return _Utils_Tuple2(
+				func(a),
+				seed1);
+		};
+	});
+var elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3(elm$core$List$foldr, elm$core$List$cons, ys, xs);
+		}
+	});
+var elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var elm$core$List$length = function (xs) {
+	return A3(
+		elm$core$List$foldl,
+		F2(
+			function (_n0, i) {
+				return i + 1;
+			}),
+		0,
+		xs);
+};
+var elm$core$List$takeReverse = F3(
+	function (n, list, kept) {
+		takeReverse:
+		while (true) {
+			if (n <= 0) {
+				return kept;
+			} else {
+				if (!list.b) {
+					return kept;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs,
+						$temp$kept = A2(elm$core$List$cons, x, kept);
+					n = $temp$n;
+					list = $temp$list;
+					kept = $temp$kept;
+					continue takeReverse;
+				}
+			}
+		}
+	});
+var elm$core$List$takeTailRec = F2(
+	function (n, list) {
+		return elm$core$List$reverse(
+			A3(elm$core$List$takeReverse, n, list, _List_Nil));
+	});
+var elm$core$List$takeFast = F3(
+	function (ctr, n, list) {
+		if (n <= 0) {
+			return _List_Nil;
+		} else {
+			var _n0 = _Utils_Tuple2(n, list);
+			_n0$1:
+			while (true) {
+				_n0$5:
+				while (true) {
+					if (!_n0.b.b) {
+						return list;
+					} else {
+						if (_n0.b.b.b) {
+							switch (_n0.a) {
+								case 1:
+									break _n0$1;
+								case 2:
+									var _n2 = _n0.b;
+									var x = _n2.a;
+									var _n3 = _n2.b;
+									var y = _n3.a;
+									return _List_fromArray(
+										[x, y]);
+								case 3:
+									if (_n0.b.b.b.b) {
+										var _n4 = _n0.b;
+										var x = _n4.a;
+										var _n5 = _n4.b;
+										var y = _n5.a;
+										var _n6 = _n5.b;
+										var z = _n6.a;
+										return _List_fromArray(
+											[x, y, z]);
+									} else {
+										break _n0$5;
+									}
+								default:
+									if (_n0.b.b.b.b && _n0.b.b.b.b.b) {
+										var _n7 = _n0.b;
+										var x = _n7.a;
+										var _n8 = _n7.b;
+										var y = _n8.a;
+										var _n9 = _n8.b;
+										var z = _n9.a;
+										var _n10 = _n9.b;
+										var w = _n10.a;
+										var tl = _n10.b;
+										return (ctr > 1000) ? A2(
+											elm$core$List$cons,
+											x,
+											A2(
+												elm$core$List$cons,
+												y,
+												A2(
+													elm$core$List$cons,
+													z,
+													A2(
+														elm$core$List$cons,
+														w,
+														A2(elm$core$List$takeTailRec, n - 4, tl))))) : A2(
+											elm$core$List$cons,
+											x,
+											A2(
+												elm$core$List$cons,
+												y,
+												A2(
+													elm$core$List$cons,
+													z,
+													A2(
+														elm$core$List$cons,
+														w,
+														A3(elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
+									} else {
+										break _n0$5;
+									}
+							}
+						} else {
+							if (_n0.a === 1) {
+								break _n0$1;
+							} else {
+								break _n0$5;
+							}
+						}
+					}
+				}
+				return list;
+			}
+			var _n1 = _n0.b;
+			var x = _n1.a;
+			return _List_fromArray(
+				[x]);
+		}
+	});
+var elm$core$List$take = F2(
+	function (n, list) {
+		return A3(elm$core$List$takeFast, 0, n, list);
+	});
+var elm$core$Maybe$Nothing = {$: 1};
+var elm$core$Basics$eq = _Utils_equal;
+var elm$core$Basics$lt = _Utils_lt;
+var elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var elm$core$Basics$remainderBy = _Basics_remainderBy;
+var elm$core$Bitwise$and = _Bitwise_and;
 var elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var elm$core$Basics$mul = _Basics_mul;
 var elm$random$Random$Seed = F2(
 	function (a, b) {
 		return {$: 0, a: a, b: b};
 	});
-var elm$core$Basics$mul = _Basics_mul;
 var elm$random$Random$next = function (_n0) {
 	var state0 = _n0.a;
 	var incr = _n0.b;
 	return A2(elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
 };
+var elm$core$Bitwise$xor = _Bitwise_xor;
+var elm$random$Random$peel = function (_n0) {
+	var state = _n0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var elm$random$Random$int = F2(
+	function (a, b) {
+		return function (seed0) {
+			var _n0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+			var lo = _n0.a;
+			var hi = _n0.b;
+			var range = (hi - lo) + 1;
+			if (!((range - 1) & range)) {
+				return _Utils_Tuple2(
+					(((range - 1) & elm$random$Random$peel(seed0)) >>> 0) + lo,
+					elm$random$Random$next(seed0));
+			} else {
+				var threshhold = (((-range) >>> 0) % range) >>> 0;
+				var accountForBias = function (seed) {
+					accountForBias:
+					while (true) {
+						var x = elm$random$Random$peel(seed);
+						var seedN = elm$random$Random$next(seed);
+						if (_Utils_cmp(x, threshhold) < 0) {
+							var $temp$seed = seedN;
+							seed = $temp$seed;
+							continue accountForBias;
+						} else {
+							return _Utils_Tuple2((x % range) + lo, seedN);
+						}
+					}
+				};
+				return accountForBias(seed0);
+			}
+		};
+	});
+var elm$core$Maybe$Just = function (a) {
+	return {$: 0, a: a};
+};
+var elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(x);
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var elm_community$random_extra$Random$List$get = F2(
+	function (index, list) {
+		return elm$core$List$head(
+			A2(elm$core$List$drop, index, list));
+	});
+var elm_community$random_extra$Random$List$choose = function (list) {
+	if (elm$core$List$isEmpty(list)) {
+		return elm$random$Random$constant(
+			_Utils_Tuple2(elm$core$Maybe$Nothing, list));
+	} else {
+		var lastIndex = elm$core$List$length(list) - 1;
+		var gen = A2(elm$random$Random$int, 0, lastIndex);
+		var front = function (i) {
+			return A2(elm$core$List$take, i, list);
+		};
+		var back = function (i) {
+			return A2(elm$core$List$drop, i + 1, list);
+		};
+		return A2(
+			elm$random$Random$map,
+			function (index) {
+				return _Utils_Tuple2(
+					A2(elm_community$random_extra$Random$List$get, index, list),
+					A2(
+						elm$core$List$append,
+						front(index),
+						back(index)));
+			},
+			gen);
+	}
+};
+var elm_community$random_extra$Random$List$shuffle = function (list) {
+	if (elm$core$List$isEmpty(list)) {
+		return elm$random$Random$constant(list);
+	} else {
+		var helper = function (_n0) {
+			var done = _n0.a;
+			var remaining = _n0.b;
+			return A2(
+				elm$random$Random$andThen,
+				function (_n1) {
+					var m_val = _n1.a;
+					var shorter = _n1.b;
+					if (m_val.$ === 1) {
+						return elm$random$Random$constant(
+							_Utils_Tuple2(done, shorter));
+					} else {
+						var val = m_val.a;
+						return helper(
+							_Utils_Tuple2(
+								A2(elm$core$List$cons, val, done),
+								shorter));
+					}
+				},
+				elm_community$random_extra$Random$List$choose(remaining));
+		};
+		return A2(
+			elm$random$Random$map,
+			elm$core$Tuple$first,
+			helper(
+				_Utils_Tuple2(_List_Nil, list)));
+	}
+};
+var author$project$Scorched$Model$Noise$permutationGenerator = elm_community$random_extra$Random$List$shuffle(
+	A2(elm$core$List$range, 0, 255));
+var author$project$Scorched$Model$Types$PermutationGenerated = function (a) {
+	return {$: 0, a: a};
+};
+var elm$random$Random$Generate = elm$core$Basics$identity;
+var elm$core$Task$andThen = _Scheduler_andThen;
+var elm$core$Task$succeed = _Scheduler_succeed;
 var elm$random$Random$initialSeed = function (x) {
 	var _n0 = elm$random$Random$next(
 		A2(elm$random$Random$Seed, 0, 1013904223));
@@ -4870,7 +5227,6 @@ var elm$random$Random$init = A2(
 				elm$time$Time$posixToMillis(time)));
 	},
 	elm$time$Time$now);
-var elm$core$Basics$True = 0;
 var elm$core$Result$isOk = function (result) {
 	if (!result.$) {
 		return true;
@@ -4923,15 +5279,6 @@ var elm$core$Array$compressNodes = F2(
 			}
 		}
 	});
-var elm$core$Basics$apR = F2(
-	function (x, f) {
-		return f(x);
-	});
-var elm$core$Basics$eq = _Utils_equal;
-var elm$core$Tuple$first = function (_n0) {
-	var x = _n0.a;
-	return x;
-};
 var elm$core$Array$treeFromBuilder = F2(
 	function (nodeList, nodeListSize) {
 		treeFromBuilder:
@@ -4957,7 +5304,6 @@ var elm$core$Basics$max = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) > 0) ? x : y;
 	});
-var elm$core$Basics$sub = _Basics_sub;
 var elm$core$Elm$JsArray$length = _JsArray_length;
 var elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
@@ -4983,7 +5329,6 @@ var elm$core$Array$builderToArray = F2(
 		}
 	});
 var elm$core$Basics$idiv = _Basics_idiv;
-var elm$core$Basics$lt = _Utils_lt;
 var elm$core$Elm$JsArray$initialize = _JsArray_initialize;
 var elm$core$Array$initializeHelp = F5(
 	function (fn, fromIndex, len, nodeList, tail) {
@@ -5011,8 +5356,6 @@ var elm$core$Array$initializeHelp = F5(
 			}
 		}
 	});
-var elm$core$Basics$le = _Utils_le;
-var elm$core$Basics$remainderBy = _Basics_remainderBy;
 var elm$core$Array$initialize = F2(
 	function (len, fn) {
 		if (len <= 0) {
@@ -5024,10 +5367,6 @@ var elm$core$Array$initialize = F2(
 			return A5(elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
-var elm$core$Maybe$Just = function (a) {
-	return {$: 0, a: a};
-};
-var elm$core$Maybe$Nothing = {$: 1};
 var elm$core$Result$Err = function (a) {
 	return {$: 1, a: a};
 };
@@ -5071,38 +5410,7 @@ var elm$core$Char$isDigit = function (_char) {
 var elm$core$Char$isAlphaNum = function (_char) {
 	return elm$core$Char$isLower(_char) || (elm$core$Char$isUpper(_char) || elm$core$Char$isDigit(_char));
 };
-var elm$core$List$length = function (xs) {
-	return A3(
-		elm$core$List$foldl,
-		F2(
-			function (_n0, i) {
-				return i + 1;
-			}),
-		0,
-		xs);
-};
 var elm$core$List$map2 = _List_map2;
-var elm$core$List$rangeHelp = F3(
-	function (lo, hi, list) {
-		rangeHelp:
-		while (true) {
-			if (_Utils_cmp(lo, hi) < 1) {
-				var $temp$lo = lo,
-					$temp$hi = hi - 1,
-					$temp$list = A2(elm$core$List$cons, hi, list);
-				lo = $temp$lo;
-				hi = $temp$hi;
-				list = $temp$list;
-				continue rangeHelp;
-			} else {
-				return list;
-			}
-		}
-	});
-var elm$core$List$range = F2(
-	function (lo, hi) {
-		return A3(elm$core$List$rangeHelp, lo, hi, _List_Nil);
-	});
 var elm$core$List$indexedMap = F2(
 	function (f, xs) {
 		return A3(
@@ -5267,19 +5575,6 @@ var elm$random$Random$onSelfMsg = F3(
 	function (_n0, _n1, seed) {
 		return elm$core$Task$succeed(seed);
 	});
-var elm$random$Random$Generator = elm$core$Basics$identity;
-var elm$random$Random$map = F2(
-	function (func, _n0) {
-		var genA = _n0;
-		return function (seed0) {
-			var _n1 = genA(seed0);
-			var a = _n1.a;
-			var seed1 = _n1.b;
-			return _Utils_Tuple2(
-				func(a),
-				seed1);
-		};
-	});
 var elm$random$Random$cmdMap = F2(
 	function (func, _n0) {
 		var generator = _n0;
@@ -5292,104 +5587,116 @@ var elm$random$Random$generate = F2(
 		return elm$random$Random$command(
 			A2(elm$random$Random$map, tagger, generator));
 	});
-var elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var elm$core$Bitwise$and = _Bitwise_and;
-var elm$core$Bitwise$xor = _Bitwise_xor;
-var elm$random$Random$peel = function (_n0) {
-	var state = _n0.a;
-	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
-	return ((word >>> 22) ^ word) >>> 0;
-};
-var elm$random$Random$int = F2(
-	function (a, b) {
-		return function (seed0) {
-			var _n0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
-			var lo = _n0.a;
-			var hi = _n0.b;
-			var range = (hi - lo) + 1;
-			if (!((range - 1) & range)) {
-				return _Utils_Tuple2(
-					(((range - 1) & elm$random$Random$peel(seed0)) >>> 0) + lo,
-					elm$random$Random$next(seed0));
-			} else {
-				var threshhold = (((-range) >>> 0) % range) >>> 0;
-				var accountForBias = function (seed) {
-					accountForBias:
-					while (true) {
-						var x = elm$random$Random$peel(seed);
-						var seedN = elm$random$Random$next(seed);
-						if (_Utils_cmp(x, threshhold) < 0) {
-							var $temp$seed = seedN;
-							seed = $temp$seed;
-							continue accountForBias;
-						} else {
-							return _Utils_Tuple2((x % range) + lo, seedN);
-						}
-					}
-				};
-				return accountForBias(seed0);
-			}
-		};
-	});
-var author$project$Scorched$Model$Sky$random = A2(
-	elm$random$Random$generate,
-	author$project$Scorched$Model$Types$MenuSky,
-	A2(elm$random$Random$int, 0, 2));
-var elm$random$Random$listHelp = F4(
-	function (revList, n, gen, seed) {
-		listHelp:
+var author$project$Scorched$Model$Noise$randomPermutation = A2(elm$random$Random$generate, author$project$Scorched$Model$Types$PermutationGenerated, author$project$Scorched$Model$Noise$permutationGenerator);
+var author$project$Scorched$Model$Types$Plain = 0;
+var author$project$Scorched$Model$Types$Sunset = 1;
+var elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
 		while (true) {
-			if (n < 1) {
-				return _Utils_Tuple2(revList, seed);
+			var _n0 = A2(elm$core$Elm$JsArray$initializeFromList, elm$core$Array$branchFactor, list);
+			var jsArray = _n0.a;
+			var remainingItems = _n0.b;
+			if (_Utils_cmp(
+				elm$core$Elm$JsArray$length(jsArray),
+				elm$core$Array$branchFactor) < 0) {
+				return A2(
+					elm$core$Array$builderToArray,
+					true,
+					{g: nodeList, d: nodeListSize, f: jsArray});
 			} else {
-				var _n0 = gen(seed);
-				var value = _n0.a;
-				var newSeed = _n0.b;
-				var $temp$revList = A2(elm$core$List$cons, value, revList),
-					$temp$n = n - 1,
-					$temp$gen = gen,
-					$temp$seed = newSeed;
-				revList = $temp$revList;
-				n = $temp$n;
-				gen = $temp$gen;
-				seed = $temp$seed;
-				continue listHelp;
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					elm$core$List$cons,
+					elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
 			}
 		}
 	});
-var elm$random$Random$list = F2(
-	function (n, _n0) {
-		var gen = _n0;
-		return function (seed) {
-			return A4(elm$random$Random$listHelp, _List_Nil, n, gen, seed);
-		};
-	});
-var author$project$Scorched$Model$Terrain$generator = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
-	return A2(
-		elm$random$Random$list,
-		width,
-		A2(elm$random$Random$int, 0, (height / 4) | 0));
+var elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return elm$core$Array$empty;
+	} else {
+		return A3(elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
 };
-var author$project$Scorched$Model$Types$MenuTerrain = function (a) {
+var elm$core$Array$bitMask = 4294967295 >>> (32 - elm$core$Array$shiftStep);
+var elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
+var elm$core$Array$getHelp = F3(
+	function (shift, index, tree) {
+		getHelp:
+		while (true) {
+			var pos = elm$core$Array$bitMask & (index >>> shift);
+			var _n0 = A2(elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (!_n0.$) {
+				var subTree = _n0.a;
+				var $temp$shift = shift - elm$core$Array$shiftStep,
+					$temp$index = index,
+					$temp$tree = subTree;
+				shift = $temp$shift;
+				index = $temp$index;
+				tree = $temp$tree;
+				continue getHelp;
+			} else {
+				var values = _n0.a;
+				return A2(elm$core$Elm$JsArray$unsafeGet, elm$core$Array$bitMask & index, values);
+			}
+		}
+	});
+var elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
+var elm$core$Array$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var elm$core$Basics$ge = _Utils_ge;
+var elm$core$Array$get = F2(
+	function (index, _n0) {
+		var len = _n0.a;
+		var startShift = _n0.b;
+		var tree = _n0.c;
+		var tail = _n0.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? elm$core$Maybe$Nothing : ((_Utils_cmp(
+			index,
+			elm$core$Array$tailIndex(len)) > -1) ? elm$core$Maybe$Just(
+			A2(elm$core$Elm$JsArray$unsafeGet, elm$core$Array$bitMask & index, tail)) : elm$core$Maybe$Just(
+			A3(elm$core$Array$getHelp, startShift, index, tree)));
+	});
+var elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (!maybe.$) {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var author$project$Scorched$Model$Sky$getSky = function (n) {
+	var types = elm$core$Array$fromList(
+		_List_fromArray(
+			[0, 1, 2]));
+	return A2(
+		elm$core$Maybe$withDefault,
+		2,
+		A2(elm$core$Array$get, n, types));
+};
+var author$project$Scorched$Model$Types$MenuSky = function (a) {
 	return {$: 1, a: a};
 };
-var author$project$Scorched$Model$Terrain$random = function (dimension) {
-	return A2(
-		elm$random$Random$generate,
-		author$project$Scorched$Model$Types$MenuTerrain,
-		author$project$Scorched$Model$Terrain$generator(dimension));
-};
+var author$project$Scorched$Model$Sky$random = A2(
+	elm$random$Random$generate,
+	author$project$Scorched$Model$Types$MenuSky,
+	A2(
+		elm$random$Random$map,
+		author$project$Scorched$Model$Sky$getSky,
+		A2(elm$random$Random$int, 0, 2)));
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var author$project$Scorched$Model$init = elm$core$Platform$Cmd$batch(
 	_List_fromArray(
-		[
-			author$project$Scorched$Model$Sky$random,
-			author$project$Scorched$Model$Terrain$random(author$project$Scorched$Model$Menu$worldDimensions)
-		]));
+		[author$project$Scorched$Model$Sky$random, author$project$Scorched$Model$Noise$randomPermutation]));
 var author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(author$project$Scorched$Model$default, author$project$Scorched$Model$init);
 };
@@ -5833,7 +6140,7 @@ var author$project$Scorched$Model$Menu$updateControl = F2(
 			return elm$core$Maybe$Just(
 				_Utils_update(
 					control,
-					{aJ: direction}));
+					{aK: direction}));
 		} else {
 			return elm$core$Maybe$Nothing;
 		}
@@ -5883,146 +6190,187 @@ var author$project$Scorched$Model$Menu$updateConfig = F3(
 					spec.M(config)),
 				spec));
 	});
-var author$project$Scorched$Model$Menu$updateMenuTerrain = F2(
+var author$project$Scorched$Model$Menu$updateSky = F2(
+	function (menuData, sky) {
+		var world = menuData.I;
+		var newWorld = _Utils_update(
+			world,
+			{aQ: sky});
+		return _Utils_update(
+			menuData,
+			{I: newWorld});
+	});
+var author$project$Scorched$Model$Menu$updateTerrain = F2(
 	function (menuData, terrain) {
 		var world = menuData.I;
 		var newWorld = _Utils_update(
 			world,
-			{aS: terrain});
+			{aT: terrain});
 		return _Utils_update(
 			menuData,
 			{I: newWorld});
 	});
-var author$project$Scorched$Model$Types$Plain = 0;
-var author$project$Scorched$Model$Types$Sunset = 1;
-var elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _n0 = A2(elm$core$Elm$JsArray$initializeFromList, elm$core$Array$branchFactor, list);
-			var jsArray = _n0.a;
-			var remainingItems = _n0.b;
-			if (_Utils_cmp(
-				elm$core$Elm$JsArray$length(jsArray),
-				elm$core$Array$branchFactor) < 0) {
-				return A2(
-					elm$core$Array$builderToArray,
-					true,
-					{g: nodeList, d: nodeListSize, f: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					elm$core$List$cons,
-					elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
+var author$project$Scorched$Model$Menu$worldDimensions = {aG: 724, aY: 906};
+var author$project$Scorched$Model$Noise$fallout = 0.5;
+var author$project$Scorched$Model$Noise$fade = function (x) {
+	return ((3 - (2 * x)) * x) * x;
+};
+var author$project$Scorched$Model$Noise$grad = F2(
+	function (i, x) {
+		return (!(i & 1)) ? (-x) : x;
+	});
+var author$project$Scorched$Model$Noise$lerp = F3(
+	function (t, a, b) {
+		return a + (t * (b - a));
+	});
+var author$project$Scorched$Model$Noise$perm = F2(
+	function (permutation, x) {
+		var _n0 = A2(
+			elm$core$Array$get,
+			x,
+			elm$core$Array$fromList(
+				A2(elm$core$List$append, permutation, permutation)));
+		if (!_n0.$) {
+			var n = _n0.a;
+			return n;
+		} else {
+			return 0;
 		}
 	});
-var elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return elm$core$Array$empty;
+var author$project$Scorched$Model$Noise$noise = F2(
+	function (permutation, x) {
+		var remainder = x - elm$core$Basics$floor(x);
+		var base = elm$core$Basics$floor(x) & 255;
+		return A3(
+			author$project$Scorched$Model$Noise$lerp,
+			author$project$Scorched$Model$Noise$fade(remainder),
+			A2(
+				author$project$Scorched$Model$Noise$grad,
+				A2(author$project$Scorched$Model$Noise$perm, permutation, base),
+				remainder),
+			A2(
+				author$project$Scorched$Model$Noise$grad,
+				A2(author$project$Scorched$Model$Noise$perm, permutation, base + 1),
+				remainder - 1));
+	});
+var author$project$Scorched$Model$Noise$octaves = 8;
+var elm$core$Basics$pow = _Basics_pow;
+var elm$core$List$sum = function (numbers) {
+	return A3(elm$core$List$foldl, elm$core$Basics$add, 0, numbers);
+};
+var author$project$Scorched$Model$Noise$rounds = F2(
+	function (permutation, x) {
+		return elm$core$List$sum(
+			A2(
+				elm$core$List$map,
+				function (n) {
+					return (A2(elm$core$Basics$pow, author$project$Scorched$Model$Noise$fallout, n) * (1 + A2(
+						author$project$Scorched$Model$Noise$noise,
+						permutation,
+						x * A2(elm$core$Basics$pow, 2, n)))) / 2;
+				},
+				A2(
+					elm$core$List$map,
+					elm$core$Basics$toFloat,
+					A2(elm$core$List$range, 0, author$project$Scorched$Model$Noise$octaves - 1))));
+	});
+var author$project$Scorched$Model$Noise$generator = F2(
+	function (permutation, time) {
+		return elm$random$Random$constant(
+			A2(author$project$Scorched$Model$Noise$rounds, permutation, time));
+	});
+var elm$core$Basics$round = _Basics_round;
+var elm$random$Random$map2 = F3(
+	function (func, _n0, _n1) {
+		var genA = _n0;
+		var genB = _n1;
+		return function (seed0) {
+			var _n2 = genA(seed0);
+			var a = _n2.a;
+			var seed1 = _n2.b;
+			var _n3 = genB(seed1);
+			var b = _n3.a;
+			var seed2 = _n3.b;
+			return _Utils_Tuple2(
+				A2(func, a, b),
+				seed2);
+		};
+	});
+var elm_community$random_extra$Random$Extra$combine = function (generators) {
+	if (!generators.b) {
+		return elm$random$Random$constant(_List_Nil);
 	} else {
-		return A3(elm$core$Array$fromListHelp, list, _List_Nil, 0);
+		var g = generators.a;
+		var gs = generators.b;
+		return A3(
+			elm$random$Random$map2,
+			elm$core$List$cons,
+			g,
+			elm_community$random_extra$Random$Extra$combine(gs));
 	}
 };
-var elm$core$Array$bitMask = 4294967295 >>> (32 - elm$core$Array$shiftStep);
-var elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = elm$core$Array$bitMask & (index >>> shift);
-			var _n0 = A2(elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (!_n0.$) {
-				var subTree = _n0.a;
-				var $temp$shift = shift - elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _n0.a;
-				return A2(elm$core$Elm$JsArray$unsafeGet, elm$core$Array$bitMask & index, values);
-			}
-		}
+var author$project$Scorched$Model$Terrain$generator = F2(
+	function (permutation, _n0) {
+		var width = _n0.aY;
+		var height = _n0.aG;
+		return elm_community$random_extra$Random$Extra$combine(
+			A2(
+				elm$core$List$map,
+				function (x) {
+					return A2(
+						elm$random$Random$map,
+						function (n) {
+							return elm$core$Basics$round(n * ((height / 2) | 0));
+						},
+						A2(author$project$Scorched$Model$Noise$generator, permutation, x));
+				},
+				A2(
+					elm$core$List$map,
+					function (n) {
+						return 2.0e-3 * n;
+					},
+					A2(elm$core$List$range, 1, width))));
 	});
-var elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
+var author$project$Scorched$Model$Types$MenuTerrain = function (a) {
+	return {$: 2, a: a};
 };
-var elm$core$Basics$ge = _Utils_ge;
-var elm$core$Array$get = F2(
-	function (index, _n0) {
-		var len = _n0.a;
-		var startShift = _n0.b;
-		var tree = _n0.c;
-		var tail = _n0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			elm$core$Array$tailIndex(len)) > -1) ? elm$core$Maybe$Just(
-			A2(elm$core$Elm$JsArray$unsafeGet, elm$core$Array$bitMask & index, tail)) : elm$core$Maybe$Just(
-			A3(elm$core$Array$getHelp, startShift, index, tree)));
-	});
-var elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (!maybe.$) {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
-var author$project$Scorched$Model$Sky$getSky = function (n) {
-	var types = elm$core$Array$fromList(
-		_List_fromArray(
-			[0, 1, 2]));
-	return A2(
-		elm$core$Maybe$withDefault,
-		2,
-		A2(elm$core$Array$get, n, types));
-};
-var author$project$Scorched$Model$Menu$updateMenuWorld = F2(
-	function (menuData, n) {
-		var world = menuData.I;
-		var newWorld = _Utils_update(
-			world,
-			{
-				aP: author$project$Scorched$Model$Sky$getSky(n)
-			});
-		return _Utils_update(
-			menuData,
-			{I: newWorld});
+var author$project$Scorched$Model$Terrain$random = F2(
+	function (permutation, dimensions) {
+		return A2(
+			elm$random$Random$generate,
+			author$project$Scorched$Model$Types$MenuTerrain,
+			A2(author$project$Scorched$Model$Terrain$generator, permutation, dimensions));
 	});
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var author$project$Scorched$Model$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 0:
-				var n = msg.a;
+			case 1:
+				var sky = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							k: A2(author$project$Scorched$Model$Menu$updateMenuWorld, model.k, n)
+							k: A2(author$project$Scorched$Model$Menu$updateSky, model.k, sky)
 						}),
 					elm$core$Platform$Cmd$none);
-			case 1:
+			case 2:
 				var terrain = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							k: A2(author$project$Scorched$Model$Menu$updateMenuTerrain, model.k, terrain)
+							k: A2(author$project$Scorched$Model$Menu$updateTerrain, model.k, terrain)
 						}),
 					elm$core$Platform$Cmd$none);
-			case 2:
+			case 0:
+				var permutation = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{ai: permutation}),
+					A2(author$project$Scorched$Model$Terrain$random, permutation, author$project$Scorched$Model$Menu$worldDimensions));
+			case 3:
 				var label = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -6031,7 +6379,7 @@ var author$project$Scorched$Model$update = F2(
 							k: A2(author$project$Scorched$Model$Menu$toggleButton, model.k, label)
 						}),
 					elm$core$Platform$Cmd$none);
-			case 3:
+			case 4:
 				var label = msg.a;
 				var direction = msg.b;
 				return _Utils_Tuple2(
@@ -6041,7 +6389,7 @@ var author$project$Scorched$Model$update = F2(
 							k: A3(author$project$Scorched$Model$Menu$toggleControl, model.k, label, direction)
 						}),
 					elm$core$Platform$Cmd$none);
-			case 4:
+			case 5:
 				var operation = msg.a;
 				var spec = msg.b;
 				return _Utils_Tuple2(
@@ -6085,8 +6433,8 @@ var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
 var author$project$Scorched$View$Component$BorderBox$background = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
+	var width = _n0.aY;
+	var height = _n0.aG;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -6193,8 +6541,8 @@ var author$project$Scorched$View$Component$BorderBox$topLine = F3(
 	});
 var author$project$Scorched$View$Component$BorderBox$border = F3(
 	function (_n0, stroke, invert) {
-		var width = _n0.aX;
-		var height = _n0.aF;
+		var width = _n0.aY;
+		var height = _n0.aG;
 		var colors = invert ? author$project$Scorched$View$Component$BorderBox$invertedColors : author$project$Scorched$View$Component$BorderBox$regularColors;
 		return A3(
 			elm$core$List$map2,
@@ -6241,8 +6589,8 @@ var author$project$Scorched$View$Component$ShadowText$buildText = F3(
 				]));
 	});
 var author$project$Scorched$View$Helper$translate = function (_n0) {
-	var x = _n0.aZ;
-	var y = _n0.a_;
+	var x = _n0.a_;
+	var y = _n0.a$;
 	return 'translate(' + (elm$core$String$fromInt(x) + (', ' + (elm$core$String$fromInt(y) + ')')));
 };
 var author$project$Scorched$View$Palette$shadows = _List_fromArray(
@@ -6279,8 +6627,8 @@ var author$project$Scorched$View$Component$ShadowText$build = F2(
 				author$project$Scorched$View$Palette$shadows));
 	});
 var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
+	var width = _n0.aY;
+	var height = _n0.aG;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -6296,8 +6644,8 @@ var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
 		_List_Nil);
 };
 var author$project$Scorched$View$Sky$buildPlain = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
+	var width = _n0.aY;
+	var height = _n0.aG;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -6321,8 +6669,8 @@ var elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
 var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
 var elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
 var author$project$Scorched$View$Sky$sun = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
+	var width = _n0.aY;
+	var height = _n0.aG;
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
@@ -6394,8 +6742,8 @@ var author$project$Scorched$View$Palette$sunset = _List_fromArray(
 	]);
 var elm$core$String$fromFloat = _String_fromNumber;
 var author$project$Scorched$View$Sky$sunsetBands = function (_n0) {
-	var width = _n0.aX;
-	var height = _n0.aF;
+	var width = _n0.aY;
+	var height = _n0.aG;
 	var count = elm$core$List$length(author$project$Scorched$View$Palette$sunset);
 	var bandHeight = height / count;
 	return A3(
@@ -6421,14 +6769,6 @@ var author$project$Scorched$View$Sky$sunsetBands = function (_n0) {
 		author$project$Scorched$View$Palette$sunset,
 		A2(elm$core$List$range, 0, count - 1));
 };
-var elm$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
-		} else {
-			return A3(elm$core$List$foldr, elm$core$List$cons, ys, xs);
-		}
-	});
 var author$project$Scorched$View$Sky$buildSunset = function (dimensions) {
 	return A2(
 		elm$svg$Svg$g,
@@ -6472,7 +6812,7 @@ var author$project$Scorched$View$Terrain$buildLine = F3(
 	});
 var author$project$Scorched$View$Terrain$build = F2(
 	function (terrain, _n0) {
-		var height = _n0.aF;
+		var height = _n0.aG;
 		return A3(
 			elm$core$List$map2,
 			author$project$Scorched$View$Terrain$buildLine(height),
@@ -6484,8 +6824,8 @@ var author$project$Scorched$View$Terrain$build = F2(
 	});
 var author$project$Scorched$View$World$build = F2(
 	function (_n0, dimensions) {
-		var terrain = _n0.aS;
-		var sky = _n0.aP;
+		var terrain = _n0.aT;
+		var sky = _n0.aQ;
 		return A2(
 			elm$svg$Svg$g,
 			_List_Nil,
@@ -6498,7 +6838,7 @@ var author$project$Scorched$View$Menu$sample = function (sampleWorld) {
 	var world = A2(author$project$Scorched$View$World$build, sampleWorld, author$project$Scorched$Model$Menu$worldDimensions);
 	var outline = A3(
 		author$project$Scorched$View$Component$BorderBox$build,
-		{aF: 726, aX: 908},
+		{aG: 726, aY: 908},
 		1,
 		true);
 	return A2(
@@ -6511,7 +6851,7 @@ var author$project$Scorched$View$Menu$sample = function (sampleWorld) {
 			[outline, world]));
 };
 var author$project$Scorched$View$Menu$background = function (_n0) {
-	var dimensions = _n0.aB;
+	var dimensions = _n0.aC;
 	var menuData = _n0.k;
 	return _List_fromArray(
 		[
@@ -6520,22 +6860,13 @@ var author$project$Scorched$View$Menu$background = function (_n0) {
 			A2(
 			author$project$Scorched$View$Component$ShadowText$build,
 			'Scorched Earth',
-			{aZ: 420, a_: 48})
+			{a_: 420, a$: 48})
 		]);
 };
 var author$project$Scorched$Model$Types$ButtonToggle = function (a) {
-	return {$: 2, a: a};
+	return {$: 3, a: a};
 };
 var author$project$Scorched$View$Palette$cyan = {a: 255, b: 255, c: 40};
-var elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return elm$core$Maybe$Just(x);
-	} else {
-		return elm$core$Maybe$Nothing;
-	}
-};
 var elm$core$String$cons = _String_cons;
 var elm$core$String$fromChar = function (_char) {
 	return A2(elm$core$String$cons, _char, '');
@@ -6618,10 +6949,10 @@ var elm$svg$Svg$Events$onMouseUp = function (msg) {
 var author$project$Scorched$View$Component$Button$build = function (_n0) {
 	var label = _n0.ae;
 	var key = _n0.ad;
-	var dimensions = _n0.aB;
+	var dimensions = _n0.aC;
 	var offset = _n0.ag;
 	var inverted = _n0.ac;
-	var action = _n0.ax;
+	var action = _n0.ay;
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
@@ -6656,13 +6987,13 @@ var author$project$Scorched$Model$Types$Down = 1;
 var author$project$Scorched$Model$Types$Up = 0;
 var author$project$Scorched$Model$Types$ControlToggle = F2(
 	function (a, b) {
-		return {$: 3, a: a, b: b};
+		return {$: 4, a: a, b: b};
 	});
 var author$project$Scorched$Model$Types$Decrement = 1;
 var author$project$Scorched$Model$Types$Increment = 0;
 var author$project$Scorched$Model$Types$UpdateConfig = F2(
 	function (a, b) {
-		return {$: 4, a: a, b: b};
+		return {$: 5, a: a, b: b};
 	});
 var author$project$Scorched$View$Component$BorderTriangle$clickAction = F2(
 	function (direction, spec) {
@@ -6708,14 +7039,14 @@ var author$project$Scorched$View$Component$BorderTriangle$downColors = function 
 var author$project$Scorched$View$Component$BorderTriangle$downLines = _List_fromArray(
 	[
 		_Utils_Tuple2(
-		{aZ: 0, a_: 0},
-		{aZ: 14, a_: 0}),
+		{a_: 0, a$: 0},
+		{a_: 14, a$: 0}),
 		_Utils_Tuple2(
-		{aZ: 14, a_: 0},
-		{aZ: 7, a_: 9}),
+		{a_: 14, a$: 0},
+		{a_: 7, a$: 9}),
 		_Utils_Tuple2(
-		{aZ: 7, a_: 9},
-		{aZ: 0, a_: 0})
+		{a_: 7, a$: 9},
+		{a_: 0, a$: 0})
 	]);
 var author$project$Scorched$View$Component$BorderTriangle$line = F2(
 	function (_n0, color) {
@@ -6726,13 +7057,13 @@ var author$project$Scorched$View$Component$BorderTriangle$line = F2(
 			_List_fromArray(
 				[
 					elm$svg$Svg$Attributes$x1(
-					elm$core$String$fromInt(start.aZ)),
-					elm$svg$Svg$Attributes$x2(
-					elm$core$String$fromInt(end.aZ)),
-					elm$svg$Svg$Attributes$y1(
 					elm$core$String$fromInt(start.a_)),
-					elm$svg$Svg$Attributes$y2(
+					elm$svg$Svg$Attributes$x2(
 					elm$core$String$fromInt(end.a_)),
+					elm$svg$Svg$Attributes$y1(
+					elm$core$String$fromInt(start.a$)),
+					elm$svg$Svg$Attributes$y2(
+					elm$core$String$fromInt(end.a$)),
 					elm$svg$Svg$Attributes$strokeWidth('2'),
 					elm$svg$Svg$Attributes$stroke(
 					author$project$Scorched$View$Palette$toString(color))
@@ -6747,14 +7078,14 @@ var author$project$Scorched$View$Component$BorderTriangle$upColors = function (i
 var author$project$Scorched$View$Component$BorderTriangle$upLines = _List_fromArray(
 	[
 		_Utils_Tuple2(
-		{aZ: 7, a_: 0},
-		{aZ: 14, a_: 9}),
+		{a_: 7, a$: 0},
+		{a_: 14, a$: 9}),
 		_Utils_Tuple2(
-		{aZ: 14, a_: 9},
-		{aZ: 0, a_: 9}),
+		{a_: 14, a$: 9},
+		{a_: 0, a$: 9}),
 		_Utils_Tuple2(
-		{aZ: 0, a_: 9},
-		{aZ: 7, a_: 0})
+		{a_: 0, a$: 9},
+		{a_: 7, a$: 0})
 	]);
 var elm$svg$Svg$svg = elm$svg$Svg$trustedNode('svg');
 var author$project$Scorched$View$Component$BorderTriangle$lines = F2(
@@ -6803,8 +7134,8 @@ var author$project$Scorched$View$Component$Control$build = F2(
 		var label = _n0.ae;
 		var key = _n0.ad;
 		var offset = _n0.ag;
-		var invert = _n0.aJ;
-		var spec = _n0.aQ;
+		var invert = _n0.aK;
+		var spec = _n0.aR;
 		return A2(
 			elm$svg$Svg$g,
 			_List_fromArray(
@@ -6822,14 +7153,14 @@ var author$project$Scorched$View$Component$Control$build = F2(
 					spec,
 					!invert,
 					0,
-					{aZ: 0, a_: 0},
+					{a_: 0, a$: 0},
 					label),
 					A5(
 					author$project$Scorched$View$Component$BorderTriangle$build,
 					spec,
 					invert === 1,
 					1,
-					{aZ: 0, a_: 12},
+					{a_: 0, a$: 12},
 					label),
 					A2(
 					elm$svg$Svg$text_,
@@ -6868,7 +7199,7 @@ var elm$core$List$concat = function (lists) {
 var elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
 var elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
 var author$project$Scorched$View$Menu$render = function (model) {
-	var dimensions = model.aB;
+	var dimensions = model.aC;
 	var menuData = model.k;
 	var config = model.K;
 	return A2(
@@ -6876,9 +7207,9 @@ var author$project$Scorched$View$Menu$render = function (model) {
 		_List_fromArray(
 			[
 				elm$svg$Svg$Attributes$width(
-				elm$core$String$fromInt(dimensions.aX)),
+				elm$core$String$fromInt(dimensions.aY)),
 				elm$svg$Svg$Attributes$height(
-				elm$core$String$fromInt(dimensions.aF)),
+				elm$core$String$fromInt(dimensions.aG)),
 				elm$svg$Svg$Attributes$fontFamily('monospace'),
 				elm$svg$Svg$Attributes$style('user-select: none')
 			]),
@@ -6895,7 +7226,7 @@ var author$project$Scorched$View$Menu$render = function (model) {
 				])));
 };
 var author$project$Scorched$View$render = function (model) {
-	var _n0 = model.aW;
+	var _n0 = model.aX;
 	return author$project$Scorched$View$Menu$render(model);
 };
 var elm$browser$Browser$External = function (a) {
@@ -7005,7 +7336,7 @@ var elm$core$String$contains = _String_contains;
 var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aa: fragment, ab: host, ah: path, ak: port_, an: protocol, ao: query};
+		return {aa: fragment, ab: host, ah: path, al: port_, ao: protocol, ap: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -7111,6 +7442,6 @@ var elm$url$Url$fromString = function (str) {
 };
 var elm$browser$Browser$element = _Browser_element;
 var author$project$Main$main = elm$browser$Browser$element(
-	{aI: author$project$Main$init, aR: author$project$Main$subscriptions, aU: author$project$Scorched$Model$update, aW: author$project$Scorched$View$render});
+	{aJ: author$project$Main$init, aS: author$project$Main$subscriptions, aV: author$project$Scorched$Model$update, aX: author$project$Scorched$View$render});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));
