@@ -16,7 +16,7 @@ generator : Permutation -> Dimension -> Random.Generator Terrain
 generator permutation {width, height} =
   Random.Extra.combine
     (List.map
-      (\x -> Random.map (\n -> round (n * (toFloat (height // 2)))) (Noise.generator permutation x))
+      (\x -> Random.map (\n -> round (n * (toFloat (height // 3)))) (Noise.generator permutation x))
       (List.map (\n -> (0.002 * toFloat n)) (List.range 1 width)))
 
 empty : Terrain
