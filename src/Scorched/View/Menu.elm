@@ -8,6 +8,7 @@ import Svg.Attributes as Attr
 import Scorched.Action as Action exposing (Action(..))
 
 import Scorched.Model exposing (Model)
+import Scorched.Model.Types exposing (Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 import Scorched.Model.World exposing (World)
 
@@ -16,8 +17,8 @@ import Scorched.Model.Menu as Menu
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
 
-import Scorched.View.Component.Button as Button exposing (Button)
-import Scorched.View.Component.Control as Control exposing (Control)
+import Scorched.View.Component.Button as Button
+import Scorched.View.Component.Control as Control
 
 import Scorched.View.World as WorldView
 

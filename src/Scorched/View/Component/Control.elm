@@ -1,23 +1,17 @@
-module Scorched.View.Component.Control exposing (Control, build)
+module Scorched.View.Component.Control exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
 import Scorched.Action exposing (Action, Direction(..))
+import Scorched.Model.Types exposing (Control)
 import Scorched.Model.Geometry exposing (Offset)
 
 import Scorched.View.Helper as Helper
 
 import Scorched.View.Component.BorderTriangle as BorderTriangle
 import Scorched.View.Component.KeyedLabel as KeyedLabel
-
-type alias Control =
-  { label: String
-  , key: Char
-  , offset: Offset
-  , invert: Direction
-  }
 
 build : Control -> Svg Action
 build {label, key, offset, invert} =
