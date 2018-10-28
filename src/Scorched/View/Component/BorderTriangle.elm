@@ -30,6 +30,7 @@ line (start, end) color =
     , Attr.x2 (String.fromInt end.x)
     , Attr.y1 (String.fromInt start.y)
     , Attr.y2 (String.fromInt end.y)
+    , Attr.strokeWidth "2"
     , Attr.stroke (Palette.toString color)
     ]
     []
