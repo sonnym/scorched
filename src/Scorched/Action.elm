@@ -1,5 +1,7 @@
 module Scorched.Action exposing (..)
 
+type Direction = Up | Down | None
+
 type Sky
   = Plain
   | Sunset
@@ -8,6 +10,7 @@ type Sky
 type Action
   = MenuSky Int
   | ButtonToggle String
+  | ControlToggle String Direction
   | NoOp
   -- | Initialize
   -- | Start

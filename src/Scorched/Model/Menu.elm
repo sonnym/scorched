@@ -2,7 +2,7 @@ module Scorched.Model.Menu exposing (..)
 
 import Dict exposing (Dict)
 
-import Scorched.Action as Action exposing (Action(..))
+import Scorched.Action as Action exposing (Action(..), Direction(..))
 
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World exposing (World)
@@ -44,13 +44,13 @@ defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ NumericField "Players" 'P' {x=8, y=40}
-      , NumericField "Rounds" 'R' {x=8, y=70}
+      [ NumericField "Players" 'P' {x=8, y=40} None
+      , NumericField "Rounds" 'R' {x=8, y=70} None
       ]
     )
 
-updateMenuData : MenuData -> String -> MenuData
-updateMenuData menuData label =
+toggleButton : MenuData -> String -> MenuData
+toggleButton menuData label =
   { menuData | buttons = updateButtons menuData.buttons label }
 
 updateButtons : Dict String Button -> String -> Dict String Button
@@ -60,6 +60,20 @@ updateButton : Maybe Button -> Maybe Button
 updateButton maybeButton =
   case maybeButton of
     Just button -> Just { button | inverted = not button.inverted }
+    Nothing -> Nothing
+
+toggleControl : MenuData -> String -> Direction -> MenuData
+toggleControl menuData label direction =
+  { menuData | controls = updateControls menuData.controls label direction }
+
+updateControls : Dict String NumericField -> String -> Direction -> Dict String NumericField
+updateControls controls label direction =
+  Dict.update label (updateControl direction) controls
+
+updateControl : Direction -> Maybe NumericField -> Maybe NumericField
+updateControl direction maybeControl =
+  case maybeControl of
+    Just control -> Just { control | invert = direction }
     Nothing -> Nothing
 
 updateMenuWorld : MenuData -> Int -> MenuData

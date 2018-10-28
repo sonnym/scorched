@@ -1,27 +1,37 @@
-module Scorched.View.Component.BorderTriangle exposing (Direction(..), build)
+module Scorched.View.Component.BorderTriangle exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
+import Svg.Events as Events
 
+import Scorched.Action as Action exposing (Action, Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
-
 import Scorched.View.Palette as Palette exposing (Color)
 
-type Direction = Up | Down
-
-build : Bool -> Direction -> Offset -> Svg msg
-build invert direction offset =
+build : Bool -> Direction -> Offset -> String -> Svg Action
+build invert direction offset label =
   Svg.g
     [ Attr.transform (Helper.translate offset) ]
-    (lines invert direction)
+    ((boundingBox direction label) :: (lines invert direction))
+
+boundingBox : Direction -> String -> Svg Action
+boundingBox direction label =
+  Svg.rect
+    [ Attr.width "15"
+    , Attr.height "10"
+    , Attr.fillOpacity "0"
+    , Events.onMouseDown (Action.ControlToggle label direction)
+    , Events.onMouseUp (Action.ControlToggle label None)
+    ] []
 
 lines : Bool -> Direction -> List (Svg msg)
 lines invert direction =
   case direction of
-    Up -> List.map2 line upLines upColors
-    Down -> List.map2 line downLines downColors
+    Up -> List.map2 line upLines (upColors invert)
+    Down -> List.map2 line downLines (downColors invert)
+    None -> [ Svg.svg [] [] ]
 
 line : (Point, Point) -> Color -> Svg msg
 line (start, end) color =
@@ -47,8 +57,16 @@ downLines = [ ({x=0, y=0}, {x=14, y=0})
             , ({x=7, y=9}, {x=0, y=0})
             ]
 
-upColors : List Color
-upColors = [ Palette.shadowDark, Palette.shadowLight, Palette.highlightLight ]
+upColors : Bool -> List Color
+upColors invert =
+  if invert then
+    [ Palette.highlightLight, Palette.shadowDark, Palette.shadowDark ]
+  else
+    [ Palette.shadowDark, Palette.shadowLight, Palette.highlightLight ]
 
-downColors : List Color
-downColors = [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
+downColors : Bool -> List Color
+downColors invert =
+  if invert then
+    [ Palette.highlightLight, Palette.highlightDark, Palette.shadowDark ]
+  else
+    [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]

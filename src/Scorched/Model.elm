@@ -38,6 +38,9 @@ update msg model =
       ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
 
     ButtonToggle label ->
-      ({ model | menuData = Menu.updateMenuData model.menuData label }, Cmd.none)
+      ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)
+
+    ControlToggle label direction ->
+      ({ model | menuData = Menu.toggleControl model.menuData label direction }, Cmd.none)
 
     NoOp -> (model, Cmd.none)
