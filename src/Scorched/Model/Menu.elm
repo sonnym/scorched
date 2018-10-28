@@ -35,8 +35,13 @@ defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ Control "Players" 'P' {x=8, y=40} None (\config -> config.playerCount )
-      , Control "Rounds" 'R' {x=8, y=70} None (\config -> config.roundCount )
+      [ Control
+        "Players" 'P' {x=8, y=40} None
+        {min=2, max=10, step=1, getter=(\config -> config.playerCount ), setter=(\config n -> { config | playerCount = n })}
+
+      , Control
+        "Rounds" 'R' {x=8, y=70} None
+        {min=5, max=1000, step=5, getter=(\config -> config.roundCount ), setter=(\config n -> { config | roundCount = n })}
       ]
     )
 
@@ -74,3 +79,23 @@ updateMenuWorld menuData n =
     newWorld = { world | sky = Sky.getSky n }
   in
     { menuData | world = newWorld }
+
+updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
+updateConfig config op spec =
+  spec.setter config (guard (new op spec (spec.getter config)) spec)
+
+guard : Int -> ControlSpec -> Int
+guard value {min, max} =
+  if value > max then
+    min
+  else if value < min then
+    max
+  else
+    value
+
+new : Operation -> ControlSpec -> Int -> Int
+new operation {step} value =
+  case operation of
+    Increment -> value + step
+    Decrement -> value - step
+--}

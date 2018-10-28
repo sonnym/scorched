@@ -18,6 +18,7 @@ type Action
   = MenuSky Int
   | ButtonToggle String
   | ControlToggle String Direction
+  | UpdateConfig Operation ControlSpec
   | NoOp
   -- | Initialize
   -- | Start
@@ -55,10 +56,18 @@ type alias Button =
   , action: Action
   }
 
+type alias ControlSpec =
+  { min: Int
+  , max: Int
+  , step: Int
+  , getter: (Configuration -> Int)
+  , setter: (Configuration -> Int -> Configuration)
+  }
+
 type alias Control =
   { label: String
   , key: Char
   , offset: Offset
   , invert: Direction
-  , value: (Configuration -> Int)
+  , spec: ControlSpec
   }

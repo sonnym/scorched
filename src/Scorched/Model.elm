@@ -33,4 +33,7 @@ update msg model =
     ControlToggle label direction ->
       ({ model | menuData = Menu.toggleControl model.menuData label direction }, Cmd.none)
 
+    UpdateConfig operation spec ->
+      ({ model | config = Menu.updateConfig model.config operation spec }, Cmd.none)
+
     NoOp -> (model, Cmd.none)

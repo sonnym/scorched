@@ -4,26 +4,27 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (Action(..), Operation(..), Direction(..))
+import Scorched.Model.Types exposing (ControlSpec, Action(..), Operation(..), Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)
 
-build : Bool -> Direction -> Offset -> String -> Svg Action
-build invert direction offset label =
+build : ControlSpec -> Bool -> Direction -> Offset -> String -> Svg Action
+build spec invert direction offset label =
   Svg.g
     [ Attr.transform (Helper.translate offset) ]
-    ((boundingBox direction label) :: (lines invert direction))
+    ((boundingBox spec direction label) :: (lines invert direction))
 
-boundingBox : Direction -> String -> Svg Action
-boundingBox direction label =
+boundingBox : ControlSpec -> Direction -> String -> Svg Action
+boundingBox spec direction label =
   Svg.rect
     [ Attr.width "15"
     , Attr.height "10"
     , Attr.fillOpacity "0"
     , Events.onMouseDown (ControlToggle label direction)
     , Events.onMouseUp (ControlToggle label None)
+    , Events.onClick (clickAction direction spec)
     ] []
 
 lines : Bool -> Direction -> List (Svg msg)
@@ -70,3 +71,10 @@ downColors invert =
     [ Palette.highlightLight, Palette.highlightDark, Palette.shadowDark ]
   else
     [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
+
+clickAction : Direction -> ControlSpec -> Action
+clickAction direction spec =
+  case direction of
+    Up -> UpdateConfig Increment spec
+    Down -> UpdateConfig Decrement spec
+    None -> NoOp
