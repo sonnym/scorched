@@ -3,6 +3,7 @@ module Scorched.Model.Menu exposing (..)
 import Dict exposing (Dict)
 
 import Scorched.Model.Types exposing (..)
+import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
@@ -79,6 +80,14 @@ updateMenuWorld menuData n =
     newWorld = { world | sky = Sky.getSky n }
   in
     { menuData | world = newWorld }
+
+updateMenuTerrain : MenuData -> Terrain -> MenuData
+updateMenuTerrain menuData terrain =
+  let
+    world = menuData.world
+    newWorld = { world | terrain = terrain }
+  in
+     { menuData | world = newWorld }
 
 updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
 updateConfig config op spec =

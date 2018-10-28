@@ -1,4 +1,4 @@
-module Scorched.View.Helper.Terrain exposing (build)
+module Scorched.View.Terrain exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
@@ -16,9 +16,10 @@ build terrain {height} =
 buildLine : Int -> Int -> Int -> Svg msg
 buildLine bottom yOffset height =
   Svg.line
-    [ Attr.y1 (String.fromInt yOffset)
-    , Attr.y2 (String.fromInt yOffset)
-    , Attr.x1 (String.fromInt bottom)
-    , Attr.x2 (String.fromInt (bottom - height))
+    [ Attr.x1 (String.fromInt yOffset)
+    , Attr.x2 (String.fromInt yOffset)
+    , Attr.y1 (String.fromInt bottom)
+    , Attr.y2 (String.fromInt (bottom - height))
     , Attr.stroke "rgb(142, 216, 112)"
     ]
+    []

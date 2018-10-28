@@ -18,6 +18,7 @@ type alias Terrain = List Int
 
 type Action
   = MenuSky Int
+  | MenuTerrain Terrain
   | ButtonToggle String
   | ControlToggle String Direction
   | UpdateConfig Operation ControlSpec

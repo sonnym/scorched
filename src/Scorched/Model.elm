@@ -5,6 +5,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Menu as Menu
 import Scorched.Model.Sky as Sky
+import Scorched.Model.Terrain as Terrain
 
 -- import Scorched.Model.GameState as GameState exposing (GameState)
 import Scorched.Model.Configuration as Configuration
@@ -19,7 +20,7 @@ default =
   }
 
 init : Cmd Action
-init = Cmd.batch (Sky.random, (Terrain.random Menu.worldDimensions))
+init = Cmd.batch [ Sky.random, (Terrain.random Menu.worldDimensions) ]
 
 update : Action -> Model -> (Model, Cmd Action)
 update msg model =
@@ -28,7 +29,7 @@ update msg model =
       ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
 
     MenuTerrain terrain ->
-      ({ model.menuData | terrain = terrain }, Cmd.none)
+        ({ model | menuData = Menu.updateMenuTerrain model.menuData terrain }, Cmd.none)
 
     ButtonToggle label ->
       ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)
