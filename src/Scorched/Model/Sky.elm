@@ -1,4 +1,4 @@
-module Scorched.Model.Sky exposing (..)
+module Scorched.Model.Sky exposing (empty, random)
 
 import Array
 import Random

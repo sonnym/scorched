@@ -1,4 +1,4 @@
-module Scorched.Model.Terrain exposing (..)
+module Scorched.Model.Terrain exposing (empty, random)
 
 import Random
 
