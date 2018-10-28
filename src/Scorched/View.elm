@@ -2,8 +2,6 @@ module Scorched.View exposing (..)
 
 import Html exposing (Html)
 
--- import Graphics.Element exposing (Element)
-
 import Scorched.Model exposing (Model, View(..))
 import Scorched.Action exposing (Action(..))
 
