@@ -18,6 +18,4 @@ step action config =
     NoOp -> config
 
 default : Configuration
-default = {
-  playerCount = 2,
-  roundCount = 10 }
+default = { playerCount = 2, roundCount = 10 }

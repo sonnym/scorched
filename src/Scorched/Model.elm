@@ -7,7 +7,7 @@ import Scorched.Model.Menu as Menu exposing (MenuData)
 import Scorched.Model.Sky as Sky
 
 -- import Scorched.Model.GameState as GameState exposing (GameState)
--- import Scorched.Model.Configuration as Configuration exposing (Configuration)
+import Scorched.Model.Configuration as Configuration exposing (Configuration)
 
 type View = Menu -- | Game
 
@@ -16,7 +16,7 @@ type alias Model =
   , menuData: MenuData
   -- , viewData: { game: GameState }
   , dimensions: Dimension
-  -- , config: Configuration
+  , config: Configuration
   }
 
 default : Model
@@ -25,7 +25,7 @@ default =
   , menuData = Menu.default
   -- , viewData = {game=GameState.empty}
   , dimensions = {width=1024, height=768}
-  -- , config = Configuration.default
+  , config = Configuration.default
   }
 
 init : Cmd Action
