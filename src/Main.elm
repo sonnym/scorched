@@ -1,5 +1,4 @@
 import Browser
--- import Graphics.Element exposing (Element)
 
 import Scorched.Model as Model exposing (Model)
 import Scorched.Action exposing (Action(..))
