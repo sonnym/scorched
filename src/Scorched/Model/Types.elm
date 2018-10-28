@@ -44,4 +44,5 @@ type alias Control =
   , key: Char
   , offset: Offset
   , invert: Direction
+  , value: (Configuration -> Int)
   }

@@ -7,7 +7,7 @@ import Svg.Attributes as Attr
 
 import Scorched.Model.Action as Action exposing (Action(..))
 
-import Scorched.Model.Types exposing (Model, World, Button, Control)
+import Scorched.Model.Types exposing (Model, Configuration, World, Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 import Scorched.Model.Menu as Menu
@@ -21,7 +21,7 @@ import Scorched.View.Component.Control as Control
 import Scorched.View.World as WorldView
 
 render : Model -> Svg Action
-render ({dimensions, menuData} as model) =
+render ({dimensions, menuData, config} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
@@ -31,7 +31,7 @@ render ({dimensions, menuData} as model) =
     (List.concat
       [ (background model)
       , (buttons (Dict.values menuData.buttons))
-      , (controls (Dict.values menuData.controls))
+      , (controls config (Dict.values menuData.controls))
       ]
     )
 
@@ -55,8 +55,8 @@ sample sampleWorld =
 buttons : List Button -> List (Svg Action)
 buttons definitions = List.map Button.build definitions
 
-controls : List Control -> List (Svg Action)
-controls definitions = List.map Control.build definitions
+controls : Configuration -> List Control -> List (Svg Action)
+controls config definitions = List.map (Control.build config) definitions
 
 worldDimensions : Dimension
 worldDimensions = {width=906, height=724}

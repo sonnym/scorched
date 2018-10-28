@@ -36,8 +36,8 @@ defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ Control "Players" 'P' {x=8, y=40} None
-      , Control "Rounds" 'R' {x=8, y=70} None
+      [ Control "Players" 'P' {x=8, y=40} None (\config -> config.playerCount )
+      , Control "Rounds" 'R' {x=8, y=70} None (\config -> config.roundCount )
       ]
     )
 
