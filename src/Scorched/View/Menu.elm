@@ -26,7 +26,7 @@ render ({dimensions, menuData, config} as model) =
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
-    , Attr.style "user-select: none"
+    , Attr.style "user-select: none; -moz-user-select: none;"
     ]
     (List.concat
       [ (background model)
