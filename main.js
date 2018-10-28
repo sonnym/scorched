@@ -586,11 +586,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.N.C === region.U.C)
+	if (region.N.C === region.V.C)
 	{
 		return 'on line ' + region.N.C;
 	}
-	return 'on lines ' + region.N.C + ' through ' + region.U.C;
+	return 'on lines ' + region.N.C + ' through ' + region.V.C;
 }
 
 
@@ -1924,9 +1924,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ay,
-		impl.aI,
-		impl.aG,
+		impl.aA,
+		impl.aJ,
+		impl.aH,
 		function() { return function() {} }
 	);
 });
@@ -3950,11 +3950,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ay,
-		impl.aI,
-		impl.aG,
+		impl.aA,
+		impl.aJ,
+		impl.aH,
 		function(sendToApp, initialModel) {
-			var view = impl.aK;
+			var view = impl.aL;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3986,12 +3986,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ay,
-		impl.aI,
-		impl.aG,
+		impl.aA,
+		impl.aJ,
+		impl.aH,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.D && impl.D(sendToApp)
-			var view = impl.aK;
+			var view = impl.aL;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3999,12 +3999,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aq);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.as);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aH) && (_VirtualDom_doc.title = title = doc.aH);
+				(title !== doc.aI) && (_VirtualDom_doc.title = title = doc.aI);
 			});
 		}
 	);
@@ -4055,8 +4055,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aB;
-	var onUrlRequest = impl.aC;
+	var onUrlChange = impl.aC;
+	var onUrlRequest = impl.aD;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4076,9 +4076,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.ag === next.ag
-							&& curr.X === next.X
-							&& curr.ad.a === next.ad.a
+							&& curr.ai === next.ai
+							&& curr.Y === next.Y
+							&& curr.af.a === next.af.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -4086,13 +4086,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		ay: function(flags)
+		aA: function(flags)
 		{
-			return A3(impl.ay, flags, _Browser_getUrl(), key);
+			return A3(impl.aA, flags, _Browser_getUrl(), key);
 		},
-		aK: impl.aK,
-		aI: impl.aI,
-		aG: impl.aG
+		aL: impl.aL,
+		aJ: impl.aJ,
+		aH: impl.aH
 	});
 }
 
@@ -4158,17 +4158,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aw: 'hidden', B: 'visibilitychange' }
+		? { ay: 'hidden', B: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aw: 'mozHidden', B: 'mozvisibilitychange' }
+		? { ay: 'mozHidden', B: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aw: 'msHidden', B: 'msvisibilitychange' }
+		? { ay: 'msHidden', B: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aw: 'webkitHidden', B: 'webkitvisibilitychange' }
-		: { aw: 'hidden', B: 'visibilitychange' };
+		? { ay: 'webkitHidden', B: 'webkitvisibilitychange' }
+		: { ay: 'hidden', B: 'visibilitychange' };
 }
 
 
@@ -4249,12 +4249,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		ak: _Browser_getScene(),
-		an: {
-			aN: _Browser_window.pageXOffset,
-			aO: _Browser_window.pageYOffset,
-			aL: _Browser_doc.documentElement.clientWidth,
-			av: _Browser_doc.documentElement.clientHeight
+		am: _Browser_getScene(),
+		ap: {
+			aO: _Browser_window.pageXOffset,
+			aP: _Browser_window.pageYOffset,
+			aM: _Browser_doc.documentElement.clientWidth,
+			ax: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4264,8 +4264,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aL: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		av: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		aM: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		ax: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4288,15 +4288,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			ak: {
-				aL: node.scrollWidth,
-				av: node.scrollHeight
+			am: {
+				aM: node.scrollWidth,
+				ax: node.scrollHeight
 			},
-			an: {
-				aN: node.scrollLeft,
-				aO: node.scrollTop,
-				aL: node.clientWidth,
-				av: node.clientHeight
+			ap: {
+				aO: node.scrollLeft,
+				aP: node.scrollTop,
+				aM: node.clientWidth,
+				ax: node.clientHeight
 			}
 		};
 	});
@@ -4326,18 +4326,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			ak: _Browser_getScene(),
-			an: {
-				aN: x,
-				aO: y,
-				aL: _Browser_doc.documentElement.clientWidth,
-				av: _Browser_doc.documentElement.clientHeight
+			am: _Browser_getScene(),
+			ap: {
+				aO: x,
+				aP: y,
+				aM: _Browser_doc.documentElement.clientWidth,
+				ax: _Browser_doc.documentElement.clientHeight
 			},
-			as: {
-				aN: x + rect.left,
-				aO: y + rect.top,
-				aL: rect.width,
-				av: rect.height
+			au: {
+				aO: x + rect.left,
+				aP: y + rect.top,
+				aM: rect.width,
+				ax: rect.height
 			}
 		};
 	});
@@ -4376,7 +4376,7 @@ var author$project$Scorched$Model$Menu = 0;
 var author$project$Scorched$Action$NoOp = {$: 3};
 var author$project$Scorched$View$Component$Button$Button = F6(
 	function (label, key, dimensions, offset, inverted, action) {
-		return {P: action, T: dimensions, Y: inverted, Z: key, az: label, aa: offset};
+		return {P: action, U: dimensions, Z: inverted, _: key, aa: label, ac: offset};
 	});
 var elm$core$Basics$False = 1;
 var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
@@ -4679,7 +4679,7 @@ var author$project$Scorched$Model$Menu$defaultButtons = elm$core$Dict$fromList(
 	A2(
 		elm$core$List$map,
 		function (button) {
-			return _Utils_Tuple2(button.az, button);
+			return _Utils_Tuple2(button.aa, button);
 		},
 		_List_fromArray(
 			[
@@ -4687,19 +4687,98 @@ var author$project$Scorched$Model$Menu$defaultButtons = elm$core$Dict$fromList(
 				author$project$Scorched$View$Component$Button$Button,
 				'Start',
 				'S',
-				{av: 19, aL: 80},
-				{aN: 13, aO: 12},
+				{ax: 19, aM: 82},
+				{aO: 7, aP: 12},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Sound…',
+				'o',
+				{ax: 19, aM: 56},
+				{aO: 7, aP: 102},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Hardware…',
+				'H',
+				{ax: 19, aM: 78},
+				{aO: 7, aP: 132},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Economics…',
+				'E',
+				{ax: 19, aM: 84},
+				{aO: 7, aP: 162},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Physics…',
+				'y',
+				{ax: 19, aM: 70},
+				{aO: 7, aP: 192},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Landscape…',
+				'L',
+				{ax: 19, aM: 82},
+				{aO: 7, aP: 222},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Play Options…',
+				't',
+				{ax: 19, aM: 100},
+				{aO: 7, aP: 252},
+				false,
+				author$project$Scorched$Action$NoOp),
+				A6(
+				author$project$Scorched$View$Component$Button$Button,
+				'Weapons…',
+				'W',
+				{ax: 19, aM: 68},
+				{aO: 7, aP: 282},
 				false,
 				author$project$Scorched$Action$NoOp)
 			])));
+var author$project$Scorched$View$Component$NumericField$NumericField = F3(
+	function (label, key, offset) {
+		return {_: key, aa: label, ac: offset};
+	});
+var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
+	A2(
+		elm$core$List$map,
+		function (control) {
+			return _Utils_Tuple2(control.aa, control);
+		},
+		_List_fromArray(
+			[
+				A3(
+				author$project$Scorched$View$Component$NumericField$NumericField,
+				'Players',
+				'P',
+				{aO: 8, aP: 40}),
+				A3(
+				author$project$Scorched$View$Component$NumericField$NumericField,
+				'Rounds',
+				'R',
+				{aO: 8, aP: 70})
+			])));
 var author$project$Scorched$Action$PitchBlack = 2;
 var author$project$Scorched$Model$Sky$empty = 2;
-var author$project$Scorched$Model$World$empty = {aF: author$project$Scorched$Model$Sky$empty};
-var author$project$Scorched$Model$Menu$default = {I: author$project$Scorched$Model$Menu$defaultButtons, J: author$project$Scorched$Model$World$empty};
+var author$project$Scorched$Model$World$empty = {aG: author$project$Scorched$Model$Sky$empty};
+var author$project$Scorched$Model$Menu$default = {I: author$project$Scorched$Model$Menu$defaultButtons, S: author$project$Scorched$Model$Menu$defaultControls, J: author$project$Scorched$Model$World$empty};
 var author$project$Scorched$Model$default = {
-	T: {av: 768, aL: 1024},
+	U: {ax: 768, aM: 1024},
 	n: author$project$Scorched$Model$Menu$default,
-	aK: 0
+	aL: 0
 };
 var author$project$Scorched$Action$MenuSky = function (a) {
 	return {$: 0, a: a};
@@ -5239,7 +5318,7 @@ var author$project$Scorched$Model$Menu$updateButton = function (maybeButton) {
 		return elm$core$Maybe$Just(
 			_Utils_update(
 				button,
-				{Y: !button.Y}));
+				{Z: !button.Z}));
 	} else {
 		return elm$core$Maybe$Nothing;
 	}
@@ -5761,7 +5840,7 @@ var author$project$Scorched$Model$Menu$updateMenuWorld = F2(
 		var newWorld = _Utils_update(
 			world,
 			{
-				aF: author$project$Scorched$Model$Sky$getSky(n)
+				aG: author$project$Scorched$Model$Sky$getSky(n)
 			});
 		return _Utils_update(
 			menuData,
@@ -5833,8 +5912,8 @@ var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
 var author$project$Scorched$View$Component$BorderBox$background = function (_n0) {
-	var width = _n0.aL;
-	var height = _n0.av;
+	var width = _n0.aM;
+	var height = _n0.ax;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -5941,8 +6020,8 @@ var author$project$Scorched$View$Component$BorderBox$topLine = F3(
 	});
 var author$project$Scorched$View$Component$BorderBox$border = F3(
 	function (_n0, stroke, invert) {
-		var width = _n0.aL;
-		var height = _n0.av;
+		var width = _n0.aM;
+		var height = _n0.ax;
 		var colors = invert ? author$project$Scorched$View$Component$BorderBox$invertedColors : author$project$Scorched$View$Component$BorderBox$regularColors;
 		return A3(
 			elm$core$List$map2,
@@ -5967,10 +6046,69 @@ var author$project$Scorched$View$Component$BorderBox$build = F3(
 				author$project$Scorched$View$Component$BorderBox$background(dimensions),
 				A3(author$project$Scorched$View$Component$BorderBox$border, dimensions, stroke, invert)));
 	});
-var author$project$Scorched$View$Menu$worldDimensions = {av: 724, aL: 906};
+var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var elm$svg$Svg$text = elm$virtual_dom$VirtualDom$text;
+var elm$svg$Svg$text_ = elm$svg$Svg$trustedNode('text');
+var author$project$Scorched$View$Component$ShadowText$buildText = F3(
+	function (label, offset, color) {
+		return A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$fill(
+					author$project$Scorched$View$Palette$toString(color)),
+					elm$svg$Svg$Attributes$x(
+					elm$core$String$fromInt(offset)),
+					elm$svg$Svg$Attributes$y(
+					elm$core$String$fromInt(offset))
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text(label)
+				]));
+	});
+var author$project$Scorched$View$Helper$translate = function (_n0) {
+	var x = _n0.aO;
+	var y = _n0.aP;
+	return 'translate(' + (elm$core$String$fromInt(x) + (', ' + (elm$core$String$fromInt(y) + ')')));
+};
+var author$project$Scorched$View$Palette$shadows = _List_fromArray(
+	[
+		{a: 37, b: 13, c: 13},
+		{a: 15, b: 15, c: 15},
+		{a: 45, b: 45, c: 45},
+		{a: 75, b: 75, c: 75},
+		{a: 106, b: 106, c: 106},
+		{a: 136, b: 136, c: 136},
+		{a: 167, b: 167, c: 167},
+		{a: 200, b: 200, c: 200},
+		{a: 255, b: 255, c: 255}
+	]);
+var elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
+var elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
+var author$project$Scorched$View$Component$ShadowText$build = F2(
+	function (text, offset) {
+		return A2(
+			elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform(
+					author$project$Scorched$View$Helper$translate(offset)),
+					elm$svg$Svg$Attributes$fontSize('32')
+				]),
+			A3(
+				elm$core$List$map2,
+				author$project$Scorched$View$Component$ShadowText$buildText(text),
+				A2(
+					elm$core$List$range,
+					0,
+					elm$core$List$length(author$project$Scorched$View$Palette$shadows) - 1),
+				author$project$Scorched$View$Palette$shadows));
+	});
+var author$project$Scorched$View$Menu$worldDimensions = {ax: 724, aM: 906};
 var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
-	var width = _n0.aL;
-	var height = _n0.av;
+	var width = _n0.aM;
+	var height = _n0.ax;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -5986,8 +6124,8 @@ var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
 		_List_Nil);
 };
 var author$project$Scorched$View$Sky$buildPlain = function (_n0) {
-	var width = _n0.aL;
-	var height = _n0.av;
+	var width = _n0.aM;
+	var height = _n0.ax;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -6010,10 +6148,9 @@ var elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
 var elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
 var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
 var elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
 var author$project$Scorched$View$Sky$sun = function (_n0) {
-	var width = _n0.aL;
-	var height = _n0.av;
+	var width = _n0.aM;
+	var height = _n0.ax;
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
@@ -6081,13 +6218,12 @@ var author$project$Scorched$View$Palette$sunset = _List_fromArray(
 		{a: 48, b: 150, c: 255},
 		{a: 40, b: 166, c: 255},
 		{a: 32, b: 182, c: 255},
-		{a: 24, b: 198, c: 255},
-		{a: 16, b: 214, c: 255}
+		{a: 24, b: 203, c: 255}
 	]);
 var elm$core$String$fromFloat = _String_fromNumber;
 var author$project$Scorched$View$Sky$sunsetBands = function (_n0) {
-	var width = _n0.aL;
-	var height = _n0.av;
+	var width = _n0.aM;
+	var height = _n0.ax;
 	var count = elm$core$List$length(author$project$Scorched$View$Palette$sunset);
 	var bandHeight = height / count;
 	return A3(
@@ -6151,14 +6287,14 @@ var author$project$Scorched$View$World$build = F2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					A2(author$project$Scorched$View$Sky$build, world.aF, dimensions)
+					A2(author$project$Scorched$View$Sky$build, world.aG, dimensions)
 				]));
 	});
 var author$project$Scorched$View$Menu$sample = function (sampleWorld) {
 	var world = A2(author$project$Scorched$View$World$build, sampleWorld, author$project$Scorched$View$Menu$worldDimensions);
 	var outline = A3(
 		author$project$Scorched$View$Component$BorderBox$build,
-		{av: 726, aL: 908},
+		{ax: 726, aM: 908},
 		1,
 		true);
 	return A2(
@@ -6171,12 +6307,16 @@ var author$project$Scorched$View$Menu$sample = function (sampleWorld) {
 			[outline, world]));
 };
 var author$project$Scorched$View$Menu$background = function (_n0) {
-	var dimensions = _n0.T;
+	var dimensions = _n0.U;
 	var menuData = _n0.n;
 	return _List_fromArray(
 		[
 			A3(author$project$Scorched$View$Component$BorderBox$build, dimensions, 2, false),
-			author$project$Scorched$View$Menu$sample(menuData.J)
+			author$project$Scorched$View$Menu$sample(menuData.J),
+			A2(
+			author$project$Scorched$View$Component$ShadowText$build,
+			'Scorched Earth',
+			{aO: 420, aP: 48})
 		]);
 };
 var author$project$Scorched$Action$ButtonDown = function (a) {
@@ -6214,8 +6354,6 @@ var elm$core$String$right = F2(
 			elm$core$String$length(string),
 			string);
 	});
-var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var elm$svg$Svg$text = elm$virtual_dom$VirtualDom$text;
 var elm$svg$Svg$tspan = elm$svg$Svg$trustedNode('tspan');
 var author$project$Scorched$View$Component$KeyedLabel$build = F2(
 	function (label, key) {
@@ -6250,7 +6388,8 @@ var author$project$Scorched$View$Component$KeyedLabel$build = F2(
 				elm$svg$Svg$text(suffix)
 			]);
 	});
-var elm$svg$Svg$text_ = elm$svg$Svg$trustedNode('text');
+var elm$svg$Svg$Attributes$fontWeight = _VirtualDom_attribute('font-weight');
+var elm$svg$Svg$Attributes$letterSpacing = _VirtualDom_attribute('letter-spacing');
 var elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };
@@ -6275,18 +6414,20 @@ var elm$svg$Svg$Events$onMouseUp = function (msg) {
 		elm$json$Json$Decode$succeed(msg));
 };
 var author$project$Scorched$View$Component$Button$build = function (_n0) {
-	var label = _n0.az;
-	var key = _n0.Z;
-	var dimensions = _n0.T;
-	var offset = _n0.aa;
-	var inverted = _n0.Y;
+	var label = _n0.aa;
+	var key = _n0._;
+	var dimensions = _n0.U;
+	var offset = _n0.ac;
+	var inverted = _n0.Z;
 	var action = _n0.P;
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
 			[
 				elm$svg$Svg$Attributes$transform(
-				'translate(' + (elm$core$String$fromInt(offset.aN) + (', ' + (elm$core$String$fromInt(offset.aO) + ')')))),
+				author$project$Scorched$View$Helper$translate(offset)),
+				elm$svg$Svg$Attributes$fontWeight('600'),
+				elm$svg$Svg$Attributes$letterSpacing('-1px'),
 				elm$svg$Svg$Events$onMouseDown(
 				author$project$Scorched$Action$ButtonDown(label)),
 				elm$svg$Svg$Events$onMouseUp(
@@ -6299,14 +6440,123 @@ var author$project$Scorched$View$Component$Button$build = function (_n0) {
 				elm$svg$Svg$text_,
 				_List_fromArray(
 					[
-						elm$svg$Svg$Attributes$x('10'),
-						elm$svg$Svg$Attributes$y('12.5')
+						elm$svg$Svg$Attributes$x('5'),
+						elm$svg$Svg$Attributes$y('12')
 					]),
 				A2(author$project$Scorched$View$Component$KeyedLabel$build, label, key))
 			]));
 };
 var author$project$Scorched$View$Menu$buttons = function (definitions) {
 	return A2(elm$core$List$map, author$project$Scorched$View$Component$Button$build, definitions);
+};
+var author$project$Scorched$View$Component$BorderTriangle$Down = 1;
+var author$project$Scorched$View$Component$BorderTriangle$Up = 0;
+var author$project$Scorched$View$Component$BorderTriangle$downColors = _List_fromArray(
+	[author$project$Scorched$View$Palette$highlightDark, author$project$Scorched$View$Palette$shadowDark, author$project$Scorched$View$Palette$highlightLight]);
+var author$project$Scorched$View$Component$BorderTriangle$downLines = _List_fromArray(
+	[
+		_Utils_Tuple2(
+		{aO: 0, aP: 0},
+		{aO: 14, aP: 0}),
+		_Utils_Tuple2(
+		{aO: 14, aP: 0},
+		{aO: 7, aP: 9}),
+		_Utils_Tuple2(
+		{aO: 7, aP: 9},
+		{aO: 0, aP: 0})
+	]);
+var author$project$Scorched$View$Component$BorderTriangle$line = F2(
+	function (_n0, color) {
+		var start = _n0.a;
+		var end = _n0.b;
+		return A2(
+			elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$x1(
+					elm$core$String$fromInt(start.aO)),
+					elm$svg$Svg$Attributes$x2(
+					elm$core$String$fromInt(end.aO)),
+					elm$svg$Svg$Attributes$y1(
+					elm$core$String$fromInt(start.aP)),
+					elm$svg$Svg$Attributes$y2(
+					elm$core$String$fromInt(end.aP)),
+					elm$svg$Svg$Attributes$strokeWidth('2'),
+					elm$svg$Svg$Attributes$stroke(
+					author$project$Scorched$View$Palette$toString(color))
+				]),
+			_List_Nil);
+	});
+var author$project$Scorched$View$Component$BorderTriangle$upColors = _List_fromArray(
+	[author$project$Scorched$View$Palette$shadowDark, author$project$Scorched$View$Palette$shadowLight, author$project$Scorched$View$Palette$highlightLight]);
+var author$project$Scorched$View$Component$BorderTriangle$upLines = _List_fromArray(
+	[
+		_Utils_Tuple2(
+		{aO: 7, aP: 0},
+		{aO: 14, aP: 9}),
+		_Utils_Tuple2(
+		{aO: 14, aP: 9},
+		{aO: 0, aP: 9}),
+		_Utils_Tuple2(
+		{aO: 0, aP: 9},
+		{aO: 7, aP: 0})
+	]);
+var author$project$Scorched$View$Component$BorderTriangle$lines = F2(
+	function (invert, direction) {
+		if (!direction) {
+			return A3(elm$core$List$map2, author$project$Scorched$View$Component$BorderTriangle$line, author$project$Scorched$View$Component$BorderTriangle$upLines, author$project$Scorched$View$Component$BorderTriangle$upColors);
+		} else {
+			return A3(elm$core$List$map2, author$project$Scorched$View$Component$BorderTriangle$line, author$project$Scorched$View$Component$BorderTriangle$downLines, author$project$Scorched$View$Component$BorderTriangle$downColors);
+		}
+	});
+var author$project$Scorched$View$Component$BorderTriangle$build = F3(
+	function (invert, direction, offset) {
+		return A2(
+			elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform(
+					author$project$Scorched$View$Helper$translate(offset))
+				]),
+			A2(author$project$Scorched$View$Component$BorderTriangle$lines, invert, direction));
+	});
+var author$project$Scorched$View$Component$NumericField$build = function (_n0) {
+	var label = _n0.aa;
+	var key = _n0._;
+	var offset = _n0.ac;
+	return A2(
+		elm$svg$Svg$g,
+		_List_fromArray(
+			[
+				elm$svg$Svg$Attributes$transform(
+				author$project$Scorched$View$Helper$translate(offset)),
+				elm$svg$Svg$Attributes$fontWeight('600'),
+				elm$svg$Svg$Attributes$letterSpacing('-1px')
+			]),
+		_List_fromArray(
+			[
+				A3(
+				author$project$Scorched$View$Component$BorderTriangle$build,
+				false,
+				0,
+				{aO: 0, aP: 0}),
+				A3(
+				author$project$Scorched$View$Component$BorderTriangle$build,
+				false,
+				1,
+				{aO: 0, aP: 12}),
+				A2(
+				elm$svg$Svg$text_,
+				_List_fromArray(
+					[
+						elm$svg$Svg$Attributes$x('17'),
+						elm$svg$Svg$Attributes$y('13')
+					]),
+				A2(author$project$Scorched$View$Component$KeyedLabel$build, label, key))
+			]));
+};
+var author$project$Scorched$View$Menu$controls = function (definitions) {
+	return A2(elm$core$List$map, author$project$Scorched$View$Component$NumericField$build, definitions);
 };
 var elm$core$Dict$values = function (dict) {
 	return A3(
@@ -6318,31 +6568,38 @@ var elm$core$Dict$values = function (dict) {
 		_List_Nil,
 		dict);
 };
+var elm$core$List$concat = function (lists) {
+	return A3(elm$core$List$foldr, elm$core$List$append, _List_Nil, lists);
+};
 var elm$svg$Svg$svg = elm$svg$Svg$trustedNode('svg');
 var elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
 var elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
 var author$project$Scorched$View$Menu$render = function (model) {
-	var dimensions = model.T;
+	var dimensions = model.U;
 	var menuData = model.n;
 	return A2(
 		elm$svg$Svg$svg,
 		_List_fromArray(
 			[
 				elm$svg$Svg$Attributes$width(
-				elm$core$String$fromInt(dimensions.aL)),
+				elm$core$String$fromInt(dimensions.aM)),
 				elm$svg$Svg$Attributes$height(
-				elm$core$String$fromInt(dimensions.av)),
+				elm$core$String$fromInt(dimensions.ax)),
 				elm$svg$Svg$Attributes$fontFamily('monospace'),
 				elm$svg$Svg$Attributes$style('user-select: none')
 			]),
-		A2(
-			elm$core$List$append,
-			author$project$Scorched$View$Menu$background(model),
-			author$project$Scorched$View$Menu$buttons(
-				elm$core$Dict$values(menuData.I))));
+		elm$core$List$concat(
+			_List_fromArray(
+				[
+					author$project$Scorched$View$Menu$background(model),
+					author$project$Scorched$View$Menu$buttons(
+					elm$core$Dict$values(menuData.I)),
+					author$project$Scorched$View$Menu$controls(
+					elm$core$Dict$values(menuData.S))
+				])));
 };
 var author$project$Scorched$View$render = function (model) {
-	var _n0 = model.aK;
+	var _n0 = model.aL;
 	return author$project$Scorched$View$Menu$render(model);
 };
 var elm$browser$Browser$External = function (a) {
@@ -6452,7 +6709,7 @@ var elm$core$String$contains = _String_contains;
 var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {W: fragment, X: host, ab: path, ad: port_, ag: protocol, ah: query};
+		return {X: fragment, Y: host, ad: path, af: port_, ai: protocol, aj: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -6558,6 +6815,6 @@ var elm$url$Url$fromString = function (str) {
 };
 var elm$browser$Browser$element = _Browser_element;
 var author$project$Main$main = elm$browser$Browser$element(
-	{ay: author$project$Main$init, aG: author$project$Main$subscriptions, aI: author$project$Scorched$Model$update, aK: author$project$Scorched$View$render});
+	{aA: author$project$Main$init, aH: author$project$Main$subscriptions, aJ: author$project$Scorched$Model$update, aL: author$project$Scorched$View$render});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));
