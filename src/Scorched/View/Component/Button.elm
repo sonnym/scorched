@@ -4,7 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Action as Action exposing (Action)
+import Scorched.Model.Action as Action exposing (Action)
 import Scorched.Model.Types exposing (Button)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)

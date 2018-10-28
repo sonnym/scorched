@@ -2,7 +2,7 @@ module Scorched.Model.View.Control exposing (..)
 
 import Signal exposing (Message, send)
 
-import Scorched.Action exposing (Action(NoOp), Messenger, updates)
+import Scorched.Model.Action exposing (Action(NoOp), Messenger, updates)
 
 type Operation = Increment | Decrement
 

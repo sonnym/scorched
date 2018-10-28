@@ -1,6 +1,6 @@
 module Scorched.Model.Types exposing (..)
 
-import Scorched.Action exposing (Action, Direction)
+import Scorched.Model.Action exposing (Action, Direction)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 type alias Button =

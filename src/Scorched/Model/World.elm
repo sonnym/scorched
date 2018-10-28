@@ -3,7 +3,7 @@ module Scorched.Model.World exposing (..)
 -- import Scorched.Model.Geometry exposing (Dimension)
 
 -- import Scorched.Model.Terrain as Terrain exposing (Terrain)
-import Scorched.Action exposing (Sky(..))
+import Scorched.Model.Action exposing (Sky(..))
 import Scorched.Model.Sky as Sky
 
 type alias World =

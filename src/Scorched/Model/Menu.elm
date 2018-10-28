@@ -2,7 +2,7 @@ module Scorched.Model.Menu exposing (..)
 
 import Dict exposing (Dict)
 
-import Scorched.Action as Action exposing (Action(..), Direction(..))
+import Scorched.Model.Action as Action exposing (Action(..), Direction(..))
 import Scorched.Model.Types exposing (Button, Control)
 
 import Scorched.Model.Sky as Sky

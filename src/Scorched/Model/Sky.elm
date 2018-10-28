@@ -3,7 +3,7 @@ module Scorched.Model.Sky exposing (..)
 import Array
 import Random
 
-import Scorched.Action exposing (Action(..), Sky(..))
+import Scorched.Model.Action exposing (Action(..), Sky(..))
 
 import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)

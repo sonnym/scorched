@@ -1,4 +1,4 @@
-module Scorched.Action exposing (..)
+module Scorched.Model.Action exposing (..)
 
 type Direction = Up | Down | None
 

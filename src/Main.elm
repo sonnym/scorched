@@ -1,7 +1,7 @@
 import Browser
 
 import Scorched.Model as Model exposing (Model)
-import Scorched.Action exposing (Action(..))
+import Scorched.Model.Action exposing (Action(..))
 
 import Scorched.View as View
 
