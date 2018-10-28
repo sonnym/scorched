@@ -26,10 +26,10 @@ update : Action -> Model -> (Model, Cmd Action)
 update msg model =
   case msg of
     MenuSky n ->
-      ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
+      ({ model | menuData = Menu.updateWorld model.menuData n }, Cmd.none)
 
     MenuTerrain terrain ->
-        ({ model | menuData = Menu.updateMenuTerrain model.menuData terrain }, Cmd.none)
+        ({ model | menuData = Menu.updateTerrain model.menuData terrain }, Cmd.none)
 
     ButtonToggle label ->
       ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)

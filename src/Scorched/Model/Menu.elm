@@ -73,16 +73,16 @@ updateControl direction maybeControl =
     Just control -> Just { control | invert = direction }
     Nothing -> Nothing
 
-updateMenuWorld : MenuData -> Int -> MenuData
-updateMenuWorld menuData n =
+updateWorld : MenuData -> Int -> MenuData
+updateWorld menuData n =
   let
     world = menuData.world
     newWorld = { world | sky = Sky.getSky n }
   in
     { menuData | world = newWorld }
 
-updateMenuTerrain : MenuData -> Terrain -> MenuData
-updateMenuTerrain menuData terrain =
+updateTerrain : MenuData -> Terrain -> MenuData
+updateTerrain menuData terrain =
   let
     world = menuData.world
     newWorld = { world | terrain = terrain }
