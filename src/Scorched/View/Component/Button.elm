@@ -24,6 +24,7 @@ build : Button -> Svg Action
 build {label, key, dimensions, offset, inverted, action} =
   Svg.g
   [ Attr.transform ("translate(" ++ String.fromInt offset.x ++ ", " ++ String.fromInt offset.y ++ ")")
+  , Attr.fontWeight "bold"
   , Events.onMouseDown (Action.ButtonDown label)
   , Events.onMouseUp (Action.ButtonUp label)
   ]
