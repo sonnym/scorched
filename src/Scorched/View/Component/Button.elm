@@ -1,4 +1,4 @@
-module Scorched.View.Component.Button exposing (..)
+module Scorched.View.Component.Button exposing (Button, build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr

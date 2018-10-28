@@ -1,4 +1,4 @@
-module Scorched.View.Component.ShadowText exposing (..)
+module Scorched.View.Component.ShadowText exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr

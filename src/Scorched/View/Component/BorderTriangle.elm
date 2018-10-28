@@ -1,4 +1,4 @@
-module Scorched.View.Component.BorderTriangle exposing (..)
+module Scorched.View.Component.BorderTriangle exposing (Direction(..), build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr

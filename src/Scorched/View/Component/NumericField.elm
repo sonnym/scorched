@@ -1,4 +1,4 @@
-module Scorched.View.Component.NumericField exposing (..)
+module Scorched.View.Component.NumericField exposing (NumericField, build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr

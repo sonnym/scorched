@@ -1,4 +1,4 @@
-module Scorched.View.Component.KeyedLabel exposing (..)
+module Scorched.View.Component.KeyedLabel exposing (build)
 
 import Svg exposing (..)
 import Svg.Attributes as Attr
