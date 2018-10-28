@@ -4,7 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Action as Action exposing (Action, Direction(..))
+import Scorched.Model.Types exposing (Action(..), Operation(..), Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
@@ -22,8 +22,8 @@ boundingBox direction label =
     [ Attr.width "15"
     , Attr.height "10"
     , Attr.fillOpacity "0"
-    , Events.onMouseDown (Action.ControlToggle label direction)
-    , Events.onMouseUp (Action.ControlToggle label None)
+    , Events.onMouseDown (ControlToggle label direction)
+    , Events.onMouseUp (ControlToggle label None)
     ] []
 
 lines : Bool -> Direction -> List (Svg msg)

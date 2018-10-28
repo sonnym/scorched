@@ -2,8 +2,7 @@ module Scorched.Model.Menu exposing (..)
 
 import Dict exposing (Dict)
 
-import Scorched.Model.Types exposing (MenuData, Button, Control, World)
-import Scorched.Model.Action as Action exposing (Action(..), Direction(..))
+import Scorched.Model.Types exposing (..)
 
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
@@ -20,14 +19,14 @@ defaultButtons =
   Dict.fromList
     (List.map
       (\button -> (button.label, button))
-      [ Button "Start" 'S' {width=82, height=19} {x=7, y=12} False Action.NoOp
-      , Button "Sound…" 'o' {width=56, height=19} {x=7, y=102} False Action.NoOp
-      , Button "Hardware…" 'H' {width=78, height=19} {x=7, y=132} False Action.NoOp
-      , Button "Economics…" 'E' {width=84, height=19} {x=7, y=162} False Action.NoOp
-      , Button "Physics…" 'y' {width=70, height=19} {x=7, y=192} False Action.NoOp
-      , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False Action.NoOp
-      , Button "Play Options…" 't' {width=98, height=19} {x=7, y=252} False Action.NoOp
-      , Button "Weapons…" 'W' {width=68, height=19} {x=7, y=282} False Action.NoOp
+      [ Button "Start" 'S' {width=82, height=19} {x=7, y=12} False NoOp
+      , Button "Sound…" 'o' {width=56, height=19} {x=7, y=102} False NoOp
+      , Button "Hardware…" 'H' {width=78, height=19} {x=7, y=132} False NoOp
+      , Button "Economics…" 'E' {width=84, height=19} {x=7, y=162} False NoOp
+      , Button "Physics…" 'y' {width=70, height=19} {x=7, y=192} False NoOp
+      , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False NoOp
+      , Button "Play Options…" 't' {width=98, height=19} {x=7, y=252} False NoOp
+      , Button "Weapons…" 'W' {width=68, height=19} {x=7, y=282} False NoOp
       ]
     )
 

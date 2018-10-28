@@ -2,8 +2,7 @@ module Scorched.View exposing (..)
 
 import Html exposing (Html)
 
-import Scorched.Model.Types exposing (Model, View(..))
-import Scorched.Model.Action exposing (Action(..))
+import Scorched.Model.Types exposing (Model, Action(..), View(..))
 
 import Scorched.View.Menu as Menu
 -- import Scorched.View.GamePlay exposing (renderWorld)

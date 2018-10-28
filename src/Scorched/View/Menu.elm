@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Action as Action exposing (Action(..))
+import Scorched.Model.Types exposing (Action(..))
 
 import Scorched.Model.Types exposing (Model, Configuration, World, Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)

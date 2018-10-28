@@ -1,7 +1,6 @@
 module Scorched.Model exposing (..)
 
-import Scorched.Model.Types exposing (View(..), Model, Configuration, MenuData)
-import Scorched.Model.Action exposing (Action(..))
+import Scorched.Model.Types exposing (Action(..), View(..), Model, Configuration, MenuData)
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Menu as Menu

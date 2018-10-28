@@ -4,8 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Action exposing (Action, Direction(..))
-import Scorched.Model.Types exposing (Control, Configuration)
+import Scorched.Model.Types exposing (Action, Configuration, Direction(..), Control)
 import Scorched.Model.Geometry exposing (Offset)
 
 import Scorched.View.Helper as Helper

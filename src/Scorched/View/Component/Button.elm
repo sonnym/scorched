@@ -4,9 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Action as Action exposing (Action)
-import Scorched.Model.Types exposing (Button)
-
+import Scorched.Model.Types exposing (Action(..), Button)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 import Scorched.View.Helper as Helper
@@ -21,8 +19,8 @@ build {label, key, dimensions, offset, inverted, action} =
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
-    , Events.onMouseDown (Action.ButtonToggle label)
-    , Events.onMouseUp (Action.ButtonToggle label)
+    , Events.onMouseDown (ButtonToggle label)
+    , Events.onMouseUp (ButtonToggle label)
     ]
     [ BorderBox.build dimensions 2 inverted
     , Svg.text_ [ Attr.x "5", Attr.y "12" ] (KeyedLabel.build label key)

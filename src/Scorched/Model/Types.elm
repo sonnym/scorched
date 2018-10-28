@@ -2,10 +2,26 @@ module Scorched.Model.Types exposing (..)
 
 import Dict exposing (Dict)
 
-import Scorched.Model.Action exposing (Action, Direction, Sky)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 type View = Menu -- | Game
+
+type Operation = Increment | Decrement
+type Direction = Up | Down | None
+
+type Sky
+  = Plain
+  | Sunset
+  | PitchBlack
+
+type Action
+  = MenuSky Int
+  | ButtonToggle String
+  | ControlToggle String Direction
+  | NoOp
+  -- | Initialize
+  -- | Start
+  -- | Configuration Configuration.Action
 
 type alias Model =
   { view: View
