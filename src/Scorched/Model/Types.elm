@@ -17,7 +17,7 @@ type Sky
 type alias Terrain = List Int
 
 type Action
-  = MenuSky Int
+  = MenuSky Sky
   | MenuTerrain Terrain
   | ButtonToggle String
   | ControlToggle String Direction

@@ -9,7 +9,7 @@ import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)
 
 random : Cmd Action
-random = Random.generate MenuSky (Random.int 0 2)
+random = Random.generate MenuSky (Random.map getSky (Random.int 0 2))
 
 getSky : Int -> Sky
 getSky n =

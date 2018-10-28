@@ -25,8 +25,8 @@ init = Cmd.batch [ Sky.random, (Terrain.random Menu.worldDimensions) ]
 update : Action -> Model -> (Model, Cmd Action)
 update msg model =
   case msg of
-    MenuSky n ->
-      ({ model | menuData = Menu.updateWorld model.menuData n }, Cmd.none)
+    MenuSky sky ->
+      ({ model | menuData = Menu.updateSky model.menuData sky }, Cmd.none)
 
     MenuTerrain terrain ->
         ({ model | menuData = Menu.updateTerrain model.menuData terrain }, Cmd.none)
