@@ -1,4 +1,4 @@
-module Scorched.View.Component.NumericField exposing (NumericField, build)
+module Scorched.View.Component.Control exposing (Control, build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
@@ -12,14 +12,14 @@ import Scorched.View.Helper as Helper
 import Scorched.View.Component.BorderTriangle as BorderTriangle
 import Scorched.View.Component.KeyedLabel as KeyedLabel
 
-type alias NumericField =
+type alias Control =
   { label: String
   , key: Char
   , offset: Offset
   , invert: Direction
   }
 
-build : NumericField -> Svg Action
+build : Control -> Svg Action
 build {label, key, offset, invert} =
   Svg.g
     [ Attr.transform (Helper.translate offset)

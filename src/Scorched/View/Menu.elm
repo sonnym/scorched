@@ -17,7 +17,7 @@ import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
 
 import Scorched.View.Component.Button as Button exposing (Button)
-import Scorched.View.Component.NumericField as NumericField exposing (NumericField)
+import Scorched.View.Component.Control as Control exposing (Control)
 
 import Scorched.View.World as WorldView
 
@@ -56,8 +56,8 @@ sample sampleWorld =
 buttons : List Button -> List (Svg Action)
 buttons definitions = List.map Button.build definitions
 
-controls : List NumericField -> List (Svg Action)
-controls definitions = List.map NumericField.build definitions
+controls : List Control -> List (Svg Action)
+controls definitions = List.map Control.build definitions
 
 worldDimensions : Dimension
 worldDimensions = {width=906, height=724}

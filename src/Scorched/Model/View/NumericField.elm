@@ -1,4 +1,4 @@
-module Scorched.Model.View.NumericField exposing (..)
+module Scorched.Model.View.Control exposing (..)
 
 import Signal exposing (Message, send)
 

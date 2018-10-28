@@ -8,11 +8,11 @@ import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World exposing (World)
 
 import Scorched.View.Component.Button exposing (Button)
-import Scorched.View.Component.NumericField exposing (NumericField)
+import Scorched.View.Component.Control exposing (Control)
 
 type alias MenuData =
   { buttons: Dict String Button
-  , controls: Dict String NumericField
+  , controls: Dict String Control
   , world: World
   }
 
@@ -39,13 +39,13 @@ defaultButtons =
       ]
     )
 
-defaultControls : Dict String NumericField
+defaultControls : Dict String Control
 defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ NumericField "Players" 'P' {x=8, y=40} None
-      , NumericField "Rounds" 'R' {x=8, y=70} None
+      [ Control "Players" 'P' {x=8, y=40} None
+      , Control "Rounds" 'R' {x=8, y=70} None
       ]
     )
 
@@ -66,11 +66,11 @@ toggleControl : MenuData -> String -> Direction -> MenuData
 toggleControl menuData label direction =
   { menuData | controls = updateControls menuData.controls label direction }
 
-updateControls : Dict String NumericField -> String -> Direction -> Dict String NumericField
+updateControls : Dict String Control -> String -> Direction -> Dict String Control
 updateControls controls label direction =
   Dict.update label (updateControl direction) controls
 
-updateControl : Direction -> Maybe NumericField -> Maybe NumericField
+updateControl : Direction -> Maybe Control -> Maybe Control
 updateControl direction maybeControl =
   case maybeControl of
     Just control -> Just { control | invert = direction }
