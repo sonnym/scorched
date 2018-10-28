@@ -14,6 +14,7 @@ import Scorched.Model.World exposing (World)
 import Scorched.Model.Menu as Menu
 
 import Scorched.View.Component.BorderBox as BorderBox
+import Scorched.View.Component.ShadowText as ShadowText
 import Scorched.View.Component.Button as Button exposing (Button)
 
 import Scorched.View.World as WorldView
@@ -30,7 +31,10 @@ render ({dimensions, menuData} as model) =
 
 background : Model -> List (Svg Action)
 background {dimensions, menuData} =
-  [ BorderBox.build dimensions 2 False, sample menuData.world ]
+  [ BorderBox.build dimensions 2 False
+  , sample menuData.world
+  , ShadowText.build "Scorched Earth" {x = 420, y = 48 }
+  ]
 
 sample : World -> Svg Action
 sample sampleWorld =
