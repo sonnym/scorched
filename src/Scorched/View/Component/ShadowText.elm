@@ -5,12 +5,13 @@ import Svg.Attributes as Attr
 
 import Scorched.Model.Geometry exposing (Offset)
 
+import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)
 
 build : String -> Offset -> Svg msg
-build text {x, y} =
+build text offset =
   Svg.g
-    [ Attr.transform ("translate(" ++ String.fromInt x ++ ", " ++ String.fromInt y ++ ")")
+    [ Attr.transform (Helper.translate offset)
     , Attr.fontSize "32"
     ]
     (List.map2
