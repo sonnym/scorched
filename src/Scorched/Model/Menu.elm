@@ -2,17 +2,11 @@ module Scorched.Model.Menu exposing (..)
 
 import Dict exposing (Dict)
 
+import Scorched.Model.Types exposing (MenuData, Button, Control, World)
 import Scorched.Model.Action as Action exposing (Action(..), Direction(..))
-import Scorched.Model.Types exposing (Button, Control)
 
 import Scorched.Model.Sky as Sky
-import Scorched.Model.World as World exposing (World)
-
-type alias MenuData =
-  { buttons: Dict String Button
-  , controls: Dict String Control
-  , world: World
-  }
+import Scorched.Model.World as World
 
 default : MenuData
 default =

@@ -1,7 +1,34 @@
 module Scorched.Model.Types exposing (..)
 
-import Scorched.Model.Action exposing (Action, Direction)
+import Dict exposing (Dict)
+
+import Scorched.Model.Action exposing (Action, Direction, Sky)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
+
+type View = Menu -- | Game
+
+type alias Model =
+  { view: View
+  , menuData: MenuData
+  -- , viewData: { game: GameState }
+  , dimensions: Dimension
+  , config: Configuration
+  }
+
+type alias Configuration =
+  { playerCount: Int
+  , roundCount: Int
+  }
+
+type alias World =
+  { sky: Sky }
+  -- , terrain: Terrain
+
+type alias MenuData =
+  { buttons: Dict String Button
+  , controls: Dict String Control
+  , world: World
+  }
 
 type alias Button =
   { label: String

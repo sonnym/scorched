@@ -3,10 +3,9 @@ module Scorched.View.World exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
+import Scorched.Model.Types exposing (World)
 import Scorched.Model.Action exposing (Sky(..))
 import Scorched.Model.Geometry exposing (Dimension)
-
-import Scorched.Model.World exposing (World)
 
 -- import Scorched.View.Helper.Terrain as TerrainHelper
 import Scorched.View.Sky as Sky

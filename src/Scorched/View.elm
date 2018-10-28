@@ -2,7 +2,7 @@ module Scorched.View exposing (..)
 
 import Html exposing (Html)
 
-import Scorched.Model exposing (Model, View(..))
+import Scorched.Model.Types exposing (Model, View(..))
 import Scorched.Model.Action exposing (Action(..))
 
 import Scorched.View.Menu as Menu

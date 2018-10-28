@@ -7,10 +7,8 @@ import Svg.Attributes as Attr
 
 import Scorched.Model.Action as Action exposing (Action(..))
 
-import Scorched.Model exposing (Model)
-import Scorched.Model.Types exposing (Button, Control)
+import Scorched.Model.Types exposing (Model, World, Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
-import Scorched.Model.World exposing (World)
 
 import Scorched.Model.Menu as Menu
 

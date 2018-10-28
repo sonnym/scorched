@@ -1,14 +1,11 @@
 module Scorched.Model.Configuration exposing (..)
 
+import Scorched.Model.Types exposing (Configuration)
+
 type Action
   = NoOp
   | PlayerCount Int
   | RoundCount Int
-
-type alias Configuration =
-  { playerCount: Int
-  , roundCount: Int
-  }
 
 step : Action -> Configuration -> Configuration
 step action config =

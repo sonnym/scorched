@@ -1,23 +1,14 @@
 module Scorched.Model exposing (..)
 
+import Scorched.Model.Types exposing (View(..), Model, Configuration, MenuData)
 import Scorched.Model.Action exposing (Action(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Menu as Menu exposing (MenuData)
+import Scorched.Model.Menu as Menu
 import Scorched.Model.Sky as Sky
 
 -- import Scorched.Model.GameState as GameState exposing (GameState)
-import Scorched.Model.Configuration as Configuration exposing (Configuration)
-
-type View = Menu -- | Game
-
-type alias Model =
-  { view: View
-  , menuData: MenuData
-  -- , viewData: { game: GameState }
-  , dimensions: Dimension
-  , config: Configuration
-  }
+import Scorched.Model.Configuration as Configuration
 
 default : Model
 default =
