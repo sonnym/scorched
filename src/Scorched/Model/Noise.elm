@@ -1,24 +1,13 @@
-module Scorched.Model.Noise exposing (generator, defaultPermutation, randomPermutation)
+module Scorched.Model.Noise exposing (generator)
 
 import Array
 import Bitwise
-
 import Random
-import Random.List
 
-import Scorched.Model.Types exposing (Permutation, Action(..), Permutation)
+import Scorched.Model.Types exposing (Permutation)
 
 generator : Permutation -> Float -> Random.Generator Float
 generator permutation time = Random.constant (rounds permutation time)
-
-randomPermutation : Cmd Action
-randomPermutation = Random.generate PermutationGenerated permutationGenerator
-
-defaultPermutation : Permutation
-defaultPermutation = [ ]
-
-permutationGenerator : Random.Generator Permutation
-permutationGenerator = Random.List.shuffle (List.range 0 255)
 
 octaves : Int
 octaves = 8

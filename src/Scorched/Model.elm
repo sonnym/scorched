@@ -3,7 +3,7 @@ module Scorched.Model exposing (..)
 import Scorched.Model.Types exposing (Action(..), View(..), Model, Configuration, MenuData)
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Noise as Noise
+import Scorched.Model.Permutation as Permutation
 
 import Scorched.Model.Menu as Menu
 import Scorched.Model.Sky as Sky
@@ -15,7 +15,7 @@ import Scorched.Model.Configuration as Configuration
 default : Model
 default =
   { view = Menu
-  , permutation = Noise.defaultPermutation
+  , permutation = Permutation.default
   , menuData = Menu.default
   -- , viewData = {game=GameState.empty}
   , dimensions = {width=1024, height=768}
@@ -23,7 +23,7 @@ default =
   }
 
 init : Cmd Action
-init = Cmd.batch [ Sky.random, Noise.randomPermutation  ]
+init = Cmd.batch [ Sky.random, Permutation.random ]
 
 update : Action -> Model -> (Model, Cmd Action)
 update msg model =
