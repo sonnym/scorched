@@ -27,7 +27,10 @@ noise x =
     remainder = x - toFloat (floor x)
     faded = fade remainder
   in
-    lerp faded (grad (perm base) remainder) (grad (base + 1) (remainder - 1))
+    lerp
+      faded
+      (grad (perm base) remainder)
+      (grad (perm (base + 1)) (remainder - 1))
 
 fade : Float -> Float
 fade x = (3 - 2 * x) * x * x
