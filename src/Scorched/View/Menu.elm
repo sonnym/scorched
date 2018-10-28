@@ -45,7 +45,7 @@ background {dimensions, menuData} =
 sample : World -> Svg Action
 sample sampleWorld =
   let
-     world = WorldView.build sampleWorld worldDimensions
+     world = WorldView.build sampleWorld Menu.worldDimensions
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g
@@ -57,6 +57,3 @@ buttons definitions = List.map Button.build definitions
 
 controls : Configuration -> List Control -> List (Svg Action)
 controls config definitions = List.map (Control.build config) definitions
-
-worldDimensions : Dimension
-worldDimensions = {width=906, height=724}

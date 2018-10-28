@@ -98,4 +98,6 @@ new operation {step} value =
   case operation of
     Increment -> value + step
     Decrement -> value - step
---}
+
+worldDimensions : Dimension
+worldDimensions = {width=906, height=724}

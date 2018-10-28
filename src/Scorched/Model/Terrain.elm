@@ -1,16 +1,16 @@
 module Scorched.Model.Terrain exposing (..)
 
-import Random exposing (..)
+import Random
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-type alias Terrain = List Int
+random : Dimension -> Cmd Action
+random dimension =
+  Random.generate MenuTerrain (generator dimension)
 
-generate : Random.Generator Int -> Dimension -> Terrain
-generate seed {width,height} = [1]
-{--
-  let
-    (terrain, _) = Random.generate (list width (int 0 height)) seed
-  in
-    terrain
---}
+generator = Dimension -> Random.Generator Terrain
+generator {width, height} =
+  Random.list width (Random.int 0 height)
+
+empty : Terrain
+empty = []

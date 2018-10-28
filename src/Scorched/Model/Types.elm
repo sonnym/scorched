@@ -14,6 +14,8 @@ type Sky
   | Sunset
   | PitchBlack
 
+type alias Terrain = List Int
+
 type Action
   = MenuSky Int
   | ButtonToggle String
@@ -38,8 +40,9 @@ type alias Configuration =
   }
 
 type alias World =
-  { sky: Sky }
-  -- , terrain: Terrain
+  { sky: Sky
+  , terrain: Terrain
+  }
 
 type alias MenuData =
   { buttons: Dict String Button

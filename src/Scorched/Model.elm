@@ -19,13 +19,16 @@ default =
   }
 
 init : Cmd Action
-init = Sky.random
+init = Cmd.batch (Sky.random, (Terrain.random Menu.worldDimensions))
 
 update : Action -> Model -> (Model, Cmd Action)
 update msg model =
   case msg of
     MenuSky n ->
       ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
+
+    MenuTerrain terrain ->
+      ({ model.menuData | terrain = terrain }, Cmd.none)
 
     ButtonToggle label ->
       ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)
