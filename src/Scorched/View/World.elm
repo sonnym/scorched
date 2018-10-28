@@ -6,27 +6,9 @@ import Svg.Attributes as Attr
 import Scorched.Model.Types exposing (World, Sky(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
--- import Scorched.View.Helper.Terrain as TerrainHelper
 import Scorched.View.Sky as Sky
+import Scorched.View.Terrain as Terrain
 
 build : World -> Dimension -> Svg msg
-build world dimensions =
-  Svg.g [] [ Sky.build world.sky dimensions ]
-
-{--
-  if | (List.length world.terrain) == 0 -> emptyWorld
-     | otherwise -> fullWorld world dimensions
-
-emptyWorld : Form
-emptyWorld = Collage.toForm empty
-
-fullWorld : World -> Dimension -> Form
-fullWorld world ({height} as dimensions) =
-  let
-    sky = SkyHelper.toForm world.sky dimensions
-    terrain = TerrainHelper.toForm world.terrain dimensions
-
-    terrainHeight = TerrainHelper.maxHeight world.terrain
-  in
-    group [sky, (terrain |> moveY -((toFloat (height - terrainHeight)) / 2.0))]
---}
+build {terrain, sky} dimensions =
+  Svg.g [] (Sky.build sky dimensions) :: (Terrain.build terrain dimensions)

@@ -1,34 +1,24 @@
-module Scorched.View.Helper.Terrain exposing (..)
+module Scorched.View.Helper.Terrain exposing (build)
 
-import Color exposing (rgb)
-import Graphics.Collage exposing (Form, Path, groupTransform, traced, solid, move, rect)
+import Svg exposing (Svg)
+import Svg.Attributes as Attr
 
-import Transform2D exposing (translation)
-
+import Scorched.Model.Types exposing (Terrain)
 import Scorched.Model.Geometry exposing (Dimension)
-import Scorched.Model.Terrain exposing (Terrain)
 
-toForm : Terrain -> Dimension -> Form
-toForm terrain {width, height} =
-  groupTransform
-    (translation -(toFloat width / 2) 0.0)
-    (drawTerrain terrain)
+build : Terrain -> Dimension -> List (Svg msg)
+build terrain {height} =
+  List.map2
+    (buildLine height)
+    (List.range 0 (List.length terrain - 1))
+    terrain
 
-maxHeight : Terrain -> Int
-maxHeight terrain = List.maximum terrain
-
-drawTerrain : Terrain -> List Form
-drawTerrain terrain =
-  let
-    max = maxHeight terrain
-  in
-    List.indexedMap (drawLine max) terrain
-
-drawLine : Int -> Int -> Int -> Form
-drawLine max x height =
-  terrainLine height
-    |> traced (solid (rgb 154 101 69))
-    |> move (toFloat x, -(toFloat (max - height)) / 2)
-
-terrainLine : Int -> Path
-terrainLine height = rect 1.0 (toFloat height)
+buildLine : Int -> Int -> Int -> Svg msg
+buildLine bottom yOffset height =
+  Svg.line
+    [ Attr.y1 (String.fromInt yOffset)
+    , Attr.y2 (String.fromInt yOffset)
+    , Attr.x1 (String.fromInt bottom)
+    , Attr.x2 (String.fromInt (bottom - height))
+    , Attr.stroke "rgb(142, 216, 112)"
+    ]
