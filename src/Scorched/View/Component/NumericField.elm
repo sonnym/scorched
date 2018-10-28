@@ -1,18 +1,24 @@
-module Scorched.View.Widget.NumericField exposing (..)
+module Scorched.View.Component.NumericField exposing (..)
 
-import Text exposing (fromString, justified, monospace)
+import Svg exposing (Svg)
+import Svg.Attributes as Attr
+import Svg.Events as Events
 
-import Graphics.Collage exposing (Form, collage, toForm, moveX, move)
-import Graphics.Element exposing (Element, widthOf)
+import Scorched.Action exposing (Action)
+import Scorched.Model.Geometry exposing (Offset)
 
-import Graphics.Input exposing (customButton)
+import Scorched.View.Component.BorderTriangle as BorderTriangle
+import Scorched.View.Component.KeyedLabel as KeyedLabel
 
-import Scorched.Model.View.NumericField exposing (..)
+type alias NumericField =
+  { label: String
+  , key: Char
+  , offset: Offset
+  }
 
-import Scorched.View.Widget.BorderTriangle as BorderTriangle
-import Scorched.View.Widget.KeyedLabel as KeyedLabel
-
-build : Settings -> Element
+build : NumericField -> Svg Action
+build field = Svg.g [] []
+{--
 build settings =
   let
     width = 100
@@ -43,3 +49,4 @@ button ({messenger} as settings) direction =
 label : Settings -> Element
 label {text,key,value} =
   KeyedLabel.build (text ++ ":" ++ (toString value)) key
+--}

@@ -15,7 +15,9 @@ import Scorched.Model.Menu as Menu
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
+
 import Scorched.View.Component.Button as Button exposing (Button)
+import Scorched.View.Component.NumericField as NumericField exposing (NumericField)
 
 import Scorched.View.World as WorldView
 
@@ -27,7 +29,12 @@ render ({dimensions, menuData} as model) =
     , Attr.fontFamily "monospace"
     , Attr.style "user-select: none"
     ]
-    (List.append (background model) (buttons (Dict.values menuData.buttons)))
+    (List.concat
+      [ (background model)
+      , (buttons (Dict.values menuData.buttons))
+      , (controls (Dict.values menuData.controls))
+      ]
+    )
 
 background : Model -> List (Svg Action)
 background {dimensions, menuData} =
@@ -49,41 +56,8 @@ sample sampleWorld =
 buttons : List Button -> List (Svg Action)
 buttons definitions = List.map Button.build definitions
 
+controls : List NumericField -> List (Svg Action)
+controls definitions = List.map NumericField.build definitions
+
 worldDimensions : Dimension
 worldDimensions = {width=906, height=724}
-
-  {--
-  let
-    btns = [ playButton
-           , (playerCount model.config.playerCount)
-           , (roundCount model.config.roundCount)
-           ]
-    elem = flow down btns
-  in
-    toForm elem
-      |> move
-        ( toFloat (-(((width - (widthOf elem)) // 2)) + 15)
-        , toFloat (((height - (heightOf elem)) // 2) - 15)
-        )
-
-playerCount : Int -> Element
-playerCount value =
-  NumericField.build
-    { defaultSettings | value = value
-    , text = "Players"
-    , key = 'P'
-    , messenger = (\value -> send updates (Configuration (PlayerCount value)))
-    }
-
-roundCount : Int -> Element
-roundCount value =
-  NumericField.build
-    { defaultSettings | value = value
-    , min = 5
-    , max = 1000
-    , step = 5
-    , text = "Rounds"
-    , key = 'R'
-    , messenger = (\value -> send updates (Configuration (RoundCount value)))
-    }
---}

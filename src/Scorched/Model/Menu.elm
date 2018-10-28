@@ -8,15 +8,18 @@ import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World exposing (World)
 
 import Scorched.View.Component.Button exposing (Button)
+import Scorched.View.Component.NumericField exposing (NumericField)
 
 type alias MenuData =
   { buttons: Dict String Button
+  , controls: Dict String NumericField
   , world: World
   }
 
 default : MenuData
 default =
   { buttons = defaultButtons
+  , controls = defaultControls
   , world = World.empty
   }
 
@@ -26,6 +29,16 @@ defaultButtons =
     (List.map
       (\button -> (button.label, button))
       [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
+    )
+
+defaultControls : Dict String NumericField
+defaultControls =
+  Dict.fromList
+    (List.map
+      (\control -> (control.label, control))
+      [ NumericField "Players" 'P' {x=13, y=35}
+      , NumericField "Rounds" 'R' {x=13, y=60}
+      ]
     )
 
 updateMenuData : MenuData -> String -> MenuData

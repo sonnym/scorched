@@ -1,14 +1,15 @@
-module Scorched.View.Widget.BorderTriangle exposing (..)
+module Scorched.View.Component.BorderTriangle exposing (..)
 
-import Color exposing (Color)
+import Svg exposing (Svg)
+import Svg.Attributes as Attr
 
-import Graphics.Collage exposing (..)
-
-import Scorched.View.Palette exposing (..)
+import Scorched.View.Palette as Palette
 
 type Direction = Up | Down
 
-build : Int -> Bool -> Direction -> Form
+build : Int -> Bool -> Direction -> Svg msg
+build size invert direction = Svg.g [] []
+{--
 build size invert direction = group
   [ backdrop (toFloat size)
   , border (toFloat size) invert direction
@@ -60,3 +61,4 @@ points size direction =
 
       Down ->
         [(-half, half), (half, half), (0, -half)]
+--}
