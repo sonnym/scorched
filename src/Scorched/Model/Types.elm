@@ -18,7 +18,8 @@ type alias Terrain = List Int
 type alias Permutation = List Int
 
 type Action
-  = MenuSky Sky
+  = PermutationGenerated Permutation
+  | MenuSky Sky
   | MenuTerrain Terrain
   | ButtonToggle String
   | ControlToggle String Direction

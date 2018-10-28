@@ -23,7 +23,7 @@ default =
   }
 
 init : Cmd Action
-init = Cmd.batch [ Sky.random, (Terrain.random default) ]
+init = Cmd.batch [ Sky.random, Noise.randomPermutation  ]
 
 update : Action -> Model -> (Model, Cmd Action)
 update msg model =
@@ -33,6 +33,9 @@ update msg model =
 
     MenuTerrain terrain ->
         ({ model | menuData = Menu.updateTerrain model.menuData terrain }, Cmd.none)
+
+    PermutationGenerated permutation ->
+      ({ model | permutation = permutation }, Terrain.random permutation Menu.worldDimensions)
 
     ButtonToggle label ->
       ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)
