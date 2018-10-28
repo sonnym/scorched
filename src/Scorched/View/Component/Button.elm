@@ -25,11 +25,11 @@ type alias Button =
 build : Button -> Svg Action
 build {label, key, dimensions, offset, inverted, action} =
   Svg.g
-  [ Attr.transform (Helper.translate offset)
-  , Attr.fontWeight "bold"
-  , Events.onMouseDown (Action.ButtonDown label)
-  , Events.onMouseUp (Action.ButtonUp label)
-  ]
-  [ BorderBox.build dimensions 2 inverted
-  , Svg.text_ [ Attr.x "10", Attr.y "12.5" ] (KeyedLabel.build label key)
-  ]
+    [ Attr.transform (Helper.translate offset)
+    , Attr.fontWeight "bold"
+    , Events.onMouseDown (Action.ButtonDown label)
+    , Events.onMouseUp (Action.ButtonUp label)
+    ]
+    [ BorderBox.build dimensions 2 inverted
+    , Svg.text_ [ Attr.x "10", Attr.y "12.5" ] (KeyedLabel.build label key)
+    ]
