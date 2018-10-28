@@ -52,7 +52,7 @@ fade : Float -> Float
 fade x = (3 - 2 * x) * x * x
 
 lerp : Float -> Float -> Float -> Float
-lerp t a b = a * t * (b - a)
+lerp t a b = a + t * (b - a)
 
 grad : Int -> Float -> Float
 grad i x = if (Bitwise.and i 1 == 0) then negate x else x
