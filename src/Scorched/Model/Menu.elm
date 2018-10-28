@@ -28,7 +28,15 @@ defaultButtons =
   Dict.fromList
     (List.map
       (\button -> (button.label, button))
-      [ Button "Start" 'S' {width=80, height=19} {x=13, y=12} False Action.NoOp ]
+      [ Button "Start" 'S' {width=82, height=19} {x=7, y=12} False Action.NoOp
+      , Button "Sound…" 'o' {width=56, height=19} {x=7, y=102} False Action.NoOp
+      , Button "Hardware…" 'H' {width=78, height=19} {x=7, y=132} False Action.NoOp
+      , Button "Economics…" 'E' {width=84, height=19} {x=7, y=162} False Action.NoOp
+      , Button "Physics…" 'y' {width=70, height=19} {x=7, y=192} False Action.NoOp
+      , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False Action.NoOp
+      , Button "Play Options…" 't' {width=100, height=19} {x=7, y=252} False Action.NoOp
+      , Button "Weapons…" 'W' {width=68, height=19} {x=7, y=282} False Action.NoOp
+      ]
     )
 
 defaultControls : Dict String NumericField
@@ -36,8 +44,8 @@ defaultControls =
   Dict.fromList
     (List.map
       (\control -> (control.label, control))
-      [ NumericField "Players" 'P' {x=13, y=40}
-      , NumericField "Rounds" 'R' {x=13, y=70}
+      [ NumericField "Players" 'P' {x=8, y=40}
+      , NumericField "Rounds" 'R' {x=8, y=70}
       ]
     )
 

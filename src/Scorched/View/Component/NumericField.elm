@@ -22,7 +22,8 @@ build : NumericField -> Svg Action
 build {label, key, offset} =
   Svg.g
     [ Attr.transform (Helper.translate offset)
-    , Attr.fontWeight "bold"
+    , Attr.fontWeight "600"
+    , Attr.letterSpacing "-1px"
     ]
     [ BorderTriangle.build False BorderTriangle.Up {x=0, y=0}
     , BorderTriangle.build False BorderTriangle.Down {x=0, y=12}
