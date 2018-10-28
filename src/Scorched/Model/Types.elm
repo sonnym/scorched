@@ -15,6 +15,7 @@ type Sky
   | PitchBlack
 
 type alias Terrain = List Int
+type alias Permutation = List Int
 
 type Action
   = MenuSky Sky
@@ -30,6 +31,7 @@ type Action
 type alias Model =
   { view: View
   , menuData: MenuData
+  , permutation: Permutation
   -- , viewData: { game: GameState }
   , dimensions: Dimension
   , config: Configuration
