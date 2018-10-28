@@ -29,8 +29,8 @@ build {label, key, dimensions, offset, inverted, action} =
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
-    , Events.onMouseDown (Action.ButtonDown label)
-    , Events.onMouseUp (Action.ButtonUp label)
+    , Events.onMouseDown (Action.ButtonToggle label)
+    , Events.onMouseUp (Action.ButtonToggle label)
     ]
     [ BorderBox.build dimensions 2 inverted
     , Svg.text_ [ Attr.x "5", Attr.y "12" ] (KeyedLabel.build label key)

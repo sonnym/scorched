@@ -37,10 +37,7 @@ update msg model =
     MenuSky n ->
       ({ model | menuData = Menu.updateMenuWorld model.menuData n }, Cmd.none)
 
-    ButtonUp label ->
-      ({ model | menuData = Menu.updateMenuData model.menuData label }, Cmd.none)
-
-    ButtonDown label ->
+    ButtonToggle label ->
       ({ model | menuData = Menu.updateMenuData model.menuData label }, Cmd.none)
 
     NoOp -> (model, Cmd.none)
