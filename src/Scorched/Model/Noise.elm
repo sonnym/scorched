@@ -25,10 +25,9 @@ noise x =
   let
     base = Bitwise.and (floor x) 255
     remainder = x - toFloat (floor x)
-    faded = fade remainder
   in
     lerp
-      faded
+      (fade remainder)
       (grad (perm base) remainder)
       (grad (perm (base + 1)) (remainder - 1))
 
