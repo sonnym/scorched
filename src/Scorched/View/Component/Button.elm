@@ -28,6 +28,7 @@ build {label, key, dimensions, offset, inverted, action} =
     [ Attr.transform (Helper.translate offset)
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
+    , Attr.wordSpacing "-3px"
     , Events.onMouseDown (Action.ButtonDown label)
     , Events.onMouseUp (Action.ButtonUp label)
     ]

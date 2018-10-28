@@ -34,7 +34,7 @@ defaultButtons =
       , Button "Economics…" 'E' {width=84, height=19} {x=7, y=162} False Action.NoOp
       , Button "Physics…" 'y' {width=70, height=19} {x=7, y=192} False Action.NoOp
       , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False Action.NoOp
-      , Button "Play Options…" 't' {width=100, height=19} {x=7, y=252} False Action.NoOp
+      , Button "Play Options…" 't' {width=98, height=19} {x=7, y=252} False Action.NoOp
       , Button "Weapons…" 'W' {width=68, height=19} {x=7, y=282} False Action.NoOp
       ]
     )
