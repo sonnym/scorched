@@ -18,7 +18,7 @@ import Scorched.View.Component.ShadowText as ShadowText
 import Scorched.View.Component.Button as Button
 import Scorched.View.Component.Control as Control
 
-import Scorched.View.World as WorldView
+import Scorched.View.World as World
 
 render : Model -> Svg Action
 render ({dimensions, menuData, config} as model) =
@@ -45,7 +45,7 @@ background {dimensions, menuData} =
 sample : World -> Svg Action
 sample sampleWorld =
   let
-     world = WorldView.build sampleWorld Menu.worldDimensions
+     world = World.build sampleWorld Menu.worldDimensions
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g
