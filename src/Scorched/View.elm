@@ -1,14 +1,13 @@
-module Scorched.View exposing (..)
+module Scorched.View exposing (build)
 
 import Html exposing (Html)
 
-import Scorched.Model.Types exposing (Model, Action(..), View(..))
+import Scorched.Model.Types exposing (Model, Action, View(..))
 
 import Scorched.View.Menu as Menu
--- import Scorched.View.GamePlay exposing (renderWorld)
 
-render : Model -> Html Action
-render model =
+build : Model -> Html Action
+build model =
   case model.view of
-    Menu -> Menu.render model
+    Menu -> Menu.build model
     -- Game -> renderWorld model

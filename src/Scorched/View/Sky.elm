@@ -1,4 +1,4 @@
-module Scorched.View.Sky exposing (..)
+module Scorched.View.Sky exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr

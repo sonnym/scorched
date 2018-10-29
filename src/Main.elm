@@ -1,8 +1,8 @@
 import Browser
 
-import Scorched.Model as Model
-import Scorched.Model.Types exposing (Model, Action(..))
+import Scorched.Model.Types exposing (Model, Action)
 
+import Scorched.Model as Model
 import Scorched.View as View
 
 main =
@@ -10,7 +10,7 @@ main =
     { init = init
     , update = Model.update
     , subscriptions = subscriptions
-    , view = View.render
+    , view = View.build
     }
 
 init : () -> (Model, Cmd Action)

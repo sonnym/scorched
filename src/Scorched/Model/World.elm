@@ -1,4 +1,4 @@
-module Scorched.Model.World exposing (..)
+module Scorched.Model.World exposing (empty)
 
 import Scorched.Model.Types exposing (World, Sky(..), Terrain)
 

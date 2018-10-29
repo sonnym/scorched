@@ -1,4 +1,4 @@
-module Scorched.View.Helper exposing (..)
+module Scorched.View.Helper exposing (translate)
 
 import Scorched.Model.Geometry exposing (Offset)
 

@@ -1,4 +1,4 @@
-module Scorched.Model exposing (..)
+module Scorched.Model exposing (default, init, update)
 
 import Scorched.Model.Types exposing (Action(..), View(..), Model, Configuration, MenuData)
 import Scorched.Model.Geometry exposing (Dimension)

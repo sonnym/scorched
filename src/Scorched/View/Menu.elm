@@ -1,4 +1,4 @@
-module Scorched.View.Menu exposing (..)
+module Scorched.View.Menu exposing (build)
 
 import Dict exposing (Dict)
 
@@ -20,8 +20,8 @@ import Scorched.View.Component.Control as Control
 
 import Scorched.View.World as World
 
-render : Model -> Svg Action
-render ({dimensions, menuData, config} as model) =
+build : Model -> Svg Action
+build ({dimensions, menuData, config} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
