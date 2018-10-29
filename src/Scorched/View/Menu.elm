@@ -32,6 +32,7 @@ build ({dimensions, menuData, config} as model) =
       [ (background model)
       , (buttons (Dict.values menuData.buttons))
       , (controls config (Dict.values menuData.controls))
+      , messages
       ]
     )
 
@@ -39,7 +40,6 @@ background : Model -> List (Svg Action)
 background {dimensions, menuData} =
   [ BorderBox.build dimensions 2 False
   , sample menuData.world
-  , ShadowText.build "Scorched Earth" {x = 420, y = 48 }
   ]
 
 sample : World -> Svg Action
@@ -57,3 +57,26 @@ buttons definitions = List.map Button.build definitions
 
 controls : Configuration -> List Control -> List (Svg Action)
 controls config definitions = List.map (Control.build config) definitions
+
+messages : List (Svg msg)
+messages =
+  [ ShadowText.build "Scorched Earth" {x = 420, y = 48 }
+
+  , Svg.text_
+    [ Attr.transform "translate(472, 84)"
+    , Attr.fill "white"
+    ]
+    [ Svg.text "The Mother of All Games" ]
+
+  , Svg.text_
+    [ Attr.transform "translate(504, 744)"
+    , Attr.fill "black"
+    ]
+    [ Svg.text "Version 0.0.1" ]
+
+  , Svg.text_
+    [ Attr.transform "translate(408, 758)"
+    , Attr.fill "black"
+    ]
+    [ Svg.text "Copyright (c) 1991-1995 Wendell Hicken" ]
+  ]
