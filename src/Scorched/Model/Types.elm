@@ -19,8 +19,7 @@ type alias Permutation = List Int
 
 type Msg
   = PermutationGenerated Permutation
-  | MenuSky Sky
-  | MenuTerrain Terrain
+  | MenuWorld World
   | ButtonToggle String
   | ControlToggle String Direction
   | KeyDown String

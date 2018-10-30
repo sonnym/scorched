@@ -8,8 +8,7 @@ import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.Menu as Menu
-import Scorched.Model.Sky as Sky
-import Scorched.Model.Terrain as Terrain
+import Scorched.Model.World as World
 
 import Scorched.Model.Configuration as Configuration
 
@@ -24,19 +23,16 @@ default =
   }
 
 init : Cmd Msg
-init = Cmd.batch [ Sky.random, Permutation.random ]
+init = Cmd.batch [ Permutation.random ]
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    MenuSky sky ->
-      ({ model | menuData = Menu.updateSky model.menuData sky }, Cmd.none)
-
-    MenuTerrain terrain ->
-        ({ model | menuData = Menu.updateTerrain model.menuData terrain }, Cmd.none)
-
     PermutationGenerated permutation ->
-      ({ model | permutation = permutation }, Terrain.random permutation Menu.worldDimensions)
+      ({ model | permutation = permutation }, World.random permutation Menu.worldDimensions)
+
+    MenuWorld world ->
+        ({ model | menuData = Menu.updateWorld model.menuData world }, Cmd.none)
 
     ButtonToggle label ->
       ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)

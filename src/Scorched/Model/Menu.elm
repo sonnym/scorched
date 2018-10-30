@@ -46,6 +46,9 @@ defaultControls =
       ]
     )
 
+updateWorld : MenuData -> World -> MenuData
+updateWorld menuData world = { menuData | world = world }
+
 toggleButton : MenuData -> String -> MenuData
 toggleButton menuData label =
   { menuData | buttons = updateButtons menuData.buttons label }
@@ -82,22 +85,6 @@ updateControl direction maybeControl =
   case maybeControl of
     Just control -> Just { control | invert = direction }
     Nothing -> Nothing
-
-updateSky : MenuData -> Sky -> MenuData
-updateSky menuData sky =
-  let
-    world = menuData.world
-    newWorld = { world | sky = sky }
-  in
-    { menuData | world = newWorld }
-
-updateTerrain : MenuData -> Terrain -> MenuData
-updateTerrain menuData terrain =
-  let
-    world = menuData.world
-    newWorld = { world | terrain = terrain }
-  in
-     { menuData | world = newWorld }
 
 updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
 updateConfig config op spec =

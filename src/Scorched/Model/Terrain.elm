@@ -1,4 +1,4 @@
-module Scorched.Model.Terrain exposing (empty, random)
+module Scorched.Model.Terrain exposing (empty, generator)
 
 import Random
 import Random.Extra
@@ -7,10 +7,6 @@ import Scorched.Model.Noise as Noise
 
 import Scorched.Model.Types exposing (Permutation, Msg(..), Terrain)
 import Scorched.Model.Geometry exposing (Dimension)
-
-random : Permutation -> Dimension -> Cmd Msg
-random permutation dimensions =
-  Random.generate MenuTerrain (generator permutation dimensions)
 
 generator : Permutation -> Dimension -> Random.Generator Terrain
 generator permutation {width, height} =

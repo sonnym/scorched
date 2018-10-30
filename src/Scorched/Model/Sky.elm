@@ -1,4 +1,4 @@
-module Scorched.Model.Sky exposing (empty, random)
+module Scorched.Model.Sky exposing (empty, generator)
 
 import Random
 
@@ -6,9 +6,6 @@ import Scorched.Model.Types exposing (Msg(..), Sky(..))
 
 import Maybe exposing (withDefault)
 import Array exposing (Array, fromList, get, length)
-
-random : Cmd Msg
-random = Random.generate MenuSky generator
 
 generator : Random.Generator Sky
 generator = Random.uniform empty [ PitchBlack, Plain, Sunset ]
