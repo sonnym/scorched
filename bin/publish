@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+set -e
+
+yarn-exec elm make --output=main.js --optimize src/Main.elm
+
+git add main.js
+git stash
+
+git checkout gh-pages
+
+git rm main.js
+git commit -m "make $(git show master | awk '$1 == "commit" { print $2 }')"
+
+git stash pop
+git commit --amend
