@@ -4,7 +4,7 @@ import Dict exposing (Dict)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-type View = Menu -- | Game
+type View = Menu
 
 type Operation = Increment | Decrement
 type Direction = Up | Down | None
@@ -28,15 +28,11 @@ type Msg
   | KeyPress String
   | UpdateConfig Operation ControlSpec
   | NoOp
-  -- | Initialize
-  -- | Start
-  -- | Configuration Configuration.Msg
 
 type alias Model =
   { view: View
   , menuData: MenuData
   , permutation: Permutation
-  -- , viewData: { game: GameState }
   , dimensions: Dimension
   , config: Configuration
   }

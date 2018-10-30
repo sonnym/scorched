@@ -11,7 +11,6 @@ import Scorched.Model.Menu as Menu
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
 
--- import Scorched.Model.GameState as GameState exposing (GameState)
 import Scorched.Model.Configuration as Configuration
 
 default : Model
