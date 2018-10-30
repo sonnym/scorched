@@ -5,10 +5,10 @@ import Random.Extra
 
 import Scorched.Model.Noise as Noise
 
-import Scorched.Model.Types exposing (Permutation, Action(..), Terrain)
+import Scorched.Model.Types exposing (Permutation, Msg(..), Terrain)
 import Scorched.Model.Geometry exposing (Dimension)
 
-random : Permutation -> Dimension -> Cmd Action
+random : Permutation -> Dimension -> Cmd Msg
 random permutation dimensions =
   Random.generate MenuTerrain (generator permutation dimensions)
 

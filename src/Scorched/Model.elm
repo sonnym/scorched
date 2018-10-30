@@ -1,6 +1,6 @@
 module Scorched.Model exposing (default, init, update)
 
-import Scorched.Model.Types exposing (Action(..), View(..), Model, Configuration, MenuData)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MenuData)
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
@@ -22,10 +22,10 @@ default =
   , config = Configuration.default
   }
 
-init : Cmd Action
+init : Cmd Msg
 init = Cmd.batch [ Sky.random, Permutation.random ]
 
-update : Action -> Model -> (Model, Cmd Action)
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     MenuSky sky ->

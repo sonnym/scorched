@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Action(..))
+import Scorched.Model.Types exposing (Msg(..))
 
 import Scorched.Model.Types exposing (Model, Configuration, World, Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
@@ -20,7 +20,7 @@ import Scorched.View.Component.Control as Control
 
 import Scorched.View.World as World
 
-build : Model -> Svg Action
+build : Model -> Svg Msg
 build ({dimensions, menuData, config} as model) =
   Svg.svg
     [ Attr.width (String.fromInt dimensions.width)
@@ -36,13 +36,13 @@ build ({dimensions, menuData, config} as model) =
       ]
     )
 
-background : Model -> List (Svg Action)
+background : Model -> List (Svg Msg)
 background {dimensions, menuData} =
   [ BorderBox.build dimensions 2 False
   , sample menuData.world
   ]
 
-sample : World -> Svg Action
+sample : World -> Svg Msg
 sample sampleWorld =
   let
      world = World.build sampleWorld Menu.worldDimensions
@@ -52,10 +52,10 @@ sample sampleWorld =
       [ Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-buttons : List Button -> List (Svg Action)
+buttons : List Button -> List (Svg Msg)
 buttons definitions = List.map Button.build definitions
 
-controls : Configuration -> List Control -> List (Svg Action)
+controls : Configuration -> List Control -> List (Svg Msg)
 controls config definitions = List.map (Control.build config) definitions
 
 messages : List (Svg msg)

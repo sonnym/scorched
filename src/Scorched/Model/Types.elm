@@ -17,7 +17,7 @@ type Sky
 type alias Terrain = List Int
 type alias Permutation = List Int
 
-type Action
+type Msg
   = PermutationGenerated Permutation
   | MenuSky Sky
   | MenuTerrain Terrain
@@ -27,7 +27,7 @@ type Action
   | NoOp
   -- | Initialize
   -- | Start
-  -- | Configuration Configuration.Action
+  -- | Configuration Configuration.Msg
 
 type alias Model =
   { view: View
@@ -60,7 +60,7 @@ type alias Button =
   , dimensions: Dimension
   , offset: Offset
   , inverted: Bool
-  , action: Action
+  , action: Msg
   }
 
 type alias ControlSpec =

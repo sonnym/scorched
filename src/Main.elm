@@ -1,6 +1,6 @@
 import Browser
 
-import Scorched.Model.Types exposing (Model, Action)
+import Scorched.Model.Types exposing (Model, Msg)
 
 import Scorched.Model as Model
 import Scorched.View as View
@@ -13,11 +13,11 @@ main =
     , view = View.build
     }
 
-init : () -> (Model, Cmd Action)
+init : () -> (Model, Cmd Msg)
 init flags =
   ( Model.default
   , Model.init
   )
 
-subscriptions : Model -> Sub Action
+subscriptions : Model -> Sub Msg
 subscriptions model = Sub.none

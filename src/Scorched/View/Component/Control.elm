@@ -4,7 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (Action, Configuration, Direction(..), Control)
+import Scorched.Model.Types exposing (Msg, Configuration, Direction(..), Control)
 import Scorched.Model.Geometry exposing (Offset)
 
 import Scorched.View.Helper as Helper
@@ -12,7 +12,7 @@ import Scorched.View.Helper as Helper
 import Scorched.View.Component.BorderTriangle as BorderTriangle
 import Scorched.View.Component.KeyedLabel as KeyedLabel
 
-build : Configuration -> Control -> Svg Action
+build : Configuration -> Control -> Svg Msg
 build config {label, key, offset, invert, spec} =
   Svg.g
     [ Attr.transform (Helper.translate offset)
