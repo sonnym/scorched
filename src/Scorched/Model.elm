@@ -1,9 +1,11 @@
-module Scorched.Model exposing (default, init, update)
+module Scorched.Model exposing (default, init, update, subscriptions)
 
 import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MenuData)
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
+
+import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.Menu as Menu
 import Scorched.Model.Sky as Sky
@@ -43,7 +45,20 @@ update msg model =
     ControlToggle label direction ->
       ({ model | menuData = Menu.toggleControl model.menuData label direction }, Cmd.none)
 
+    KeyDown key ->
+      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
+
+    KeyUp key ->
+      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
+
+    KeyPress key ->
+      case model.view of
+        Menu -> ({ model | config = Menu.handleKeyPress model.config key }, Cmd.none)
+
     UpdateConfig operation spec ->
       ({ model | config = Menu.updateConfig model.config operation spec }, Cmd.none)
 
     NoOp -> (model, Cmd.none)
+
+subscriptions : Model -> Sub Msg
+subscriptions model = Sub.batch Keyboard.subscriptions

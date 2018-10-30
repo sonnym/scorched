@@ -50,6 +50,16 @@ toggleButton : MenuData -> String -> MenuData
 toggleButton menuData label =
   { menuData | buttons = updateButtons menuData.buttons label }
 
+toggleButtonByKey : MenuData -> String -> MenuData
+toggleButtonByKey menuData key =
+  let
+    filteredButtons = Dict.filter (\_ button -> String.fromChar button.key == key) defaultButtons
+    maybeLabel = List.head (Dict.keys filteredButtons)
+  in
+    case maybeLabel of
+      Just label -> toggleButton menuData label
+      Nothing -> menuData
+
 updateButtons : Dict String Button -> String -> Dict String Button
 updateButtons buttons label = Dict.update label updateButton buttons
 
@@ -92,6 +102,16 @@ updateTerrain menuData terrain =
 updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)
+
+handleKeyPress : Configuration -> String -> Configuration
+handleKeyPress config key =
+  let
+    filteredControls = Dict.filter (\_ control -> String.fromChar control.key == key) defaultControls
+    maybeControl = List.head (Dict.values filteredControls)
+  in
+    case maybeControl of
+      Just control -> updateConfig config Increment control.spec
+      Nothing -> config
 
 guard : Int -> ControlSpec -> Int
 guard value {min, max} =
