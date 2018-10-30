@@ -47,7 +47,10 @@ update msg model =
 
     KeyDown key -> (model, Cmd.none)
     KeyUp key -> (model, Cmd.none)
-    KeyPress key -> (model, Cmd.none)
+
+    KeyPress key ->
+      case model.view of
+        Menu -> ({ model | config = Menu.handleKeyPress model.config key }, Cmd.none)
 
     UpdateConfig operation spec ->
       ({ model | config = Menu.updateConfig model.config operation spec }, Cmd.none)

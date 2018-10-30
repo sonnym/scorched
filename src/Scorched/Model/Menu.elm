@@ -93,6 +93,16 @@ updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)
 
+handleKeyPress : Configuration -> String -> Configuration
+handleKeyPress config key =
+  let
+    filteredControls = Dict.filter (\_ control -> String.fromChar control.key == key) defaultControls
+    maybeControl = List.head (Dict.values filteredControls)
+  in
+    case maybeControl of
+      Just control -> updateConfig config Increment control.spec
+      Nothing -> config
+
 guard : Int -> ControlSpec -> Int
 guard value {min, max} =
   if value > max then
