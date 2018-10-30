@@ -45,8 +45,11 @@ update msg model =
     ControlToggle label direction ->
       ({ model | menuData = Menu.toggleControl model.menuData label direction }, Cmd.none)
 
-    KeyDown key -> (model, Cmd.none)
-    KeyUp key -> (model, Cmd.none)
+    KeyDown key ->
+      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
+
+    KeyUp key ->
+      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
 
     KeyPress key ->
       case model.view of
