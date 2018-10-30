@@ -9,7 +9,7 @@ main =
   Browser.element
     { init = init
     , update = Model.update
-    , subscriptions = subscriptions
+    , subscriptions = Model.subscriptions
     , view = View.build
     }
 
@@ -18,6 +18,3 @@ init flags =
   ( Model.default
   , Model.init
   )
-
-subscriptions : Model -> Sub Msg
-subscriptions model = Sub.none

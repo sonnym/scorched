@@ -23,6 +23,9 @@ type Msg
   | MenuTerrain Terrain
   | ButtonToggle String
   | ControlToggle String Direction
+  | KeyDown String
+  | KeyUp String
+  | KeyPress String
   | UpdateConfig Operation ControlSpec
   | NoOp
   -- | Initialize
