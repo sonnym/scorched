@@ -6,11 +6,12 @@ import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.Permutation as Permutation
 
 import Scorched.Model.Keyboard as Keyboard
+import Scorched.Model.Configuration as Configuration
 
 import Scorched.Model.MainMenu as MainMenu
-import Scorched.Model.World as World
+import Scorched.Model.SubMenu as SubMenu
 
-import Scorched.Model.Configuration as Configuration
+import Scorched.Model.World as World
 
 default : Model
 default =
@@ -58,7 +59,7 @@ update msg model =
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
+        SubMenu _ -> (model, SubMenu.handleKeyUp key)
 
     KeyPress key ->
       case model.view of
