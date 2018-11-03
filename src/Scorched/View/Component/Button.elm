@@ -20,6 +20,7 @@ build {label, key, dimensions, offset, inverted, action} =
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
+    , Events.onClick action
     , Events.onMouseDown (ButtonToggle label)
     , Events.onMouseUp (ButtonToggle label)
     ]
