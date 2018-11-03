@@ -17,7 +17,6 @@ default =
   { view = MainMenu
   , permutation = Permutation.default
   , menuData = MainMenu.default
-  -- , viewData = {game=GameState.empty}
   , dimensions = {width=1024, height=768}
   , config = Configuration.default
   }

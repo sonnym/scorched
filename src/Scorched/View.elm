@@ -11,4 +11,3 @@ build model =
   case model.view of
     MainMenu -> MainMenu.build model
     SubMenu _ -> MainMenu.build model
-    -- Game -> renderWorld model
