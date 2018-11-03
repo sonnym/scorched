@@ -25,4 +25,4 @@ buildInternal : Model -> Svg Msg
 buildInternal model =
   case model.view of
     MainMenu -> MainMenu.build model
-    SubMenu _ -> SubMenu.build model
+    SubMenu subMenu -> SubMenu.build subMenu model
