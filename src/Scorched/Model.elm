@@ -37,6 +37,7 @@ update msg model =
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
 
+{--
     ButtonToggle label ->
       case model.view of
         MainMenu ->
@@ -71,6 +72,7 @@ update msg model =
         MainMenu ->
           ({ model | config = MainMenu.updateConfig model.config operation spec }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
+--}
 
     NoOp -> (model, Cmd.none)
 

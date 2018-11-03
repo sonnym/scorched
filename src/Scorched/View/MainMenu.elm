@@ -7,7 +7,7 @@ import Svg.Attributes as Attr
 
 import Scorched.Model.Types exposing (Msg(..))
 
-import Scorched.Model.Types exposing (Model, Configuration, World, Button, Control)
+import Scorched.Model.Types exposing (Model, Configuration, World, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 import Scorched.Model.MainMenu as MainMenu
@@ -15,7 +15,6 @@ import Scorched.Model.MainMenu as MainMenu
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
 
-import Scorched.View.Component.Button as Button
 import Scorched.View.Component.Control as Control
 
 import Scorched.View.World as World
@@ -26,7 +25,6 @@ build ({dimensions, menuData, config} as model) =
     [ Attr.id "menu-main" ]
     (List.concat
       [ (background model)
-      , (buttons (Dict.values menuData.buttons))
       , (controls config (Dict.values menuData.controls))
       , messages
       ]
@@ -47,9 +45,6 @@ sample sampleWorld =
     Svg.g
       [ Attr.id "menu-main--world", Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
-
-buttons : List Button -> List (Svg Msg)
-buttons definitions = List.map Button.build definitions
 
 controls : Configuration -> List Control -> List (Svg Msg)
 controls config definitions = List.map (Control.build config) definitions

@@ -22,12 +22,14 @@ type Msg
   = PermutationGenerated Permutation
   | UpdateView View
   | MainMenuWorld World
+{--
   | ButtonToggle String
   | ControlToggle String Direction
   | KeyDown String
   | KeyUp String
   | KeyPress String
   | UpdateConfig Operation ControlSpec
+--}
   | NoOp
 
 type alias Model =
@@ -49,32 +51,30 @@ type alias World =
   }
 
 type alias MainMenuData =
-  { buttons: Dict String Button
-  , controls: Dict String Control
+  { controls: Dict String Control
   , world: World
   }
 
-type alias Button =
-  { label: String
-  , key: Char
-  , dimensions: Dimension
-  , offset: Offset
-  , inverted: Bool
-  , action: Msg
-  }
-
-type alias ControlSpec =
-  { min: Int
-  , max: Int
-  , step: Int
-  , getter: (Configuration -> Int)
-  , setter: (Configuration -> Int -> Configuration)
-  }
+type Specification = Button ButtonSpec | Numeric NumericSpec
 
 type alias Control =
   { label: String
   , key: Char
   , offset: Offset
+  , spec: Specification
+  }
+
+type alias ButtonSpec =
+  { dimensions: Dimension
+  , inverted: Bool
+  , action: Msg
+  }
+
+type alias NumericSpec =
+  { min: Int
+  , max: Int
+  , step: Int
   , invert: Direction
-  , spec: ControlSpec
+  , getter: (Configuration -> Int)
+  , setter: (Configuration -> Int -> Configuration)
   }
