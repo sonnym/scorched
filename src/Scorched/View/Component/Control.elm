@@ -23,7 +23,7 @@ build config {label, key, offset, invert, spec} =
     ]
     [ BorderTriangle.build spec (invert == Up) Up {x=0, y=0} label
     , BorderTriangle.build spec (invert == Down) Down {x=0, y=12} label
-    , Svg.text_ [ Attr.x "17", Attr.y "13" ]  [ buildLabel label key (spec.getter config) ]
+    , buildLabel label key (spec.getter config)
     ]
 
 buildLabel : String -> Char -> Int -> Svg msg
@@ -31,4 +31,4 @@ buildLabel label key value =
   let
     labelWithValue = label ++ ": " ++ (String.fromInt value)
   in
-    KeyedLabel.build labelWithValue key
+    KeyedLabel.build labelWithValue key {x=17, y=13}

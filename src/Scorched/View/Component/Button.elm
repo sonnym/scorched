@@ -24,5 +24,5 @@ build {label, key, dimensions, offset, inverted, action} =
     , Events.onMouseUp (ButtonToggle label)
     ]
     [ BorderBox.build dimensions 2 inverted
-    , Svg.text_ [ Attr.x "5", Attr.y "12" ] [ KeyedLabel.build label key ]
+    , KeyedLabel.build label key {x=5, y=12}
     ]
