@@ -11,7 +11,8 @@ import Scorched.View.Palette as Palette exposing (Color)
 build : String -> Offset -> Svg msg
 build text offset =
   Svg.g
-    [ Attr.transform (Helper.translate offset)
+    [ Attr.class "shadowtext"
+    , Attr.transform (Helper.translate offset)
     , Attr.fontSize "32"
     ]
     (List.map2

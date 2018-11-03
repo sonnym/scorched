@@ -23,7 +23,8 @@ import Scorched.View.World as World
 build : Model -> Svg Msg
 build ({dimensions, menuData, config} as model) =
   Svg.svg
-    [ Attr.width (String.fromInt dimensions.width)
+    [ Attr.id "menu-main"
+    , Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     , Attr.fontFamily "monospace"
     , Attr.style "user-select: none; -moz-user-select: none;"
@@ -49,7 +50,7 @@ sample sampleWorld =
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g
-      [ Attr.transform ("translate(109, 6)") ]
+      [ Attr.id "menu-main--world", Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
 buttons : List Button -> List (Svg Msg)

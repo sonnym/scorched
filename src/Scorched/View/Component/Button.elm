@@ -15,7 +15,8 @@ import Scorched.View.Component.KeyedLabel as KeyedLabel
 build : Button -> Svg Msg
 build {label, key, dimensions, offset, inverted, action} =
   Svg.g
-    [ Attr.transform (Helper.translate offset)
+    [ Attr.class "button"
+    , Attr.transform (Helper.translate offset)
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
@@ -23,5 +24,5 @@ build {label, key, dimensions, offset, inverted, action} =
     , Events.onMouseUp (ButtonToggle label)
     ]
     [ BorderBox.build dimensions 2 inverted
-    , Svg.text_ [ Attr.x "5", Attr.y "12" ] (KeyedLabel.build label key)
+    , Svg.text_ [ Attr.x "5", Attr.y "12" ] [ KeyedLabel.build label key ]
     ]

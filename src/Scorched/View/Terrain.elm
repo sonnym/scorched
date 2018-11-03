@@ -9,7 +9,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 build : Terrain -> Dimension -> Svg msg
 build terrain {height} =
   Svg.g
-    [ ]
+    [ Attr.id "terrain" ]
     (List.map2
       (buildLine height)
       (List.range 0 (List.length terrain - 1))

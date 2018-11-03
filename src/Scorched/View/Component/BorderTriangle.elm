@@ -13,7 +13,7 @@ import Scorched.View.Palette as Palette exposing (Color)
 build : ControlSpec -> Bool -> Direction -> Offset -> String -> Svg Msg
 build spec invert direction offset label =
   Svg.g
-    [ Attr.transform (Helper.translate offset) ]
+    [ Attr.class "bordertriangle", Attr.transform (Helper.translate offset) ]
     ((boundingBox spec direction label) :: (lines invert direction))
 
 boundingBox : ControlSpec -> Direction -> String -> Svg Msg

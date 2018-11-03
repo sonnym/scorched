@@ -18,7 +18,8 @@ build sky dimensions =
 buildPlain : Dimension -> Svg msg
 buildPlain {width, height} =
   Svg.rect
-    [ Attr.fill "rgb(36, 36, 125)"
+    [ Attr.id "sky-plain"
+    , Attr.fill "rgb(36, 36, 125)"
     , Attr.x "0"
     , Attr.y "0"
     , Attr.width (String.fromInt width)
@@ -29,7 +30,8 @@ buildPlain {width, height} =
 buildPitchBlack : Dimension -> Svg msg
 buildPitchBlack {width, height} =
   Svg.rect
-    [ Attr.fill "black"
+    [ Attr.id "sky-pitchblack"
+    , Attr.fill "black"
     , Attr.x "0"
     , Attr.y "0"
     , Attr.width (String.fromInt width)
@@ -39,30 +41,36 @@ buildPitchBlack {width, height} =
 
 buildSunset : Dimension -> Svg msg
 buildSunset dimensions =
-  Svg.g [] (List.append (sunsetBands dimensions) [ sun dimensions ])
+  Svg.g
+    [ Attr.id "sky-sunset" ]
+    [ sunsetBands dimensions, sun dimensions ]
 
-sunsetBands : Dimension -> List (Svg msg)
+sunsetBands : Dimension -> Svg msg
 sunsetBands {width, height} =
   let
     count = List.length Palette.sunset
     bandHeight = toFloat height / toFloat count
   in
-    List.map2
-      (\color offset ->
-        Svg.rect
-          [ Attr.fill (Palette.toString color)
-          , Attr.x "0"
-          , Attr.y (String.fromFloat (toFloat offset * bandHeight))
-          , Attr.width (String.fromInt width)
-          , Attr.height (String.fromFloat bandHeight)
-          ]
-          []
-      ) Palette.sunset (List.range 0 (count - 1))
+    Svg.g
+      [ Attr.id "sky-sunset-bands" ]
+      (List.map2
+        (\color offset ->
+          Svg.rect
+            [ Attr.fill (Palette.toString color)
+            , Attr.x "0"
+            , Attr.y (String.fromFloat (toFloat offset * bandHeight))
+            , Attr.width (String.fromInt width)
+            , Attr.height (String.fromFloat bandHeight)
+            ]
+            []
+        ) Palette.sunset (List.range 0 (count - 1)))
 
 sun : Dimension -> Svg msg
 sun {width, height} =
   Svg.g
-    [ Attr.transform "translate(156, 414)" ]
+    [ Attr.id "sky-sunset-sun"
+    , Attr.transform "translate(156, 414)"
+    ]
     [ Svg.defs [] [
         Svg.clipPath
           [ Attr.id "truncate-sun" ]

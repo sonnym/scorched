@@ -9,7 +9,9 @@ import Scorched.View.Palette as Palette exposing(Color)
 
 build : Dimension -> Int -> Bool -> Svg msg
 build dimensions stroke invert =
-  Svg.g [] (background dimensions :: border dimensions stroke invert)
+  Svg.g
+    [ Attr.class "borderbox" ]
+    (background dimensions :: border dimensions stroke invert)
 
 background : Dimension -> Svg msg
 background {width, height} =
