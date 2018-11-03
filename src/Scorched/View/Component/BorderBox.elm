@@ -48,27 +48,33 @@ regularColors =
 
 topLine : Int -> Int -> Color -> Svg msg
 topLine width stroke color =
-  Svg.line
-    [ Attr.x1 "0"
-    , Attr.x2 (String.fromInt width)
-    , Attr.y1 "0"
-    , Attr.y2 "0"
-    , Attr.strokeWidth (String.fromInt stroke)
-    , Attr.stroke (Palette.toString color)
-    ]
-    []
+  let
+    offsetAttr = String.fromInt (floor ((toFloat stroke) / 2))
+  in
+    Svg.line
+      [ Attr.x1 "0"
+      , Attr.x2 (String.fromInt width)
+      , Attr.y1 offsetAttr
+      , Attr.y2 offsetAttr
+      , Attr.strokeWidth (String.fromInt stroke)
+      , Attr.stroke (Palette.toString color)
+      ]
+      []
 
 leftLine : Int -> Int -> Color -> Svg msg
 leftLine height stroke color =
-  Svg.line
-    [ Attr.x1 "0"
-    , Attr.x2 "0"
-    , Attr.y1 "0"
-    , Attr.y2 (String.fromInt height)
-    , Attr.strokeWidth (String.fromInt stroke)
-    , Attr.stroke (Palette.toString color)
-    ]
-    []
+  let
+    offsetAttr = String.fromInt (floor ((toFloat stroke) / 2))
+  in
+    Svg.line
+      [ Attr.x1 offsetAttr
+      , Attr.x2 offsetAttr
+      , Attr.y1 "0"
+      , Attr.y2 (String.fromInt height)
+      , Attr.strokeWidth (String.fromInt stroke)
+      , Attr.stroke (Palette.toString color)
+      ]
+      []
 
 rightLine : Int -> Int -> Int -> Color -> Svg msg
 rightLine offset height stroke color =
