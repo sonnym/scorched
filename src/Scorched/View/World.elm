@@ -11,4 +11,8 @@ import Scorched.View.Terrain as Terrain
 
 build : World -> Dimension -> Svg msg
 build {terrain, sky} dimensions =
-  Svg.g [ ] [ Sky.build sky dimensions, Terrain.build terrain dimensions ]
+  Svg.g
+    [ Attr.id "world"
+    , Attr.transform "translate(1, 1)"
+    ]
+    [ Sky.build sky dimensions, Terrain.build terrain dimensions ]
