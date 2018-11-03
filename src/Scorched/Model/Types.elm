@@ -4,7 +4,7 @@ import Dict exposing (Dict)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-type View = Menu
+type View = MainMenu
 
 type Operation = Increment | Decrement
 type Direction = Up | Down | None
@@ -19,7 +19,7 @@ type alias Permutation = List Int
 
 type Msg
   = PermutationGenerated Permutation
-  | MenuWorld World
+  | MainMenuWorld World
   | ButtonToggle String
   | ControlToggle String Direction
   | KeyDown String
@@ -30,7 +30,7 @@ type Msg
 
 type alias Model =
   { view: View
-  , menuData: MenuData
+  , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
   , config: Configuration
@@ -46,7 +46,7 @@ type alias World =
   , terrain: Terrain
   }
 
-type alias MenuData =
+type alias MainMenuData =
   { buttons: Dict String Button
   , controls: Dict String Control
   , world: World

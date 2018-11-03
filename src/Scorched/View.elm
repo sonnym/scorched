@@ -4,10 +4,10 @@ import Html exposing (Html)
 
 import Scorched.Model.Types exposing (Model, Msg, View(..))
 
-import Scorched.View.Menu as Menu
+import Scorched.View.MainMenu as MainMenu
 
 build : Model -> Html Msg
 build model =
   case model.view of
-    Menu -> Menu.build model
+    MainMenu -> MainMenu.build model
     -- Game -> renderWorld model

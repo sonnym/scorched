@@ -1,4 +1,4 @@
-module Scorched.Model.Menu exposing (..)
+module Scorched.Model.MainMenu exposing (..)
 
 import Dict exposing (Dict)
 
@@ -8,7 +8,7 @@ import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
 
-default : MenuData
+default : MainMenuData
 default =
   { buttons = defaultButtons
   , controls = defaultControls
@@ -46,14 +46,14 @@ defaultControls =
       ]
     )
 
-updateWorld : MenuData -> World -> MenuData
+updateWorld : MainMenuData -> World -> MainMenuData
 updateWorld menuData world = { menuData | world = world }
 
-toggleButton : MenuData -> String -> MenuData
+toggleButton : MainMenuData -> String -> MainMenuData
 toggleButton menuData label =
   { menuData | buttons = updateButtons menuData.buttons label }
 
-toggleButtonByKey : MenuData -> String -> MenuData
+toggleButtonByKey : MainMenuData -> String -> MainMenuData
 toggleButtonByKey menuData key =
   let
     maybeLabel = List.head (Dict.keys (findItem defaultButtons key))
@@ -71,7 +71,7 @@ updateButton maybeButton =
     Just button -> Just { button | inverted = not button.inverted }
     Nothing -> Nothing
 
-toggleControl : MenuData -> String -> Direction -> MenuData
+toggleControl : MainMenuData -> String -> Direction -> MainMenuData
 toggleControl menuData label direction =
   { menuData | controls = updateControls menuData.controls label direction }
 

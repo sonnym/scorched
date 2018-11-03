@@ -10,7 +10,7 @@ import Scorched.Model.Terrain as Terrain
 
 random : Permutation -> Dimension -> Cmd Msg
 random permutation dimensions =
-  Random.generate MenuWorld (generator permutation dimensions)
+  Random.generate MainMenuWorld (generator permutation dimensions)
 
 generator : Permutation -> Dimension -> Random.Generator World
 generator permutation dimensions =

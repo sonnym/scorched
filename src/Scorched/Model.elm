@@ -1,22 +1,22 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
-import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MenuData)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MainMenuData)
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
 
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Menu as Menu
+import Scorched.Model.MainMenu as MainMenu
 import Scorched.Model.World as World
 
 import Scorched.Model.Configuration as Configuration
 
 default : Model
 default =
-  { view = Menu
+  { view = MainMenu
   , permutation = Permutation.default
-  , menuData = Menu.default
+  , menuData = MainMenu.default
   -- , viewData = {game=GameState.empty}
   , dimensions = {width=1024, height=768}
   , config = Configuration.default
@@ -29,29 +29,29 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     PermutationGenerated permutation ->
-      ({ model | permutation = permutation }, World.random permutation Menu.worldDimensions)
+      ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
 
-    MenuWorld world ->
-        ({ model | menuData = Menu.updateWorld model.menuData world }, Cmd.none)
+    MainMenuWorld world ->
+        ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
 
     ButtonToggle label ->
-      ({ model | menuData = Menu.toggleButton model.menuData label }, Cmd.none)
+      ({ model | menuData = MainMenu.toggleButton model.menuData label }, Cmd.none)
 
     ControlToggle label direction ->
-      ({ model | menuData = Menu.toggleControl model.menuData label direction }, Cmd.none)
+      ({ model | menuData = MainMenu.toggleControl model.menuData label direction }, Cmd.none)
 
     KeyDown key ->
-      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
+      ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
 
     KeyUp key ->
-      ({ model | menuData = Menu.toggleButtonByKey model.menuData key }, Cmd.none)
+      ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
 
     KeyPress key ->
       case model.view of
-        Menu -> ({ model | config = Menu.handleKeyPress model.config key }, Cmd.none)
+        MainMenu -> ({ model | config = MainMenu.handleKeyPress model.config key }, Cmd.none)
 
     UpdateConfig operation spec ->
-      ({ model | config = Menu.updateConfig model.config operation spec }, Cmd.none)
+      ({ model | config = MainMenu.updateConfig model.config operation spec }, Cmd.none)
 
     NoOp -> (model, Cmd.none)
 

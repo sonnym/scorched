@@ -1,4 +1,4 @@
-module Scorched.View.Menu exposing (build)
+module Scorched.View.MainMenu exposing (build)
 
 import Dict exposing (Dict)
 
@@ -10,7 +10,7 @@ import Scorched.Model.Types exposing (Msg(..))
 import Scorched.Model.Types exposing (Model, Configuration, World, Button, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-import Scorched.Model.Menu as Menu
+import Scorched.Model.MainMenu as MainMenu
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
@@ -45,7 +45,7 @@ background {dimensions, menuData} =
 sample : World -> Svg Msg
 sample sampleWorld =
   let
-     world = World.build sampleWorld Menu.worldDimensions
+     world = World.build sampleWorld MainMenu.worldDimensions
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g
