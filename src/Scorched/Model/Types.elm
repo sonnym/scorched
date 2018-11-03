@@ -19,6 +19,7 @@ type alias Permutation = List Int
 
 type Msg
   = PermutationGenerated Permutation
+  | UpdateView View
   | MainMenuWorld World
   | ButtonToggle String
   | ControlToggle String Direction

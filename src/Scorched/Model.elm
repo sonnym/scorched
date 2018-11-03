@@ -34,6 +34,9 @@ update msg model =
     MainMenuWorld world ->
         ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
 
+    UpdateView view ->
+      ({ model | view = view }, Cmd.none)
+
     ButtonToggle label ->
       ({ model | menuData = MainMenu.toggleButton model.menuData label }, Cmd.none)
 
