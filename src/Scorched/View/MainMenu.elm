@@ -22,13 +22,8 @@ import Scorched.View.World as World
 
 build : Model -> Svg Msg
 build ({dimensions, menuData, config} as model) =
-  Svg.svg
-    [ Attr.id "menu-main"
-    , Attr.width (String.fromInt dimensions.width)
-    , Attr.height (String.fromInt dimensions.height)
-    , Attr.fontFamily "monospace"
-    , Attr.style "user-select: none; -moz-user-select: none;"
-    ]
+  Svg.g
+    [ Attr.id "menu-main" ]
     (List.concat
       [ (background model)
       , (buttons (Dict.values menuData.buttons))
