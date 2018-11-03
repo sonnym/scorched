@@ -4,7 +4,8 @@ import Dict exposing (Dict)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-type View = MainMenu
+type View = MainMenu | SubMenu Menu
+type Menu = Landscape
 
 type Operation = Increment | Decrement
 type Direction = Up | Down | None

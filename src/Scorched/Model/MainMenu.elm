@@ -25,7 +25,7 @@ defaultButtons =
       , Button "Hardware…" 'H' {width=78, height=19} {x=7, y=132} False NoOp
       , Button "Economics…" 'E' {width=84, height=19} {x=7, y=162} False NoOp
       , Button "Physics…" 'y' {width=70, height=19} {x=7, y=192} False NoOp
-      , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False NoOp
+      , Button "Landscape…" 'L' {width=82, height=19} {x=7, y=222} False (UpdateView (SubMenu Landscape))
       , Button "Play Options…" 't' {width=98, height=19} {x=7, y=252} False NoOp
       , Button "Weapons…" 'W' {width=68, height=19} {x=7, y=282} False NoOp
       ]

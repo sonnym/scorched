@@ -41,30 +41,36 @@ update msg model =
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleButton model.menuData label }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     ControlToggle label direction ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControl model.menuData label direction }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     KeyDown key ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     KeyUp key ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     KeyPress key ->
       case model.view of
         MainMenu -> ({ model | config = MainMenu.handleKeyPress model.config key }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     UpdateConfig operation spec ->
       case model.view of
         MainMenu ->
           ({ model | config = MainMenu.updateConfig model.config operation spec }, Cmd.none)
+        SubMenu _ -> (model, Cmd.none)
 
     NoOp -> (model, Cmd.none)
 
