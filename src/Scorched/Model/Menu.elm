@@ -56,8 +56,7 @@ toggleButton menuData label =
 toggleButtonByKey : MenuData -> String -> MenuData
 toggleButtonByKey menuData key =
   let
-    filteredButtons = Dict.filter (\_ button -> String.fromChar button.key == key) defaultButtons
-    maybeLabel = List.head (Dict.keys filteredButtons)
+    maybeLabel = List.head (Dict.keys (findItem defaultButtons key))
   in
     case maybeLabel of
       Just label -> toggleButton menuData label
@@ -93,12 +92,14 @@ updateConfig config op spec =
 handleKeyPress : Configuration -> String -> Configuration
 handleKeyPress config key =
   let
-    filteredControls = Dict.filter (\_ control -> String.fromChar control.key == key) defaultControls
-    maybeControl = List.head (Dict.values filteredControls)
+    maybeControl = List.head (Dict.values (findItem defaultControls key))
   in
     case maybeControl of
       Just control -> updateConfig config Increment control.spec
       Nothing -> config
+
+findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
+findItem dict key = Dict.filter (\_ item -> String.fromChar item.key == key) dict
 
 guard : Int -> ControlSpec -> Int
 guard value {min, max} =
