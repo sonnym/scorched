@@ -6,10 +6,14 @@ import Svg.Attributes as Attr
 import Scorched.Model.Types exposing (Terrain)
 import Scorched.Model.Geometry exposing (Dimension)
 
+import Scorched.View.Helper as Helper
+
 build : Terrain -> Dimension -> Svg msg
 build terrain {height} =
   Svg.g
-    [ Attr.id "terrain" ]
+    [ Attr.id "terrain"
+    , Attr.transform "translate(0.5, 0)"
+    ]
     (List.map2
       (buildLine height)
       (List.range 0 (List.length terrain - 1))
