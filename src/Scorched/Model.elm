@@ -22,7 +22,7 @@ default =
   }
 
 init : Cmd Msg
-init = Cmd.batch [ Permutation.random ]
+init = Permutation.random
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
