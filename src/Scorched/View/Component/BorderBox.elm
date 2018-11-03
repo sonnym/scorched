@@ -85,7 +85,7 @@ rightLine offset height stroke color =
       [ Attr.x1 offsetAttr
       , Attr.x2 offsetAttr
       , Attr.y1 "0"
-      , Attr.y2 (String.fromInt (height - 1))
+      , Attr.y2 (String.fromInt height)
       , Attr.strokeWidth (String.fromInt stroke)
       , Attr.stroke (Palette.toString color)
       ]
