@@ -32,7 +32,7 @@ update msg model =
       ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
 
     MainMenuWorld world ->
-        ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
+      ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
 
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
