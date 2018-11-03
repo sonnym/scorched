@@ -98,7 +98,7 @@ bottomLine offset width stroke color =
   in
     Svg.line
       [ Attr.x1 "0"
-      , Attr.x2 (String.fromInt (width - 1))
+      , Attr.x2 (String.fromInt width)
       , Attr.y1 offsetAttr
       , Attr.y2 offsetAttr
       , Attr.strokeWidth (String.fromInt stroke)
