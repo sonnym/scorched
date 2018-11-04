@@ -4,7 +4,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (NumericSpec, Msg(..), Operation(..), Direction(..))
+import Scorched.Model.Types exposing (NumericSpec, Specification(..), Msg(..), Operation(..), Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
@@ -24,7 +24,7 @@ boundingBox spec direction label =
     , Attr.fillOpacity "0"
     , Events.onMouseDown (ControlToggle label direction)
     , Events.onMouseUp (ControlToggle label None)
-    -- , Events.onClick (clickMsg direction spec)
+    , Events.onClick (clickMsg direction spec)
     ] []
 
 lines : Bool -> Direction -> List (Svg msg)
@@ -72,11 +72,9 @@ downColors invert =
   else
     [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
 
-{--
 clickMsg : Direction -> NumericSpec -> Msg
 clickMsg direction spec =
   case direction of
-    Up -> UpdateConfig Increment spec
-    Down -> UpdateConfig Decrement spec
+    Up -> UpdateConfig Increment (Numeric spec)
+    Down -> UpdateConfig Decrement (Numeric spec)
     None -> NoOp
---}

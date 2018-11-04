@@ -56,6 +56,12 @@ updateControls : Dict String Control -> String -> Direction -> Dict String Contr
 updateControls controls label direction =
   Dict.update label (updateControl direction) controls
 
+updateModelConfig : Configuration -> Operation -> Specification -> Configuration
+updateModelConfig config operation spec =
+  case spec of
+    Numeric numeric -> updateConfig config operation numeric
+    _ -> config
+
 updateConfig : Configuration -> Operation -> NumericSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)

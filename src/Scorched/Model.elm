@@ -1,6 +1,6 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
-import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MainMenuData, Direction(..))
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, MainMenuData, Direction(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
@@ -60,13 +60,12 @@ update msg model =
         MainMenu -> ({ model | config = MainMenu.handleKeyPress model.config key }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
 
-{--
     UpdateConfig operation spec ->
       case model.view of
         MainMenu ->
-          ({ model | config = MainMenu.updateConfig model.config operation spec }, Cmd.none)
+          ({ model | config = MainMenu.updateModelConfig model.config operation spec }, Cmd.none)
+
         SubMenu _ -> (model, Cmd.none)
---}
 
     NoOp -> (model, Cmd.none)
 

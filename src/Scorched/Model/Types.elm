@@ -26,7 +26,7 @@ type Msg
   | KeyDown String
   | KeyUp String
   | KeyPress String
-  -- | UpdateConfig Operation ControlSpec
+  | UpdateConfig Operation Specification
   | NoOp
 
 type alias Model =
