@@ -64,7 +64,6 @@ update msg model =
       case model.view of
         MainMenu ->
           ({ model | config = MainMenu.updateModelConfig model.config operation spec }, Cmd.none)
-
         SubMenu _ -> (model, Cmd.none)
 
     NoOp -> (model, Cmd.none)
