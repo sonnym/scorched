@@ -57,7 +57,7 @@ update msg model =
 
     KeyPress key ->
       case model.view of
-        MainMenu -> ({ model | config = MainMenu.handleKeyPress model.config key }, Cmd.none)
+        MainMenu -> (model, MainMenu.handleKeyPress model.config key)
         SubMenu _ -> (model, Cmd.none)
 
     UpdateConfig operation spec ->

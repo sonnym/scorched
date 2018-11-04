@@ -8,6 +8,8 @@ import Scorched.Model.Geometry exposing (Dimension)
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
 
+import Scorched.Model.Helper as Helper
+
 default : MainMenuData
 default =
   { controls = defaultControls
@@ -79,7 +81,7 @@ updateControl direction maybeControl =
           in Just { control | spec = Numeric newSpec }
     Nothing -> Nothing
 
-handleKeyPress : Configuration -> String -> Configuration
+handleKeyPress : Configuration -> String -> Cmd Msg
 handleKeyPress config key =
   let
     maybeControl = List.head (Dict.values (findItem defaultControls key))
@@ -87,9 +89,9 @@ handleKeyPress config key =
     case maybeControl of
       Just control ->
         case control.spec of
-          Button _ -> config
-          Numeric numericSpec -> updateConfig config Increment numericSpec
-      Nothing -> config
+          Button buttonSpec -> Helper.send buttonSpec.action
+          Numeric _ -> Helper.send (UpdateConfig Increment control.spec)
+      Nothing -> Cmd.none
 
 findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
 findItem dict key = Dict.filter (\_ item -> String.fromChar item.key == key) dict
