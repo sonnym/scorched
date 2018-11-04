@@ -1,5 +1,7 @@
 module Scorched.Model.Types exposing (..)
 
+import Time
+
 import Dict exposing (Dict)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
@@ -20,6 +22,7 @@ type alias Permutation = List Int
 
 type Msg
   = PermutationGenerated Permutation
+  | Tick Time.Posix
   | UpdateView View
   | MainMenuWorld World
   | ControlToggle String Direction

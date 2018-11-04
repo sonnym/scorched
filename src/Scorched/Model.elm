@@ -1,5 +1,7 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
+import Time
+
 import Scorched.Model.Types exposing (Msg(..), View(..), Model, MainMenuData, Direction(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
@@ -28,6 +30,8 @@ init = Permutation.random
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    Tick newTime -> (model, Cmd.none)
+
     PermutationGenerated permutation ->
       ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
 
@@ -69,4 +73,5 @@ update msg model =
     NoOp -> (model, Cmd.none)
 
 subscriptions : Model -> Sub Msg
-subscriptions model = Sub.batch Keyboard.subscriptions
+subscriptions model =
+  Sub.batch ((Time.every 1000 Tick) :: Keyboard.subscriptions)
