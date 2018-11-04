@@ -53,7 +53,7 @@ update msg model =
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
-        SubMenu _ -> (model, SubMenu.handleKeyUp key)
+        SubMenu _ -> (model, SubMenu.handleKeyUp model key)
 
     KeyPress key ->
       case model.view of
