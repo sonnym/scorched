@@ -24,8 +24,8 @@ build ({dimensions, menuData, config} as model) =
   Svg.g
     [ Attr.id "menu-main" ]
     (List.concat
-      [ (background model)
-      , (controls config (Dict.values menuData.controls))
+      [ background model
+      , [ controls config (Dict.values menuData.controls) ]
       , messages
       ]
     )
@@ -46,8 +46,11 @@ sample sampleWorld =
       [ Attr.id "menu-main--world", Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-controls : Configuration -> List Control -> List (Svg Msg)
-controls config definitions = List.map (Control.build config) definitions
+controls : Configuration -> List Control -> Svg Msg
+controls config definitions =
+  Svg.g
+    [ Attr.id "controls" ]
+    (List.map (Control.build config) definitions)
 
 messages : List (Svg msg)
 messages =
