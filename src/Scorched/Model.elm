@@ -1,6 +1,6 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
-import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MainMenuData)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, MainMenuData, Direction(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
@@ -31,17 +31,11 @@ update msg model =
     PermutationGenerated permutation ->
       ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
 
-    MainMenuWorld world ->
-      ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
-
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
 
-    ButtonToggle label ->
-      case model.view of
-        MainMenu ->
-          ({ model | menuData = MainMenu.toggleButton model.menuData label }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
+    MainMenuWorld world ->
+      ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
 
     ControlToggle label direction ->
       case model.view of
@@ -52,13 +46,13 @@ update msg model =
     KeyDown key ->
       case model.view of
         MainMenu ->
-          ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+          ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
 
     KeyUp key ->
       case model.view of
         MainMenu ->
-          ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+          ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
         SubMenu _ -> (model, SubMenu.handleKeyUp key)
 
     KeyPress key ->
@@ -69,7 +63,8 @@ update msg model =
     UpdateConfig operation spec ->
       case model.view of
         MainMenu ->
-          ({ model | config = MainMenu.updateConfig model.config operation spec }, Cmd.none)
+          ({ model | config = MainMenu.updateModelConfig model.config operation spec }, Cmd.none)
+
         SubMenu _ -> (model, Cmd.none)
 
     NoOp -> (model, Cmd.none)
