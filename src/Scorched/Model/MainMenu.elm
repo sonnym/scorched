@@ -44,28 +44,6 @@ toggleButton : MainMenuData -> String -> MainMenuData
 toggleButton menuData label =
   { menuData | buttons = updateButtons menuData.buttons label }
 
-toggleButtonByKey : MainMenuData -> String -> MainMenuData
-toggleButtonByKey menuData key =
-  let
-    maybeLabel = List.head (Dict.keys (findItem defaultButtons key))
-  in
-    case maybeLabel of
-      Just label -> toggleButton menuData label
-      Nothing -> menuData
-
-updateButtons : Dict String Button -> String -> Dict String Button
-updateButtons buttons label = Dict.update label updateButton buttons
-
-updateButton : Maybe Button -> Maybe Button
-updateButton maybeButton =
-  case maybeButton of
-    Just button -> Just { button | inverted = not button.inverted }
-    Nothing -> Nothing
-
-toggleControl : MainMenuData -> String -> Direction -> MainMenuData
-toggleControl menuData label direction =
-  { menuData | controls = updateControls menuData.controls label direction }
-
 updateControls : Dict String Control -> String -> Direction -> Dict String Control
 updateControls controls label direction =
   Dict.update label (updateControl direction) controls
@@ -77,9 +55,36 @@ updateControl direction maybeControl =
     Nothing -> Nothing
 --}
 
+toggleControlByKey : MainMenuData -> String -> MainMenuData
+toggleControlByKey menuData key =
+  let
+    maybeLabel = List.head (Dict.keys (findItem defaultControls key))
+  in
+    case maybeLabel of
+      Just label -> toggleControl menuData label
+      Nothing -> menuData
+
+toggleControl : MainMenuData -> String -> MainMenuData
+toggleControl menuData label =
+    { menuData | controls = updateControls menuData.controls label }
+
+updateControls : Dict String Control -> String -> Dict String Control
+updateControls controls label = Dict.update label updateControl controls
+
 updateConfig : Configuration -> Operation -> NumericSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)
+
+updateControl : Maybe Control -> Maybe Control
+updateControl maybeControl =
+  case maybeControl of
+    Just ({spec} as control) ->
+      case spec of
+        Button button ->
+          let newSpec = { button | inverted = not button.inverted }
+          in Just { control | spec = Button newSpec }
+        Numeric numeric -> Just control
+    Nothing -> Nothing
 
 handleKeyPress : Configuration -> String -> Configuration
 handleKeyPress config key =

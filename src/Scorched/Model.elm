@@ -49,19 +49,19 @@ update msg model =
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControl model.menuData label direction }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
+--}
 
     KeyDown key ->
       case model.view of
         MainMenu ->
-          ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+          ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
 
     KeyUp key ->
       case model.view of
         MainMenu ->
-          ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
+          ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
         SubMenu _ -> (model, SubMenu.handleKeyUp key)
---}
 
     KeyPress key ->
       case model.view of

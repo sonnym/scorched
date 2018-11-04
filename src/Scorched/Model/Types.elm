@@ -24,8 +24,8 @@ type Msg
   | MainMenuWorld World
   -- | ButtonToggle String
   -- | ControlToggle String Direction
-  -- | KeyDown String
-  -- | KeyUp String
+  | KeyDown String
+  | KeyUp String
   | KeyPress String
   -- | UpdateConfig Operation ControlSpec
   | NoOp
