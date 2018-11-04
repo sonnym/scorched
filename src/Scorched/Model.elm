@@ -18,6 +18,7 @@ import Scorched.Model.World as World
 default : Model
 default =
   { view = MainMenu
+  , time = Time.millisToPosix 0
   , permutation = Permutation.default
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}

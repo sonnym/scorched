@@ -1,8 +1,8 @@
 module Scorched.Model.Types exposing (..)
 
-import Time
-
 import Dict exposing (Dict)
+
+import Time
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
@@ -34,6 +34,7 @@ type Msg
 
 type alias Model =
   { view: View
+  , time: Time.Posix
   , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
