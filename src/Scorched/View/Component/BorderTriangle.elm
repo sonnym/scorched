@@ -4,19 +4,19 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (ControlSpec, Msg(..), Operation(..), Direction(..))
+import Scorched.Model.Types exposing (NumericSpec, Specification(..), Msg(..), Operation(..), Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)
 
-build : ControlSpec -> Bool -> Direction -> Offset -> String -> Svg Msg
+build : NumericSpec -> Bool -> Direction -> Offset -> String -> Svg Msg
 build spec invert direction offset label =
   Svg.g
     [ Attr.class "bordertriangle", Attr.transform (Helper.translate offset) ]
     ((boundingBox spec direction label) :: (lines invert direction))
 
-boundingBox : ControlSpec -> Direction -> String -> Svg Msg
+boundingBox : NumericSpec -> Direction -> String -> Svg Msg
 boundingBox spec direction label =
   Svg.rect
     [ Attr.width "15"
@@ -72,9 +72,9 @@ downColors invert =
   else
     [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
 
-clickMsg : Direction -> ControlSpec -> Msg
+clickMsg : Direction -> NumericSpec -> Msg
 clickMsg direction spec =
   case direction of
-    Up -> UpdateConfig Increment spec
-    Down -> UpdateConfig Decrement spec
+    Up -> UpdateConfig Increment (Numeric spec)
+    Down -> UpdateConfig Decrement (Numeric spec)
     None -> NoOp
