@@ -22,14 +22,12 @@ type Msg
   = PermutationGenerated Permutation
   | UpdateView View
   | MainMenuWorld World
-{--
-  | ButtonToggle String
-  | ControlToggle String Direction
-  | KeyDown String
-  | KeyUp String
+  -- | ButtonToggle String
+  -- | ControlToggle String Direction
+  -- | KeyDown String
+  -- | KeyUp String
   | KeyPress String
-  | UpdateConfig Operation ControlSpec
---}
+  -- | UpdateConfig Operation ControlSpec
   | NoOp
 
 type alias Model =

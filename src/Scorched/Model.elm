@@ -61,12 +61,14 @@ update msg model =
         MainMenu ->
           ({ model | menuData = MainMenu.toggleButtonByKey model.menuData key }, Cmd.none)
         SubMenu _ -> (model, SubMenu.handleKeyUp key)
+--}
 
     KeyPress key ->
       case model.view of
         MainMenu -> ({ model | config = MainMenu.handleKeyPress model.config key }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
 
+{--
     UpdateConfig operation spec ->
       case model.view of
         MainMenu ->

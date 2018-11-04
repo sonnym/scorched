@@ -75,8 +75,9 @@ updateControl direction maybeControl =
   case maybeControl of
     Just control -> Just { control | invert = direction }
     Nothing -> Nothing
+--}
 
-updateConfig : Configuration -> Operation -> ControlSpec -> Configuration
+updateConfig : Configuration -> Operation -> NumericSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)
 
@@ -86,15 +87,16 @@ handleKeyPress config key =
     maybeControl = List.head (Dict.values (findItem defaultControls key))
   in
     case maybeControl of
-      Just control -> updateConfig config Increment control.spec
+      Just control ->
+        case control.spec of
+          Button _ -> config
+          Numeric numericSpec -> updateConfig config Increment numericSpec
       Nothing -> config
---}
 
 findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
 findItem dict key = Dict.filter (\_ item -> String.fromChar item.key == key) dict
 
-{--
-guard : Int -> ControlSpec -> Int
+guard : Int -> NumericSpec -> Int
 guard value {min, max} =
   if value > max then
     min
@@ -103,12 +105,11 @@ guard value {min, max} =
   else
     value
 
-new : Operation -> ControlSpec -> Int -> Int
+new : Operation -> NumericSpec -> Int -> Int
 new operation {step} value =
   case operation of
     Increment -> value + step
     Decrement -> value - step
---}
 
 worldDimensions : Dimension
 worldDimensions = {width=906, height=724}
