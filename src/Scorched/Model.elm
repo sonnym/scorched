@@ -34,7 +34,7 @@ update msg model =
     Tick newTime -> (model, Cmd.none)
 
     PermutationGenerated permutation ->
-      ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
+      ({ model | permutation = permutation }, World.random permutation model.time MainMenu.worldDimensions)
 
     UpdateView view ->
       ({ model | view = view }, Cmd.none)

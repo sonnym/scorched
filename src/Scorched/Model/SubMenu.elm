@@ -8,11 +8,11 @@ import Scorched.Model.MainMenu as MainMenu
 import Scorched.Model.Helper as Helper
 
 handleKeyUp : Model -> String -> Cmd Msg
-handleKeyUp model key =
+handleKeyUp {permutation, time} key =
   case key of
     "Escape" ->
       Cmd.batch
         [ Helper.send (UpdateView MainMenu)
-        , World.random model.permutation MainMenu.worldDimensions
+        , World.random permutation time MainMenu.worldDimensions
         ]
     _ -> Helper.send NoOp
