@@ -31,7 +31,7 @@ init = Permutation.random
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    Tick newTime -> (model, Cmd.none)
+    Tick newTime -> ({ model | time = newTime }, Cmd.none)
 
     PermutationGenerated permutation ->
       ({ model | permutation = permutation }, World.random permutation model.time MainMenu.worldDimensions)
