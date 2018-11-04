@@ -586,11 +586,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.T.D === region.Z.D)
+	if (region.P.C === region.V.C)
 	{
-		return 'on line ' + region.T.D;
+		return 'on line ' + region.P.C;
 	}
-	return 'on lines ' + region.T.D + ' through ' + region.Z.D;
+	return 'on lines ' + region.P.C + ' through ' + region.V.C;
 }
 
 
@@ -1924,9 +1924,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
-		impl.aV,
-		impl.aS,
+		impl.aB,
+		impl.aU,
+		impl.aR,
 		function() { return function() {} }
 	);
 });
@@ -2727,8 +2727,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		o: func(record.o),
-		V: record.V,
-		R: record.R
+		Q: record.Q,
+		O: record.O
 	}
 });
 
@@ -2997,10 +2997,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.o;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.V;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.Q;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.R) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.O) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3950,11 +3950,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
-		impl.aV,
-		impl.aS,
+		impl.aB,
+		impl.aU,
+		impl.aR,
 		function(sendToApp, initialModel) {
-			var view = impl.aX;
+			var view = impl.aW;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3986,12 +3986,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aH,
-		impl.aV,
-		impl.aS,
+		impl.aB,
+		impl.aU,
+		impl.aR,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.E && impl.E(sendToApp)
-			var view = impl.aX;
+			var divertHrefToApp = impl.D && impl.D(sendToApp)
+			var view = impl.aW;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3999,12 +3999,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ay);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ar);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aU) && (_VirtualDom_doc.title = title = doc.aU);
+				(title !== doc.aT) && (_VirtualDom_doc.title = title = doc.aT);
 			});
 		}
 	);
@@ -4055,12 +4055,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aK;
-	var onUrlRequest = impl.aL;
+	var onUrlChange = impl.aI;
+	var onUrlRequest = impl.aJ;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		E: function(sendToApp)
+		D: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4076,9 +4076,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.an === next.an
-							&& curr.ab === next.ab
-							&& curr.ak.a === next.ak.a
+							&& curr.af === next.af
+							&& curr.Y === next.Y
+							&& curr.ac.a === next.ac.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -4086,13 +4086,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aH: function(flags)
+		aB: function(flags)
 		{
-			return A3(impl.aH, flags, _Browser_getUrl(), key);
+			return A3(impl.aB, flags, _Browser_getUrl(), key);
 		},
-		aX: impl.aX,
-		aV: impl.aV,
-		aS: impl.aS
+		aW: impl.aW,
+		aU: impl.aU,
+		aR: impl.aR
 	});
 }
 
@@ -4158,17 +4158,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aF: 'hidden', B: 'visibilitychange' }
+		? { az: 'hidden', B: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aF: 'mozHidden', B: 'mozvisibilitychange' }
+		? { az: 'mozHidden', B: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aF: 'msHidden', B: 'msvisibilitychange' }
+		? { az: 'msHidden', B: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aF: 'webkitHidden', B: 'webkitvisibilitychange' }
-		: { aF: 'hidden', B: 'visibilitychange' };
+		? { az: 'webkitHidden', B: 'webkitvisibilitychange' }
+		: { az: 'hidden', B: 'visibilitychange' };
 }
 
 
@@ -4249,12 +4249,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		ar: _Browser_getScene(),
-		au: {
-			a_: _Browser_window.pageXOffset,
-			a$: _Browser_window.pageYOffset,
-			aY: _Browser_doc.documentElement.clientWidth,
-			aE: _Browser_doc.documentElement.clientHeight
+		aj: _Browser_getScene(),
+		am: {
+			aZ: _Browser_window.pageXOffset,
+			a_: _Browser_window.pageYOffset,
+			aX: _Browser_doc.documentElement.clientWidth,
+			ay: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4264,8 +4264,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aY: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		aE: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		aX: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		ay: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4288,15 +4288,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			ar: {
-				aY: node.scrollWidth,
-				aE: node.scrollHeight
+			aj: {
+				aX: node.scrollWidth,
+				ay: node.scrollHeight
 			},
-			au: {
-				a_: node.scrollLeft,
-				a$: node.scrollTop,
-				aY: node.clientWidth,
-				aE: node.clientHeight
+			am: {
+				aZ: node.scrollLeft,
+				a_: node.scrollTop,
+				aX: node.clientWidth,
+				ay: node.clientHeight
 			}
 		};
 	});
@@ -4326,18 +4326,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			ar: _Browser_getScene(),
-			au: {
-				a_: x,
-				a$: y,
-				aY: _Browser_doc.documentElement.clientWidth,
-				aE: _Browser_doc.documentElement.clientHeight
+			aj: _Browser_getScene(),
+			am: {
+				aZ: x,
+				a_: y,
+				aX: _Browser_doc.documentElement.clientWidth,
+				ay: _Browser_doc.documentElement.clientHeight
 			},
-			aB: {
-				a_: x + rect.left,
-				a$: y + rect.top,
-				aY: rect.width,
-				aE: rect.height
+			au: {
+				aZ: x + rect.left,
+				a_: y + rect.top,
+				aX: rect.width,
+				ay: rect.height
 			}
 		};
 	});
@@ -4372,12 +4372,34 @@ function _Browser_load(url)
 		}
 	}));
 }
-var author$project$Scorched$Model$Configuration$default = {aN: 2, aP: 10};
-var author$project$Scorched$Model$Types$Button = F6(
-	function (label, key, dimensions, offset, inverted, action) {
-		return {aw: action, aA: dimensions, ac: inverted, ad: key, ae: label, ag: offset};
+var author$project$Scorched$Model$Configuration$default = {aL: 2, aN: 10};
+var author$project$Scorched$Model$Types$Button = function (a) {
+	return {$: 0, a: a};
+};
+var author$project$Scorched$Model$Types$ButtonSpec = F3(
+	function (dimensions, invert, action) {
+		return {ap: action, at: dimensions, K: invert};
 	});
+var author$project$Scorched$Model$Types$Control = F4(
+	function (label, key, offset, spec) {
+		return {aC: key, aD: label, aH: offset, E: spec};
+	});
+var author$project$Scorched$Model$Types$Landscape = 0;
 var author$project$Scorched$Model$Types$NoOp = {$: 9};
+var author$project$Scorched$Model$Types$None = 2;
+var author$project$Scorched$Model$Types$Numeric = function (a) {
+	return {$: 1, a: a};
+};
+var author$project$Scorched$Model$Types$NumericSpec = F6(
+	function (min, max, step, invert, getter, setter) {
+		return {ax: getter, K: invert, aE: max, aF: min, aO: setter, aQ: step};
+	});
+var author$project$Scorched$Model$Types$SubMenu = function (a) {
+	return {$: 1, a: a};
+};
+var author$project$Scorched$Model$Types$UpdateView = function (a) {
+	return {$: 2, a: a};
+};
 var elm$core$Basics$False = 1;
 var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
@@ -4675,146 +4697,165 @@ var elm$core$List$map = F2(
 			_List_Nil,
 			xs);
 	});
-var author$project$Scorched$Model$Menu$defaultButtons = elm$core$Dict$fromList(
-	A2(
-		elm$core$List$map,
-		function (button) {
-			return _Utils_Tuple2(button.ae, button);
-		},
-		_List_fromArray(
-			[
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Start',
-				'S',
-				{aE: 19, aY: 82},
-				{a_: 7, a$: 12},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Sound…',
-				'o',
-				{aE: 19, aY: 56},
-				{a_: 7, a$: 102},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Hardware…',
-				'H',
-				{aE: 19, aY: 78},
-				{a_: 7, a$: 132},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Economics…',
-				'E',
-				{aE: 19, aY: 84},
-				{a_: 7, a$: 162},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Physics…',
-				'y',
-				{aE: 19, aY: 70},
-				{a_: 7, a$: 192},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Landscape…',
-				'L',
-				{aE: 19, aY: 82},
-				{a_: 7, a$: 222},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Play Options…',
-				't',
-				{aE: 19, aY: 98},
-				{a_: 7, a$: 252},
-				false,
-				author$project$Scorched$Model$Types$NoOp),
-				A6(
-				author$project$Scorched$Model$Types$Button,
-				'Weapons…',
-				'W',
-				{aE: 19, aY: 68},
-				{a_: 7, a$: 282},
-				false,
-				author$project$Scorched$Model$Types$NoOp)
-			])));
-var author$project$Scorched$Model$Types$Control = F5(
-	function (label, key, offset, invert, spec) {
-		return {aI: invert, ad: key, ae: label, ag: offset, aR: spec};
-	});
-var author$project$Scorched$Model$Types$None = 2;
-var author$project$Scorched$Model$Menu$defaultControls = elm$core$Dict$fromList(
+var author$project$Scorched$Model$MainMenu$defaultControls = elm$core$Dict$fromList(
 	A2(
 		elm$core$List$map,
 		function (control) {
-			return _Utils_Tuple2(control.ae, control);
+			return _Utils_Tuple2(control.aD, control);
 		},
 		_List_fromArray(
 			[
-				A5(
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Start',
+				'S',
+				{aZ: 7, a_: 12},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 82},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Sound…',
+				'o',
+				{aZ: 7, a_: 102},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 56},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Hardware…',
+				'H',
+				{aZ: 7, a_: 132},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 78},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Economics…',
+				'E',
+				{aZ: 7, a_: 162},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 84},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Physics…',
+				'y',
+				{aZ: 7, a_: 192},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 70},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Landscape…',
+				'L',
+				{aZ: 7, a_: 222},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 82},
+						false,
+						author$project$Scorched$Model$Types$UpdateView(
+							author$project$Scorched$Model$Types$SubMenu(0))))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Play Options…',
+				't',
+				{aZ: 7, a_: 252},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 98},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
+				author$project$Scorched$Model$Types$Control,
+				'Weapons…',
+				'W',
+				{aZ: 7, a_: 282},
+				author$project$Scorched$Model$Types$Button(
+					A3(
+						author$project$Scorched$Model$Types$ButtonSpec,
+						{ay: 19, aX: 68},
+						false,
+						author$project$Scorched$Model$Types$NoOp))),
+				A4(
 				author$project$Scorched$Model$Types$Control,
 				'Players',
 				'P',
-				{a_: 8, a$: 40},
-				2,
-				{
-					M: function (config) {
-						return config.aN;
-					},
-					N: 10,
-					P: 2,
-					S: F2(
-						function (config, n) {
-							return _Utils_update(
-								config,
-								{aN: n});
-						}),
-					U: 1
-				}),
-				A5(
+				{aZ: 8, a_: 40},
+				author$project$Scorched$Model$Types$Numeric(
+					A6(
+						author$project$Scorched$Model$Types$NumericSpec,
+						2,
+						10,
+						1,
+						2,
+						function (config) {
+							return config.aL;
+						},
+						F2(
+							function (config, n) {
+								return _Utils_update(
+									config,
+									{aL: n});
+							})))),
+				A4(
 				author$project$Scorched$Model$Types$Control,
 				'Rounds',
 				'R',
-				{a_: 8, a$: 70},
-				2,
-				{
-					M: function (config) {
-						return config.aP;
-					},
-					N: 1000,
-					P: 5,
-					S: F2(
-						function (config, n) {
-							return _Utils_update(
-								config,
-								{aP: n});
-						}),
-					U: 5
-				})
+				{aZ: 8, a_: 70},
+				author$project$Scorched$Model$Types$Numeric(
+					A6(
+						author$project$Scorched$Model$Types$NumericSpec,
+						5,
+						1000,
+						5,
+						2,
+						function (config) {
+							return config.aN;
+						},
+						F2(
+							function (config, n) {
+								return _Utils_update(
+									config,
+									{aN: n});
+							}))))
 			])));
 var author$project$Scorched$Model$Types$PitchBlack = 2;
 var author$project$Scorched$Model$Sky$empty = 2;
 var author$project$Scorched$Model$Terrain$empty = _List_Nil;
-var author$project$Scorched$Model$World$empty = {aQ: author$project$Scorched$Model$Sky$empty, aT: author$project$Scorched$Model$Terrain$empty};
-var author$project$Scorched$Model$Menu$default = {K: author$project$Scorched$Model$Menu$defaultButtons, L: author$project$Scorched$Model$Menu$defaultControls, J: author$project$Scorched$Model$World$empty};
+var author$project$Scorched$Model$World$empty = {aP: author$project$Scorched$Model$Sky$empty, aS: author$project$Scorched$Model$Terrain$empty};
+var author$project$Scorched$Model$MainMenu$default = {L: author$project$Scorched$Model$MainMenu$defaultControls, an: author$project$Scorched$Model$World$empty};
 var author$project$Scorched$Model$Permutation$default = _List_Nil;
-var author$project$Scorched$Model$Types$Menu = 0;
+var author$project$Scorched$Model$Types$MainMenu = {$: 0};
+var elm$core$Basics$identity = function (x) {
+	return x;
+};
+var elm$time$Time$Posix = elm$core$Basics$identity;
+var elm$time$Time$millisToPosix = elm$core$Basics$identity;
 var author$project$Scorched$Model$default = {
-	C: author$project$Scorched$Model$Configuration$default,
-	aA: {aE: 768, aY: 1024},
-	i: author$project$Scorched$Model$Menu$default,
-	ai: author$project$Scorched$Model$Permutation$default,
-	aX: 0
+	J: author$project$Scorched$Model$Configuration$default,
+	at: {ay: 768, aX: 1024},
+	k: author$project$Scorched$Model$MainMenu$default,
+	aa: author$project$Scorched$Model$Permutation$default,
+	R: elm$time$Time$millisToPosix(0),
+	aW: author$project$Scorched$Model$Types$MainMenu
 };
 var elm$core$Basics$le = _Utils_le;
 var elm$core$Basics$sub = _Basics_sub;
@@ -4853,9 +4894,6 @@ var elm$core$List$isEmpty = function (xs) {
 };
 var elm$core$Tuple$first = function (_n0) {
 	var x = _n0.a;
-	return x;
-};
-var elm$core$Basics$identity = function (x) {
 	return x;
 };
 var elm$random$Random$Generator = elm$core$Basics$identity;
@@ -5212,8 +5250,6 @@ var elm$time$Time$Zone = F2(
 		return {$: 0, a: a, b: b};
 	});
 var elm$time$Time$customZone = elm$time$Time$Zone;
-var elm$time$Time$Posix = elm$core$Basics$identity;
-var elm$time$Time$millisToPosix = elm$core$Basics$identity;
 var elm$time$Time$now = _Time_now(elm$time$Time$millisToPosix);
 var elm$time$Time$posixToMillis = function (_n0) {
 	var millis = _n0;
@@ -5588,93 +5624,7 @@ var elm$random$Random$generate = F2(
 			A2(elm$random$Random$map, tagger, generator));
 	});
 var author$project$Scorched$Model$Permutation$random = A2(elm$random$Random$generate, author$project$Scorched$Model$Types$PermutationGenerated, author$project$Scorched$Model$Permutation$generator);
-var author$project$Scorched$Model$Types$Plain = 0;
-var author$project$Scorched$Model$Types$Sunset = 1;
-var elm$random$Random$addOne = function (value) {
-	return _Utils_Tuple2(1, value);
-};
-var elm$core$Basics$abs = function (n) {
-	return (n < 0) ? (-n) : n;
-};
-var elm$core$List$sum = function (numbers) {
-	return A3(elm$core$List$foldl, elm$core$Basics$add, 0, numbers);
-};
-var elm$random$Random$float = F2(
-	function (a, b) {
-		return function (seed0) {
-			var seed1 = elm$random$Random$next(seed0);
-			var range = elm$core$Basics$abs(b - a);
-			var n1 = elm$random$Random$peel(seed1);
-			var n0 = elm$random$Random$peel(seed0);
-			var lo = (134217727 & n1) * 1.0;
-			var hi = (67108863 & n0) * 1.0;
-			var val = ((hi * 1.34217728e8) + lo) / 9.007199254740992e15;
-			var scaled = (val * range) + a;
-			return _Utils_Tuple2(
-				scaled,
-				elm$random$Random$next(seed1));
-		};
-	});
-var elm$random$Random$getByWeight = F3(
-	function (_n0, others, countdown) {
-		getByWeight:
-		while (true) {
-			var weight = _n0.a;
-			var value = _n0.b;
-			if (!others.b) {
-				return value;
-			} else {
-				var second = others.a;
-				var otherOthers = others.b;
-				if (_Utils_cmp(
-					countdown,
-					elm$core$Basics$abs(weight)) < 1) {
-					return value;
-				} else {
-					var $temp$_n0 = second,
-						$temp$others = otherOthers,
-						$temp$countdown = countdown - elm$core$Basics$abs(weight);
-					_n0 = $temp$_n0;
-					others = $temp$others;
-					countdown = $temp$countdown;
-					continue getByWeight;
-				}
-			}
-		}
-	});
-var elm$random$Random$weighted = F2(
-	function (first, others) {
-		var normalize = function (_n0) {
-			var weight = _n0.a;
-			return elm$core$Basics$abs(weight);
-		};
-		var total = normalize(first) + elm$core$List$sum(
-			A2(elm$core$List$map, normalize, others));
-		return A2(
-			elm$random$Random$map,
-			A2(elm$random$Random$getByWeight, first, others),
-			A2(elm$random$Random$float, 0, total));
-	});
-var elm$random$Random$uniform = F2(
-	function (value, valueList) {
-		return A2(
-			elm$random$Random$weighted,
-			elm$random$Random$addOne(value),
-			A2(elm$core$List$map, elm$random$Random$addOne, valueList));
-	});
-var author$project$Scorched$Model$Sky$generator = A2(
-	elm$random$Random$uniform,
-	author$project$Scorched$Model$Sky$empty,
-	_List_fromArray(
-		[2, 0, 1]));
-var author$project$Scorched$Model$Types$MenuSky = function (a) {
-	return {$: 1, a: a};
-};
-var author$project$Scorched$Model$Sky$random = A2(elm$random$Random$generate, author$project$Scorched$Model$Types$MenuSky, author$project$Scorched$Model$Sky$generator);
-var elm$core$Platform$Cmd$batch = _Platform_batch;
-var author$project$Scorched$Model$init = elm$core$Platform$Cmd$batch(
-	_List_fromArray(
-		[author$project$Scorched$Model$Sky$random, author$project$Scorched$Model$Permutation$random]));
+var author$project$Scorched$Model$init = author$project$Scorched$Model$Permutation$random;
 var author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(author$project$Scorched$Model$default, author$project$Scorched$Model$init);
 };
@@ -5706,7 +5656,7 @@ var elm$browser$Browser$Events$MySub = F3(
 	});
 var elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {aj: pids, as: subs};
+		return {ab: pids, ak: subs};
 	});
 var elm$browser$Browser$Events$init = elm$core$Task$succeed(
 	A2(elm$browser$Browser$Events$State, _List_Nil, elm$core$Dict$empty));
@@ -5728,7 +5678,7 @@ var elm$browser$Browser$Events$addKey = function (sub) {
 };
 var elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {_: event, ad: key};
+		return {W: event, aC: key};
 	});
 var elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var elm$core$Task$map = F2(
@@ -5859,7 +5809,7 @@ var elm$core$String$contains = _String_contains;
 var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aa: fragment, ab: host, ah: path, ak: port_, an: protocol, ao: query};
+		return {X: fragment, Y: host, _: path, ac: port_, af: protocol, ag: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -6122,7 +6072,7 @@ var elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.aj,
+			state.ab,
 			elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, elm$core$Dict$empty, _List_Nil));
 		var deadPids = _n0.a;
@@ -6168,8 +6118,8 @@ var elm$core$List$filterMap = F2(
 	});
 var elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _n0, state) {
-		var key = _n0.ad;
-		var event = _n0._;
+		var key = _n0.aC;
+		var event = _n0.W;
 		var toMessage = function (_n2) {
 			var subKey = _n2.a;
 			var _n3 = _n2.b;
@@ -6178,7 +6128,7 @@ var elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _n3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : elm$core$Maybe$Nothing;
 		};
-		var messages = A2(elm$core$List$filterMap, toMessage, state.as);
+		var messages = A2(elm$core$List$filterMap, toMessage, state.ak);
 		return A2(
 			elm$core$Task$andThen,
 			function (_n1) {
@@ -6220,97 +6170,20 @@ var author$project$Scorched$Model$Keyboard$subscriptions = _List_fromArray(
 		elm$browser$Browser$Events$onKeyPress(
 		A2(elm$json$Json$Decode$map, author$project$Scorched$Model$Keyboard$toKeyPress, author$project$Scorched$Model$Keyboard$keyDecoder))
 	]);
+var author$project$Scorched$Model$Types$Tick = function (a) {
+	return {$: 1, a: a};
+};
 var elm$core$Platform$Sub$batch = _Platform_batch;
-var author$project$Scorched$Model$subscriptions = function (model) {
-	return elm$core$Platform$Sub$batch(author$project$Scorched$Model$Keyboard$subscriptions);
-};
-var author$project$Scorched$Model$Menu$guard = F2(
-	function (value, _n0) {
-		var min = _n0.P;
-		var max = _n0.N;
-		return (_Utils_cmp(value, max) > 0) ? min : ((_Utils_cmp(value, min) < 0) ? max : value);
+var elm$time$Time$Every = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
 	});
-var author$project$Scorched$Model$Menu$new = F3(
-	function (operation, _n0, value) {
-		var step = _n0.U;
-		if (!operation) {
-			return value + step;
-		} else {
-			return value - step;
-		}
+var elm$time$Time$State = F2(
+	function (taggers, processes) {
+		return {ae: processes, al: taggers};
 	});
-var author$project$Scorched$Model$Menu$updateConfig = F3(
-	function (config, op, spec) {
-		return A2(
-			spec.S,
-			config,
-			A2(
-				author$project$Scorched$Model$Menu$guard,
-				A3(
-					author$project$Scorched$Model$Menu$new,
-					op,
-					spec,
-					spec.M(config)),
-				spec));
-	});
-var author$project$Scorched$Model$Types$Increment = 0;
-var elm$core$Dict$filter = F2(
-	function (isGood, dict) {
-		return A3(
-			elm$core$Dict$foldl,
-			F3(
-				function (k, v, d) {
-					return A2(isGood, k, v) ? A3(elm$core$Dict$insert, k, v, d) : d;
-				}),
-			elm$core$Dict$empty,
-			dict);
-	});
-var elm$core$Dict$values = function (dict) {
-	return A3(
-		elm$core$Dict$foldr,
-		F3(
-			function (key, value, valueList) {
-				return A2(elm$core$List$cons, value, valueList);
-			}),
-		_List_Nil,
-		dict);
-};
-var elm$core$String$cons = _String_cons;
-var elm$core$String$fromChar = function (_char) {
-	return A2(elm$core$String$cons, _char, '');
-};
-var author$project$Scorched$Model$Menu$handleKeyPress = F2(
-	function (config, key) {
-		var filteredControls = A2(
-			elm$core$Dict$filter,
-			F2(
-				function (_n1, control) {
-					return _Utils_eq(
-						elm$core$String$fromChar(control.ad),
-						key);
-				}),
-			author$project$Scorched$Model$Menu$defaultControls);
-		var maybeControl = elm$core$List$head(
-			elm$core$Dict$values(filteredControls));
-		if (!maybeControl.$) {
-			var control = maybeControl.a;
-			return A3(author$project$Scorched$Model$Menu$updateConfig, config, 0, control.aR);
-		} else {
-			return config;
-		}
-	});
-var elm$core$Basics$not = _Basics_not;
-var author$project$Scorched$Model$Menu$updateButton = function (maybeButton) {
-	if (!maybeButton.$) {
-		var button = maybeButton.a;
-		return elm$core$Maybe$Just(
-			_Utils_update(
-				button,
-				{ac: !button.ac}));
-	} else {
-		return elm$core$Maybe$Nothing;
-	}
-};
+var elm$time$Time$init = elm$core$Task$succeed(
+	A2(elm$time$Time$State, elm$core$Dict$empty, elm$core$Dict$empty));
 var elm$core$Dict$get = F2(
 	function (targetKey, dict) {
 		get:
@@ -6340,6 +6213,276 @@ var elm$core$Dict$get = F2(
 						continue get;
 				}
 			}
+		}
+	});
+var elm$time$Time$addMySub = F2(
+	function (_n0, state) {
+		var interval = _n0.a;
+		var tagger = _n0.b;
+		var _n1 = A2(elm$core$Dict$get, interval, state);
+		if (_n1.$ === 1) {
+			return A3(
+				elm$core$Dict$insert,
+				interval,
+				_List_fromArray(
+					[tagger]),
+				state);
+		} else {
+			var taggers = _n1.a;
+			return A3(
+				elm$core$Dict$insert,
+				interval,
+				A2(elm$core$List$cons, tagger, taggers),
+				state);
+		}
+	});
+var elm$core$Process$spawn = _Scheduler_spawn;
+var elm$time$Time$setInterval = _Time_setInterval;
+var elm$time$Time$spawnHelp = F3(
+	function (router, intervals, processes) {
+		if (!intervals.b) {
+			return elm$core$Task$succeed(processes);
+		} else {
+			var interval = intervals.a;
+			var rest = intervals.b;
+			var spawnTimer = elm$core$Process$spawn(
+				A2(
+					elm$time$Time$setInterval,
+					interval,
+					A2(elm$core$Platform$sendToSelf, router, interval)));
+			var spawnRest = function (id) {
+				return A3(
+					elm$time$Time$spawnHelp,
+					router,
+					rest,
+					A3(elm$core$Dict$insert, interval, id, processes));
+			};
+			return A2(elm$core$Task$andThen, spawnRest, spawnTimer);
+		}
+	});
+var elm$time$Time$onEffects = F3(
+	function (router, subs, _n0) {
+		var processes = _n0.ae;
+		var rightStep = F3(
+			function (_n6, id, _n7) {
+				var spawns = _n7.a;
+				var existing = _n7.b;
+				var kills = _n7.c;
+				return _Utils_Tuple3(
+					spawns,
+					existing,
+					A2(
+						elm$core$Task$andThen,
+						function (_n5) {
+							return kills;
+						},
+						elm$core$Process$kill(id)));
+			});
+		var newTaggers = A3(elm$core$List$foldl, elm$time$Time$addMySub, elm$core$Dict$empty, subs);
+		var leftStep = F3(
+			function (interval, taggers, _n4) {
+				var spawns = _n4.a;
+				var existing = _n4.b;
+				var kills = _n4.c;
+				return _Utils_Tuple3(
+					A2(elm$core$List$cons, interval, spawns),
+					existing,
+					kills);
+			});
+		var bothStep = F4(
+			function (interval, taggers, id, _n3) {
+				var spawns = _n3.a;
+				var existing = _n3.b;
+				var kills = _n3.c;
+				return _Utils_Tuple3(
+					spawns,
+					A3(elm$core$Dict$insert, interval, id, existing),
+					kills);
+			});
+		var _n1 = A6(
+			elm$core$Dict$merge,
+			leftStep,
+			bothStep,
+			rightStep,
+			newTaggers,
+			processes,
+			_Utils_Tuple3(
+				_List_Nil,
+				elm$core$Dict$empty,
+				elm$core$Task$succeed(0)));
+		var spawnList = _n1.a;
+		var existingDict = _n1.b;
+		var killTask = _n1.c;
+		return A2(
+			elm$core$Task$andThen,
+			function (newProcesses) {
+				return elm$core$Task$succeed(
+					A2(elm$time$Time$State, newTaggers, newProcesses));
+			},
+			A2(
+				elm$core$Task$andThen,
+				function (_n2) {
+					return A3(elm$time$Time$spawnHelp, router, spawnList, existingDict);
+				},
+				killTask));
+	});
+var elm$time$Time$onSelfMsg = F3(
+	function (router, interval, state) {
+		var _n0 = A2(elm$core$Dict$get, interval, state.al);
+		if (_n0.$ === 1) {
+			return elm$core$Task$succeed(state);
+		} else {
+			var taggers = _n0.a;
+			var tellTaggers = function (time) {
+				return elm$core$Task$sequence(
+					A2(
+						elm$core$List$map,
+						function (tagger) {
+							return A2(
+								elm$core$Platform$sendToApp,
+								router,
+								tagger(time));
+						},
+						taggers));
+			};
+			return A2(
+				elm$core$Task$andThen,
+				function (_n1) {
+					return elm$core$Task$succeed(state);
+				},
+				A2(elm$core$Task$andThen, tellTaggers, elm$time$Time$now));
+		}
+	});
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var elm$time$Time$subMap = F2(
+	function (f, _n0) {
+		var interval = _n0.a;
+		var tagger = _n0.b;
+		return A2(
+			elm$time$Time$Every,
+			interval,
+			A2(elm$core$Basics$composeL, f, tagger));
+	});
+_Platform_effectManagers['Time'] = _Platform_createManager(elm$time$Time$init, elm$time$Time$onEffects, elm$time$Time$onSelfMsg, 0, elm$time$Time$subMap);
+var elm$time$Time$subscription = _Platform_leaf('Time');
+var elm$time$Time$every = F2(
+	function (interval, tagger) {
+		return elm$time$Time$subscription(
+			A2(elm$time$Time$Every, interval, tagger));
+	});
+var author$project$Scorched$Model$subscriptions = function (model) {
+	return elm$core$Platform$Sub$batch(
+		A2(
+			elm$core$List$cons,
+			A2(elm$time$Time$every, 100, author$project$Scorched$Model$Types$Tick),
+			author$project$Scorched$Model$Keyboard$subscriptions));
+};
+var author$project$Scorched$Model$Helper$send = function (msg) {
+	return A2(
+		elm$core$Task$perform,
+		elm$core$Basics$identity,
+		elm$core$Task$succeed(msg));
+};
+var elm$core$Dict$filter = F2(
+	function (isGood, dict) {
+		return A3(
+			elm$core$Dict$foldl,
+			F3(
+				function (k, v, d) {
+					return A2(isGood, k, v) ? A3(elm$core$Dict$insert, k, v, d) : d;
+				}),
+			elm$core$Dict$empty,
+			dict);
+	});
+var elm$core$String$cons = _String_cons;
+var elm$core$String$fromChar = function (_char) {
+	return A2(elm$core$String$cons, _char, '');
+};
+var author$project$Scorched$Model$MainMenu$findItem = F2(
+	function (dict, key) {
+		return A2(
+			elm$core$Dict$filter,
+			F2(
+				function (_n0, item) {
+					return _Utils_eq(
+						elm$core$String$fromChar(item.aC),
+						key);
+				}),
+			dict);
+	});
+var author$project$Scorched$Model$Types$Increment = 0;
+var author$project$Scorched$Model$Types$UpdateConfig = F2(
+	function (a, b) {
+		return {$: 8, a: a, b: b};
+	});
+var elm$core$Dict$values = function (dict) {
+	return A3(
+		elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2(elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
+var elm$core$Platform$Cmd$batch = _Platform_batch;
+var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
+var author$project$Scorched$Model$MainMenu$handleKeyPress = F2(
+	function (config, key) {
+		var maybeControl = elm$core$List$head(
+			elm$core$Dict$values(
+				A2(author$project$Scorched$Model$MainMenu$findItem, author$project$Scorched$Model$MainMenu$defaultControls, key)));
+		if (!maybeControl.$) {
+			var control = maybeControl.a;
+			var _n1 = control.E;
+			if (!_n1.$) {
+				var buttonSpec = _n1.a;
+				return author$project$Scorched$Model$Helper$send(buttonSpec.ap);
+			} else {
+				return author$project$Scorched$Model$Helper$send(
+					A2(author$project$Scorched$Model$Types$UpdateConfig, 0, control.E));
+			}
+		} else {
+			return elm$core$Platform$Cmd$none;
+		}
+	});
+var elm$core$Basics$not = _Basics_not;
+var author$project$Scorched$Model$MainMenu$updateControl = F2(
+	function (direction, maybeControl) {
+		if (!maybeControl.$) {
+			var control = maybeControl.a;
+			var spec = control.E;
+			if (!spec.$) {
+				var button = spec.a;
+				var newSpec = _Utils_update(
+					button,
+					{K: !button.K});
+				return elm$core$Maybe$Just(
+					_Utils_update(
+						control,
+						{
+							E: author$project$Scorched$Model$Types$Button(newSpec)
+						}));
+			} else {
+				var numeric = spec.a;
+				var newSpec = _Utils_update(
+					numeric,
+					{
+						K: _Utils_eq(numeric.K, direction) ? 2 : direction
+					});
+				return elm$core$Maybe$Just(
+					_Utils_update(
+						control,
+						{
+							E: author$project$Scorched$Model$Types$Numeric(newSpec)
+						}));
+			}
+		} else {
+			return elm$core$Maybe$Nothing;
 		}
 	});
 var elm$core$Dict$getMin = function (dict) {
@@ -6715,87 +6858,162 @@ var elm$core$Dict$update = F3(
 			return A2(elm$core$Dict$remove, targetKey, dictionary);
 		}
 	});
-var author$project$Scorched$Model$Menu$updateButtons = F2(
-	function (buttons, label) {
-		return A3(elm$core$Dict$update, label, author$project$Scorched$Model$Menu$updateButton, buttons);
-	});
-var author$project$Scorched$Model$Menu$toggleButton = F2(
-	function (menuData, label) {
-		return _Utils_update(
-			menuData,
-			{
-				K: A2(author$project$Scorched$Model$Menu$updateButtons, menuData.K, label)
-			});
-	});
-var author$project$Scorched$Model$Menu$toggleButtonByKey = F2(
-	function (menuData, key) {
-		var filteredButtons = A2(
-			elm$core$Dict$filter,
-			F2(
-				function (_n1, button) {
-					return _Utils_eq(
-						elm$core$String$fromChar(button.ad),
-						key);
-				}),
-			author$project$Scorched$Model$Menu$defaultButtons);
-		var maybeLabel = elm$core$List$head(
-			elm$core$Dict$keys(filteredButtons));
-		if (!maybeLabel.$) {
-			var label = maybeLabel.a;
-			return A2(author$project$Scorched$Model$Menu$toggleButton, menuData, label);
-		} else {
-			return menuData;
-		}
-	});
-var author$project$Scorched$Model$Menu$updateControl = F2(
-	function (direction, maybeControl) {
-		if (!maybeControl.$) {
-			var control = maybeControl.a;
-			return elm$core$Maybe$Just(
-				_Utils_update(
-					control,
-					{aI: direction}));
-		} else {
-			return elm$core$Maybe$Nothing;
-		}
-	});
-var author$project$Scorched$Model$Menu$updateControls = F3(
+var author$project$Scorched$Model$MainMenu$updateControls = F3(
 	function (controls, label, direction) {
 		return A3(
 			elm$core$Dict$update,
 			label,
-			author$project$Scorched$Model$Menu$updateControl(direction),
+			author$project$Scorched$Model$MainMenu$updateControl(direction),
 			controls);
 	});
-var author$project$Scorched$Model$Menu$toggleControl = F3(
+var author$project$Scorched$Model$MainMenu$toggleControl = F3(
 	function (menuData, label, direction) {
 		return _Utils_update(
 			menuData,
 			{
-				L: A3(author$project$Scorched$Model$Menu$updateControls, menuData.L, label, direction)
+				L: A3(author$project$Scorched$Model$MainMenu$updateControls, menuData.L, label, direction)
 			});
 	});
-var author$project$Scorched$Model$Menu$updateSky = F2(
-	function (menuData, sky) {
-		var world = menuData.J;
-		var newWorld = _Utils_update(
-			world,
-			{aQ: sky});
+var author$project$Scorched$Model$Types$Up = 0;
+var author$project$Scorched$Model$MainMenu$toggleControlByKey = F2(
+	function (menuData, key) {
+		var maybeLabel = elm$core$List$head(
+			elm$core$Dict$keys(
+				A2(author$project$Scorched$Model$MainMenu$findItem, author$project$Scorched$Model$MainMenu$defaultControls, key)));
+		if (!maybeLabel.$) {
+			var label = maybeLabel.a;
+			return A3(author$project$Scorched$Model$MainMenu$toggleControl, menuData, label, 0);
+		} else {
+			return menuData;
+		}
+	});
+var author$project$Scorched$Model$MainMenu$guard = F2(
+	function (value, _n0) {
+		var min = _n0.aF;
+		var max = _n0.aE;
+		return (_Utils_cmp(value, max) > 0) ? min : ((_Utils_cmp(value, min) < 0) ? max : value);
+	});
+var author$project$Scorched$Model$MainMenu$new = F3(
+	function (operation, _n0, value) {
+		var step = _n0.aQ;
+		if (!operation) {
+			return value + step;
+		} else {
+			return value - step;
+		}
+	});
+var author$project$Scorched$Model$MainMenu$updateConfig = F3(
+	function (config, op, spec) {
+		return A2(
+			spec.aO,
+			config,
+			A2(
+				author$project$Scorched$Model$MainMenu$guard,
+				A3(
+					author$project$Scorched$Model$MainMenu$new,
+					op,
+					spec,
+					spec.ax(config)),
+				spec));
+	});
+var author$project$Scorched$Model$MainMenu$updateModelConfig = F3(
+	function (config, operation, spec) {
+		if (spec.$ === 1) {
+			var numeric = spec.a;
+			return A3(author$project$Scorched$Model$MainMenu$updateConfig, config, operation, numeric);
+		} else {
+			return config;
+		}
+	});
+var author$project$Scorched$Model$MainMenu$updateWorld = F2(
+	function (menuData, world) {
 		return _Utils_update(
 			menuData,
-			{J: newWorld});
+			{an: world});
 	});
-var author$project$Scorched$Model$Menu$updateTerrain = F2(
-	function (menuData, terrain) {
-		var world = menuData.J;
-		var newWorld = _Utils_update(
-			world,
-			{aT: terrain});
-		return _Utils_update(
-			menuData,
-			{J: newWorld});
+var author$project$Scorched$Model$MainMenu$worldDimensions = {ay: 724, aX: 906};
+var author$project$Scorched$Model$Types$MainMenuWorld = function (a) {
+	return {$: 3, a: a};
+};
+var author$project$Scorched$Model$Types$Plain = 0;
+var author$project$Scorched$Model$Types$Sunset = 1;
+var elm$random$Random$addOne = function (value) {
+	return _Utils_Tuple2(1, value);
+};
+var elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var elm$core$List$sum = function (numbers) {
+	return A3(elm$core$List$foldl, elm$core$Basics$add, 0, numbers);
+};
+var elm$random$Random$float = F2(
+	function (a, b) {
+		return function (seed0) {
+			var seed1 = elm$random$Random$next(seed0);
+			var range = elm$core$Basics$abs(b - a);
+			var n1 = elm$random$Random$peel(seed1);
+			var n0 = elm$random$Random$peel(seed0);
+			var lo = (134217727 & n1) * 1.0;
+			var hi = (67108863 & n0) * 1.0;
+			var val = ((hi * 1.34217728e8) + lo) / 9.007199254740992e15;
+			var scaled = (val * range) + a;
+			return _Utils_Tuple2(
+				scaled,
+				elm$random$Random$next(seed1));
+		};
 	});
-var author$project$Scorched$Model$Menu$worldDimensions = {aE: 724, aY: 906};
+var elm$random$Random$getByWeight = F3(
+	function (_n0, others, countdown) {
+		getByWeight:
+		while (true) {
+			var weight = _n0.a;
+			var value = _n0.b;
+			if (!others.b) {
+				return value;
+			} else {
+				var second = others.a;
+				var otherOthers = others.b;
+				if (_Utils_cmp(
+					countdown,
+					elm$core$Basics$abs(weight)) < 1) {
+					return value;
+				} else {
+					var $temp$_n0 = second,
+						$temp$others = otherOthers,
+						$temp$countdown = countdown - elm$core$Basics$abs(weight);
+					_n0 = $temp$_n0;
+					others = $temp$others;
+					countdown = $temp$countdown;
+					continue getByWeight;
+				}
+			}
+		}
+	});
+var elm$random$Random$weighted = F2(
+	function (first, others) {
+		var normalize = function (_n0) {
+			var weight = _n0.a;
+			return elm$core$Basics$abs(weight);
+		};
+		var total = normalize(first) + elm$core$List$sum(
+			A2(elm$core$List$map, normalize, others));
+		return A2(
+			elm$random$Random$map,
+			A2(elm$random$Random$getByWeight, first, others),
+			A2(elm$random$Random$float, 0, total));
+	});
+var elm$random$Random$uniform = F2(
+	function (value, valueList) {
+		return A2(
+			elm$random$Random$weighted,
+			elm$random$Random$addOne(value),
+			A2(elm$core$List$map, elm$random$Random$addOne, valueList));
+	});
+var author$project$Scorched$Model$Sky$generator = A2(
+	elm$random$Random$uniform,
+	author$project$Scorched$Model$Sky$empty,
+	_List_fromArray(
+		[2, 0, 1]));
 var author$project$Scorched$Model$Noise$fallout = 0.5;
 var author$project$Scorched$Model$Noise$fade = function (x) {
 	return ((3 - (2 * x)) * x) * x;
@@ -6941,6 +7159,15 @@ var author$project$Scorched$Model$Terrain$scale = F2(
 	function (max, n) {
 		return elm$core$Basics$round(n * ((max / 3) | 0));
 	});
+var elm$core$Basics$modBy = _Basics_modBy;
+var elm$time$Time$toMillis = F2(
+	function (_n0, time) {
+		return A2(
+			elm$core$Basics$modBy,
+			1000,
+			elm$time$Time$posixToMillis(time));
+	});
+var elm$time$Time$utc = A2(elm$time$Time$Zone, 0, _List_Nil);
 var elm$random$Random$map2 = F3(
 	function (func, _n0, _n1) {
 		var genA = _n0;
@@ -6970,10 +7197,10 @@ var elm_community$random_extra$Random$Extra$combine = function (generators) {
 			elm_community$random_extra$Random$Extra$combine(gs));
 	}
 };
-var author$project$Scorched$Model$Terrain$generator = F2(
-	function (permutation, _n0) {
-		var width = _n0.aY;
-		var height = _n0.aE;
+var author$project$Scorched$Model$Terrain$generator = F3(
+	function (permutation, time, _n0) {
+		var width = _n0.aX;
+		var height = _n0.ay;
 		return elm_community$random_extra$Random$Extra$combine(
 			A2(
 				elm$core$List$map,
@@ -6981,7 +7208,10 @@ var author$project$Scorched$Model$Terrain$generator = F2(
 					return A2(
 						elm$random$Random$map,
 						author$project$Scorched$Model$Terrain$scale(height),
-						A2(author$project$Scorched$Model$Noise$generator, permutation, x));
+						A2(
+							author$project$Scorched$Model$Noise$generator,
+							permutation,
+							A2(elm$time$Time$toMillis, elm$time$Time$utc, time) + x));
 				},
 				A2(
 					elm$core$List$map,
@@ -6990,102 +7220,143 @@ var author$project$Scorched$Model$Terrain$generator = F2(
 					},
 					A2(elm$core$List$range, 1, width))));
 	});
-var author$project$Scorched$Model$Types$MenuTerrain = function (a) {
-	return {$: 2, a: a};
-};
-var author$project$Scorched$Model$Terrain$random = F2(
-	function (permutation, dimensions) {
+var author$project$Scorched$Model$World$generator = F3(
+	function (permutation, time, dimensions) {
+		return A3(
+			elm$random$Random$map2,
+			F2(
+				function (sky, terrain) {
+					return {aP: sky, aS: terrain};
+				}),
+			author$project$Scorched$Model$Sky$generator,
+			A3(author$project$Scorched$Model$Terrain$generator, permutation, time, dimensions));
+	});
+var author$project$Scorched$Model$World$random = F3(
+	function (permutation, time, dimensions) {
 		return A2(
 			elm$random$Random$generate,
-			author$project$Scorched$Model$Types$MenuTerrain,
-			A2(author$project$Scorched$Model$Terrain$generator, permutation, dimensions));
+			author$project$Scorched$Model$Types$MainMenuWorld,
+			A3(author$project$Scorched$Model$World$generator, permutation, time, dimensions));
 	});
-var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
+var author$project$Scorched$Model$SubMenu$handleKeyUp = F2(
+	function (_n0, key) {
+		var permutation = _n0.aa;
+		var time = _n0.R;
+		if (key === 'Escape') {
+			return elm$core$Platform$Cmd$batch(
+				_List_fromArray(
+					[
+						author$project$Scorched$Model$Helper$send(
+						author$project$Scorched$Model$Types$UpdateView(author$project$Scorched$Model$Types$MainMenu)),
+						A3(author$project$Scorched$Model$World$random, permutation, time, author$project$Scorched$Model$MainMenu$worldDimensions)
+					]));
+		} else {
+			return author$project$Scorched$Model$Helper$send(author$project$Scorched$Model$Types$NoOp);
+		}
+	});
 var author$project$Scorched$Model$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 1:
-				var sky = msg.a;
+				var newTime = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							i: A2(author$project$Scorched$Model$Menu$updateSky, model.i, sky)
-						}),
-					elm$core$Platform$Cmd$none);
-			case 2:
-				var terrain = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							i: A2(author$project$Scorched$Model$Menu$updateTerrain, model.i, terrain)
-						}),
+						{R: newTime}),
 					elm$core$Platform$Cmd$none);
 			case 0:
 				var permutation = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{ai: permutation}),
-					A2(author$project$Scorched$Model$Terrain$random, permutation, author$project$Scorched$Model$Menu$worldDimensions));
+						{aa: permutation}),
+					A3(author$project$Scorched$Model$World$random, permutation, model.R, author$project$Scorched$Model$MainMenu$worldDimensions));
+			case 2:
+				var view = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{aW: view}),
+					elm$core$Platform$Cmd$none);
 			case 3:
-				var label = msg.a;
+				var world = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							i: A2(author$project$Scorched$Model$Menu$toggleButton, model.i, label)
+							k: A2(author$project$Scorched$Model$MainMenu$updateWorld, model.k, world)
 						}),
 					elm$core$Platform$Cmd$none);
 			case 4:
 				var label = msg.a;
 				var direction = msg.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							i: A3(author$project$Scorched$Model$Menu$toggleControl, model.i, label, direction)
-						}),
-					elm$core$Platform$Cmd$none);
+				var _n1 = model.aW;
+				if (!_n1.$) {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								k: A3(author$project$Scorched$Model$MainMenu$toggleControl, model.k, label, direction)
+							}),
+						elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				}
 			case 5:
 				var key = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							i: A2(author$project$Scorched$Model$Menu$toggleButtonByKey, model.i, key)
-						}),
-					elm$core$Platform$Cmd$none);
+				var _n2 = model.aW;
+				if (!_n2.$) {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								k: A2(author$project$Scorched$Model$MainMenu$toggleControlByKey, model.k, key)
+							}),
+						elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				}
 			case 6:
 				var key = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
+				var _n3 = model.aW;
+				if (!_n3.$) {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								k: A2(author$project$Scorched$Model$MainMenu$toggleControlByKey, model.k, key)
+							}),
+						elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(
 						model,
-						{
-							i: A2(author$project$Scorched$Model$Menu$toggleButtonByKey, model.i, key)
-						}),
-					elm$core$Platform$Cmd$none);
+						A2(author$project$Scorched$Model$SubMenu$handleKeyUp, model, key));
+				}
 			case 7:
 				var key = msg.a;
-				var _n1 = model.aX;
-				return _Utils_Tuple2(
-					_Utils_update(
+				var _n4 = model.aW;
+				if (!_n4.$) {
+					return _Utils_Tuple2(
 						model,
-						{
-							C: A2(author$project$Scorched$Model$Menu$handleKeyPress, model.C, key)
-						}),
-					elm$core$Platform$Cmd$none);
+						A2(author$project$Scorched$Model$MainMenu$handleKeyPress, model.J, key));
+				} else {
+					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				}
 			case 8:
 				var operation = msg.a;
 				var spec = msg.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							C: A3(author$project$Scorched$Model$Menu$updateConfig, model.C, operation, spec)
-						}),
-					elm$core$Platform$Cmd$none);
+				var _n5 = model.aW;
+				if (!_n5.$) {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								J: A3(author$project$Scorched$Model$MainMenu$updateModelConfig, model.J, operation, spec)
+							}),
+						elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				}
 			default:
 				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 		}
@@ -7105,8 +7376,8 @@ var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
 var author$project$Scorched$View$Component$BorderBox$background = function (_n0) {
-	var width = _n0.aY;
-	var height = _n0.aE;
+	var width = _n0.aX;
+	var height = _n0.ay;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
@@ -7122,6 +7393,7 @@ var author$project$Scorched$View$Component$BorderBox$background = function (_n0)
 			]),
 		_List_Nil);
 };
+var elm$core$String$fromFloat = _String_fromNumber;
 var elm$svg$Svg$line = elm$svg$Svg$trustedNode('line');
 var elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
 var elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
@@ -7131,14 +7403,14 @@ var elm$svg$Svg$Attributes$y1 = _VirtualDom_attribute('y1');
 var elm$svg$Svg$Attributes$y2 = _VirtualDom_attribute('y2');
 var author$project$Scorched$View$Component$BorderBox$bottomLine = F4(
 	function (offset, width, stroke, color) {
-		var offsetAttr = elm$core$String$fromInt(offset - stroke);
+		var offsetAttr = elm$core$String$fromFloat(offset - (stroke / 2));
 		return A2(
 			elm$svg$Svg$line,
 			_List_fromArray(
 				[
 					elm$svg$Svg$Attributes$x1('0'),
 					elm$svg$Svg$Attributes$x2(
-					elm$core$String$fromInt(width - 1)),
+					elm$core$String$fromInt(width)),
 					elm$svg$Svg$Attributes$y1(offsetAttr),
 					elm$svg$Svg$Attributes$y2(offsetAttr),
 					elm$svg$Svg$Attributes$strokeWidth(
@@ -7156,12 +7428,13 @@ var author$project$Scorched$View$Component$BorderBox$invertedColors = _List_from
 	[author$project$Scorched$View$Palette$shadowLight, author$project$Scorched$View$Palette$highlightLight, author$project$Scorched$View$Palette$highlightDark, author$project$Scorched$View$Palette$shadowDark]);
 var author$project$Scorched$View$Component$BorderBox$leftLine = F3(
 	function (height, stroke, color) {
+		var offsetAttr = elm$core$String$fromFloat(stroke / 2);
 		return A2(
 			elm$svg$Svg$line,
 			_List_fromArray(
 				[
-					elm$svg$Svg$Attributes$x1('0'),
-					elm$svg$Svg$Attributes$x2('0'),
+					elm$svg$Svg$Attributes$x1(offsetAttr),
+					elm$svg$Svg$Attributes$x2(offsetAttr),
 					elm$svg$Svg$Attributes$y1('0'),
 					elm$svg$Svg$Attributes$y2(
 					elm$core$String$fromInt(height)),
@@ -7176,7 +7449,7 @@ var author$project$Scorched$View$Component$BorderBox$regularColors = _List_fromA
 	[author$project$Scorched$View$Palette$highlightDark, author$project$Scorched$View$Palette$shadowDark, author$project$Scorched$View$Palette$shadowLight, author$project$Scorched$View$Palette$highlightLight]);
 var author$project$Scorched$View$Component$BorderBox$rightLine = F4(
 	function (offset, height, stroke, color) {
-		var offsetAttr = elm$core$String$fromInt(offset - stroke);
+		var offsetAttr = elm$core$String$fromFloat(offset - (stroke / 2));
 		return A2(
 			elm$svg$Svg$line,
 			_List_fromArray(
@@ -7185,7 +7458,7 @@ var author$project$Scorched$View$Component$BorderBox$rightLine = F4(
 					elm$svg$Svg$Attributes$x2(offsetAttr),
 					elm$svg$Svg$Attributes$y1('0'),
 					elm$svg$Svg$Attributes$y2(
-					elm$core$String$fromInt(height - 1)),
+					elm$core$String$fromInt(height)),
 					elm$svg$Svg$Attributes$strokeWidth(
 					elm$core$String$fromInt(stroke)),
 					elm$svg$Svg$Attributes$stroke(
@@ -7195,6 +7468,7 @@ var author$project$Scorched$View$Component$BorderBox$rightLine = F4(
 	});
 var author$project$Scorched$View$Component$BorderBox$topLine = F3(
 	function (width, stroke, color) {
+		var offsetAttr = elm$core$String$fromFloat(stroke / 2);
 		return A2(
 			elm$svg$Svg$line,
 			_List_fromArray(
@@ -7202,8 +7476,8 @@ var author$project$Scorched$View$Component$BorderBox$topLine = F3(
 					elm$svg$Svg$Attributes$x1('0'),
 					elm$svg$Svg$Attributes$x2(
 					elm$core$String$fromInt(width)),
-					elm$svg$Svg$Attributes$y1('0'),
-					elm$svg$Svg$Attributes$y2('0'),
+					elm$svg$Svg$Attributes$y1(offsetAttr),
+					elm$svg$Svg$Attributes$y2(offsetAttr),
 					elm$svg$Svg$Attributes$strokeWidth(
 					elm$core$String$fromInt(stroke)),
 					elm$svg$Svg$Attributes$stroke(
@@ -7213,8 +7487,8 @@ var author$project$Scorched$View$Component$BorderBox$topLine = F3(
 	});
 var author$project$Scorched$View$Component$BorderBox$border = F3(
 	function (_n0, stroke, invert) {
-		var width = _n0.aY;
-		var height = _n0.aE;
+		var width = _n0.aX;
+		var height = _n0.ay;
 		var colors = invert ? author$project$Scorched$View$Component$BorderBox$invertedColors : author$project$Scorched$View$Component$BorderBox$regularColors;
 		return A3(
 			elm$core$List$map2,
@@ -7229,23 +7503,29 @@ var author$project$Scorched$View$Component$BorderBox$border = F3(
 			colors);
 	});
 var elm$svg$Svg$g = elm$svg$Svg$trustedNode('g');
+var elm$svg$Svg$Attributes$class = _VirtualDom_attribute('class');
 var author$project$Scorched$View$Component$BorderBox$build = F3(
 	function (dimensions, stroke, invert) {
 		return A2(
 			elm$svg$Svg$g,
-			_List_Nil,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$class('borderbox')
+				]),
 			A2(
 				elm$core$List$cons,
 				author$project$Scorched$View$Component$BorderBox$background(dimensions),
 				A3(author$project$Scorched$View$Component$BorderBox$border, dimensions, stroke, invert)));
 	});
+var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
 var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
-	var width = _n0.aY;
-	var height = _n0.aE;
+	var width = _n0.aX;
+	var height = _n0.ay;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
 			[
+				elm$svg$Svg$Attributes$id('sky-pitchblack'),
 				elm$svg$Svg$Attributes$fill('black'),
 				elm$svg$Svg$Attributes$x('0'),
 				elm$svg$Svg$Attributes$y('0'),
@@ -7257,12 +7537,13 @@ var author$project$Scorched$View$Sky$buildPitchBlack = function (_n0) {
 		_List_Nil);
 };
 var author$project$Scorched$View$Sky$buildPlain = function (_n0) {
-	var width = _n0.aY;
-	var height = _n0.aE;
+	var width = _n0.aX;
+	var height = _n0.ay;
 	return A2(
 		elm$svg$Svg$rect,
 		_List_fromArray(
 			[
+				elm$svg$Svg$Attributes$id('sky-plain'),
 				elm$svg$Svg$Attributes$fill('rgb(36, 36, 125)'),
 				elm$svg$Svg$Attributes$x('0'),
 				elm$svg$Svg$Attributes$y('0'),
@@ -7279,16 +7560,16 @@ var elm$svg$Svg$defs = elm$svg$Svg$trustedNode('defs');
 var elm$svg$Svg$Attributes$clipPath = _VirtualDom_attribute('clip-path');
 var elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
 var elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
-var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
 var elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
 var elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
 var author$project$Scorched$View$Sky$sun = function (_n0) {
-	var width = _n0.aY;
-	var height = _n0.aE;
+	var width = _n0.aX;
+	var height = _n0.ay;
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
 			[
+				elm$svg$Svg$Attributes$id('sky-sunset-sun'),
 				elm$svg$Svg$Attributes$transform('translate(156, 414)')
 			]),
 		_List_fromArray(
@@ -7354,46 +7635,52 @@ var author$project$Scorched$View$Palette$sunset = _List_fromArray(
 		{a: 32, b: 182, c: 255},
 		{a: 24, b: 203, c: 255}
 	]);
-var elm$core$String$fromFloat = _String_fromNumber;
 var author$project$Scorched$View$Sky$sunsetBands = function (_n0) {
-	var width = _n0.aY;
-	var height = _n0.aE;
+	var width = _n0.aX;
+	var height = _n0.ay;
 	var count = elm$core$List$length(author$project$Scorched$View$Palette$sunset);
 	var bandHeight = height / count;
-	return A3(
-		elm$core$List$map2,
-		F2(
-			function (color, offset) {
-				return A2(
-					elm$svg$Svg$rect,
-					_List_fromArray(
-						[
-							elm$svg$Svg$Attributes$fill(
-							author$project$Scorched$View$Palette$toString(color)),
-							elm$svg$Svg$Attributes$x('0'),
-							elm$svg$Svg$Attributes$y(
-							elm$core$String$fromFloat(offset * bandHeight)),
-							elm$svg$Svg$Attributes$width(
-							elm$core$String$fromInt(width)),
-							elm$svg$Svg$Attributes$height(
-							elm$core$String$fromFloat(bandHeight))
-						]),
-					_List_Nil);
-			}),
-		author$project$Scorched$View$Palette$sunset,
-		A2(elm$core$List$range, 0, count - 1));
+	return A2(
+		elm$svg$Svg$g,
+		_List_fromArray(
+			[
+				elm$svg$Svg$Attributes$id('sky-sunset-bands')
+			]),
+		A3(
+			elm$core$List$map2,
+			F2(
+				function (color, offset) {
+					return A2(
+						elm$svg$Svg$rect,
+						_List_fromArray(
+							[
+								elm$svg$Svg$Attributes$fill(
+								author$project$Scorched$View$Palette$toString(color)),
+								elm$svg$Svg$Attributes$x('0'),
+								elm$svg$Svg$Attributes$y(
+								elm$core$String$fromFloat(offset * bandHeight)),
+								elm$svg$Svg$Attributes$width(
+								elm$core$String$fromInt(width)),
+								elm$svg$Svg$Attributes$height(
+								elm$core$String$fromFloat(bandHeight))
+							]),
+						_List_Nil);
+				}),
+			author$project$Scorched$View$Palette$sunset,
+			A2(elm$core$List$range, 0, count - 1)));
 };
 var author$project$Scorched$View$Sky$buildSunset = function (dimensions) {
 	return A2(
 		elm$svg$Svg$g,
-		_List_Nil,
-		A2(
-			elm$core$List$append,
-			author$project$Scorched$View$Sky$sunsetBands(dimensions),
-			_List_fromArray(
-				[
-					author$project$Scorched$View$Sky$sun(dimensions)
-				])));
+		_List_fromArray(
+			[
+				elm$svg$Svg$Attributes$id('sky-sunset')
+			]),
+		_List_fromArray(
+			[
+				author$project$Scorched$View$Sky$sunsetBands(dimensions),
+				author$project$Scorched$View$Sky$sun(dimensions)
+			]));
 };
 var author$project$Scorched$View$Sky$build = F2(
 	function (sky, dimensions) {
@@ -7427,10 +7714,14 @@ var author$project$Scorched$View$Terrain$buildLine = F3(
 	});
 var author$project$Scorched$View$Terrain$build = F2(
 	function (terrain, _n0) {
-		var height = _n0.aE;
+		var height = _n0.ay;
 		return A2(
 			elm$svg$Svg$g,
-			_List_Nil,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$id('terrain'),
+					elm$svg$Svg$Attributes$transform('translate(0.5, 0)')
+				]),
 			A3(
 				elm$core$List$map2,
 				author$project$Scorched$View$Terrain$buildLine(height),
@@ -7442,45 +7733,91 @@ var author$project$Scorched$View$Terrain$build = F2(
 	});
 var author$project$Scorched$View$World$build = F2(
 	function (_n0, dimensions) {
-		var terrain = _n0.aT;
-		var sky = _n0.aQ;
+		var terrain = _n0.aS;
+		var sky = _n0.aP;
 		return A2(
 			elm$svg$Svg$g,
-			_List_Nil,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$id('world'),
+					elm$svg$Svg$Attributes$transform('translate(1, 1)')
+				]),
 			_List_fromArray(
 				[
 					A2(author$project$Scorched$View$Sky$build, sky, dimensions),
 					A2(author$project$Scorched$View$Terrain$build, terrain, dimensions)
 				]));
 	});
-var author$project$Scorched$View$Menu$sample = function (sampleWorld) {
-	var world = A2(author$project$Scorched$View$World$build, sampleWorld, author$project$Scorched$Model$Menu$worldDimensions);
+var author$project$Scorched$View$MainMenu$sample = function (sampleWorld) {
+	var world = A2(author$project$Scorched$View$World$build, sampleWorld, author$project$Scorched$Model$MainMenu$worldDimensions);
 	var outline = A3(
 		author$project$Scorched$View$Component$BorderBox$build,
-		{aE: 726, aY: 908},
+		{ay: 726, aX: 908},
 		1,
 		true);
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
 			[
+				elm$svg$Svg$Attributes$id('menu-main--world'),
 				elm$svg$Svg$Attributes$transform('translate(109, 6)')
 			]),
 		_List_fromArray(
 			[outline, world]));
 };
-var author$project$Scorched$View$Menu$background = function (_n0) {
-	var dimensions = _n0.aA;
-	var menuData = _n0.i;
-	return _List_fromArray(
+var author$project$Scorched$View$MainMenu$background = function (_n0) {
+	var dimensions = _n0.at;
+	var menuData = _n0.k;
+	return A2(
+		elm$svg$Svg$g,
+		_List_fromArray(
+			[
+				elm$svg$Svg$Attributes$id('background')
+			]),
+		_List_fromArray(
+			[
+				A3(author$project$Scorched$View$Component$BorderBox$build, dimensions, 2, false),
+				author$project$Scorched$View$MainMenu$sample(menuData.an)
+			]));
+};
+var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var elm$svg$Svg$text = elm$virtual_dom$VirtualDom$text;
+var elm$svg$Svg$text_ = elm$svg$Svg$trustedNode('text');
+var author$project$Scorched$View$MainMenu$bottomText = A2(
+	elm$svg$Svg$g,
+	_List_fromArray(
 		[
-			A3(author$project$Scorched$View$Component$BorderBox$build, dimensions, 2, false),
-			author$project$Scorched$View$Menu$sample(menuData.J)
-		]);
-};
-var author$project$Scorched$Model$Types$ButtonToggle = function (a) {
-	return {$: 3, a: a};
-};
+			elm$svg$Svg$Attributes$id('bottomtext')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform('translate(504, 744)'),
+					elm$svg$Svg$Attributes$fill('black')
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text('Version 0.0.1')
+				])),
+			A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform('translate(408, 758)'),
+					elm$svg$Svg$Attributes$fill('black')
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text('Copyright (c) 1991-1995 Wendell Hicken')
+				]))
+		]));
+var author$project$Scorched$Model$Types$ControlToggle = F2(
+	function (a, b) {
+		return {$: 4, a: a, b: b};
+	});
 var author$project$Scorched$View$Palette$cyan = {a: 255, b: 255, c: 40};
 var elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
@@ -7500,11 +7837,11 @@ var elm$core$String$right = F2(
 			elm$core$String$length(string),
 			string);
 	});
-var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var elm$svg$Svg$text = elm$virtual_dom$VirtualDom$text;
 var elm$svg$Svg$tspan = elm$svg$Svg$trustedNode('tspan');
-var author$project$Scorched$View$Component$KeyedLabel$build = F2(
-	function (label, key) {
+var author$project$Scorched$View$Component$KeyedLabel$build = F3(
+	function (label, key, _n0) {
+		var x = _n0.aZ;
+		var y = _n0.a_;
 		var location = A2(
 			elm$core$Maybe$withDefault,
 			0,
@@ -7518,30 +7855,39 @@ var author$project$Scorched$View$Component$KeyedLabel$build = F2(
 			elm$core$String$right,
 			(elm$core$String$length(label) - location) - 1,
 			label);
-		return _List_fromArray(
-			[
-				elm$svg$Svg$text(prefix),
-				A2(
-				elm$svg$Svg$tspan,
-				_List_fromArray(
-					[
-						elm$svg$Svg$Attributes$fill(
-						author$project$Scorched$View$Palette$toString(author$project$Scorched$View$Palette$cyan))
-					]),
-				_List_fromArray(
-					[
-						elm$svg$Svg$text(
-						elm$core$String$fromChar(key))
-					])),
-				elm$svg$Svg$text(suffix)
-			]);
+		return A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$class('keyedlabel'),
+					elm$svg$Svg$Attributes$x(
+					elm$core$String$fromInt(x)),
+					elm$svg$Svg$Attributes$y(
+					elm$core$String$fromInt(y))
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text(prefix),
+					A2(
+					elm$svg$Svg$tspan,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Scorched$View$Palette$toString(author$project$Scorched$View$Palette$cyan))
+						]),
+					_List_fromArray(
+						[
+							elm$svg$Svg$text(
+							elm$core$String$fromChar(key))
+						])),
+					elm$svg$Svg$text(suffix)
+				]));
 	});
 var author$project$Scorched$View$Helper$translate = function (_n0) {
-	var x = _n0.a_;
-	var y = _n0.a$;
+	var x = _n0.aZ;
+	var y = _n0.a_;
 	return 'translate(' + (elm$core$String$fromInt(x) + (', ' + (elm$core$String$fromInt(y) + ')')));
 };
-var elm$svg$Svg$text_ = elm$svg$Svg$trustedNode('text');
 var elm$svg$Svg$Attributes$fontWeight = _VirtualDom_attribute('font-weight');
 var elm$svg$Svg$Attributes$letterSpacing = _VirtualDom_attribute('letter-spacing');
 var elm$svg$Svg$Attributes$wordSpacing = _VirtualDom_attribute('word-spacing');
@@ -7556,6 +7902,12 @@ var elm$html$Html$Events$on = F2(
 			event,
 			elm$virtual_dom$VirtualDom$Normal(decoder));
 	});
+var elm$svg$Svg$Events$onClick = function (msg) {
+	return A2(
+		elm$html$Html$Events$on,
+		'click',
+		elm$json$Json$Decode$succeed(msg));
+};
 var elm$svg$Svg$Events$onMouseDown = function (msg) {
 	return A2(
 		elm$html$Html$Events$on,
@@ -7569,71 +7921,63 @@ var elm$svg$Svg$Events$onMouseUp = function (msg) {
 		elm$json$Json$Decode$succeed(msg));
 };
 var author$project$Scorched$View$Component$Button$build = function (_n0) {
-	var label = _n0.ae;
-	var key = _n0.ad;
-	var dimensions = _n0.aA;
-	var offset = _n0.ag;
-	var inverted = _n0.ac;
-	var action = _n0.aw;
-	return A2(
-		elm$svg$Svg$g,
-		_List_fromArray(
-			[
-				elm$svg$Svg$Attributes$transform(
-				author$project$Scorched$View$Helper$translate(offset)),
-				elm$svg$Svg$Attributes$fontWeight('600'),
-				elm$svg$Svg$Attributes$letterSpacing('-1px'),
-				elm$svg$Svg$Attributes$wordSpacing('-3px'),
-				elm$svg$Svg$Events$onMouseDown(
-				author$project$Scorched$Model$Types$ButtonToggle(label)),
-				elm$svg$Svg$Events$onMouseUp(
-				author$project$Scorched$Model$Types$ButtonToggle(label))
-			]),
-		_List_fromArray(
-			[
-				A3(author$project$Scorched$View$Component$BorderBox$build, dimensions, 2, inverted),
-				A2(
-				elm$svg$Svg$text_,
-				_List_fromArray(
-					[
-						elm$svg$Svg$Attributes$x('5'),
-						elm$svg$Svg$Attributes$y('12')
-					]),
-				A2(author$project$Scorched$View$Component$KeyedLabel$build, label, key))
-			]));
-};
-var author$project$Scorched$View$Menu$buttons = function (definitions) {
-	return A2(elm$core$List$map, author$project$Scorched$View$Component$Button$build, definitions);
+	var label = _n0.aD;
+	var key = _n0.aC;
+	var offset = _n0.aH;
+	var spec = _n0.E;
+	if (!spec.$) {
+		var dimensions = spec.a.at;
+		var invert = spec.a.K;
+		var action = spec.a.ap;
+		return A2(
+			elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$class('button'),
+					elm$svg$Svg$Attributes$transform(
+					author$project$Scorched$View$Helper$translate(offset)),
+					elm$svg$Svg$Attributes$fontWeight('600'),
+					elm$svg$Svg$Attributes$letterSpacing('-1px'),
+					elm$svg$Svg$Attributes$wordSpacing('-3px'),
+					elm$svg$Svg$Events$onClick(action),
+					elm$svg$Svg$Events$onMouseDown(
+					A2(author$project$Scorched$Model$Types$ControlToggle, label, 2)),
+					elm$svg$Svg$Events$onMouseUp(
+					A2(author$project$Scorched$Model$Types$ControlToggle, label, 2))
+				]),
+			_List_fromArray(
+				[
+					A3(author$project$Scorched$View$Component$BorderBox$build, dimensions, 2, invert),
+					A3(
+					author$project$Scorched$View$Component$KeyedLabel$build,
+					label,
+					key,
+					{aZ: 5, a_: 12})
+				]));
+	} else {
+		return A2(elm$svg$Svg$g, _List_Nil, _List_Nil);
+	}
 };
 var author$project$Scorched$Model$Types$Down = 1;
-var author$project$Scorched$Model$Types$Up = 0;
-var author$project$Scorched$Model$Types$ControlToggle = F2(
-	function (a, b) {
-		return {$: 4, a: a, b: b};
-	});
 var author$project$Scorched$Model$Types$Decrement = 1;
-var author$project$Scorched$Model$Types$UpdateConfig = F2(
-	function (a, b) {
-		return {$: 8, a: a, b: b};
-	});
 var author$project$Scorched$View$Component$BorderTriangle$clickMsg = F2(
 	function (direction, spec) {
 		switch (direction) {
 			case 0:
-				return A2(author$project$Scorched$Model$Types$UpdateConfig, 0, spec);
+				return A2(
+					author$project$Scorched$Model$Types$UpdateConfig,
+					0,
+					author$project$Scorched$Model$Types$Numeric(spec));
 			case 1:
-				return A2(author$project$Scorched$Model$Types$UpdateConfig, 1, spec);
+				return A2(
+					author$project$Scorched$Model$Types$UpdateConfig,
+					1,
+					author$project$Scorched$Model$Types$Numeric(spec));
 			default:
 				return author$project$Scorched$Model$Types$NoOp;
 		}
 	});
 var elm$svg$Svg$Attributes$fillOpacity = _VirtualDom_attribute('fill-opacity');
-var elm$svg$Svg$Events$onClick = function (msg) {
-	return A2(
-		elm$html$Html$Events$on,
-		'click',
-		elm$json$Json$Decode$succeed(msg));
-};
 var author$project$Scorched$View$Component$BorderTriangle$boundingBox = F3(
 	function (spec, direction, label) {
 		return A2(
@@ -7660,14 +8004,14 @@ var author$project$Scorched$View$Component$BorderTriangle$downColors = function 
 var author$project$Scorched$View$Component$BorderTriangle$downLines = _List_fromArray(
 	[
 		_Utils_Tuple2(
-		{a_: 0, a$: 0},
-		{a_: 14, a$: 0}),
+		{aZ: 0, a_: 0},
+		{aZ: 14, a_: 0}),
 		_Utils_Tuple2(
-		{a_: 14, a$: 0},
-		{a_: 7, a$: 9}),
+		{aZ: 14, a_: 0},
+		{aZ: 7, a_: 9}),
 		_Utils_Tuple2(
-		{a_: 7, a$: 9},
-		{a_: 0, a$: 0})
+		{aZ: 7, a_: 9},
+		{aZ: 0, a_: 0})
 	]);
 var author$project$Scorched$View$Component$BorderTriangle$line = F2(
 	function (_n0, color) {
@@ -7678,13 +8022,13 @@ var author$project$Scorched$View$Component$BorderTriangle$line = F2(
 			_List_fromArray(
 				[
 					elm$svg$Svg$Attributes$x1(
-					elm$core$String$fromInt(start.a_)),
+					elm$core$String$fromInt(start.aZ)),
 					elm$svg$Svg$Attributes$x2(
-					elm$core$String$fromInt(end.a_)),
+					elm$core$String$fromInt(end.aZ)),
 					elm$svg$Svg$Attributes$y1(
-					elm$core$String$fromInt(start.a$)),
+					elm$core$String$fromInt(start.a_)),
 					elm$svg$Svg$Attributes$y2(
-					elm$core$String$fromInt(end.a$)),
+					elm$core$String$fromInt(end.a_)),
 					elm$svg$Svg$Attributes$strokeWidth('2'),
 					elm$svg$Svg$Attributes$stroke(
 					author$project$Scorched$View$Palette$toString(color))
@@ -7699,14 +8043,14 @@ var author$project$Scorched$View$Component$BorderTriangle$upColors = function (i
 var author$project$Scorched$View$Component$BorderTriangle$upLines = _List_fromArray(
 	[
 		_Utils_Tuple2(
-		{a_: 7, a$: 0},
-		{a_: 14, a$: 9}),
+		{aZ: 7, a_: 0},
+		{aZ: 14, a_: 9}),
 		_Utils_Tuple2(
-		{a_: 14, a$: 9},
-		{a_: 0, a$: 9}),
+		{aZ: 14, a_: 9},
+		{aZ: 0, a_: 9}),
 		_Utils_Tuple2(
-		{a_: 0, a$: 9},
-		{a_: 7, a$: 0})
+		{aZ: 0, a_: 9},
+		{aZ: 7, a_: 0})
 	]);
 var elm$svg$Svg$svg = elm$svg$Svg$trustedNode('svg');
 var author$project$Scorched$View$Component$BorderTriangle$lines = F2(
@@ -7737,6 +8081,7 @@ var author$project$Scorched$View$Component$BorderTriangle$build = F5(
 			elm$svg$Svg$g,
 			_List_fromArray(
 				[
+					elm$svg$Svg$Attributes$class('bordertriangle'),
 					elm$svg$Svg$Attributes$transform(
 					author$project$Scorched$View$Helper$translate(offset))
 				]),
@@ -7745,64 +8090,84 @@ var author$project$Scorched$View$Component$BorderTriangle$build = F5(
 				A3(author$project$Scorched$View$Component$BorderTriangle$boundingBox, spec, direction, label),
 				A2(author$project$Scorched$View$Component$BorderTriangle$lines, invert, direction)));
 	});
-var author$project$Scorched$View$Component$Control$buildLabel = F3(
+var author$project$Scorched$View$Component$Numeric$buildLabel = F3(
 	function (label, key, value) {
 		var labelWithValue = label + (': ' + elm$core$String$fromInt(value));
-		return A2(author$project$Scorched$View$Component$KeyedLabel$build, labelWithValue, key);
+		return A3(
+			author$project$Scorched$View$Component$KeyedLabel$build,
+			labelWithValue,
+			key,
+			{aZ: 17, a_: 13});
+	});
+var author$project$Scorched$View$Component$Numeric$build = F2(
+	function (config, _n0) {
+		var label = _n0.aD;
+		var key = _n0.aC;
+		var offset = _n0.aH;
+		var spec = _n0.E;
+		if (spec.$ === 1) {
+			var numericSpec = spec.a;
+			var invert = numericSpec.K;
+			var getter = numericSpec.ax;
+			var setter = numericSpec.aO;
+			return A2(
+				elm$svg$Svg$g,
+				_List_fromArray(
+					[
+						elm$svg$Svg$Attributes$class('control'),
+						elm$svg$Svg$Attributes$transform(
+						author$project$Scorched$View$Helper$translate(offset)),
+						elm$svg$Svg$Attributes$fontWeight('600'),
+						elm$svg$Svg$Attributes$letterSpacing('-1px'),
+						elm$svg$Svg$Attributes$wordSpacing('-3px')
+					]),
+				_List_fromArray(
+					[
+						A5(
+						author$project$Scorched$View$Component$BorderTriangle$build,
+						numericSpec,
+						!invert,
+						0,
+						{aZ: 0, a_: 0},
+						label),
+						A5(
+						author$project$Scorched$View$Component$BorderTriangle$build,
+						numericSpec,
+						invert === 1,
+						1,
+						{aZ: 0, a_: 12},
+						label),
+						A3(
+						author$project$Scorched$View$Component$Numeric$buildLabel,
+						label,
+						key,
+						getter(config))
+					]));
+		} else {
+			return A2(elm$svg$Svg$g, _List_Nil, _List_Nil);
+		}
 	});
 var author$project$Scorched$View$Component$Control$build = F2(
-	function (config, _n0) {
-		var label = _n0.ae;
-		var key = _n0.ad;
-		var offset = _n0.ag;
-		var invert = _n0.aI;
-		var spec = _n0.aR;
+	function (config, control) {
+		var spec = control.E;
+		if (!spec.$) {
+			return author$project$Scorched$View$Component$Button$build(control);
+		} else {
+			return A2(author$project$Scorched$View$Component$Numeric$build, config, control);
+		}
+	});
+var author$project$Scorched$View$MainMenu$controls = F2(
+	function (config, definitions) {
 		return A2(
 			elm$svg$Svg$g,
 			_List_fromArray(
 				[
-					elm$svg$Svg$Attributes$transform(
-					author$project$Scorched$View$Helper$translate(offset)),
-					elm$svg$Svg$Attributes$fontWeight('600'),
-					elm$svg$Svg$Attributes$letterSpacing('-1px'),
-					elm$svg$Svg$Attributes$wordSpacing('-3px')
+					elm$svg$Svg$Attributes$id('controls')
 				]),
-			_List_fromArray(
-				[
-					A5(
-					author$project$Scorched$View$Component$BorderTriangle$build,
-					spec,
-					!invert,
-					0,
-					{a_: 0, a$: 0},
-					label),
-					A5(
-					author$project$Scorched$View$Component$BorderTriangle$build,
-					spec,
-					invert === 1,
-					1,
-					{a_: 0, a$: 12},
-					label),
-					A2(
-					elm$svg$Svg$text_,
-					_List_fromArray(
-						[
-							elm$svg$Svg$Attributes$x('17'),
-							elm$svg$Svg$Attributes$y('13')
-						]),
-					A3(
-						author$project$Scorched$View$Component$Control$buildLabel,
-						label,
-						key,
-						spec.M(config)))
-				]));
-	});
-var author$project$Scorched$View$Menu$controls = F2(
-	function (config, definitions) {
-		return A2(
-			elm$core$List$map,
-			author$project$Scorched$View$Component$Control$build(config),
-			definitions);
+			A2(
+				elm$core$List$map,
+				author$project$Scorched$View$Component$Control$build(config),
+				definitions));
 	});
 var author$project$Scorched$View$Component$ShadowText$buildText = F3(
 	function (label, offset, color) {
@@ -7841,6 +8206,7 @@ var author$project$Scorched$View$Component$ShadowText$build = F2(
 			elm$svg$Svg$g,
 			_List_fromArray(
 				[
+					elm$svg$Svg$Attributes$class('shadowtext'),
 					elm$svg$Svg$Attributes$transform(
 					author$project$Scorched$View$Helper$translate(offset)),
 					elm$svg$Svg$Attributes$fontSize('32')
@@ -7854,85 +8220,121 @@ var author$project$Scorched$View$Component$ShadowText$build = F2(
 					elm$core$List$length(author$project$Scorched$View$Palette$shadows) - 1),
 				author$project$Scorched$View$Palette$shadows));
 	});
-var author$project$Scorched$View$Menu$messages = _List_fromArray(
-	[
-		A2(
-		author$project$Scorched$View$Component$ShadowText$build,
-		'Scorched Earth',
-		{a_: 420, a$: 48}),
-		A2(
-		elm$svg$Svg$text_,
+var author$project$Scorched$View$MainMenu$titleText = A2(
+	elm$svg$Svg$g,
+	_List_fromArray(
+		[
+			elm$svg$Svg$Attributes$id('titletext')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			author$project$Scorched$View$Component$ShadowText$build,
+			'Scorched Earth',
+			{aZ: 420, a_: 48}),
+			A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform('translate(472, 84)'),
+					elm$svg$Svg$Attributes$fill('white')
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text('The Mother of All Games')
+				]))
+		]));
+var author$project$Scorched$View$MainMenu$build = function (model) {
+	var dimensions = model.at;
+	var menuData = model.k;
+	var config = model.J;
+	return A2(
+		elm$svg$Svg$g,
 		_List_fromArray(
 			[
-				elm$svg$Svg$Attributes$transform('translate(472, 84)'),
-				elm$svg$Svg$Attributes$fill('white')
+				elm$svg$Svg$Attributes$id('menu-main')
 			]),
 		_List_fromArray(
 			[
-				elm$svg$Svg$text('The Mother of All Games')
-			])),
-		A2(
-		elm$svg$Svg$text_,
+				author$project$Scorched$View$MainMenu$background(model),
+				A2(
+				author$project$Scorched$View$MainMenu$controls,
+				config,
+				elm$core$Dict$values(menuData.L)),
+				author$project$Scorched$View$MainMenu$titleText,
+				author$project$Scorched$View$MainMenu$bottomText
+			]));
+};
+var author$project$Scorched$View$SubMenu$buildLandscape = function (model) {
+	return A2(
+		elm$svg$Svg$g,
 		_List_fromArray(
 			[
-				elm$svg$Svg$Attributes$transform('translate(504, 744)'),
-				elm$svg$Svg$Attributes$fill('black')
+				elm$svg$Svg$Attributes$transform('translate(410, 345)')
 			]),
 		_List_fromArray(
 			[
-				elm$svg$Svg$text('Version 0.0.1')
-			])),
-		A2(
-		elm$svg$Svg$text_,
-		_List_fromArray(
-			[
-				elm$svg$Svg$Attributes$transform('translate(408, 758)'),
-				elm$svg$Svg$Attributes$fill('black')
-			]),
-		_List_fromArray(
-			[
-				elm$svg$Svg$text('Copyright (c) 1991-1995 Wendell Hicken')
-			]))
-	]);
-var elm$core$List$concat = function (lists) {
-	return A3(elm$core$List$foldr, elm$core$List$append, _List_Nil, lists);
+				A3(
+				author$project$Scorched$View$Component$BorderBox$build,
+				{ay: 240, aX: 300},
+				2,
+				false)
+			]));
+};
+var author$project$Scorched$View$SubMenu$buildInternal = F2(
+	function (subMenu, model) {
+		return author$project$Scorched$View$SubMenu$buildLandscape(model);
+	});
+var author$project$Scorched$View$SubMenu$build = F2(
+	function (subMenu, model) {
+		var dimensions = model.at;
+		return A2(
+			elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$width(
+					elm$core$String$fromInt(dimensions.aX)),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(dimensions.ay))
+				]),
+			_List_fromArray(
+				[
+					author$project$Scorched$View$MainMenu$build(model),
+					A2(author$project$Scorched$View$SubMenu$buildInternal, subMenu, model)
+				]));
+	});
+var author$project$Scorched$View$buildInternal = function (model) {
+	var _n0 = model.aW;
+	if (!_n0.$) {
+		return author$project$Scorched$View$MainMenu$build(model);
+	} else {
+		var subMenu = _n0.a;
+		return A2(author$project$Scorched$View$SubMenu$build, subMenu, model);
+	}
 };
 var elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
 var elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
-var author$project$Scorched$View$Menu$build = function (model) {
-	var dimensions = model.aA;
-	var menuData = model.i;
-	var config = model.C;
+var author$project$Scorched$View$build = function (model) {
+	var dimensions = model.at;
 	return A2(
 		elm$svg$Svg$svg,
 		_List_fromArray(
 			[
+				elm$svg$Svg$Attributes$id('main'),
 				elm$svg$Svg$Attributes$width(
-				elm$core$String$fromInt(dimensions.aY)),
+				elm$core$String$fromInt(dimensions.aX)),
 				elm$svg$Svg$Attributes$height(
-				elm$core$String$fromInt(dimensions.aE)),
+				elm$core$String$fromInt(dimensions.ay)),
 				elm$svg$Svg$Attributes$fontFamily('monospace'),
 				elm$svg$Svg$Attributes$style('user-select: none; -moz-user-select: none;')
 			]),
-		elm$core$List$concat(
-			_List_fromArray(
-				[
-					author$project$Scorched$View$Menu$background(model),
-					author$project$Scorched$View$Menu$buttons(
-					elm$core$Dict$values(menuData.K)),
-					A2(
-					author$project$Scorched$View$Menu$controls,
-					config,
-					elm$core$Dict$values(menuData.L)),
-					author$project$Scorched$View$Menu$messages
-				])));
-};
-var author$project$Scorched$View$build = function (model) {
-	var _n0 = model.aX;
-	return author$project$Scorched$View$Menu$build(model);
+		_List_fromArray(
+			[
+				author$project$Scorched$View$buildInternal(model)
+			]));
 };
 var elm$browser$Browser$element = _Browser_element;
 var author$project$Main$main = elm$browser$Browser$element(
-	{aH: author$project$Main$init, aS: author$project$Scorched$Model$subscriptions, aV: author$project$Scorched$Model$update, aX: author$project$Scorched$View$build});
+	{aB: author$project$Main$init, aR: author$project$Scorched$Model$subscriptions, aU: author$project$Scorched$Model$update, aW: author$project$Scorched$View$build});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));
