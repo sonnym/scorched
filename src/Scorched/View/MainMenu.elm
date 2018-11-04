@@ -23,18 +23,19 @@ build : Model -> Svg Msg
 build ({dimensions, menuData, config} as model) =
   Svg.g
     [ Attr.id "menu-main" ]
-    (List.concat
-      [ background model
-      , [ controls config (Dict.values menuData.controls) ]
-      , messages
-      ]
-    )
+    [ background model
+    , controls config (Dict.values menuData.controls)
+    , titleText
+    , bottomText
+    ]
 
-background : Model -> List (Svg Msg)
+background : Model -> Svg Msg
 background {dimensions, menuData} =
-  [ BorderBox.build dimensions 2 False
-  , sample menuData.world
-  ]
+  Svg.g
+    [ Attr.id "background" ]
+    [ BorderBox.build dimensions 2 False
+    , sample menuData.world
+    ]
 
 sample : World -> Svg Msg
 sample sampleWorld =
@@ -52,25 +53,30 @@ controls config definitions =
     [ Attr.id "controls" ]
     (List.map (Control.build config) definitions)
 
-messages : List (Svg msg)
-messages =
-  [ ShadowText.build "Scorched Earth" {x = 420, y = 48 }
-
-  , Svg.text_
-    [ Attr.transform "translate(472, 84)"
-    , Attr.fill "white"
+titleText : Svg msg
+titleText =
+  Svg.g
+    [ Attr.id "titletext" ]
+    [ ShadowText.build "Scorched Earth" {x = 420, y = 48 }
+    , Svg.text_
+      [ Attr.transform "translate(472, 84)"
+      , Attr.fill "white"
+      ]
+      [ Svg.text "The Mother of All Games" ]
     ]
-    [ Svg.text "The Mother of All Games" ]
 
-  , Svg.text_
-    [ Attr.transform "translate(504, 744)"
-    , Attr.fill "black"
+bottomText : Svg msg
+bottomText =
+  Svg.g
+    [ Attr.id "bottomtext" ]
+    [ Svg.text_
+      [ Attr.transform "translate(504, 744)"
+      , Attr.fill "black"
+      ]
+      [ Svg.text "Version 0.0.1" ]
+    , Svg.text_
+      [ Attr.transform "translate(408, 758)"
+      , Attr.fill "black"
+      ]
+      [ Svg.text "Copyright (c) 1991-1995 Wendell Hicken" ]
     ]
-    [ Svg.text "Version 0.0.1" ]
-
-  , Svg.text_
-    [ Attr.transform "translate(408, 758)"
-    , Attr.fill "black"
-    ]
-    [ Svg.text "Copyright (c) 1991-1995 Wendell Hicken" ]
-  ]
