@@ -31,11 +31,11 @@ update msg model =
     PermutationGenerated permutation ->
       ({ model | permutation = permutation }, World.random permutation MainMenu.worldDimensions)
 
-    MainMenuWorld world ->
-      ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
-
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
+
+    MainMenuWorld world ->
+      ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
 
     ControlToggle label direction ->
       case model.view of
