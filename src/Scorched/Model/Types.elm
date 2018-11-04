@@ -22,8 +22,7 @@ type Msg
   = PermutationGenerated Permutation
   | UpdateView View
   | MainMenuWorld World
-  -- | ButtonToggle String
-  -- | ControlToggle String Direction
+  | ControlToggle String Direction
   | KeyDown String
   | KeyUp String
   | KeyPress String

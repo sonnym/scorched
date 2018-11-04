@@ -22,8 +22,8 @@ boundingBox spec direction label =
     [ Attr.width "15"
     , Attr.height "10"
     , Attr.fillOpacity "0"
-    -- , Events.onMouseDown (ControlToggle label direction)
-    -- , Events.onMouseUp (ControlToggle label None)
+    , Events.onMouseDown (ControlToggle label direction)
+    , Events.onMouseUp (ControlToggle label None)
     -- , Events.onClick (clickMsg direction spec)
     ] []
 

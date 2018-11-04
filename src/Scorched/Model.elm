@@ -1,6 +1,6 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
-import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MainMenuData)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, MainMenuData, Direction(..))
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
@@ -37,19 +37,11 @@ update msg model =
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
 
-{--
-    ButtonToggle label ->
-      case model.view of
-        MainMenu ->
-          ({ model | menuData = MainMenu.toggleButton model.menuData label }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
-
     ControlToggle label direction ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControl model.menuData label direction }, Cmd.none)
         SubMenu _ -> (model, Cmd.none)
---}
 
     KeyDown key ->
       case model.view of

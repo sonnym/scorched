@@ -39,44 +39,29 @@ defaultControls =
 updateWorld : MainMenuData -> World -> MainMenuData
 updateWorld menuData world = { menuData | world = world }
 
-{--
-toggleButton : MainMenuData -> String -> MainMenuData
-toggleButton menuData label =
-  { menuData | buttons = updateButtons menuData.buttons label }
-
-updateControls : Dict String Control -> String -> Direction -> Dict String Control
-updateControls controls label direction =
-  Dict.update label (updateControl direction) controls
-
-updateControl : Direction -> Maybe Control -> Maybe Control
-updateControl direction maybeControl =
-  case maybeControl of
-    Just control -> Just { control | invert = direction }
-    Nothing -> Nothing
---}
-
 toggleControlByKey : MainMenuData -> String -> MainMenuData
 toggleControlByKey menuData key =
   let
     maybeLabel = List.head (Dict.keys (findItem defaultControls key))
   in
     case maybeLabel of
-      Just label -> toggleControl menuData label
+      Just label -> toggleControl menuData label Up
       Nothing -> menuData
 
-toggleControl : MainMenuData -> String -> MainMenuData
-toggleControl menuData label =
-    { menuData | controls = updateControls menuData.controls label }
+toggleControl : MainMenuData -> String -> Direction -> MainMenuData
+toggleControl menuData label direction =
+    { menuData | controls = updateControls menuData.controls label Up }
 
-updateControls : Dict String Control -> String -> Dict String Control
-updateControls controls label = Dict.update label updateControl controls
+updateControls : Dict String Control -> String -> Direction -> Dict String Control
+updateControls controls label direction =
+  Dict.update label (updateControl direction) controls
 
 updateConfig : Configuration -> Operation -> NumericSpec -> Configuration
 updateConfig config op spec =
   spec.setter config (guard (new op spec (spec.getter config)) spec)
 
-updateControl : Maybe Control -> Maybe Control
-updateControl maybeControl =
+updateControl : Direction -> Maybe Control -> Maybe Control
+updateControl direction maybeControl =
   case maybeControl of
     Just ({spec} as control) ->
       case spec of
