@@ -2,6 +2,8 @@ module Scorched.Model.Types exposing (..)
 
 import Dict exposing (Dict)
 
+import Time
+
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 type View = MainMenu | SubMenu Menu
@@ -20,6 +22,7 @@ type alias Permutation = List Int
 
 type Msg
   = PermutationGenerated Permutation
+  | Tick Time.Posix
   | UpdateView View
   | MainMenuWorld World
   | ControlToggle String Direction
@@ -31,6 +34,7 @@ type Msg
 
 type alias Model =
   { view: View
+  , time: Time.Posix
   , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
