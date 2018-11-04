@@ -50,7 +50,7 @@ toggleControlByKey menuData key =
 
 toggleControl : MainMenuData -> String -> Direction -> MainMenuData
 toggleControl menuData label direction =
-    { menuData | controls = updateControls menuData.controls label Up }
+    { menuData | controls = updateControls menuData.controls label direction }
 
 updateControls : Dict String Control -> String -> Direction -> Dict String Control
 updateControls controls label direction =
@@ -74,7 +74,9 @@ updateControl direction maybeControl =
         Button button ->
           let newSpec = { button | inverted = not button.inverted }
           in Just { control | spec = Button newSpec }
-        Numeric numeric -> Just control
+        Numeric numeric ->
+          let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
+          in Just { control | spec = Numeric newSpec }
     Nothing -> Nothing
 
 handleKeyPress : Configuration -> String -> Configuration
