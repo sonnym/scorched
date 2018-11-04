@@ -63,7 +63,7 @@ type alias Control =
 
 type alias ButtonSpec =
   { dimensions: Dimension
-  , inverted: Bool
+  , invert: Bool
   , action: Msg
   }
 

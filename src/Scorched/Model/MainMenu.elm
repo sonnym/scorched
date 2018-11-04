@@ -72,7 +72,7 @@ updateControl direction maybeControl =
     Just ({spec} as control) ->
       case spec of
         Button button ->
-          let newSpec = { button | inverted = not button.inverted }
+          let newSpec = { button | invert = not button.invert }
           in Just { control | spec = Button newSpec }
         Numeric numeric ->
           let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
