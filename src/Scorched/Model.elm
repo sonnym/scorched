@@ -75,4 +75,4 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.batch ((Time.every 1000 Tick) :: Keyboard.subscriptions)
+  Sub.batch ((Time.every 100 Tick) :: Keyboard.subscriptions)
