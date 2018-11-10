@@ -1,4 +1,4 @@
-module Scorched.View.SubMenu exposing (build)
+module Scorched.View.Modal exposing (build)
 
 import Svg exposing (Svg)
 

@@ -11,7 +11,7 @@ import Scorched.Model.Keyboard as Keyboard
 import Scorched.Model.Configuration as Configuration
 
 import Scorched.Model.MainMenu as MainMenu
-import Scorched.Model.SubMenu as SubMenu
+import Scorched.Model.Modal as Modal
 
 import Scorched.Model.World as World
 
@@ -46,30 +46,30 @@ update msg model =
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControl model.menuData label direction }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
+        Modal _ -> (model, Cmd.none)
 
     KeyDown key ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
+        Modal _ -> (model, Cmd.none)
 
     KeyUp key ->
       case model.view of
         MainMenu ->
           ({ model | menuData = MainMenu.toggleControlByKey model.menuData key }, Cmd.none)
-        SubMenu _ -> (model, SubMenu.handleKeyUp model key)
+        Modal _ -> (model, Modal.handleKeyUp model key)
 
     KeyPress key ->
       case model.view of
         MainMenu -> (model, MainMenu.handleKeyPress model.config key)
-        SubMenu _ -> (model, Cmd.none)
+        Modal _ -> (model, Cmd.none)
 
     UpdateConfig operation spec ->
       case model.view of
         MainMenu ->
           ({ model | config = MainMenu.updateModelConfig model.config operation spec }, Cmd.none)
-        SubMenu _ -> (model, Cmd.none)
+        Modal _ -> (model, Cmd.none)
 
     NoOp -> (model, Cmd.none)
 

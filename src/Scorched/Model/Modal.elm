@@ -1,4 +1,4 @@
-module Scorched.Model.SubMenu exposing (handleKeyUp)
+module Scorched.Model.Modal exposing (handleKeyUp)
 
 import Scorched.Model.Types exposing (Model, Msg(..), View(..))
 

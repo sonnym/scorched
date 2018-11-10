@@ -6,7 +6,7 @@ import Time
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-type View = MainMenu | SubMenu Menu
+type View = MainMenu | Modal Menu
 type Menu = Landscape
 
 type Operation = Increment | Decrement

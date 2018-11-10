@@ -26,7 +26,7 @@ defaultControls =
         , Control "Hardware…" 'H' {x=7, y=132} (Button (ButtonSpec {width=78, height=19} False NoOp))
         , Control "Economics…" 'E' {x=7, y=162} (Button (ButtonSpec {width=84, height=19} False NoOp))
         , Control "Physics…" 'y' {x=7, y=192} (Button (ButtonSpec {width=70, height=19} False NoOp))
-        , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (UpdateView (SubMenu Landscape))))
+        , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (UpdateView (Modal Landscape))))
         , Control "Play Options…" 't' {x=7, y=252} (Button (ButtonSpec {width=98, height=19} False NoOp))
         , Control "Weapons…" 'W' {x=7, y=282} (Button (ButtonSpec {width=68, height=19} False NoOp))
 

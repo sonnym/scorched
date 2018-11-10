@@ -8,7 +8,7 @@ import Svg.Attributes as Attr
 import Scorched.Model.Types exposing (Model, Msg, View(..))
 
 import Scorched.View.MainMenu as MainMenu
-import Scorched.View.SubMenu as SubMenu
+import Scorched.View.Modal as Modal
 
 build : Model -> Html Msg
 build ({dimensions} as model) =
@@ -25,4 +25,4 @@ buildInternal : Model -> Svg Msg
 buildInternal model =
   case model.view of
     MainMenu -> MainMenu.build model
-    SubMenu subMenu -> SubMenu.build subMenu model
+    Modal subMenu -> Modal.build subMenu model
