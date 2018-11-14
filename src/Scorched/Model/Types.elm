@@ -37,6 +37,7 @@ type alias Model =
   , time: Time.Posix
   , menuData: MainMenuData
   , permutation: Permutation
+  , noiseSettings: NoiseSettings
   , dimensions: Dimension
   , config: Configuration
   }
@@ -78,4 +79,9 @@ type alias NumericSpec =
   , invert: Direction
   , getter: (Configuration -> Int)
   , setter: (Configuration -> Int -> Configuration)
+  }
+
+type alias NoiseSettings =
+  { octaves: Int
+  , fallout: Float
   }

@@ -1,22 +1,20 @@
-module Scorched.Model.Noise exposing (generator)
+module Scorched.Model.Noise exposing (generator, defaultSettings)
 
 import Array
 import Bitwise
 import Random
 
-import Scorched.Model.Types exposing (Permutation)
+import Scorched.Model.Types exposing (Permutation, NoiseSettings)
 
-generator : Permutation -> Float -> Random.Generator Float
-generator permutation time = Random.constant (rounds permutation time)
+generator : Permutation -> NoiseSettings -> Float -> Random.Generator Float
+generator permutation settings time =
+  Random.constant (rounds permutation settings time)
 
-octaves : Int
-octaves = 8
+defaultSettings : NoiseSettings
+defaultSettings = { fallout = 0.5, octaves = 8 }
 
-fallout : Float
-fallout = 0.5
-
-rounds : Permutation -> Float -> Float
-rounds permutation x =
+rounds : Permutation -> NoiseSettings -> Float -> Float
+rounds permutation {fallout, octaves} x =
   List.sum
     (List.map
       (\n -> fallout^n * (1 + (noise permutation (x * (2^n)))) / 2)

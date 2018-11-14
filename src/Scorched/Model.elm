@@ -6,6 +6,7 @@ import Scorched.Model.Types exposing (Msg(..), View(..), Model, MainMenuData, Di
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Permutation as Permutation
+import Scorched.Model.Noise as Noise
 
 import Scorched.Model.Keyboard as Keyboard
 import Scorched.Model.Configuration as Configuration
@@ -20,6 +21,7 @@ default =
   { view = MainMenu
   , time = Time.millisToPosix 0
   , permutation = Permutation.default
+  , noiseSettings = Noise.defaultSettings
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
   , config = Configuration.default
@@ -34,7 +36,9 @@ update msg model =
     Tick newTime -> ({ model | time = newTime }, Cmd.none)
 
     PermutationGenerated permutation ->
-      ({ model | permutation = permutation }, World.random permutation model.time MainMenu.worldDimensions)
+      ( { model | permutation = permutation }
+      , World.random permutation model.noiseSettings model.time MainMenu.worldDimensions
+      )
 
     UpdateView view ->
       ({ model | view = view }, Cmd.none)
