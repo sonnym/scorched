@@ -13,4 +13,3 @@ generator = Random.List.shuffle (List.range 0 255)
 
 default : Permutation
 default = [ ]
-
