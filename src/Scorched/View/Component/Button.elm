@@ -17,7 +17,7 @@ build ({spec} as control) disabled =
   case spec of
     Button buttonSpec ->
       case disabled of
-        True -> buildDisabled control
+        True -> buildDisabled control buttonSpec
         False -> buildEnabled control buttonSpec
     _ -> Svg.g [] []
 
@@ -37,5 +37,15 @@ buildEnabled {label, key, offset, spec} {dimensions, invert, action} =
     , KeyedLabel.build label key {x=5, y=12}
     ]
 
-buildDisabled : Control -> Svg Msg
-buildDisabled control = Svg.g [] []
+buildDisabled : Control -> ButtonSpec -> Svg Msg
+buildDisabled {label, offset} {dimensions} =
+  Svg.g
+    [ Attr.class "button"
+    , Attr.transform (Helper.translate offset)
+    , Attr.fontWeight "600"
+    , Attr.letterSpacing "-1px"
+    , Attr.wordSpacing "-3px"
+    ]
+    [ BorderBox.build dimensions 2 False
+    , Svg.text_ [ Attr.x "5" , Attr.y "12" ] [ Svg.text label ]
+    ]
