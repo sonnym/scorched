@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Msg(..), Model, Configuration, World, Control)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, World, Control)
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
 import Scorched.Model.MainMenu as MainMenu
@@ -18,11 +18,11 @@ import Scorched.View.Component.Control as Control
 import Scorched.View.World as World
 
 build : Model -> Svg Msg
-build ({dimensions, menuData, config} as model) =
+build ({view, dimensions, menuData, config} as model) =
   Svg.g
     [ Attr.id "menu-main" ]
     [ background model
-    , controls config (Dict.values menuData.controls)
+    , controls config (isModalOpen view) (Dict.values menuData.controls)
     , titleText
     , bottomText
     ]
@@ -45,11 +45,11 @@ sample sampleWorld =
       [ Attr.id "menu-main--world", Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-controls : Configuration -> List Control -> Svg Msg
-controls config definitions =
+controls : Configuration -> Bool -> List Control -> Svg Msg
+controls config disabled definitions =
   Svg.g
     [ Attr.id "controls" ]
-    (List.map (Control.build config) definitions)
+    (List.map (Control.build config disabled) definitions)
 
 titleText : Svg msg
 titleText =
@@ -78,3 +78,9 @@ bottomText =
       ]
       [ Svg.text "Copyright (c) 1991-1995 Wendell Hicken" ]
     ]
+
+isModalOpen : View -> Bool
+isModalOpen view =
+  case view of
+    MainMenu -> False
+    Modal _ -> True
