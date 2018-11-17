@@ -41,7 +41,9 @@ update msg model =
       )
 
     UpdateView view ->
-      ({ model | view = view }, Cmd.none)
+      case view of
+        MainMenu -> ({ model | view = view, menuData = resetMenuData model.menuData }, Cmd.none)
+        _ -> ({ model | view = view }, Cmd.none)
 
     MainMenuWorld world ->
       ({ model | menuData = MainMenu.updateWorld model.menuData world }, Cmd.none)
@@ -80,3 +82,6 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch ((Time.every 100 Tick) :: Keyboard.subscriptions)
+
+resetMenuData : MainMenuData -> MainMenuData
+resetMenuData menuData = { menuData | controls = MainMenu.default.controls }
