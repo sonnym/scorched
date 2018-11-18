@@ -17,7 +17,7 @@ build config ({spec} as control) disabled =
   case spec of
     Numeric numericSpec ->
       case disabled of
-        True -> buildDisabled control
+        True -> buildDisabled config control numericSpec
         False -> buildEnabled config control numericSpec
     _ -> Svg.g [] []
 
@@ -35,12 +35,23 @@ buildEnabled config {label, key, offset} ({invert, getter, setter} as spec) =
     , buildLabel label key (getter config)
     ]
 
-buildDisabled : Control -> Svg Msg
-buildDisabled control = Svg.g [] []
+buildDisabled : Configuration -> Control -> NumericSpec -> Svg Msg
+buildDisabled config {label, offset} ({getter} as spec) =
+  Svg.g
+    [ Attr.class "control"
+    , Attr.transform (Helper.translate offset)
+    , Attr.fontWeight "600"
+    , Attr.letterSpacing "-1px"
+    , Attr.wordSpacing "-3px"
+    ]
+    [ BorderTriangle.build spec False Up {x=0, y=0} label
+    , BorderTriangle.build spec False Down {x=0, y=12} label
+    , Svg.text_ [ Attr.x "17" , Attr.y "13" ] [ Svg.text (fullLabel label (getter config)) ]
+    ]
 
 buildLabel : String -> Char -> Int -> Svg msg
 buildLabel label key value =
-  let
-    labelWithValue = label ++ ": " ++ (String.fromInt value)
-  in
-    KeyedLabel.build labelWithValue key {x=17, y=13}
+  KeyedLabel.build (fullLabel label value) key {x=17, y=13}
+
+fullLabel : String -> Int -> String
+fullLabel label value = label ++ ": " ++ (String.fromInt value)
