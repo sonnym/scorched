@@ -1,4 +1,4 @@
-module Scorched.View.Component.Numeric exposing (build)
+module Scorched.View.Component.Control.Numeric exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
