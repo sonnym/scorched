@@ -6,7 +6,7 @@ import Svg.Attributes as Attr
 import Scorched.Model.Types exposing (Model, Msg, View(..), Menu(..))
 
 import Scorched.View.MainMenu as MainMenu
-import Scorched.View.Component.BorderBox as BorderBox
+import Scorched.View.Modal.Landscape as Landscape
 
 build : Menu -> Model -> Svg Msg
 build subMenu ({dimensions} as model) =
@@ -19,10 +19,4 @@ build subMenu ({dimensions} as model) =
 buildInternal : Menu -> Model -> Svg Msg
 buildInternal subMenu model =
   case subMenu of
-    Landscape -> buildLandscape model
-
-buildLandscape : Model -> Svg Msg
-buildLandscape model =
-  Svg.g
-    [ Attr.transform "translate(410, 345)" ]
-    [ BorderBox.build {width=300, height=240} 2 False ]
+    Landscape -> Landscape.build  model
