@@ -1,8 +1,6 @@
 module Scorched.View.Modal exposing (build)
 
 import Svg exposing (Svg)
-
-import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.Model.Types exposing (Model, Msg, View(..), Menu(..))
