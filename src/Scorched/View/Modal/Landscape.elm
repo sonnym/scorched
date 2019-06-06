@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (..)
+import Scorched.Model.Types exposing (Model, Msg(..), Control, Specification(..), ButtonSpec)
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.Control as Control
