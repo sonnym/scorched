@@ -22,7 +22,7 @@ build config ({spec} as control) disabled =
 buildEnabled : Configuration -> Control -> TypeSpec -> Svg Msg
 buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} as spec) =
   Svg.g
-    [ Attr.class "control"
+    [ Attr.class "type"
     , Attr.transform (Helper.translate offset)
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"

@@ -24,7 +24,7 @@ build config ({spec} as control) disabled =
 buildEnabled : Configuration -> Control -> NumericSpec -> Svg Msg
 buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} as spec) =
   Svg.g
-    [ Attr.class "control"
+    [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
@@ -38,7 +38,7 @@ buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} 
 buildDisabled : Configuration -> Control -> NumericSpec -> Svg Msg
 buildDisabled config ({label, offset} as control) ({getter} as spec) =
   Svg.g
-    [ Attr.class "control"
+    [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)
     , Attr.fontWeight "600"
     , Attr.letterSpacing "-1px"
