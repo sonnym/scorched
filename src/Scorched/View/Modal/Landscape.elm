@@ -5,7 +5,7 @@ import Dict exposing (Dict)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Model, Msg(..), Control, Specification(..), ButtonSpec)
+import Scorched.Model.Types exposing (Model, Msg(..), Control, Direction(..), Specification(..), TypeSpec)
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.Control as Control
@@ -22,4 +22,4 @@ build {config} =
 
 controls : List Control
 controls =
-  [ Control "Bumpiness" 'B' {x=7, y=12} (Button (ButtonSpec {width=82, height=19} False NoOp)) ]
+  [ Control "Sky" 'S' {x=7, y=12} (Type (TypeSpec None (\_ -> "Random") (\a _ -> a))) ]

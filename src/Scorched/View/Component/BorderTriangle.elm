@@ -4,27 +4,27 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (NumericSpec, Specification(..), Msg(..), Operation(..), Direction(..))
+import Scorched.Model.Types exposing (NumericSpec, Specification(..), Control, Msg(..), Operation(..), Direction(..))
 import Scorched.Model.Geometry exposing (Offset, Point)
 
 import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)
 
-build : NumericSpec -> Bool -> Direction -> Offset -> String -> Svg Msg
-build spec invert direction offset label =
+build : Control -> Bool -> Direction -> Offset -> String -> Svg Msg
+build control invert direction offset label =
   Svg.g
     [ Attr.class "bordertriangle", Attr.transform (Helper.translate offset) ]
-    ((boundingBox spec direction label) :: (lines invert direction))
+    ((boundingBox control direction label) :: (lines invert direction))
 
-boundingBox : NumericSpec -> Direction -> String -> Svg Msg
-boundingBox spec direction label =
+boundingBox : Control -> Direction -> String -> Svg Msg
+boundingBox control direction label =
   Svg.rect
     [ Attr.width "15"
     , Attr.height "10"
     , Attr.fillOpacity "0"
     , Events.onMouseDown (ControlToggle label direction)
     , Events.onMouseUp (ControlToggle label None)
-    , Events.onClick (clickMsg direction spec)
+    , Events.onClick (clickMsg direction control)
     ] []
 
 lines : Bool -> Direction -> List (Svg msg)
@@ -72,9 +72,12 @@ downColors invert =
   else
     [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
 
-clickMsg : Direction -> NumericSpec -> Msg
-clickMsg direction spec =
-  case direction of
-    Up -> UpdateConfig Increment (Numeric spec)
-    Down -> UpdateConfig Decrement (Numeric spec)
-    None -> NoOp
+clickMsg : Direction -> Control -> Msg
+clickMsg direction ({spec} as control) =
+  case spec of
+    Numeric _ ->
+      case direction of
+        Up -> UpdateConfig Increment spec
+        Down -> UpdateConfig Decrement spec
+        None -> NoOp
+    _ -> NoOp

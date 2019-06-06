@@ -57,7 +57,7 @@ type alias MainMenuData =
   , world: World
   }
 
-type Specification = Button ButtonSpec | Numeric NumericSpec
+type Specification = Button ButtonSpec | Numeric NumericSpec | Type TypeSpec
 
 type alias Control =
   { label: String
@@ -79,6 +79,12 @@ type alias NumericSpec =
   , invert: Direction
   , getter: (Configuration -> Int)
   , setter: (Configuration -> Int -> Configuration)
+  }
+
+type alias TypeSpec =
+  { invert: Direction
+  , getter: (Configuration -> String)
+  , setter: (Configuration -> String -> Configuration)
   }
 
 type alias NoiseSettings =

@@ -22,7 +22,7 @@ build config ({spec} as control) disabled =
     _ -> Svg.g [] []
 
 buildEnabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildEnabled config {label, key, offset} ({invert, getter, setter} as spec) =
+buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} as spec) =
   Svg.g
     [ Attr.class "control"
     , Attr.transform (Helper.translate offset)
@@ -30,13 +30,13 @@ buildEnabled config {label, key, offset} ({invert, getter, setter} as spec) =
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
     ]
-    [ BorderTriangle.build spec (invert == Up) Up {x=0, y=0} label
-    , BorderTriangle.build spec (invert == Down) Down {x=0, y=12} label
+    [ BorderTriangle.build control (invert == Up) Up {x=0, y=0} label
+    , BorderTriangle.build control (invert == Down) Down {x=0, y=12} label
     , buildLabel label key (getter config)
     ]
 
 buildDisabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildDisabled config {label, offset} ({getter} as spec) =
+buildDisabled config ({label, offset} as control) ({getter} as spec) =
   Svg.g
     [ Attr.class "control"
     , Attr.transform (Helper.translate offset)
@@ -44,8 +44,8 @@ buildDisabled config {label, offset} ({getter} as spec) =
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
     ]
-    [ BorderTriangle.build spec False Up {x=0, y=0} label
-    , BorderTriangle.build spec False Down {x=0, y=12} label
+    [ BorderTriangle.build control False Up {x=0, y=0} label
+    , BorderTriangle.build control False Down {x=0, y=12} label
     , Svg.text_ [ Attr.x "17" , Attr.y "13" ] [ Svg.text (fullLabel label (getter config)) ]
     ]
 

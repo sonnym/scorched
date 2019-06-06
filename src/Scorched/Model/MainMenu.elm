@@ -80,6 +80,7 @@ updateControl direction maybeControl =
         Numeric numeric ->
           let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
           in Just { control | spec = Numeric newSpec }
+        _ -> Nothing
     Nothing -> Nothing
 
 handleKeyPress : Configuration -> String -> Cmd Msg
@@ -92,6 +93,7 @@ handleKeyPress config key =
         case control.spec of
           Button buttonSpec -> Helper.send buttonSpec.action
           Numeric _ -> Helper.send (UpdateConfig Increment control.spec)
+          _ -> Cmd.none
       Nothing -> Cmd.none
 
 findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
