@@ -21,11 +21,11 @@ update_ msg model =
     KeyUp key -> (model, handleKeyUp model key)
 
 handleKeyUp : Model -> String -> Cmd Msg
-handleKeyUp {permutation, noiseSettings, time} key =
+handleKeyUp {permutation, config, time} key =
   case key of
     "Escape" ->
       Cmd.batch
         [ Helper.send (Basic (UpdateView (Menu_ Main)))
-        , World.random permutation noiseSettings time MainMenu.worldDimensions
+        , World.random permutation config.noiseSettings time MainMenu.worldDimensions
         ]
     _ -> Helper.send NoOp

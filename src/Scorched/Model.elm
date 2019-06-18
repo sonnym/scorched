@@ -7,11 +7,9 @@ import Scorched.Model.Types.View exposing (..)
 
 import Scorched.Model.Geometry exposing (Dimension)
 
-import Scorched.Model.Permutation as Permutation
-import Scorched.Model.Noise as Noise
-
-import Scorched.Model.Keyboard as Keyboard
 import Scorched.Model.Configuration as Configuration
+import Scorched.Model.Permutation as Permutation
+import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.MainMenu as MainMenu
 import Scorched.Model.Modal as Modal
@@ -23,7 +21,6 @@ default =
   { view = Menu_ Main
   , time = Time.millisToPosix 0
   , permutation = Permutation.default
-  , noiseSettings = Noise.defaultSettings
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
   , config = Configuration.default
@@ -47,7 +44,7 @@ update_ msg model =
 
     PermutationGenerated permutation ->
       ( { model | permutation = permutation }
-      , World.random permutation model.noiseSettings model.time MainMenu.worldDimensions
+      , World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
       )
 
     UpdateView view ->

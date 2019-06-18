@@ -44,7 +44,6 @@ type alias Model =
   , time: Time.Posix
   , menuData: MainMenuData
   , permutation: Permutation
-  , noiseSettings: NoiseSettings
   , dimensions: Dimension
   , config: Configuration
   }
@@ -52,6 +51,7 @@ type alias Model =
 type alias Configuration =
   { playerCount: Int
   , roundCount: Int
+  , noiseSettings: NoiseSettings
   }
 
 type alias World =
