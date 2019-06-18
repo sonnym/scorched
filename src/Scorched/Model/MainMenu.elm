@@ -1,15 +1,10 @@
-module Scorched.Model.MainMenu exposing (
-  default,
-  handleKeyPress,
-  toggleControl,
-  toggleControlByKey,
-  updateModelConfig,
-  updateWorld,
-  worldDimensions)
+module Scorched.Model.MainMenu exposing (default, update, worldDimensions)
 
 import Dict exposing (Dict)
 
 import Scorched.Model.Types exposing (..)
+import Scorched.Model.Types.View exposing (..)
+
 import Scorched.Model.Geometry exposing (Dimension)
 
 import Scorched.Model.Control as Control
@@ -22,6 +17,27 @@ default =
   { controls = defaultControls
   , world = World.empty
   }
+
+update : MainMenuMsg -> Model -> (Model, Cmd Msg)
+update msg model =
+  case msg of
+    World_ world ->
+      ({ model | menuData = updateWorld model.menuData world }, Cmd.none)
+
+    ControlToggle label direction ->
+      ({ model | menuData = toggleControl model.menuData label direction }, Cmd.none)
+
+    KeyDown key ->
+      ({ model | menuData = toggleControlByKey model.menuData key }, Cmd.none)
+
+    KeyUp key ->
+      ({ model | menuData = toggleControlByKey model.menuData key }, Cmd.none)
+
+    KeyPress key ->
+      (model, handleKeyPress model.config key)
+
+    UpdateConfig operation spec ->
+      ({ model | config = updateModelConfig model.config operation spec }, Cmd.none)
 
 defaultControls : Dict String Control
 defaultControls =
@@ -40,7 +56,7 @@ defaultControls =
         , Control "Hardware…" 'H' {x=7, y=132} (Button (ButtonSpec {width=78, height=19} False NoOp))
         , Control "Economics…" 'E' {x=7, y=162} (Button (ButtonSpec {width=84, height=19} False NoOp))
         , Control "Physics…" 'y' {x=7, y=192} (Button (ButtonSpec {width=70, height=19} False NoOp))
-        , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (UpdateView (Modal Landscape))))
+        -- , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (Basic (UpdateView (Modal Landscape)))))
         , Control "Play Options…" 't' {x=7, y=252} (Button (ButtonSpec {width=98, height=19} False NoOp))
         , Control "Weapons…" 'W' {x=7, y=282} (Button (ButtonSpec {width=68, height=19} False NoOp))
         ]

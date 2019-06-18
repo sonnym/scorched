@@ -5,7 +5,8 @@ import Html exposing (Html)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Model, Msg, View(..))
+import Scorched.Model.Types exposing (Model, Msg)
+import Scorched.Model.Types.View exposing (..)
 
 import Scorched.View.MainMenu as MainMenu
 import Scorched.View.Modal as Modal
@@ -24,5 +25,5 @@ build ({dimensions} as model) =
 buildInternal : Model -> Svg Msg
 buildInternal model =
   case model.view of
-    MainMenu -> MainMenu.build model
-    Modal subMenu -> Modal.build subMenu model
+    Menu_ _ -> MainMenu.build model
+    Modal_ subMenu -> Modal.build subMenu model

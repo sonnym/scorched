@@ -3,7 +3,7 @@ module Scorched.Model.Keyboard exposing (subscriptions)
 import Browser.Events
 import Json.Decode as Json
 
-import Scorched.Model.Types exposing (Model, Msg(..))
+import Scorched.Model.Types exposing (Model, Msg(..), MainMenuMsg(..))
 
 subscriptions : List (Sub Msg)
 subscriptions =
@@ -16,10 +16,10 @@ keyDecoder : Json.Decoder String
 keyDecoder = Json.field "key" Json.string
 
 toKeyDown : String -> Msg
-toKeyDown key = KeyDown key
+toKeyDown key = MainMenu (KeyDown key)
 
 toKeyUp : String -> Msg
-toKeyUp key = KeyUp key
+toKeyUp key = MainMenu (KeyUp key)
 
 toKeyPress : String -> Msg
-toKeyPress key = KeyPress key
+toKeyPress key = MainMenu (KeyPress key)

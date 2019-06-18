@@ -6,8 +6,8 @@ import Time
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-type View = MainMenu | Modal Menu
-type Menu = Landscape
+import Scorched.Model.Types.ModalMsg exposing (..)
+import Scorched.Model.Types.View exposing (..)
 
 type Operation = Increment | Decrement
 type Direction = Up | Down | None
@@ -21,16 +21,23 @@ type alias Terrain = List Int
 type alias Permutation = List Int
 
 type Msg
+  = Basic BasicMsg
+  | MainMenu MainMenuMsg
+  | Modal ModalMsg
+  | NoOp
+
+type BasicMsg
   = PermutationGenerated Permutation
   | Tick Time.Posix
   | UpdateView View
-  | MainMenuWorld World
+
+type MainMenuMsg
+  = World_ World
   | ControlToggle String Direction
   | KeyDown String
   | KeyUp String
   | KeyPress String
   | UpdateConfig Operation Specification
-  | NoOp
 
 type alias Model =
   { view: View
