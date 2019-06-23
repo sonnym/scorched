@@ -6,8 +6,7 @@ import Time
 
 import Scorched.Model.Noise as Noise
 
-import Scorched.Model.Types exposing (Permutation, NoiseSettings, Msg(..), Terrain)
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Types exposing (Msg(..), Permutation, NoiseSettings, Terrain, Dimension)
 
 generator : Permutation -> NoiseSettings -> Time.Posix -> Dimension -> Random.Generator Terrain
 generator permutation settings time {width, height} =

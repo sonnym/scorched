@@ -3,8 +3,7 @@ module Scorched.View.Terrain exposing (build)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Terrain)
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Types exposing (Terrain, Dimension)
 
 import Scorched.View.Helper as Helper
 

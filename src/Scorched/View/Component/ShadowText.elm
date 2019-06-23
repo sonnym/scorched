@@ -3,7 +3,7 @@ module Scorched.View.Component.ShadowText exposing (build)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Geometry exposing (Offset)
+import Scorched.Model.Types exposing (Offset)
 
 import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)

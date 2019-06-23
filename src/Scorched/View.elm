@@ -7,7 +7,7 @@ import Svg.Attributes as Attr
 
 import Scorched.Model.Types exposing (Model, Msg, View(..))
 
-import Scorched.View.MainMenu as MainMenu
+import Scorched.View.Menu as Menu
 import Scorched.View.Modal as Modal
 
 build : Model -> Html Msg
@@ -19,10 +19,10 @@ build ({dimensions} as model) =
     , Attr.fontFamily "monospace"
     , Attr.style "user-select: none; -moz-user-select: none;"
     ]
-    [ (buildInternal model) ]
+    [ (build_ model) ]
 
-buildInternal : Model -> Svg Msg
-buildInternal model =
+build_ : Model -> Svg Msg
+build_ model =
   case model.view of
-    MainMenu -> MainMenu.build model
-    Modal subMenu -> Modal.build subMenu model
+    MenuView menu -> Menu.build menu model
+    ModalView modal -> Modal.build modal model
