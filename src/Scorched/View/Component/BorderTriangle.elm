@@ -9,7 +9,6 @@ import Scorched.Model.Types exposing (
   Specification(..),
   Control,
   Msg(..),
-  MainMenuMsg(..),
   Operation(..),
   Direction(..),
   Offset,
@@ -25,15 +24,18 @@ build control invert direction offset label =
     ((boundingBox control direction label) :: (lines invert direction))
 
 boundingBox : Control -> Direction -> String -> Svg Msg
-boundingBox control direction label =
-  Svg.rect
-    [ Attr.width "15"
-    , Attr.height "10"
-    , Attr.fillOpacity "0"
-    , Events.onMouseDown (MainMenu (ControlToggle label direction))
-    , Events.onMouseUp (MainMenu (ControlToggle label None))
-    , Events.onClick (clickMsg direction control)
-    ] []
+boundingBox ({spec} as control) direction label =
+  case spec of
+    Numeric spec_ ->
+      Svg.rect
+        [ Attr.width "15"
+        , Attr.height "10"
+        , Attr.fillOpacity "0"
+        , Events.onMouseDown (spec_.toggle direction label)
+        , Events.onMouseUp (spec_.toggle None label)
+        , Events.onClick (spec_.action direction control)
+        ] []
+    _ -> Svg.g [] []
 
 lines : Bool -> Direction -> List (Svg msg)
 lines invert direction =
@@ -79,13 +81,3 @@ downColors invert =
     [ Palette.highlightLight, Palette.highlightDark, Palette.shadowDark ]
   else
     [ Palette.highlightDark, Palette.shadowDark, Palette.highlightLight ]
-
-clickMsg : Direction -> Control -> Msg
-clickMsg direction ({spec} as control) =
-  case spec of
-    Numeric _ ->
-      case direction of
-        Up -> (MainMenu (UpdateConfig Increment spec))
-        Down -> (MainMenu (UpdateConfig Decrement spec))
-        None -> NoOp
-    _ -> NoOp

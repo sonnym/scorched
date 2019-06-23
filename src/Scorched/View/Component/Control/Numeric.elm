@@ -5,7 +5,7 @@ import Svg.Attributes as Attr
 import Svg.Events as Events
 
 import Scorched.Model.Types exposing (
-  Msg,
+  Msg(..),
   Configuration,
   Control,
   Specification(..),
@@ -28,7 +28,7 @@ build config ({spec} as control) disabled =
     _ -> Svg.g [] []
 
 buildEnabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} as spec) =
+buildEnabled config ({label, key, offset} as control) {invert, getter, setter, toggle} =
   Svg.g
     [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)
@@ -42,7 +42,7 @@ buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} 
     ]
 
 buildDisabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildDisabled config ({label, offset} as control) ({getter} as spec) =
+buildDisabled config ({label, offset} as control) {getter, toggle} =
   Svg.g
     [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)

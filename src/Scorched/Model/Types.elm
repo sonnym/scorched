@@ -88,7 +88,7 @@ type alias ButtonSpec =
   { dimensions: Dimension
   , invert: Bool
   , action: Msg
-  , toggle: String -> Msg
+  , toggle: (String -> Msg)
   }
 
 type alias NumericSpec =
@@ -98,6 +98,8 @@ type alias NumericSpec =
   , invert: Direction
   , getter: (Configuration -> Int)
   , setter: (Configuration -> Int -> Configuration)
+  , action: (Direction -> Control -> Msg)
+  , toggle: (Direction -> String -> Msg)
   }
 
 type alias TypeSpec =
