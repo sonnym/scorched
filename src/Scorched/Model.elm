@@ -2,8 +2,7 @@ module Scorched.Model exposing (default, init, update, subscriptions)
 
 import Time
 
-import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), MainMenuMsg(..), Model, MainMenuData, Direction(..))
-import Scorched.Model.Types.View exposing (..)
+import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), MainMenuMsg(..), Model, MainMenuData, Direction(..), View(..), Menu_(..))
 
 import Scorched.Model.Geometry exposing (Dimension)
 
@@ -11,14 +10,14 @@ import Scorched.Model.Configuration as Configuration
 import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.MainMenu as MainMenu
+import Scorched.Model.Menu.Main as MainMenu
 import Scorched.Model.Modal as Modal
 
 import Scorched.Model.World as World
 
 default : Model
 default =
-  { view = Menu_ Main
+  { view = MenuView Main
   , time = Time.millisToPosix 0
   , permutation = Permutation.default
   , menuData = MainMenu.default
@@ -34,6 +33,7 @@ update msg model =
   case msg of
     NoOp -> (model, Cmd.none)
     Basic msg_ -> update_ msg_ model
+    Key msg_ -> Keyboard.update msg_ model
     MainMenu msg_ -> MainMenu.update msg_ model
     Modal _ -> (model, Cmd.none)
 
@@ -49,7 +49,7 @@ update_ msg model =
 
     UpdateView view ->
       case view of
-        Menu_ _ -> ({ model | view = view, menuData = resetMenuData model.menuData }, Cmd.none)
+        MenuView _ -> ({ model | view = view, menuData = resetMenuData model.menuData }, Cmd.none)
         _ -> ({ model | view = view }, Cmd.none)
 
 subscriptions : Model -> Sub Msg

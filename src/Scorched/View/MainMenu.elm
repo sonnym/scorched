@@ -5,12 +5,11 @@ import Dict exposing (Dict)
 import Svg exposing(Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Msg(..), Model, Configuration, World, Control)
-import Scorched.Model.Types.View exposing (..)
+import Scorched.Model.Types exposing (Msg(..), View(..), Model, Configuration, World, Control)
 
 import Scorched.Model.Geometry exposing (Dimension, Offset)
 
-import Scorched.Model.MainMenu as MainMenu
+import Scorched.Model.Menu.Main as MainMenu
 
 import Scorched.View.Component.BorderBox as BorderBox
 import Scorched.View.Component.ShadowText as ShadowText
@@ -84,5 +83,5 @@ bottomText =
 isModalOpen : View -> Bool
 isModalOpen view =
   case view of
-    Menu_ _ -> False
-    Modal_ _ -> True
+    MenuView _ -> False
+    ModalView _ -> True

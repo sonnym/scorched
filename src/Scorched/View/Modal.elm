@@ -3,21 +3,20 @@ module Scorched.View.Modal exposing (build)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Types exposing (Model, Msg(..))
-import Scorched.Model.Types.View exposing (Modal__(..))
+import Scorched.Model.Types exposing (Model, Msg(..), View(..), Modal_(..))
 
 import Scorched.View.MainMenu as MainMenu
 import Scorched.View.Modal.Landscape as Landscape
 
-build : Modal__ -> Model -> Svg Msg
-build subMenu ({dimensions} as model) =
+build : Modal_ -> Model -> Svg Msg
+build modal ({dimensions} as model) =
   Svg.g
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     ]
-    [ MainMenu.build model, (buildInternal subMenu model) ]
+    [ MainMenu.build model, (build_ modal model) ]
 
-buildInternal : Modal__ -> Model -> Svg Msg
-buildInternal subMenu model =
-  case subMenu of
+build_ : Modal_ -> Model -> Svg Msg
+build_ modal model =
+  case modal of
     Landscape -> Landscape.build  model

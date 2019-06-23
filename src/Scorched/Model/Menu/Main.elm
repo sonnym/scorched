@@ -1,9 +1,8 @@
-module Scorched.Model.MainMenu exposing (default, update, worldDimensions)
+module Scorched.Model.Menu.Main exposing (default, update, worldDimensions)
 
 import Dict exposing (Dict)
 
 import Scorched.Model.Types exposing (..)
-import Scorched.Model.Types.View exposing (..)
 
 import Scorched.Model.Geometry exposing (Dimension)
 
@@ -27,15 +26,6 @@ update msg model =
     ControlToggle label direction ->
       ({ model | menuData = toggleControl model.menuData label direction }, Cmd.none)
 
-    KeyDown key ->
-      ({ model | menuData = toggleControlByKey model.menuData key }, Cmd.none)
-
-    KeyUp key ->
-      ({ model | menuData = toggleControlByKey model.menuData key }, Cmd.none)
-
-    KeyPress key ->
-      (model, handleKeyPress model.config key)
-
     UpdateConfig operation spec ->
       ({ model | config = updateModelConfig model.config operation spec }, Cmd.none)
 
@@ -56,23 +46,15 @@ defaultControls =
         , Control "Hardware…" 'H' {x=7, y=132} (Button (ButtonSpec {width=78, height=19} False NoOp))
         , Control "Economics…" 'E' {x=7, y=162} (Button (ButtonSpec {width=84, height=19} False NoOp))
         , Control "Physics…" 'y' {x=7, y=192} (Button (ButtonSpec {width=70, height=19} False NoOp))
-        , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (Basic (UpdateView (Modal_ Landscape)))))
+        , Control "Landscape…" 'L' {x=7, y=222} (Button (ButtonSpec {width=82, height=19} False (Basic (UpdateView (ModalView Landscape)))))
         , Control "Play Options…" 't' {x=7, y=252} (Button (ButtonSpec {width=98, height=19} False NoOp))
         , Control "Weapons…" 'W' {x=7, y=282} (Button (ButtonSpec {width=68, height=19} False NoOp))
         ]
     )
 
-handleKeyPress : Configuration -> String -> Cmd Msg
-handleKeyPress configuration label =
-  (Control.handleKeyPress defaultControls) configuration label
-
 toggleControl : MainMenuData -> String -> Direction -> MainMenuData
 toggleControl menuData label direction =
   Control.toggleControl menuData label direction
-
-toggleControlByKey : MainMenuData -> String -> MainMenuData
-toggleControlByKey menuData key =
-  (Control.toggleControlByKey defaultControls) menuData key
 
 updateWorld : MainMenuData -> World -> MainMenuData
 updateWorld menuData world = { menuData | world = world }
