@@ -4,8 +4,6 @@ import Dict exposing (Dict)
 
 import Scorched.Model.Types exposing (..)
 
-import Scorched.Model.Geometry exposing (Dimension)
-
 import Scorched.Model.Control as Control
 
 import Scorched.Model.Sky as Sky

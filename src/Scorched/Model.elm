@@ -2,9 +2,14 @@ module Scorched.Model exposing (default, init, update, subscriptions)
 
 import Time
 
-import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), View(..), Menu_(..), Model, MainMenuData)
-
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Types exposing (
+  Msg(..),
+  BasicMsg(..),
+  View(..),
+  Menu_(..),
+  Model,
+  MainMenuData,
+  Dimension)
 
 import Scorched.Model.Configuration as Configuration
 import Scorched.Model.Permutation as Permutation

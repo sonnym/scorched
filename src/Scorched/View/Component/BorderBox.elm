@@ -3,7 +3,7 @@ module Scorched.View.Component.BorderBox exposing (build)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Types exposing (Dimension)
 
 import Scorched.View.Palette as Palette exposing(Color)
 

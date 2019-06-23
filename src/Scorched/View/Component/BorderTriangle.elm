@@ -4,8 +4,16 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 import Svg.Events as Events
 
-import Scorched.Model.Types exposing (NumericSpec, Specification(..), Control, Msg(..), MainMenuMsg(..), Operation(..), Direction(..))
-import Scorched.Model.Geometry exposing (Offset, Point)
+import Scorched.Model.Types exposing (
+  NumericSpec,
+  Specification(..),
+  Control,
+  Msg(..),
+  MainMenuMsg(..),
+  Operation(..),
+  Direction(..),
+  Offset,
+  Point)
 
 import Scorched.View.Helper as Helper
 import Scorched.View.Palette as Palette exposing (Color)

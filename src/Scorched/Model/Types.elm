@@ -1,25 +1,9 @@
 module Scorched.Model.Types exposing (..)
 
 import Dict exposing (Dict)
-
 import Time
 
-import Scorched.Model.Geometry exposing (Dimension, Offset)
-
-type View = MenuView Menu_ | ModalView Modal_
-type Menu_ = Main
-type Modal_ = Landscape
-
-type Operation = Increment | Decrement
-type Direction = Up | Down | None
-
-type Sky
-  = Plain
-  | Sunset
-  | PitchBlack
-
-type alias Terrain = List Int
-type alias Permutation = List Int
+-- Messages
 
 type Msg
   = Basic BasicMsg
@@ -46,6 +30,8 @@ type MainMenuMsg
 type ModalMsg
   = PlaceHolder
 
+-- Model Types
+
 type alias Model =
   { view: View
   , time: Time.Posix
@@ -55,20 +41,38 @@ type alias Model =
   , config: Configuration
   }
 
+type View = MenuView Menu_ | ModalView Modal_
+type Menu_ = Main
+type Modal_ = Landscape
+
+type alias MainMenuData =
+  { controls: Dict String Control
+  , world: World
+  }
+
+type alias Permutation = List Int
+
 type alias Configuration =
   { playerCount: Int
   , roundCount: Int
   , noiseSettings: NoiseSettings
   }
 
+-- Core Types
+
+type Operation = Increment | Decrement
+type Direction = Up | Down | None
+
+type Sky
+  = Plain
+  | Sunset
+  | PitchBlack
+
+type alias Terrain = List Int
+
 type alias World =
   { sky: Sky
   , terrain: Terrain
-  }
-
-type alias MainMenuData =
-  { controls: Dict String Control
-  , world: World
   }
 
 type Specification = Button ButtonSpec | Numeric NumericSpec | Type TypeSpec
@@ -105,3 +109,9 @@ type alias NoiseSettings =
   { octaves: Int
   , fallout: Float
   }
+
+-- Geometric Types
+
+type alias Dimension = {width: Int, height: Int}
+type alias Point = {x: Int, y: Int}
+type alias Offset = Point

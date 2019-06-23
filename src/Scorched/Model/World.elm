@@ -3,8 +3,7 @@ module Scorched.Model.World exposing (empty, random)
 import Random
 import Time
 
-import Scorched.Model.Types exposing (Msg(..), MainMenuMsg(..), Permutation, NoiseSettings, World, Sky, Terrain)
-import Scorched.Model.Geometry exposing (Dimension)
+import Scorched.Model.Types exposing (Msg(..), MainMenuMsg(..), Permutation, NoiseSettings, World, Sky, Terrain, Dimension)
 
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
