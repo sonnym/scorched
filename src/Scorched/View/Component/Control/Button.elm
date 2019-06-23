@@ -5,8 +5,7 @@ import Svg.Attributes as Attr
 import Svg.Events as Events
 
 import Scorched.Model.Types exposing (
-  Msg(..),
-  MainMenuMsg(..),
+  Msg,
   Specification(..),
   ButtonSpec,
   Control,
@@ -29,7 +28,7 @@ build ({spec} as control) disabled =
     _ -> Svg.g [] []
 
 buildEnabled : Control -> ButtonSpec -> Svg Msg
-buildEnabled {label, key, offset, spec} {dimensions, invert, action} =
+buildEnabled {label, key, offset, spec} {dimensions, invert, action, toggle} =
   Svg.g
     [ Attr.class "button"
     , Attr.transform (Helper.translate offset)
@@ -37,8 +36,8 @@ buildEnabled {label, key, offset, spec} {dimensions, invert, action} =
     , Attr.letterSpacing "-1px"
     , Attr.wordSpacing "-3px"
     , Events.onClick action
-    , Events.onMouseDown (MainMenu (ControlToggle label None))
-    , Events.onMouseUp (MainMenu (ControlToggle label None))
+    , Events.onMouseDown (toggle label)
+    , Events.onMouseUp (toggle label)
     ]
     [ BorderBox.build dimensions 2 invert
     , KeyedLabel.build label key {x=5, y=12}

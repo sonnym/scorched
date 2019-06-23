@@ -24,7 +24,7 @@ type KeyMsg
 
 type MainMenuMsg
   = World_ World
-  | ControlToggle String Direction
+  | ControlToggle Direction String
   | UpdateConfig Operation Specification
 
 type ModalMsg
@@ -88,6 +88,7 @@ type alias ButtonSpec =
   { dimensions: Dimension
   , invert: Bool
   , action: Msg
+  , toggle: String -> Msg
   }
 
 type alias NumericSpec =
