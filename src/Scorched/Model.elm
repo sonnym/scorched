@@ -2,7 +2,7 @@ module Scorched.Model exposing (default, init, update, subscriptions)
 
 import Time
 
-import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), MainMenuMsg(..), Model, MainMenuData, Direction(..), View(..), Menu_(..))
+import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), View(..), Menu_(..), Model, MainMenuData)
 
 import Scorched.Model.Geometry exposing (Dimension)
 
