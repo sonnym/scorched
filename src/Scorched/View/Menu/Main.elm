@@ -1,4 +1,4 @@
-module Scorched.View.MainMenu exposing (build)
+module Scorched.View.Menu.Main exposing (build)
 
 import Dict exposing (Dict)
 
