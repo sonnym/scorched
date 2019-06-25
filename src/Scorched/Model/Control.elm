@@ -20,7 +20,7 @@ handleKeyPress controls config key =
       Just control ->
         case control.spec of
           Button buttonSpec -> Helper.send buttonSpec.action
-          Numeric _ -> Helper.send (MainMenu (UpdateConfig Increment control.spec))
+          Numeric _ -> Helper.send (Menu (UpdateConfig Increment control.spec))
           _ -> Cmd.none
       Nothing -> Cmd.none
 

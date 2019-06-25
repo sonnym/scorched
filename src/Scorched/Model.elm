@@ -39,7 +39,7 @@ update msg model =
     NoOp -> (model, Cmd.none)
     Basic msg_ -> update_ msg_ model
     Key msg_ -> Keyboard.update msg_ model
-    MainMenu msg_ -> MainMenu.update msg_ model
+    Menu msg_ -> MainMenu.update msg_ model
     Modal _ -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)

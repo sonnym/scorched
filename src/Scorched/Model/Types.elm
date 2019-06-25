@@ -7,7 +7,7 @@ import Time
 
 type Msg
   = Basic BasicMsg
-  | MainMenu MainMenuMsg
+  | Menu MenuMsg
   | Key KeyMsg
   | Modal ModalMsg
   | NoOp
@@ -22,8 +22,8 @@ type KeyMsg
   | KeyUp String
   | KeyPress String
 
-type MainMenuMsg
-  = World_ World
+type MenuMsg
+  = WorldGenerated World
   | ControlToggle Direction String
   | UpdateConfig Operation Specification
 

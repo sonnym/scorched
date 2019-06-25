@@ -2,7 +2,23 @@ module Scorched.Model.Menu.Main exposing (default, update, worldDimensions)
 
 import Dict exposing (Dict)
 
-import Scorched.Model.Types exposing (..)
+import Scorched.Model.Types exposing (
+  Msg(..),
+  View(..),
+  MenuMsg(..),
+  BasicMsg(..),
+  Specification(..),
+  Direction(..),
+  Operation(..),
+  Modal_(..),
+  Model,
+  MainMenuData,
+  Control,
+  Configuration,
+  NumericSpec,
+  ButtonSpec,
+  World,
+  Dimension)
 
 import Scorched.Model.Control as Control
 
@@ -15,10 +31,10 @@ default =
   , world = World.empty
   }
 
-update : MainMenuMsg -> Model -> (Model, Cmd Msg)
+update : MenuMsg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    World_ world ->
+    WorldGenerated world ->
       ({ model | menuData = updateWorld model.menuData world }, Cmd.none)
 
     ControlToggle direction label ->
@@ -65,15 +81,15 @@ defaultControls =
     )
 
 toggle : Direction -> String -> Msg
-toggle direction label = MainMenu (ControlToggle direction label)
+toggle direction label = Menu (ControlToggle direction label)
 
 action : Direction -> Control -> Msg
 action direction ({spec} as control) =
   case spec of
     Numeric _ ->
       case direction of
-        Up -> (MainMenu (UpdateConfig Increment spec))
-        Down -> (MainMenu (UpdateConfig Decrement spec))
+        Up -> (Menu (UpdateConfig Increment spec))
+        Down -> (Menu (UpdateConfig Decrement spec))
         None -> NoOp
     _ -> NoOp
 
