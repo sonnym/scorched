@@ -23,11 +23,11 @@ update msg model =
 
 handleKeyDown : Model -> String -> (Model, Cmd Msg)
 handleKeyDown ({controls, config} as model) key =
-    ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
+  ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 
 handleKeyUp : Model -> String -> (Model, Cmd Msg)
 handleKeyUp ({controls, config} as model) key =
-    ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
+  ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 
 handleKeyPress : Model -> String -> (Model, Cmd Msg)
 handleKeyPress ({config, controls} as model) key =
