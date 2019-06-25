@@ -10,6 +10,7 @@ type Msg
   | MenuMsg_ MenuMsg
   | KeyMsg_ KeyMsg
   | ModalMsg_ ModalMsg
+  | ControlMsg_ ControlMsg
   | NoOp
 
 type BasicMsg
@@ -24,7 +25,9 @@ type KeyMsg
 
 type MenuMsg
   = WorldGenerated World
-  | ControlToggle Direction String
+
+type ControlMsg
+  = ControlToggle Direction String
   | UpdateConfig Operation Specification
 
 type ModalMsg
@@ -35,6 +38,7 @@ type ModalMsg
 type alias Model =
   { view: View
   , time: Time.Posix
+  , controls: Dict String Control
   , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
@@ -45,10 +49,7 @@ type View = MenuView Menu | ModalView Modal
 type Menu = Main
 type Modal = Landscape
 
-type alias MainMenuData =
-  { controls: Dict String Control
-  , world: World
-  }
+type alias MainMenuData = { world: World }
 
 type alias Permutation = List Int
 

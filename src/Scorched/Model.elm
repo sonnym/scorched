@@ -16,7 +16,9 @@ import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.Menu.Main as MainMenu
+import Scorched.Model.Menu as Menu
 import Scorched.Model.Modal as Modal
+import Scorched.Model.Control as Control
 
 import Scorched.Model.World as World
 
@@ -24,6 +26,7 @@ default : Model
 default =
   { view = MenuView Main
   , time = Time.millisToPosix 0
+  , controls = MainMenu.controls
   , permutation = Permutation.default
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
@@ -39,7 +42,8 @@ update msg model =
     NoOp -> (model, Cmd.none)
     BasicMsg_ msg_ -> update_ msg_ model
     KeyMsg_ msg_ -> Keyboard.update msg_ model
-    MenuMsg_ msg_ -> MainMenu.update msg_ model
+    ControlMsg_ msg_ -> Control.update msg_ model
+    MenuMsg_ msg_ -> Menu.update msg_ model
     ModalMsg_ _ -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
@@ -54,12 +58,9 @@ update_ msg model =
 
     UpdateView view ->
       case view of
-        MenuView _ -> ({ model | view = view, menuData = resetMenuData model.menuData }, Cmd.none)
+        MenuView _ -> ({ model | view = view, controls = MainMenu.controls }, Cmd.none)
         _ -> ({ model | view = view }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch ((Time.every 100 (\n -> (BasicMsg_ (Tick n)))) :: Keyboard.subscriptions)
-
-resetMenuData : MainMenuData -> MainMenuData
-resetMenuData menuData = { menuData | controls = MainMenu.default.controls }
