@@ -59,7 +59,7 @@ handleKeyPress controls config key =
         case control.spec of
           Button buttonSpec -> Helper.send buttonSpec.action
           Numeric _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
-          _ -> Cmd.none
+          Type _ -> Cmd.none
       Nothing -> Cmd.none
 
 toggleControlByKey : Dict String Control -> String -> Dict String Control
@@ -94,7 +94,9 @@ updateControl direction maybeControl =
           let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
           in Just { control | spec = Numeric newSpec }
 
-        _ -> Nothing
+        Type type_ ->
+          let newSpec = { type_ | invert = (if type_.invert == direction then None else direction) }
+          in Just { control | spec = Type newSpec }
 
     Nothing -> Nothing
 

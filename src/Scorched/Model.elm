@@ -15,10 +15,12 @@ import Scorched.Model.Configuration as Configuration
 import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Menu.Main as MainMenu
 import Scorched.Model.Menu as Menu
 import Scorched.Model.Modal as Modal
 import Scorched.Model.Control as Control
+
+import Scorched.Model.Menu.Main as MainMenu
+import Scorched.Model.Modal.Landscape as LandscapeModal
 
 import Scorched.Model.World as World
 
@@ -59,7 +61,7 @@ update_ msg model =
     UpdateView view ->
       case view of
         MenuView _ -> ({ model | view = view, controls = MainMenu.controls }, Cmd.none)
-        _ -> ({ model | view = view }, Cmd.none)
+        ModalView _ -> ({ model | view = view, controls = Control.dictFromList LandscapeModal.controls }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
