@@ -3,9 +3,11 @@ module Scorched.Model.Keyboard exposing (subscriptions, update)
 import Browser.Events
 import Json.Decode as Json
 
-import Scorched.Model.Types exposing (Model, Msg(..), KeyMsg(..))
+import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), KeyMsg(..), View(..), Menu(..), Model)
 
 import Scorched.Model.Control as Control
+
+import Scorched.Model.Helper as Helper
 
 subscriptions : List (Sub Msg)
 subscriptions =
@@ -22,8 +24,13 @@ update msg model =
     KeyPress key -> handleKeyPress model key
 
 handleKeyDown : Model -> String -> (Model, Cmd Msg)
-handleKeyDown ({controls, config} as model) key =
-  ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
+handleKeyDown ({controls, view, config} as model) key =
+  if key == "ESCAPE" then
+    case view of
+      ModalView _ -> (model, Helper.send (BasicMsg_ (UpdateView (MenuView Main))))
+      _ -> (model, Cmd.none)
+  else
+    ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 
 handleKeyUp : Model -> String -> (Model, Cmd Msg)
 handleKeyUp ({controls, config} as model) key =
