@@ -1,4 +1,5 @@
 module Scorched.Model.Control exposing (
+  dictFromList,
   update,
   toggle,
   action,
@@ -21,6 +22,10 @@ import Scorched.Model.Types exposing (
 
 import Scorched.Model.Control.Numeric as NumericControl
 import Scorched.Model.Helper as Helper
+
+dictFromList : List Control -> Dict String Control
+dictFromList controls =
+  Dict.fromList (List.map (\control -> (control.label, control)) controls)
 
 update : ControlMsg -> Model -> (Model, Cmd Msg)
 update msg ({controls, config} as model) =
