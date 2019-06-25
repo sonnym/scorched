@@ -39,12 +39,12 @@ init = Permutation.random
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    NoOp -> (model, Cmd.none)
     BasicMsg_ msg_ -> update_ msg_ model
     KeyMsg_ msg_ -> Keyboard.update msg_ model
     ControlMsg_ msg_ -> Control.update msg_ model
     MenuMsg_ msg_ -> Menu.update msg_ model
     ModalMsg_ _ -> (model, Cmd.none)
+    NoOp -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
