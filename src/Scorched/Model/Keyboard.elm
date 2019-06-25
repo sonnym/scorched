@@ -37,10 +37,10 @@ keyDecoder : Json.Decoder String
 keyDecoder = Json.field "key" Json.string
 
 toKeyDown : String -> Msg
-toKeyDown key = KeyMsg_ (KeyDown key)
+toKeyDown key = KeyMsg_ (KeyDown (String.toUpper key))
 
 toKeyUp : String -> Msg
-toKeyUp key = KeyMsg_ (KeyUp key)
+toKeyUp key = KeyMsg_ (KeyUp (String.toUpper key))
 
 toKeyPress : String -> Msg
-toKeyPress key = KeyMsg_ (KeyPress key)
+toKeyPress key = KeyMsg_ (KeyPress (String.toUpper key))
