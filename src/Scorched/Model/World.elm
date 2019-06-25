@@ -19,7 +19,7 @@ import Scorched.Model.Terrain as Terrain
 random : Permutation -> NoiseSettings -> Time.Posix -> Dimension -> Cmd Msg
 random permutation settings time dimensions =
   Random.generate
-    (\world -> Menu (WorldGenerated world))
+    (\world -> MenuMsg_ (WorldGenerated world))
     (generator permutation settings time dimensions)
 
 generator : Permutation -> NoiseSettings -> Time.Posix -> Dimension -> Random.Generator World

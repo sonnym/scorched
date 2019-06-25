@@ -6,10 +6,10 @@ import Time
 -- Messages
 
 type Msg
-  = Basic BasicMsg
-  | Menu MenuMsg
-  | Key KeyMsg
-  | Modal ModalMsg
+  = BasicMsg_ BasicMsg
+  | MenuMsg_ MenuMsg
+  | KeyMsg_ KeyMsg
+  | ModalMsg_ ModalMsg
   | NoOp
 
 type BasicMsg
@@ -41,9 +41,9 @@ type alias Model =
   , config: Configuration
   }
 
-type View = MenuView Menu_ | ModalView Modal_
-type Menu_ = Main
-type Modal_ = Landscape
+type View = MenuView Menu | ModalView Modal
+type Menu = Main
+type Modal = Landscape
 
 type alias MainMenuData =
   { controls: Dict String Control

@@ -6,7 +6,7 @@ import Scorched.Model.Types exposing (
   Msg(..),
   BasicMsg(..),
   View(..),
-  Menu_(..),
+  Menu(..),
   Model,
   MainMenuData,
   Dimension)
@@ -37,10 +37,10 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     NoOp -> (model, Cmd.none)
-    Basic msg_ -> update_ msg_ model
-    Key msg_ -> Keyboard.update msg_ model
-    Menu msg_ -> MainMenu.update msg_ model
-    Modal _ -> (model, Cmd.none)
+    BasicMsg_ msg_ -> update_ msg_ model
+    KeyMsg_ msg_ -> Keyboard.update msg_ model
+    MenuMsg_ msg_ -> MainMenu.update msg_ model
+    ModalMsg_ _ -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
@@ -59,7 +59,7 @@ update_ msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.batch ((Time.every 100 (\n -> (Basic (Tick n)))) :: Keyboard.subscriptions)
+  Sub.batch ((Time.every 100 (\n -> (BasicMsg_ (Tick n)))) :: Keyboard.subscriptions)
 
 resetMenuData : MainMenuData -> MainMenuData
 resetMenuData menuData = { menuData | controls = MainMenu.default.controls }

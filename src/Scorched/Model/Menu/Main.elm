@@ -10,7 +10,7 @@ import Scorched.Model.Types exposing (
   Specification(..),
   Direction(..),
   Operation(..),
-  Modal_(..),
+  Modal(..),
   Model,
   MainMenuData,
   Control,
@@ -70,7 +70,7 @@ defaultControls =
           (Button (ButtonSpec {width=70, height=19} False NoOp (toggle None)))
 
         , Control "Landscape…" 'L' {x=7, y=222}
-          (Button (ButtonSpec {width=82, height=19} False (Basic (UpdateView (ModalView Landscape))) (toggle None)))
+          (Button (ButtonSpec {width=82, height=19} False (BasicMsg_ (UpdateView (ModalView Landscape))) (toggle None)))
 
         , Control "Play Options…" 't' {x=7, y=252}
           (Button (ButtonSpec {width=98, height=19} False NoOp (toggle None)))
@@ -81,15 +81,15 @@ defaultControls =
     )
 
 toggle : Direction -> String -> Msg
-toggle direction label = Menu (ControlToggle direction label)
+toggle direction label = MenuMsg_ (ControlToggle direction label)
 
 action : Direction -> Control -> Msg
 action direction ({spec} as control) =
   case spec of
     Numeric _ ->
       case direction of
-        Up -> (Menu (UpdateConfig Increment spec))
-        Down -> (Menu (UpdateConfig Decrement spec))
+        Up -> (MenuMsg_ (UpdateConfig Increment spec))
+        Down -> (MenuMsg_ (UpdateConfig Decrement spec))
         None -> NoOp
     _ -> NoOp
 
