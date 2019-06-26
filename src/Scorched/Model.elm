@@ -9,6 +9,7 @@ import Scorched.Model.Types exposing (
   Menu(..),
   Model,
   MainMenuData,
+  Permutation,
   Dimension)
 
 import Scorched.Model.Configuration as Configuration
@@ -51,18 +52,30 @@ update msg model =
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
   case msg of
-    Tick newTime -> ({ model | time = newTime }, Cmd.none)
+    Tick newTime ->
+      ({ model | time = newTime }, Cmd.none)
 
     PermutationGenerated permutation ->
-      ( { model | permutation = permutation }
-      , World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
-      )
+      ({ model | permutation = permutation }, generateWorld permutation model)
 
     UpdateView view ->
       case view of
-        MenuView _ -> ({ model | view = view, controls = Control.dictFromList MainMenu.controls }, Cmd.none)
-        ModalView _ -> ({ model | view = view, controls = Control.dictFromList LandscapeModal.controls }, Cmd.none)
+        MenuView _ -> (
+          { model |
+            view = view,
+            controls = Control.dictFromList MainMenu.controls
+          }, generateWorld model.permutation model)
+
+        ModalView _ -> (
+          { model |
+              view = view,
+              controls = Control.dictFromList LandscapeModal.controls
+          }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch ((Time.every 100 (\n -> (BasicMsg_ (Tick n)))) :: Keyboard.subscriptions)
+
+generateWorld : Permutation -> Model -> Cmd Msg
+generateWorld permutation model =
+  World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
