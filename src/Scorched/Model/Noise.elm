@@ -1,24 +1,25 @@
-module Scorched.Model.Noise exposing (generator, defaultSettings)
+module Scorched.Model.Noise exposing (generator)
 
 import Array
 import Bitwise
 import Random
 
-import Scorched.Model.Types exposing (Permutation, NoiseConfig)
+import Scorched.Model.Types exposing (Config, WorldConfig, Permutation)
 
-generator : Permutation -> NoiseConfig -> Float -> Random.Generator Float
-generator permutation settings time =
-  Random.constant (rounds permutation settings time)
+generator : Permutation -> Config -> Float -> Random.Generator Float
+generator permutation {worldConfig} time =
+  Random.constant (rounds permutation worldConfig time)
 
-defaultSettings : NoiseConfig
-defaultSettings = { fallout = 0.5, octaves = 8 }
-
-rounds : Permutation -> NoiseConfig -> Float -> Float
-rounds permutation {fallout, octaves} x =
-  List.sum
-    (List.map
-      (\n -> fallout^n * (1 + (noise permutation (x * (2^n)))) / 2)
-      (List.map toFloat (List.range 0 (octaves - 1))))
+rounds : Permutation -> WorldConfig -> Float -> Float
+rounds permutation {bumpiness, slopes} x =
+  let
+    fallout = (toFloat bumpiness) / 40
+    octaves = round ((toFloat slopes) * 0.4)
+  in
+    List.sum
+      (List.map
+        (\n -> fallout^n * (1 + (noise permutation (x * (2^n)))) / 2)
+        (List.map toFloat (List.range 0 (octaves - 1))))
 
 noise : Permutation -> Float -> Float
 noise permutation x =

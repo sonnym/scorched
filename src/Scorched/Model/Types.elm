@@ -109,18 +109,14 @@ type alias StringControlSpec =
 type alias Config =
   { playerCount: Int
   , roundCount: Int
-  , noiseConfig: NoiseConfig
   , worldConfig: WorldConfig
-  }
-
-type alias NoiseConfig =
-  { octaves: Int
-  , fallout: Float
   }
 
 type alias WorldConfig =
   { sky: Sky
   , dimensions: Dimension
+  , bumpiness: Int
+  , slopes: Int
   }
 
 -- Geometric Types

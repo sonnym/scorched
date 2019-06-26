@@ -1,4 +1,4 @@
-module Scorched.Model.World exposing (defaultSettings, default, random)
+module Scorched.Model.World exposing (default, defaultConfig, random)
 
 import Random
 import Time
@@ -8,7 +8,6 @@ import Scorched.Model.Types exposing (
   BasicMsg(..),
   Config,
   Permutation,
-  NoiseConfig,
   WorldConfig,
   World,
   Sky,
@@ -29,13 +28,18 @@ generator permutation config time dimensions =
   Random.map2
     (\sky terrain -> {sky=sky, terrain=terrain, dimensions=dimensions})
     (Sky.generator config)
-    (Terrain.generator permutation config.noiseConfig time dimensions)
+    (Terrain.generator permutation config time dimensions)
 
 default : World
 default = { sky=Sky.empty, terrain=Terrain.empty, dimensions={width=0,height=0} }
 
-defaultSettings : WorldConfig
-defaultSettings = { sky = Sky.default , dimensions = menuWorldSize }
+defaultConfig : WorldConfig
+defaultConfig =
+  { sky = Sky.default
+  , dimensions = menuWorldSize
+  , bumpiness = 20
+  , slopes = 20
+  }
 
 menuWorldSize : Dimension
 menuWorldSize = {width=906, height=724}
