@@ -17,7 +17,7 @@ import Scorched.Model.Types exposing (
   Direction(..),
   Operation(..),
   Model,
-  Configuration,
+  Config,
   Control)
 
 import Scorched.Model.Control.Integer as IntegerControl
@@ -58,7 +58,7 @@ action direction ({spec} as control) =
 
     _ -> NoOp
 
-handleKeyPress : Dict String Control -> Configuration -> String -> Cmd Msg
+handleKeyPress : Dict String Control -> Config -> String -> Cmd Msg
 handleKeyPress controls config key =
   let
     maybeControl = List.head (Dict.values (findItem controls key))
@@ -80,7 +80,7 @@ toggleControlByKey controls key =
       Just label -> toggleControl controls label Up
       Nothing -> controls
 
-updateModelConfig : Configuration -> Operation -> Specification -> Configuration
+updateModelConfig : Config -> Operation -> Specification -> Config
 updateModelConfig config operation spec =
   case spec of
     Integer numeric -> IntegerControl.updateConfig config operation numeric

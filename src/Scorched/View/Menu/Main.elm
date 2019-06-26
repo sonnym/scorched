@@ -9,7 +9,7 @@ import Scorched.Model.Types exposing (
   Msg(..),
   View(..),
   Model,
-  Configuration,
+  Config,
   World,
   Control,
   Dimension,
@@ -56,7 +56,7 @@ sample sampleWorld =
       [ Attr.id "menu-main--world", Attr.transform ("translate(109, 6)") ]
       [ outline, world ]
 
-controls : Configuration -> Bool -> List Control -> Svg Msg
+controls : Config -> Bool -> List Control -> Svg Msg
 controls config disabled definitions =
   Svg.g
     [ Attr.id "controls" ]

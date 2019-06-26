@@ -12,13 +12,13 @@ controls =
       (StringControlSpec
         (List.map Sky.toString Sky.all)
         None
-        (\config -> Sky.toString config.worldSettings.sky)
+        (\config -> Sky.toString config.worldConfig.sky)
         (\config sky ->
           let
-            oldWorldSettings = config.worldSettings
-            newWorldSettings = { oldWorldSettings | sky = Sky.fromString sky }
+            oldWorldConfig = config.worldConfig
+            newWorldConfig = { oldWorldConfig | sky = Sky.fromString sky }
           in
-            { config | worldSettings = newWorldSettings }
+            { config | worldConfig = newWorldConfig }
         )
         action
         toggle)) ]

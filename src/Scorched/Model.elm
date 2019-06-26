@@ -12,7 +12,7 @@ import Scorched.Model.Types exposing (
   Permutation,
   Dimension)
 
-import Scorched.Model.Configuration as Configuration
+import Scorched.Model.Config as Config
 import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
@@ -33,7 +33,7 @@ default =
   , permutation = Permutation.default
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
-  , config = Configuration.default
+  , config = Config.default
   }
 
 init : Cmd Msg

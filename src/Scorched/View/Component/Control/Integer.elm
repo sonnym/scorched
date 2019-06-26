@@ -6,7 +6,7 @@ import Svg.Events as Events
 
 import Scorched.Model.Types exposing (
   Msg(..),
-  Configuration,
+  Config,
   Control,
   Specification(..),
   IntegerControlSpec,
@@ -18,7 +18,7 @@ import Scorched.View.Helper as Helper
 import Scorched.View.Component.BorderTriangle as BorderTriangle
 import Scorched.View.Component.KeyedLabel as KeyedLabel
 
-build : Configuration -> Control -> Bool -> Svg Msg
+build : Config -> Control -> Bool -> Svg Msg
 build config ({spec} as control) disabled =
   case spec of
     Integer numericSpec ->
@@ -27,7 +27,7 @@ build config ({spec} as control) disabled =
         False -> buildEnabled config control numericSpec
     _ -> Svg.g [] []
 
-buildEnabled : Configuration -> Control -> IntegerControlSpec -> Svg Msg
+buildEnabled : Config -> Control -> IntegerControlSpec -> Svg Msg
 buildEnabled config ({label, key, offset} as control) {invert, getter, setter} =
   Svg.g
     [ Attr.class "numeric"
@@ -41,7 +41,7 @@ buildEnabled config ({label, key, offset} as control) {invert, getter, setter} =
     , buildLabel label key (getter config)
     ]
 
-buildDisabled : Configuration -> Control -> IntegerControlSpec -> Svg Msg
+buildDisabled : Config -> Control -> IntegerControlSpec -> Svg Msg
 buildDisabled config ({label, offset} as control) {getter} =
   Svg.g
     [ Attr.class "numeric"

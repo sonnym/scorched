@@ -3,9 +3,9 @@ module Scorched.Model.Control.String exposing (updateConfig)
 import List exposing (reverse, head)
 import Maybe exposing (withDefault)
 
-import Scorched.Model.Types exposing (Operation(..), Configuration, Control, StringControlSpec)
+import Scorched.Model.Types exposing (Operation(..), Config, Control, StringControlSpec)
 
-updateConfig : Configuration -> Operation -> StringControlSpec -> Configuration
+updateConfig : Config -> Operation -> StringControlSpec -> Config
 updateConfig config op {options, getter, setter} =
   let
     current = getter config

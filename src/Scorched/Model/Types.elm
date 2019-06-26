@@ -42,7 +42,7 @@ type alias Model =
   , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
-  , config: Configuration
+  , config: Config
   }
 
 type View = MenuView Menu | ModalView Modal
@@ -95,8 +95,8 @@ type alias IntegerControlSpec =
   , max: Int
   , step: Int
   , invert: Direction
-  , getter: (Configuration -> Int)
-  , setter: (Configuration -> Int -> Configuration)
+  , getter: (Config -> Int)
+  , setter: (Config -> Int -> Config)
   , action: (Direction -> Control -> Msg)
   , toggle: (Direction -> String -> Msg)
   }
@@ -104,27 +104,27 @@ type alias IntegerControlSpec =
 type alias StringControlSpec =
   { options: List String
   , invert: Direction
-  , getter: (Configuration -> String)
-  , setter: (Configuration -> String -> Configuration)
+  , getter: (Config -> String)
+  , setter: (Config -> String -> Config)
   , action: (Direction -> Control -> Msg)
   , toggle: (Direction -> String -> Msg)
   }
 
--- Configuration Types
+-- Config Types
 
-type alias Configuration =
+type alias Config =
   { playerCount: Int
   , roundCount: Int
-  , noiseSettings: NoiseSettings
-  , worldSettings: WorldSettings
+  , noiseConfig: NoiseConfig
+  , worldConfig: WorldConfig
   }
 
-type alias NoiseSettings =
+type alias NoiseConfig =
   { octaves: Int
   , fallout: Float
   }
 
-type alias WorldSettings =
+type alias WorldConfig =
   { sky: Sky }
 
 -- Geometric Types
