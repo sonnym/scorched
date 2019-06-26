@@ -3,12 +3,11 @@ module Scorched.Model.Keyboard exposing (subscriptions, update)
 import Browser.Events
 import Json.Decode as Json
 
-import Scorched.Model.Types exposing (Model, Msg(..), KeyMsg(..), View(..), Configuration, MainMenuData)
+import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), KeyMsg(..), View(..), Menu(..), Model)
 
 import Scorched.Model.Control as Control
 
-import Scorched.Model.Menu as Menu
-import Scorched.Model.Modal as Modal
+import Scorched.Model.Helper as Helper
 
 subscriptions : List (Sub Msg)
 subscriptions =
@@ -18,38 +17,37 @@ subscriptions =
   ]
 
 update : KeyMsg -> Model -> (Model, Cmd Msg)
-update msg ({view} as model) =
+update msg model =
   case msg of
-    KeyDown key -> handleKeyDown view model key
-    KeyUp key -> handleKeyUp view model key
-    KeyPress key -> handleKeyPress view model key
+    KeyDown key -> handleKeyDown model key
+    KeyUp key -> handleKeyUp model key
+    KeyPress key -> handleKeyPress model key
 
-handleKeyDown : View -> Model -> String -> (Model, Cmd Msg)
-handleKeyDown view model key =
-  case view of
-    MenuView menu -> Menu.handleKeyDown menu model key
-    ModalView modal -> Modal.handleKeyDown modal model key
+handleKeyDown : Model -> String -> (Model, Cmd Msg)
+handleKeyDown ({controls, view, config} as model) key =
+  if key == "ESCAPE" then
+    case view of
+      ModalView _ -> (model, Helper.send (BasicMsg_ (UpdateView (MenuView Main))))
+      _ -> (model, Cmd.none)
+  else
+    ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 
-handleKeyUp : View -> Model -> String -> (Model, Cmd Msg)
-handleKeyUp view model key =
-  case view of
-    MenuView menu -> Menu.handleKeyUp menu model key
-    ModalView modal -> Modal.handleKeyUp modal model key
+handleKeyUp : Model -> String -> (Model, Cmd Msg)
+handleKeyUp ({controls, config} as model) key =
+  ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 
-handleKeyPress : View -> Model -> String -> (Model, Cmd Msg)
-handleKeyPress view model key =
-  case view of
-    MenuView menu -> Menu.handleKeyPress menu model key
-    ModalView modal -> Modal.handleKeyPress modal model key
+handleKeyPress : Model -> String -> (Model, Cmd Msg)
+handleKeyPress ({config, controls} as model) key =
+  (model, (Control.handleKeyPress controls) config key)
 
 keyDecoder : Json.Decoder String
 keyDecoder = Json.field "key" Json.string
 
 toKeyDown : String -> Msg
-toKeyDown key = Key (KeyDown key)
+toKeyDown key = KeyMsg_ (KeyDown (String.toUpper key))
 
 toKeyUp : String -> Msg
-toKeyUp key = Key (KeyUp key)
+toKeyUp key = KeyMsg_ (KeyUp (String.toUpper key))
 
 toKeyPress : String -> Msg
-toKeyPress key = Key (KeyPress key)
+toKeyPress key = KeyMsg_ (KeyPress (String.toUpper key))

@@ -6,10 +6,11 @@ import Time
 -- Messages
 
 type Msg
-  = Basic BasicMsg
-  | MainMenu MainMenuMsg
-  | Key KeyMsg
-  | Modal ModalMsg
+  = BasicMsg_ BasicMsg
+  | KeyMsg_ KeyMsg
+  | ControlMsg_ ControlMsg
+  | MenuMsg_ MenuMsg
+  | ModalMsg_ ModalMsg
   | NoOp
 
 type BasicMsg
@@ -22,10 +23,12 @@ type KeyMsg
   | KeyUp String
   | KeyPress String
 
-type MainMenuMsg
-  = World_ World
-  | ControlToggle Direction String
+type ControlMsg
+  = ControlToggle Direction String
   | UpdateConfig Operation Specification
+
+type MenuMsg
+  = WorldGenerated World
 
 type ModalMsg
   = PlaceHolder
@@ -35,28 +38,20 @@ type ModalMsg
 type alias Model =
   { view: View
   , time: Time.Posix
+  , controls: Dict String Control
   , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
   , config: Configuration
   }
 
-type View = MenuView Menu_ | ModalView Modal_
-type Menu_ = Main
-type Modal_ = Landscape
+type View = MenuView Menu | ModalView Modal
+type Menu = Main
+type Modal = Landscape
 
-type alias MainMenuData =
-  { controls: Dict String Control
-  , world: World
-  }
+type alias MainMenuData = { world: World }
 
 type alias Permutation = List Int
-
-type alias Configuration =
-  { playerCount: Int
-  , roundCount: Int
-  , noiseSettings: NoiseSettings
-  }
 
 -- Core Types
 
@@ -64,7 +59,8 @@ type Operation = Increment | Decrement
 type Direction = Up | Down | None
 
 type Sky
-  = Plain
+  = Random
+  | Plain
   | Sunset
   | PitchBlack
 
@@ -75,7 +71,10 @@ type alias World =
   , terrain: Terrain
   }
 
-type Specification = Button ButtonSpec | Numeric NumericSpec | Type TypeSpec
+type Specification
+  = Button ButtonControlSpec
+  | Integer IntegerControlSpec
+  | String StringControlSpec
 
 type alias Control =
   { label: String
@@ -84,14 +83,14 @@ type alias Control =
   , spec: Specification
   }
 
-type alias ButtonSpec =
+type alias ButtonControlSpec =
   { dimensions: Dimension
   , invert: Bool
   , action: Msg
   , toggle: (String -> Msg)
   }
 
-type alias NumericSpec =
+type alias IntegerControlSpec =
   { min: Int
   , max: Int
   , step: Int
@@ -102,16 +101,31 @@ type alias NumericSpec =
   , toggle: (Direction -> String -> Msg)
   }
 
-type alias TypeSpec =
-  { invert: Direction
+type alias StringControlSpec =
+  { options: List String
+  , invert: Direction
   , getter: (Configuration -> String)
   , setter: (Configuration -> String -> Configuration)
+  , action: (Direction -> Control -> Msg)
+  , toggle: (Direction -> String -> Msg)
+  }
+
+-- Configuration Types
+
+type alias Configuration =
+  { playerCount: Int
+  , roundCount: Int
+  , noiseSettings: NoiseSettings
+  , worldSettings: WorldSettings
   }
 
 type alias NoiseSettings =
   { octaves: Int
   , fallout: Float
   }
+
+type alias WorldSettings =
+  { sky: Sky }
 
 -- Geometric Types
 

@@ -7,7 +7,7 @@ import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), Permutation)
 
 random : Cmd Msg
 random = Random.generate
-  (\permutation -> Basic (PermutationGenerated permutation))
+  (\permutation -> BasicMsg_ (PermutationGenerated permutation))
   generator
 
 generator : Random.Generator Permutation

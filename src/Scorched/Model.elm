@@ -6,17 +6,22 @@ import Scorched.Model.Types exposing (
   Msg(..),
   BasicMsg(..),
   View(..),
-  Menu_(..),
+  Menu(..),
   Model,
   MainMenuData,
+  Permutation,
   Dimension)
 
 import Scorched.Model.Configuration as Configuration
 import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Menu.Main as MainMenu
+import Scorched.Model.Menu as Menu
 import Scorched.Model.Modal as Modal
+import Scorched.Model.Control as Control
+
+import Scorched.Model.Menu.Main as MainMenu
+import Scorched.Model.Modal.Landscape as LandscapeModal
 
 import Scorched.Model.World as World
 
@@ -24,6 +29,7 @@ default : Model
 default =
   { view = MenuView Main
   , time = Time.millisToPosix 0
+  , controls = Control.dictFromList MainMenu.controls
   , permutation = Permutation.default
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
@@ -36,30 +42,40 @@ init = Permutation.random
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    BasicMsg_ msg_ -> update_ msg_ model
+    KeyMsg_ msg_ -> Keyboard.update msg_ model
+    ControlMsg_ msg_ -> Control.update msg_ model
+    MenuMsg_ msg_ -> Menu.update msg_ model
+    ModalMsg_ _ -> (model, Cmd.none)
     NoOp -> (model, Cmd.none)
-    Basic msg_ -> update_ msg_ model
-    Key msg_ -> Keyboard.update msg_ model
-    MainMenu msg_ -> MainMenu.update msg_ model
-    Modal _ -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
   case msg of
-    Tick newTime -> ({ model | time = newTime }, Cmd.none)
+    Tick newTime ->
+      ({ model | time = newTime }, Cmd.none)
 
     PermutationGenerated permutation ->
-      ( { model | permutation = permutation }
-      , World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
-      )
+      ({ model | permutation = permutation }, generateWorld permutation model)
 
     UpdateView view ->
       case view of
-        MenuView _ -> ({ model | view = view, menuData = resetMenuData model.menuData }, Cmd.none)
-        _ -> ({ model | view = view }, Cmd.none)
+        MenuView _ -> (
+          { model |
+            view = view,
+            controls = Control.dictFromList MainMenu.controls
+          }, generateWorld model.permutation model)
+
+        ModalView _ -> (
+          { model |
+              view = view,
+              controls = Control.dictFromList LandscapeModal.controls
+          }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.batch ((Time.every 100 (\n -> (Basic (Tick n)))) :: Keyboard.subscriptions)
+  Sub.batch ((Time.every 100 (\n -> (BasicMsg_ (Tick n)))) :: Keyboard.subscriptions)
 
-resetMenuData : MainMenuData -> MainMenuData
-resetMenuData menuData = { menuData | controls = MainMenu.default.controls }
+generateWorld : Permutation -> Model -> Cmd Msg
+generateWorld permutation model =
+  World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions

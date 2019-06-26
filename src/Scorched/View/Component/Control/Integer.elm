@@ -1,4 +1,4 @@
-module Scorched.View.Component.Control.Numeric exposing (build)
+module Scorched.View.Component.Control.Integer exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
@@ -9,7 +9,7 @@ import Scorched.Model.Types exposing (
   Configuration,
   Control,
   Specification(..),
-  NumericSpec,
+  IntegerControlSpec,
   Direction(..),
   Offset)
 
@@ -21,14 +21,14 @@ import Scorched.View.Component.KeyedLabel as KeyedLabel
 build : Configuration -> Control -> Bool -> Svg Msg
 build config ({spec} as control) disabled =
   case spec of
-    Numeric numericSpec ->
+    Integer numericSpec ->
       case disabled of
         True -> buildDisabled config control numericSpec
         False -> buildEnabled config control numericSpec
     _ -> Svg.g [] []
 
-buildEnabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildEnabled config ({label, key, offset} as control) {invert, getter, setter, toggle} =
+buildEnabled : Configuration -> Control -> IntegerControlSpec -> Svg Msg
+buildEnabled config ({label, key, offset} as control) {invert, getter, setter} =
   Svg.g
     [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)
@@ -41,8 +41,8 @@ buildEnabled config ({label, key, offset} as control) {invert, getter, setter, t
     , buildLabel label key (getter config)
     ]
 
-buildDisabled : Configuration -> Control -> NumericSpec -> Svg Msg
-buildDisabled config ({label, offset} as control) {getter, toggle} =
+buildDisabled : Configuration -> Control -> IntegerControlSpec -> Svg Msg
+buildDisabled config ({label, offset} as control) {getter} =
   Svg.g
     [ Attr.class "numeric"
     , Attr.transform (Helper.translate offset)

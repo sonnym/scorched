@@ -25,14 +25,18 @@ import Scorched.View.Component.Control as Control
 import Scorched.View.World as World
 
 build : Model -> Svg Msg
-build ({view, dimensions, menuData, config} as model) =
-  Svg.g
-    [ Attr.id "menu-main" ]
-    [ background model
-    , controls config (isModalOpen view) (Dict.values menuData.controls)
-    , titleText
-    , bottomText
-    ]
+build ({view, dimensions, config} as model) =
+  let
+    modalOpen = isModalOpen view
+    visibleControls = if modalOpen then MainMenu.controls else (Dict.values model.controls)
+  in
+    Svg.g
+      [ Attr.id "menu-main" ]
+      [ background model
+      , controls config modalOpen visibleControls
+      , titleText
+      , bottomText
+      ]
 
 background : Model -> Svg Msg
 background {dimensions, menuData} =

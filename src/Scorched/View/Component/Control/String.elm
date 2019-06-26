@@ -1,4 +1,4 @@
-module Scorched.View.Component.Control.Type exposing (build)
+module Scorched.View.Component.Control.String exposing (build)
 
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
@@ -9,7 +9,7 @@ import Scorched.Model.Types exposing (
   Configuration,
   Control,
   Specification(..),
-  TypeSpec,
+  StringControlSpec,
   Direction(..),
   Offset)
 
@@ -21,11 +21,11 @@ import Scorched.View.Component.KeyedLabel as KeyedLabel
 build : Configuration -> Control -> Bool -> Svg Msg
 build config ({spec} as control) disabled =
   case spec of
-    Type typeSpec ->
+    String typeSpec ->
       buildEnabled config control typeSpec
     _ -> Svg.g [] []
 
-buildEnabled : Configuration -> Control -> TypeSpec -> Svg Msg
+buildEnabled : Configuration -> Control -> StringControlSpec -> Svg Msg
 buildEnabled config ({label, key, offset} as control) ({invert, getter, setter} as spec) =
   Svg.g
     [ Attr.class "type"
