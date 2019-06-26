@@ -1,4 +1,4 @@
-module Scorched.Model.World exposing (empty, random)
+module Scorched.Model.World exposing (defaultSettings, empty, random)
 
 import Random
 import Time
@@ -8,6 +8,7 @@ import Scorched.Model.Types exposing (
   MenuMsg(..),
   Permutation,
   NoiseSettings,
+  WorldSettings,
   World,
   Sky,
   Terrain,
@@ -31,3 +32,6 @@ generator permutation settings time dimensions =
 
 empty : World
 empty = { sky=Sky.empty, terrain=Terrain.empty }
+
+defaultSettings : WorldSettings
+defaultSettings = { sky = Sky.default }

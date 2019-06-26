@@ -53,19 +53,14 @@ type alias MainMenuData = { world: World }
 
 type alias Permutation = List Int
 
-type alias Configuration =
-  { playerCount: Int
-  , roundCount: Int
-  , noiseSettings: NoiseSettings
-  }
-
 -- Core Types
 
 type Operation = Increment | Decrement
 type Direction = Up | Down | None
 
 type Sky
-  = Plain
+  = Random
+  | Plain
   | Sunset
   | PitchBlack
 
@@ -104,17 +99,30 @@ type alias NumericSpec =
   }
 
 type alias TypeSpec =
-  { invert: Direction
+  { options: List String
+  , invert: Direction
   , getter: (Configuration -> String)
   , setter: (Configuration -> String -> Configuration)
   , action: (Direction -> Control -> Msg)
   , toggle: (Direction -> String -> Msg)
   }
 
+-- Configuration Types
+
+type alias Configuration =
+  { playerCount: Int
+  , roundCount: Int
+  , noiseSettings: NoiseSettings
+  , worldSettings: WorldSettings
+  }
+
 type alias NoiseSettings =
   { octaves: Int
   , fallout: Float
   }
+
+type alias WorldSettings =
+  { sky: Sky }
 
 -- Geometric Types
 

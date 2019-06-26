@@ -21,6 +21,8 @@ import Scorched.Model.Types exposing (
   Control)
 
 import Scorched.Model.Control.Numeric as NumericControl
+import Scorched.Model.Control.Type as TypeControl
+
 import Scorched.Model.Helper as Helper
 
 dictFromList : List Control -> Dict String Control
@@ -59,7 +61,7 @@ handleKeyPress controls config key =
         case control.spec of
           Button buttonSpec -> Helper.send buttonSpec.action
           Numeric _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
-          Type _ -> Cmd.none
+          Type _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
       Nothing -> Cmd.none
 
 toggleControlByKey : Dict String Control -> String -> Dict String Control
@@ -75,6 +77,7 @@ updateModelConfig : Configuration -> Operation -> Specification -> Configuration
 updateModelConfig config operation spec =
   case spec of
     Numeric numeric -> NumericControl.updateConfig config operation numeric
+    Type type_ -> TypeControl.updateConfig config operation type_
     _ -> config
 
 toggleControl : Dict String Control -> String -> Direction -> Dict String Control
