@@ -1,6 +1,11 @@
 module Scorched.Model.Modal.Landscape exposing (controls)
 
-import Scorched.Model.Types exposing (Control, Direction(..), Specification(..), StringControlSpec)
+import Scorched.Model.Types exposing (
+  Control,
+  Direction(..),
+  Specification(..),
+  StringControlSpec,
+  IntegerControlSpec)
 
 import Scorched.Model.Control exposing (action, toggle)
 import Scorched.Model.Sky as Sky
@@ -12,13 +17,34 @@ controls =
       (StringControlSpec
         (List.map Sky.toString Sky.all)
         None
-        (\config -> Sky.toString config.worldSettings.sky)
+        (\config -> Sky.toString config.worldConfig.sky)
         (\config sky ->
           let
-            oldWorldSettings = config.worldSettings
-            newWorldSettings = { oldWorldSettings | sky = Sky.fromString sky }
+            oldWorldConfig = config.worldConfig
+            newWorldConfig = { oldWorldConfig | sky = Sky.fromString sky }
           in
-            { config | worldSettings = newWorldSettings }
+            { config | worldConfig = newWorldConfig }
         )
         action
-        toggle)) ]
+        toggle))
+
+  , Control "Bumpiness" 'B' {x=8, y=40}
+    (Integer (IntegerControlSpec 0 100 2 None (\config -> config.worldConfig.bumpiness)
+      (\config n ->
+        let
+          oldWorldConfig = config.worldConfig
+          newWorldConfig = { oldWorldConfig | bumpiness = n }
+        in
+          { config | worldConfig = newWorldConfig }
+      ) action toggle))
+
+  , Control "Slopes" 'l' {x=8, y=70}
+    (Integer (IntegerControlSpec 0 100 2 None (\config -> config.worldConfig.slopes)
+      (\config n ->
+        let
+          oldWorldConfig = config.worldConfig
+          newWorldConfig = { oldWorldConfig | slopes = Debug.log "n" n }
+        in
+          { config | worldConfig = newWorldConfig }
+      ) action toggle))
+  ]

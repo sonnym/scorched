@@ -8,18 +8,14 @@ import Scorched.Model.Types exposing (
   View(..),
   Menu(..),
   Model,
-  MainMenuData,
   Permutation,
   Dimension)
 
-import Scorched.Model.Configuration as Configuration
+import Scorched.Model.Config as Config
 import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Menu as Menu
-import Scorched.Model.Modal as Modal
 import Scorched.Model.Control as Control
-
 import Scorched.Model.Menu.Main as MainMenu
 import Scorched.Model.Modal.Landscape as LandscapeModal
 
@@ -31,9 +27,9 @@ default =
   , time = Time.millisToPosix 0
   , controls = Control.dictFromList MainMenu.controls
   , permutation = Permutation.default
-  , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
-  , config = Configuration.default
+  , config = Config.default
+  , world = World.default
   }
 
 init : Cmd Msg
@@ -45,15 +41,13 @@ update msg model =
     BasicMsg_ msg_ -> update_ msg_ model
     KeyMsg_ msg_ -> Keyboard.update msg_ model
     ControlMsg_ msg_ -> Control.update msg_ model
-    MenuMsg_ msg_ -> Menu.update msg_ model
-    ModalMsg_ _ -> (model, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
   case msg of
-    Tick newTime ->
-      ({ model | time = newTime }, Cmd.none)
+    Tick newTime -> ({ model | time = newTime }, Cmd.none)
+    WorldGenerated world -> ({ model | world = world }, Cmd.none)
 
     PermutationGenerated permutation ->
       ({ model | permutation = permutation }, generateWorld permutation model)
@@ -78,4 +72,4 @@ subscriptions model =
 
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =
-  World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
+  World.random permutation model.config model.time model.config.worldConfig.dimensions

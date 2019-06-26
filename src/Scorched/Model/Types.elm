@@ -9,12 +9,11 @@ type Msg
   = BasicMsg_ BasicMsg
   | KeyMsg_ KeyMsg
   | ControlMsg_ ControlMsg
-  | MenuMsg_ MenuMsg
-  | ModalMsg_ ModalMsg
   | NoOp
 
 type BasicMsg
   = PermutationGenerated Permutation
+  | WorldGenerated World
   | Tick Time.Posix
   | UpdateView View
 
@@ -27,22 +26,16 @@ type ControlMsg
   = ControlToggle Direction String
   | UpdateConfig Operation Specification
 
-type MenuMsg
-  = WorldGenerated World
-
-type ModalMsg
-  = PlaceHolder
-
 -- Model Types
 
 type alias Model =
   { view: View
   , time: Time.Posix
   , controls: Dict String Control
-  , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
-  , config: Configuration
+  , config: Config
+  , world: World
   }
 
 type View = MenuView Menu | ModalView Modal
@@ -69,6 +62,7 @@ type alias Terrain = List Int
 type alias World =
   { sky: Sky
   , terrain: Terrain
+  , dimensions: Dimension
   }
 
 type Specification
@@ -95,8 +89,8 @@ type alias IntegerControlSpec =
   , max: Int
   , step: Int
   , invert: Direction
-  , getter: (Configuration -> Int)
-  , setter: (Configuration -> Int -> Configuration)
+  , getter: (Config -> Int)
+  , setter: (Config -> Int -> Config)
   , action: (Direction -> Control -> Msg)
   , toggle: (Direction -> String -> Msg)
   }
@@ -104,28 +98,26 @@ type alias IntegerControlSpec =
 type alias StringControlSpec =
   { options: List String
   , invert: Direction
-  , getter: (Configuration -> String)
-  , setter: (Configuration -> String -> Configuration)
+  , getter: (Config -> String)
+  , setter: (Config -> String -> Config)
   , action: (Direction -> Control -> Msg)
   , toggle: (Direction -> String -> Msg)
   }
 
--- Configuration Types
+-- Config Types
 
-type alias Configuration =
+type alias Config =
   { playerCount: Int
   , roundCount: Int
-  , noiseSettings: NoiseSettings
-  , worldSettings: WorldSettings
+  , worldConfig: WorldConfig
   }
 
-type alias NoiseSettings =
-  { octaves: Int
-  , fallout: Float
+type alias WorldConfig =
+  { sky: Sky
+  , dimensions: Dimension
+  , bumpiness: Int
+  , slopes: Int
   }
-
-type alias WorldSettings =
-  { sky: Sky }
 
 -- Geometric Types
 
