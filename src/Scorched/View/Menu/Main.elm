@@ -28,12 +28,12 @@ build : Model -> Svg Msg
 build ({view, dimensions, config} as model) =
   let
     modalOpen = isModalOpen view
-    visibleControls = if modalOpen then MainMenu.controls else model.controls
+    visibleControls = if modalOpen then MainMenu.controls else (Dict.values model.controls)
   in
     Svg.g
       [ Attr.id "menu-main" ]
       [ background model
-      , controls config modalOpen (Dict.values visibleControls)
+      , controls config modalOpen visibleControls
       , titleText
       , bottomText
       ]

@@ -28,7 +28,7 @@ default : Model
 default =
   { view = MenuView Main
   , time = Time.millisToPosix 0
-  , controls = MainMenu.controls
+  , controls = Control.dictFromList MainMenu.controls
   , permutation = Permutation.default
   , menuData = MainMenu.default
   , dimensions = {width=1024, height=768}
@@ -60,7 +60,7 @@ update_ msg model =
 
     UpdateView view ->
       case view of
-        MenuView _ -> ({ model | view = view, controls = MainMenu.controls }, Cmd.none)
+        MenuView _ -> ({ model | view = view, controls = Control.dictFromList MainMenu.controls }, Cmd.none)
         ModalView _ -> ({ model | view = view, controls = Control.dictFromList LandscapeModal.controls }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
