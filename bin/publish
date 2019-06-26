@@ -2,7 +2,7 @@
 
 set -e
 
-yarn-exec elm make --output=main.js --optimize src/Main.elm
+yarn elm make --output=main.js --optimize src/Main.elm
 
 git add main.js
 git stash
