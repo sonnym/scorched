@@ -71,7 +71,10 @@ type alias World =
   , terrain: Terrain
   }
 
-type Specification = Button ButtonSpec | Numeric NumericSpec | Type TypeSpec
+type Specification
+  = Button ButtonControlSpec
+  | Integer IntegerControlSpec
+  | String StringControlSpec
 
 type alias Control =
   { label: String
@@ -80,14 +83,14 @@ type alias Control =
   , spec: Specification
   }
 
-type alias ButtonSpec =
+type alias ButtonControlSpec =
   { dimensions: Dimension
   , invert: Bool
   , action: Msg
   , toggle: (String -> Msg)
   }
 
-type alias NumericSpec =
+type alias IntegerControlSpec =
   { min: Int
   , max: Int
   , step: Int
@@ -98,7 +101,7 @@ type alias NumericSpec =
   , toggle: (Direction -> String -> Msg)
   }
 
-type alias TypeSpec =
+type alias StringControlSpec =
   { options: List String
   , invert: Direction
   , getter: (Configuration -> String)

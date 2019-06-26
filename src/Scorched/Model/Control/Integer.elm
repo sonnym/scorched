@@ -1,8 +1,8 @@
-module Scorched.Model.Control.Numeric exposing (updateConfig)
+module Scorched.Model.Control.Integer exposing (updateConfig)
 
-import Scorched.Model.Types exposing (Operation(..), Configuration, Control, NumericSpec)
+import Scorched.Model.Types exposing (Operation(..), Configuration, Control, IntegerControlSpec)
 
-updateConfig : Configuration -> Operation -> NumericSpec -> Configuration
+updateConfig : Configuration -> Operation -> IntegerControlSpec -> Configuration
 updateConfig config op {getter, setter, step, min, max} =
   setter config (guard (new op step (getter config)) min max)
 

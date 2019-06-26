@@ -20,8 +20,8 @@ import Scorched.Model.Types exposing (
   Configuration,
   Control)
 
-import Scorched.Model.Control.Numeric as NumericControl
-import Scorched.Model.Control.Type as TypeControl
+import Scorched.Model.Control.Integer as IntegerControl
+import Scorched.Model.Control.String as StringControl
 
 import Scorched.Model.Helper as Helper
 
@@ -44,7 +44,7 @@ toggle direction label = ControlMsg_ (ControlToggle direction label)
 action : Direction -> Control -> Msg
 action direction ({spec} as control) =
   case spec of
-    Numeric _ ->
+    Integer _ ->
       case direction of
         Up -> (ControlMsg_ (UpdateConfig Increment spec))
         Down -> (ControlMsg_ (UpdateConfig Decrement spec))
@@ -60,8 +60,8 @@ handleKeyPress controls config key =
       Just control ->
         case control.spec of
           Button buttonSpec -> Helper.send buttonSpec.action
-          Numeric _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
-          Type _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
+          Integer _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
+          String _ -> Helper.send (ControlMsg_ (UpdateConfig Increment control.spec))
       Nothing -> Cmd.none
 
 toggleControlByKey : Dict String Control -> String -> Dict String Control
@@ -76,8 +76,8 @@ toggleControlByKey controls key =
 updateModelConfig : Configuration -> Operation -> Specification -> Configuration
 updateModelConfig config operation spec =
   case spec of
-    Numeric numeric -> NumericControl.updateConfig config operation numeric
-    Type type_ -> TypeControl.updateConfig config operation type_
+    Integer numeric -> IntegerControl.updateConfig config operation numeric
+    String type_ -> StringControl.updateConfig config operation type_
     _ -> config
 
 toggleControl : Dict String Control -> String -> Direction -> Dict String Control
@@ -93,13 +93,13 @@ updateControl direction maybeControl =
           let newSpec = { button | invert = not button.invert }
           in Just { control | spec = Button newSpec }
 
-        Numeric numeric ->
+        Integer numeric ->
           let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
-          in Just { control | spec = Numeric newSpec }
+          in Just { control | spec = Integer newSpec }
 
-        Type type_ ->
+        String type_ ->
           let newSpec = { type_ | invert = (if type_.invert == direction then None else direction) }
-          in Just { control | spec = Type newSpec }
+          in Just { control | spec = String newSpec }
 
     Nothing -> Nothing
 
