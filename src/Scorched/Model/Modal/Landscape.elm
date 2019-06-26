@@ -43,7 +43,7 @@ controls =
       (\config n ->
         let
           oldWorldConfig = config.worldConfig
-          newWorldConfig = { oldWorldConfig | slopes = Debug.log "n" n }
+          newWorldConfig = { oldWorldConfig | slopes = n }
         in
           { config | worldConfig = newWorldConfig }
       ) action toggle))
