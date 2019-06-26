@@ -5,7 +5,7 @@ import Svg.Attributes as Attr
 import Svg.Events as Events
 
 import Scorched.Model.Types exposing (
-  NumericSpec,
+  IntegerControlSpec,
   Specification(..),
   Control,
   Msg(..),
@@ -26,7 +26,7 @@ build control invert direction offset label =
 boundingBox : Control -> Direction -> String -> Svg Msg
 boundingBox ({spec} as control) direction label =
   case spec of
-    Numeric spec_ ->
+    Integer spec_ ->
       Svg.rect
         [ Attr.width "15"
         , Attr.height "10"
@@ -36,7 +36,7 @@ boundingBox ({spec} as control) direction label =
         , Events.onClick (spec_.action direction control)
         ] []
 
-    Type spec_ ->
+    String spec_ ->
       Svg.rect
         [ Attr.width "15"
         , Attr.height "10"

@@ -13,6 +13,7 @@ build sky dimensions =
     Plain -> buildPlain dimensions
     Sunset -> buildSunset dimensions
     PitchBlack -> buildPitchBlack dimensions
+    Random -> Svg.g [] []
 
 buildPlain : Dimension -> Svg msg
 buildPlain {width, height} =
