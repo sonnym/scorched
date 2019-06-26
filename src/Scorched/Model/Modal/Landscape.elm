@@ -16,7 +16,7 @@ controls =
         (\config sky ->
           let
             oldWorldSettings = config.worldSettings
-            newWorldSettings = { oldWorldSettings | sky = Sky.fromString (Debug.log "sky set to" sky) }
+            newWorldSettings = { oldWorldSettings | sky = Sky.fromString sky }
           in
             { config | worldSettings = newWorldSettings }
         )
