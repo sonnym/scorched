@@ -35,6 +35,17 @@ boundingBox ({spec} as control) direction label =
         , Events.onMouseUp (spec_.toggle None label)
         , Events.onClick (spec_.action direction control)
         ] []
+
+    Type spec_ ->
+      Svg.rect
+        [ Attr.width "15"
+        , Attr.height "10"
+        , Attr.fillOpacity "0"
+        , Events.onMouseDown (spec_.toggle direction label)
+        , Events.onMouseUp (spec_.toggle None label)
+        , Events.onClick (spec_.action direction control)
+        ] []
+
     _ -> Svg.g [] []
 
 lines : Bool -> Direction -> List (Svg msg)

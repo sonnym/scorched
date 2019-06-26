@@ -107,6 +107,8 @@ type alias TypeSpec =
   { invert: Direction
   , getter: (Configuration -> String)
   , setter: (Configuration -> String -> Configuration)
+  , action: (Direction -> Control -> Msg)
+  , toggle: (Direction -> String -> Msg)
   }
 
 type alias NoiseSettings =
