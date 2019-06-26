@@ -39,17 +39,17 @@ build ({view, dimensions, config} as model) =
       ]
 
 background : Model -> Svg Msg
-background {dimensions, menuData} =
+background {dimensions, world} =
   Svg.g
     [ Attr.id "background" ]
     [ BorderBox.build dimensions 2 False
-    , sample menuData.world
+    , sample world
     ]
 
 sample : World -> Svg Msg
 sample sampleWorld =
   let
-     world = World.build sampleWorld MainMenu.worldDimensions
+     world = World.build sampleWorld
      outline = BorderBox.build {width=908, height=726} 1 True
   in
     Svg.g

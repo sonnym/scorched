@@ -11,7 +11,6 @@ import Dict exposing (Dict)
 
 import Scorched.Model.Types exposing (
   Msg(..),
-  MenuMsg(..),
   ControlMsg(..),
   Specification(..),
   Direction(..),

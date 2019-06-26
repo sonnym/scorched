@@ -9,12 +9,11 @@ type Msg
   = BasicMsg_ BasicMsg
   | KeyMsg_ KeyMsg
   | ControlMsg_ ControlMsg
-  | MenuMsg_ MenuMsg
-  | ModalMsg_ ModalMsg
   | NoOp
 
 type BasicMsg
   = PermutationGenerated Permutation
+  | WorldGenerated World
   | Tick Time.Posix
   | UpdateView View
 
@@ -27,22 +26,16 @@ type ControlMsg
   = ControlToggle Direction String
   | UpdateConfig Operation Specification
 
-type MenuMsg
-  = WorldGenerated World
-
-type ModalMsg
-  = PlaceHolder
-
 -- Model Types
 
 type alias Model =
   { view: View
   , time: Time.Posix
   , controls: Dict String Control
-  , menuData: MainMenuData
   , permutation: Permutation
   , dimensions: Dimension
   , config: Config
+  , world: World
   }
 
 type View = MenuView Menu | ModalView Modal
@@ -69,6 +62,7 @@ type alias Terrain = List Int
 type alias World =
   { sky: Sky
   , terrain: Terrain
+  , dimensions: Dimension
   }
 
 type Specification
@@ -125,7 +119,9 @@ type alias NoiseConfig =
   }
 
 type alias WorldConfig =
-  { sky: Sky }
+  { sky: Sky
+  , dimensions: Dimension
+  }
 
 -- Geometric Types
 

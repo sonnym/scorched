@@ -1,35 +1,22 @@
-module Scorched.Model.Menu.Main exposing (default, update, controls, worldDimensions)
+module Scorched.Model.Menu.Main exposing (controls)
 
 import Scorched.Model.Types exposing (
   Msg(..),
   View(..),
-  MenuMsg(..),
   BasicMsg(..),
   ControlMsg(..),
   Specification(..),
   Modal(..),
   Direction(..),
   Model,
-  MainMenuData,
   Control,
   IntegerControlSpec,
-  ButtonControlSpec,
-  World,
-  Dimension)
+  ButtonControlSpec)
 
 import Scorched.Model.Control exposing (toggle, action, dictFromList)
 
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
-
-default : MainMenuData
-default = { world = World.empty }
-
-update : MenuMsg -> Model -> (Model, Cmd Msg)
-update msg model =
-  case msg of
-    WorldGenerated world ->
-      ({ model | menuData = updateWorld model.menuData world }, Cmd.none)
 
 controls : List Control
 controls =
@@ -63,9 +50,3 @@ controls =
   , Control "Weapons…" 'W' {x=7, y=282}
     (Button (ButtonControlSpec {width=68, height=19} False NoOp (toggle None)))
   ]
-
-updateWorld : MainMenuData -> World -> MainMenuData
-updateWorld menuData world = { menuData | world = world }
-
-worldDimensions : Dimension
-worldDimensions = {width=906, height=724}
