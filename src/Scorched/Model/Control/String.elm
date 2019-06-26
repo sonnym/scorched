@@ -1,6 +1,6 @@
 module Scorched.Model.Control.String exposing (updateConfig)
 
-import List exposing (reverse, drop, head)
+import List exposing (reverse, head)
 import Maybe exposing (withDefault)
 
 import Scorched.Model.Types exposing (Operation(..), Configuration, Control, StringControlSpec)
@@ -18,7 +18,7 @@ updateConfig config op {options, getter, setter} =
 findNext : List String -> String -> Maybe String
 findNext options current =
   case options of
-    first :: rest -> if first == current then head rest else findNext (drop 1 rest) current
+    first :: rest -> if first == current then head rest else findNext rest current
     [] -> Nothing
 
 ensure : List String -> String -> Maybe String -> String

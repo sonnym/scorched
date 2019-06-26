@@ -7,7 +7,7 @@ import Svg.Events as Events
 import Scorched.Model.Types exposing (
   Msg,
   Specification(..),
-  ButtonSpec,
+  ButtonControlSpec,
   Control,
   Direction(..),
   Dimension,
@@ -27,7 +27,7 @@ build ({spec} as control) disabled =
         False -> buildEnabled control buttonSpec
     _ -> Svg.g [] []
 
-buildEnabled : Control -> ButtonSpec -> Svg Msg
+buildEnabled : Control -> ButtonControlSpec -> Svg Msg
 buildEnabled {label, key, offset, spec} {dimensions, invert, action, toggle} =
   Svg.g
     [ Attr.class "button"
@@ -43,7 +43,7 @@ buildEnabled {label, key, offset, spec} {dimensions, invert, action, toggle} =
     , KeyedLabel.build label key {x=5, y=12}
     ]
 
-buildDisabled : Control -> ButtonSpec -> Svg Msg
+buildDisabled : Control -> ButtonControlSpec -> Svg Msg
 buildDisabled {label, offset} {dimensions} =
   Svg.g
     [ Attr.class "button"

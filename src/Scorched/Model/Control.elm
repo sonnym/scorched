@@ -49,6 +49,13 @@ action direction ({spec} as control) =
         Up -> (ControlMsg_ (UpdateConfig Increment spec))
         Down -> (ControlMsg_ (UpdateConfig Decrement spec))
         None -> NoOp
+
+    String _ ->
+      case direction of
+        Up -> (ControlMsg_ (UpdateConfig Increment spec))
+        Down -> (ControlMsg_ (UpdateConfig Decrement spec))
+        None -> NoOp
+
     _ -> NoOp
 
 handleKeyPress : Dict String Control -> Configuration -> String -> Cmd Msg
