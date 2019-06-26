@@ -2,7 +2,7 @@ module Scorched.Model.Sky exposing (empty, default, all, generator, toString, fr
 
 import Random
 
-import Scorched.Model.Types exposing (Sky(..))
+import Scorched.Model.Types exposing (Configuration, Sky(..))
 
 empty : Sky
 empty = PitchBlack
@@ -13,8 +13,11 @@ default = Random
 all : List Sky
 all = [ Random, PitchBlack, Plain, Sunset ]
 
-generator : Random.Generator Sky
-generator = Random.uniform empty all
+generator : Configuration -> Random.Generator Sky
+generator config =
+  case config.worldSettings.sky of
+    Random -> Random.uniform empty all
+    _ -> Random.constant config.worldSettings.sky
 
 toString : Sky -> String
 toString sky =

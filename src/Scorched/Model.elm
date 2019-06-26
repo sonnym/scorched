@@ -78,4 +78,4 @@ subscriptions model =
 
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =
-  World.random permutation model.config.noiseSettings model.time MainMenu.worldDimensions
+  World.random permutation model.config model.time MainMenu.worldDimensions

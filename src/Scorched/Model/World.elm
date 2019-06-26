@@ -6,6 +6,7 @@ import Time
 import Scorched.Model.Types exposing (
   Msg(..),
   MenuMsg(..),
+  Configuration,
   Permutation,
   NoiseSettings,
   WorldSettings,
@@ -17,18 +18,18 @@ import Scorched.Model.Types exposing (
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
 
-random : Permutation -> NoiseSettings -> Time.Posix -> Dimension -> Cmd Msg
-random permutation settings time dimensions =
+random : Permutation -> Configuration -> Time.Posix -> Dimension -> Cmd Msg
+random permutation config time dimensions =
   Random.generate
     (\world -> MenuMsg_ (WorldGenerated world))
-    (generator permutation settings time dimensions)
+    (generator permutation config time dimensions)
 
-generator : Permutation -> NoiseSettings -> Time.Posix -> Dimension -> Random.Generator World
-generator permutation settings time dimensions =
+generator : Permutation -> Configuration -> Time.Posix -> Dimension -> Random.Generator World
+generator permutation config time dimensions =
   Random.map2
     (\sky terrain -> {sky=sky, terrain=terrain})
-    Sky.generator
-    (Terrain.generator permutation settings time dimensions)
+    (Sky.generator config)
+    (Terrain.generator permutation config.noiseSettings time dimensions)
 
 empty : World
 empty = { sky=Sky.empty, terrain=Terrain.empty }
