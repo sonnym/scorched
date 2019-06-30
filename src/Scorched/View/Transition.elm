@@ -53,6 +53,7 @@ colors playerColor =
     Fuchsia -> colorsFuchsia
     White -> colorsWhite
     Orange -> colorsOrange
+    Mint -> colorsMint
 
 repeats : Int -> Int
 repeats width = 2 + round (toFloat width / toFloat (colorCount * bandWidth))
@@ -246,6 +247,30 @@ colorsOrange =
   , { r = 231, g = 146, b = 73 }
   , { r = 243, g = 154, b = 77 }
   , { r = 255, g = 162, b = 81 }
+  ]
+
+colorsMint : List Color
+colorsMint =
+  [ { r = 16, g = 52, b = 32 }
+  , { r = 20, g = 60, b = 40 }
+  , { r = 20, g = 73, b = 44 }
+  , { r = 24, g = 85, b = 52 }
+  , { r = 28, g = 93, b = 60 }
+  , { r = 32, g = 105, b = 65 }
+  , { r = 36, g = 113, b = 73 }
+  , { r = 40, g = 125, b = 81 }
+  , { r = 40, g = 138, b = 85 }
+  , { r = 44, g = 146, b = 93 }
+  , { r = 48, g = 158, b = 101 }
+  , { r = 52, g = 170, b = 105 }
+  , { r = 56, g = 178, b = 113 }
+  , { r = 60, g = 190, b = 121 }
+  , { r = 60, g = 199, b = 125 }
+  , { r = 65, g = 211, b = 134 }
+  , { r = 69, g = 223, b = 142 }
+  , { r = 73, g = 231, b = 146 }
+  , { r = 77, g = 243, b = 154 }
+  , { r = 81, g = 255, b = 162 }
   ]
 
 colorCount : Int
