@@ -4,13 +4,13 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.View.Palette as Palette exposing (Color)
-import Scorched.Model.Types exposing (Model, Msg)
+import Scorched.Model.Types exposing (Model, Msg, Dimension)
 
 build : Model -> Svg Msg
 build {dimensions, ticks} =
   Svg.g
     [ Attr.id "transition" ]
-    (List.indexedMap (band ticks dimensions.height) (bands dimensions.width))
+    (List.indexedMap (band ticks dimensions) (bands dimensions.width))
 
 bands : Int -> List Color
 bands width =
@@ -18,16 +18,22 @@ bands width =
     |> List.intersperse (List.reverse colors)
     |> List.concat
 
-band : Int -> Int -> Int -> Color -> Svg Msg
-band ticks height offset color =
-  Svg.rect
-    [ Attr.x (String.fromInt (offset * bandWidth + (timeOffset ticks)))
-    , Attr.y "0"
-    , Attr.width (String.fromInt bandWidth)
-    , Attr.height (String.fromInt height)
-    , Attr.fill (Palette.toString color)
-    ]
-    []
+band : Int -> Dimension -> Int -> Color -> Svg Msg
+band ticks {width, height} n color =
+  let
+    offset = (n * bandWidth + (timeOffset ticks))
+  in
+    if offset < 0 - bandWidth || offset > width then
+      Svg.g [ ] [ ]
+    else
+      Svg.rect
+        [ Attr.x (String.fromInt offset)
+        , Attr.y "0"
+        , Attr.width (String.fromInt bandWidth)
+        , Attr.height (String.fromInt height)
+        , Attr.fill (Palette.toString color)
+        ]
+        []
 
 timeOffset : Int -> Int
 timeOffset ticks = 0 -
