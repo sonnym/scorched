@@ -21,7 +21,7 @@ import Scorched.Model.World as World
 controls : List Control
 controls =
   [ Control "Start" 'S' {x=7, y=12}
-    (Button (ButtonControlSpec {width=82, height=19} False NoOp (toggle None)))
+    (Button (ButtonControlSpec {width=82, height=19} False (BasicMsg_ (UpdateView Transition)) (toggle None)))
 
   , Control "Players" 'P' {x=8, y=40}
     (Integer (IntegerControlSpec 2 10 1 None (\config -> config.playerCount) (\config n -> { config | playerCount = n }) action toggle))

@@ -31,6 +31,7 @@ type ControlMsg
 type alias Model =
   { view: View
   , time: Time.Posix
+  , ticks: Int
   , controls: Dict String Control
   , permutation: Permutation
   , dimensions: Dimension
@@ -38,7 +39,7 @@ type alias Model =
   , world: World
   }
 
-type View = MenuView Menu | ModalView Modal
+type View = MenuView Menu | ModalView Modal | Transition
 type Menu = Main
 type Modal = Landscape
 
