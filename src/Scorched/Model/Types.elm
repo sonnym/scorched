@@ -63,6 +63,7 @@ type PlayerColor
   = Red
   | Green
   | Purple
+  | Yellow
 
 type alias Terrain = List Int
 
