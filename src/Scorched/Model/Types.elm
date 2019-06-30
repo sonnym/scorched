@@ -39,9 +39,9 @@ type alias Model =
   , world: World
   }
 
-type View = MenuView Menu | ModalView Modal | Transition
+type View = MenuView Menu | ModalView Modal
 type Menu = Main
-type Modal = Landscape
+type Modal = Landscape | PlayerSelection
 
 type alias MainMenuData = { world: World }
 

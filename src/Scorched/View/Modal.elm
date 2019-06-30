@@ -6,7 +6,10 @@ import Svg.Attributes as Attr
 import Scorched.Model.Types exposing (Model, Msg, Modal(..))
 
 import Scorched.View.Menu.Main as MainMenu
+import Scorched.View.Transition as Transition
+
 import Scorched.View.Modal.Landscape as Landscape
+import Scorched.View.Modal.PlayerSelection as PlayerSelection
 
 build : Modal -> Model -> Svg Msg
 build modal ({dimensions} as model) =
@@ -14,9 +17,16 @@ build modal ({dimensions} as model) =
     [ Attr.width (String.fromInt dimensions.width)
     , Attr.height (String.fromInt dimensions.height)
     ]
-    [ MainMenu.build model, (build_ modal model) ]
+    [ background modal model, (build_ modal model) ]
+
+background : Modal -> Model -> Svg Msg
+background modal model =
+  case modal of
+    Landscape -> MainMenu.build model
+    PlayerSelection -> Transition.build model
 
 build_ : Modal -> Model -> Svg Msg
 build_ modal model =
   case modal of
     Landscape -> Landscape.build model
+    PlayerSelection -> PlayerSelection.build model
