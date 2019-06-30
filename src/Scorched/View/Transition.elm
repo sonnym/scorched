@@ -7,30 +7,31 @@ import Scorched.View.Palette as Palette exposing (Color)
 import Scorched.Model.Types exposing (Model, Msg)
 
 build : Model -> Svg Msg
-build {dimensions} =
+build {dimensions, ticks} =
   Svg.g
     [ Attr.id "transition" ]
-    (List.indexedMap (band dimensions.height) (bands dimensions.width))
+    (List.indexedMap (band ticks dimensions.height) (bands dimensions.width))
 
 bands : Int -> List Color
 bands width =
-  let
-    repeats = (width // ((List.length colors) * bandWidth)) + 1
-  in
-    (List.repeat (round (toFloat repeats / 2)) colors)
-      |> List.intersperse (List.reverse colors)
-      |> List.concat
+  List.repeat (round (toFloat (repeats width) / 2)) colors
+    |> List.intersperse (List.reverse colors)
+    |> List.concat
 
-band : Int -> Int -> Color -> Svg Msg
-band height offset color =
+band : Int -> Int -> Int -> Color -> Svg Msg
+band ticks height offset color =
   Svg.rect
-    [ Attr.x (String.fromInt (offset * bandWidth))
+    [ Attr.x (String.fromInt (offset * bandWidth + (timeOffset ticks)))
     , Attr.y "0"
     , Attr.width (String.fromInt bandWidth)
     , Attr.height (String.fromInt height)
     , Attr.fill (Palette.toString color)
     ]
     []
+
+timeOffset : Int -> Int
+timeOffset ticks = 0 -
+  modBy ((List.length colors) * bandWidth * 2) (ticks * 10)
 
 colors : List Color
 colors =
@@ -58,3 +59,6 @@ colors =
 
 bandWidth : Int
 bandWidth = 18
+
+repeats : Int -> Int
+repeats width = 2 + round (toFloat width / toFloat ((List.length colors) * bandWidth))

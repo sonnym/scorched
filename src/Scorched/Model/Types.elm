@@ -31,6 +31,7 @@ type ControlMsg
 type alias Model =
   { view: View
   , time: Time.Posix
+  , ticks: Int
   , controls: Dict String Control
   , permutation: Permutation
   , dimensions: Dimension

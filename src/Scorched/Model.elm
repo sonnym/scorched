@@ -26,6 +26,7 @@ default : Model
 default =
   { view = MenuView Main
   , time = Time.millisToPosix 0
+  , ticks = 0
   , controls = Control.dictFromList MainMenu.controls
   , permutation = Permutation.default
   , dimensions = {width=1024, height=768}
@@ -47,7 +48,7 @@ update msg model =
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
   case msg of
-    Tick newTime -> ({ model | time = newTime }, Cmd.none)
+    Tick newTime -> ({ model | time = newTime, ticks = model.ticks + 1 }, Cmd.none)
     WorldGenerated world -> ({ model | world = world }, Cmd.none)
 
     PermutationGenerated permutation ->
