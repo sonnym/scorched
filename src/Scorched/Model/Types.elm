@@ -66,6 +66,7 @@ type PlayerColor
   | Yellow
   | Aqua
   | Fuchsia
+  | White
 
 type alias Terrain = List Int
 
