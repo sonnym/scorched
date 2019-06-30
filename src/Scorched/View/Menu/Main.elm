@@ -84,10 +84,18 @@ bottomText =
       ]
       [ Svg.text "Version 0.0.1" ]
     , Svg.text_
-      [ Attr.transform "translate(408, 758)"
+      [ Attr.transform "translate(300, 758)"
       , Attr.fill "black"
       ]
-      [ Svg.text "Copyright (c) 1991-1995 Wendell Hicken" ]
+      [ Svg.text "Copyright (c) 1991-1995 "
+      , Svg.a
+          [ Attr.xlinkHref "http://www.whicken.com/", Attr.fill "#0000ff" ]
+          [ Svg.text "Wendell Hicken" ]
+      , Svg.text "; Copied 2019 "
+      , Svg.a
+          [ Attr.xlinkHref "https://sonnym.github.io/", Attr.fill "#0000ff" ]
+          [ Svg.text "Sonny Michaud" ]
+      ]
     ]
 
 isModalOpen : View -> Bool
