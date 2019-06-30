@@ -23,10 +23,10 @@ background : Modal -> Model -> Svg Msg
 background modal model =
   case modal of
     Landscape -> MainMenu.build model
-    PlayerSelection -> Transition.build model
+    PlayerSelection color -> Transition.build model color
 
 build_ : Modal -> Model -> Svg Msg
 build_ modal model =
   case modal of
     Landscape -> Landscape.build model
-    PlayerSelection -> PlayerSelection.build model
+    PlayerSelection _ -> PlayerSelection.build model

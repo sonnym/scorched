@@ -37,11 +37,12 @@ type alias Model =
   , dimensions: Dimension
   , config: Config
   , world: World
+  , players: List Player
   }
 
 type View = MenuView Menu | ModalView Modal
 type Menu = Main
-type Modal = Landscape | PlayerSelection
+type Modal = Landscape | PlayerSelection PlayerColor
 
 type alias MainMenuData = { world: World }
 
@@ -58,6 +59,11 @@ type Sky
   | Sunset
   | PitchBlack
 
+type PlayerColor
+  = Red
+  | Green
+  | Purple
+
 type alias Terrain = List Int
 
 type alias World =
@@ -65,6 +71,8 @@ type alias World =
   , terrain: Terrain
   , dimensions: Dimension
   }
+
+type alias Player = { color: PlayerColor }
 
 type Specification
   = Button ButtonControlSpec

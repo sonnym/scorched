@@ -31,6 +31,7 @@ default =
   , dimensions = {width=1024, height=768}
   , config = Config.default
   , world = World.default
+  , players = []
   }
 
 init : Cmd Msg

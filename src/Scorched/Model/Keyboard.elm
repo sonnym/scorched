@@ -3,9 +3,17 @@ module Scorched.Model.Keyboard exposing (subscriptions, update)
 import Browser.Events
 import Json.Decode as Json
 
-import Scorched.Model.Types exposing (Msg(..), BasicMsg(..), KeyMsg(..), View(..), Menu(..), Model)
+import Scorched.Model.Types exposing (
+  Msg(..),
+  BasicMsg(..),
+  KeyMsg(..),
+  View(..),
+  Menu(..),
+  Modal(..),
+  Model)
 
 import Scorched.Model.Control as Control
+import Scorched.Model.Player as Player
 
 import Scorched.Model.Helper as Helper
 
@@ -29,6 +37,16 @@ handleKeyDown ({controls, view, config} as model) key =
     case view of
       ModalView _ -> (model, Helper.send (BasicMsg_ (UpdateView (MenuView Main))))
       _ -> (model, Cmd.none)
+
+  else if key == "ENTER" then
+    case view of
+      ModalView modal ->
+        case modal of
+          PlayerSelection playerColor -> Player.cycleSelection model playerColor
+          _ -> (model, Cmd.none)
+
+      _ -> (model, Cmd.none)
+
   else
     ({ model | controls = Control.toggleControlByKey controls key }, Cmd.none)
 

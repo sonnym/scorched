@@ -4,19 +4,22 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.View.Palette as Palette exposing (Color)
-import Scorched.Model.Types exposing (Model, Msg, Dimension)
+import Scorched.Model.Types exposing (Model, Msg, Dimension, PlayerColor(..))
 
-build : Model -> Svg Msg
-build {dimensions, ticks} =
+build : Model -> PlayerColor -> Svg Msg
+build {dimensions, ticks} playerColor =
   Svg.g
     [ Attr.id "transition" ]
-    (List.indexedMap (band ticks dimensions) (bands dimensions.width))
+    (List.indexedMap (band ticks dimensions) (bands dimensions.width playerColor))
 
-bands : Int -> List Color
-bands width =
-  List.repeat (round (toFloat (repeats width) / 2)) colors
-    |> List.intersperse (List.reverse colors)
-    |> List.concat
+bands : Int -> PlayerColor -> List Color
+bands width playerColor =
+  let
+    visibleColors = colors playerColor
+  in
+    List.repeat (round (toFloat (repeats width) / 2)) visibleColors
+      |> List.intersperse (List.reverse visibleColors)
+      |> List.concat
 
 band : Int -> Dimension -> Int -> Color -> Svg Msg
 band ticks {width, height} n color =
@@ -37,10 +40,20 @@ band ticks {width, height} n color =
 
 timeOffset : Int -> Int
 timeOffset ticks = 0 -
-  modBy ((List.length colors) * bandWidth * 2) (ticks * 10)
+  modBy (colorCount * bandWidth * 2) (ticks * 10)
 
-colors : List Color
-colors =
+colors : PlayerColor -> List Color
+colors playerColor =
+  case playerColor of
+    Red -> colorsRed
+    Green -> colorsGreen
+    Purple -> colorsPurple
+
+repeats : Int -> Int
+repeats width = 2 + round (toFloat width / toFloat (colorCount * bandWidth))
+
+colorsRed : List Color
+colorsRed =
   [ { r = 52, g = 8, b = 8 }
   , { r = 60, g = 8, b = 8 }
   , { r = 73, g = 8, b = 8 }
@@ -63,7 +76,6 @@ colors =
   , { r = 255, g = 40, b = 40 }
   ]
 
-{--
 colorsGreen : List Color
 colorsGreen =
   [ { r = 28, g = 44, b = 8 }
@@ -110,10 +122,9 @@ colorsPurple =
   , { r = 154, g = 77, b = 243 }
   , { r = 162, g = 81, b = 255 }
   ]
---}
+
+colorCount : Int
+colorCount = 20
 
 bandWidth : Int
 bandWidth = 18
-
-repeats : Int -> Int
-repeats width = 2 + round (toFloat width / toFloat ((List.length colors) * bandWidth))
