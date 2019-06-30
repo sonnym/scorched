@@ -82,8 +82,8 @@ toggleControlByKey controls key =
 updateModelConfig : Config -> Operation -> Specification -> Config
 updateModelConfig config operation spec =
   case spec of
-    Integer numeric -> IntegerControl.updateConfig config operation numeric
-    String type_ -> StringControl.updateConfig config operation type_
+    Integer integer -> IntegerControl.updateConfig config operation integer
+    String string -> StringControl.updateConfig config operation string
     _ -> config
 
 toggleControl : Dict String Control -> String -> Direction -> Dict String Control
@@ -99,15 +99,15 @@ updateControl direction maybeControl =
           let newSpec = { button | invert = not button.invert }
           in Just { control | spec = Button newSpec }
 
-        Integer numeric ->
-          let newSpec = { numeric | invert = (if numeric.invert == direction then None else direction) }
+        Integer integer ->
+          let newSpec = { integer | invert = (if integer.invert == direction then None else direction) }
           in Just { control | spec = Integer newSpec }
 
-        String type_ ->
-          let newSpec = { type_ | invert = (if type_.invert == direction then None else direction) }
+        String string ->
+          let newSpec = { string | invert = (if string.invert == direction then None else direction) }
           in Just { control | spec = String newSpec }
 
     Nothing -> Nothing
 
 findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
-findItem dict key = Dict.filter (\_ item -> String.fromChar item.key == key) dict
+findItem dict key = Dict.filter (\_ item -> (item.key |> String.fromChar |> String.toUpper) == key) dict
