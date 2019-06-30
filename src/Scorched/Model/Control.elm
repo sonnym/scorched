@@ -110,4 +110,4 @@ updateControl direction maybeControl =
     Nothing -> Nothing
 
 findItem : Dict String { a | key: Char } -> String -> Dict String { a | key: Char }
-findItem dict key = Dict.filter (\_ item -> String.fromChar item.key == key) dict
+findItem dict key = Dict.filter (\_ item -> (item.key |> String.fromChar |> String.toUpper) == key) dict
