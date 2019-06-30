@@ -30,7 +30,7 @@ cycleSelection ({config, players} as model) playerColor =
       (newModel, Cmd.none)
 
 colors : List PlayerColor
-colors = [Red, Green, Purple, Yellow, Aqua, Fuchsia, White, Orange, Mint]
+colors = [Red, Green, Purple, Yellow, Aqua, Fuchsia, White, Orange, Mint, Blue]
 
 create : PlayerColor -> Player
 create playerColor = { color = playerColor }
