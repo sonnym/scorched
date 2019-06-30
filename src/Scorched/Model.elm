@@ -59,7 +59,8 @@ update_ msg model =
         MenuView _ -> (
           { model |
             view = view,
-            controls = Control.dictFromList MainMenu.controls
+            controls = Control.dictFromList MainMenu.controls,
+            players = []
           }, generateWorld model.permutation model)
 
         ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
