@@ -1,5 +1,6 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
+import Dict
 import Time
 
 import Scorched.Model.Types exposing (
@@ -65,6 +66,9 @@ update_ msg model =
               view = view,
               controls = Control.dictFromList LandscapeModal.controls
           }, Cmd.none)
+
+        _ -> (
+          { model | view = view, controls = Dict.empty }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =

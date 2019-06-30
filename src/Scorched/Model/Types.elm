@@ -38,7 +38,7 @@ type alias Model =
   , world: World
   }
 
-type View = MenuView Menu | ModalView Modal
+type View = MenuView Menu | ModalView Modal | Transition
 type Menu = Main
 type Modal = Landscape
 

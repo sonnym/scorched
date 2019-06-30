@@ -93,5 +93,5 @@ bottomText =
 isModalOpen : View -> Bool
 isModalOpen view =
   case view of
-    MenuView _ -> False
     ModalView _ -> True
+    _ -> False
