@@ -50,6 +50,7 @@ colors playerColor =
     Purple -> colorsPurple
     Yellow -> colorsYellow
     Aqua -> colorsAqua
+    Fuchsia -> colorsFuchsia
 
 repeats : Int -> Int
 repeats width = 2 + round (toFloat width / toFloat (colorCount * bandWidth))
@@ -171,6 +172,30 @@ colorsAqua =
   , { r = 36, g = 231, b = 231 }
   , { r = 36, g = 243, b = 243 }
   , { r = 40, g = 255, b = 255 }
+  ]
+
+colorsFuchsia : List Color
+colorsFuchsia =
+  [ { r = 52, g = 8, b = 52 }
+  , { r = 60, g = 8, b = 60 }
+  , { r = 73, g = 8, b = 73 }
+  , { r = 85, g = 12, b = 85 }
+  , { r = 93, g = 12, b = 93 }
+  , { r = 105, g = 16, b = 105 }
+  , { r = 113, g = 16, b = 113 }
+  , { r = 125, g = 20, b = 125 }
+  , { r = 138, g = 20, b = 138 }
+  , { r = 146, g = 20, b = 146 }
+  , { r = 158, g = 24, b = 158 }
+  , { r = 170, g = 24, b = 170 }
+  , { r = 178, g = 28, b = 178 }
+  , { r = 190, g = 28, b = 190 }
+  , { r = 199, g = 28, b = 199 }
+  , { r = 211, g = 32, b = 211 }
+  , { r = 223, g = 32, b = 223 }
+  , { r = 231, g = 36, b = 231 }
+  , { r = 243, g = 36, b = 243 }
+  , { r = 255, g = 40, b = 255 }
   ]
 
 colorCount : Int
