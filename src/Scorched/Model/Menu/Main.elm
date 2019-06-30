@@ -8,6 +8,7 @@ import Scorched.Model.Types exposing (
   Specification(..),
   Modal(..),
   Direction(..),
+  PlayerColor(..),
   Model,
   Control,
   IntegerControlSpec,
@@ -15,13 +16,15 @@ import Scorched.Model.Types exposing (
 
 import Scorched.Model.Control exposing (toggle, action, dictFromList)
 
+import Scorched.Model.Player exposing (firstPlayer)
+
 import Scorched.Model.Sky as Sky
 import Scorched.Model.World as World
 
 controls : List Control
 controls =
   [ Control "Start" 'S' {x=7, y=12}
-    (Button (ButtonControlSpec {width=82, height=19} False (BasicMsg_ (UpdateView Transition)) (toggle None)))
+    (Button (ButtonControlSpec {width=82, height=19} False (BasicMsg_ (UpdateView (ModalView (PlayerSelection firstPlayer)))) (toggle None)))
 
   , Control "Players" 'P' {x=8, y=40}
     (Integer (IntegerControlSpec 2 10 1 None (\config -> config.playerCount) (\config n -> { config | playerCount = n }) action toggle))

@@ -27,4 +27,3 @@ build_ model =
   case model.view of
     MenuView menu -> Menu.build menu model
     ModalView modal -> Modal.build modal model
-    Transition -> Transition.build model

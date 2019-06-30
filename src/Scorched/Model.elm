@@ -1,6 +1,5 @@
 module Scorched.Model exposing (default, init, update, subscriptions)
 
-import Dict
 import Time
 
 import Scorched.Model.Types exposing (
@@ -17,8 +16,8 @@ import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.Control as Control
+import Scorched.Model.Modal as Modal
 import Scorched.Model.Menu.Main as MainMenu
-import Scorched.Model.Modal.Landscape as LandscapeModal
 
 import Scorched.Model.World as World
 
@@ -32,6 +31,7 @@ default =
   , dimensions = {width=1024, height=768}
   , config = Config.default
   , world = World.default
+  , players = []
   }
 
 init : Cmd Msg
@@ -62,14 +62,7 @@ update_ msg model =
             controls = Control.dictFromList MainMenu.controls
           }, generateWorld model.permutation model)
 
-        ModalView _ -> (
-          { model |
-              view = view,
-              controls = Control.dictFromList LandscapeModal.controls
-          }, Cmd.none)
-
-        _ -> (
-          { model | view = view, controls = Dict.empty }, Cmd.none)
+        ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
