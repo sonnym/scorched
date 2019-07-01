@@ -13,6 +13,8 @@ import Scorched.Model.Types exposing (
 
 import Scorched.Model.Config as Config
 import Scorched.Model.Permutation as Permutation
+
+import Scorched.Model.Ports as Ports
 import Scorched.Model.Keyboard as Keyboard
 
 import Scorched.Model.Control as Control
@@ -23,7 +25,8 @@ import Scorched.Model.World as World
 
 default : Model
 default =
-  { view = MenuView Main
+  { version = "0000000000000000000000000000000000000000"
+  , view = MenuView Main
   , time = Time.millisToPosix 0
   , ticks = 0
   , controls = Control.dictFromList MainMenu.controls
@@ -49,6 +52,7 @@ update_ : BasicMsg -> Model -> (Model, Cmd Msg)
 update_ msg model =
   case msg of
     Tick newTime -> ({ model | time = newTime, ticks = model.ticks + 1 }, Cmd.none)
+    SetVersion version -> ({ model | version = version }, Cmd.none)
     WorldGenerated world -> ({ model | world = world }, Cmd.none)
 
     PermutationGenerated permutation ->
@@ -67,7 +71,11 @@ update_ msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.batch ((Time.every 100 (\n -> (BasicMsg_ (Tick n)))) :: Keyboard.subscriptions)
+  Sub.batch (List.concat
+    [ List.singleton (Time.every 100 (\n -> (BasicMsg_ (Tick n))))
+    , Keyboard.subscriptions
+    , Ports.subscriptions
+    ])
 
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =

@@ -25,7 +25,7 @@ import Scorched.View.Component.Control as Control
 import Scorched.View.World as World
 
 build : Model -> Svg Msg
-build ({view, dimensions, config} as model) =
+build ({version, view, dimensions, config} as model) =
   let
     modalOpen = isModalOpen view
     visibleControls = if modalOpen then MainMenu.controls else (Dict.values model.controls)
@@ -35,7 +35,7 @@ build ({view, dimensions, config} as model) =
       [ background model
       , controls config modalOpen visibleControls
       , titleText
-      , bottomText
+      , bottomText version
       ]
 
 background : Model -> Svg Msg
@@ -74,15 +74,15 @@ titleText =
       [ Svg.text "The Mother of All Games" ]
     ]
 
-bottomText : Svg msg
-bottomText =
+bottomText : String -> Svg msg
+bottomText version =
   Svg.g
     [ Attr.id "bottomtext" ]
     [ Svg.text_
-      [ Attr.transform "translate(504, 744)"
+      [ Attr.transform "translate(364, 744)"
       , Attr.fill "black"
       ]
-      [ Svg.text "Version 0.0.1" ]
+      [ Svg.text ("Version " ++ version) ]
     , Svg.text_
       [ Attr.transform "translate(300, 758)"
       , Attr.fill "black"

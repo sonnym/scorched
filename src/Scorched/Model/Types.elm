@@ -13,6 +13,7 @@ type Msg
 
 type BasicMsg
   = PermutationGenerated Permutation
+  | SetVersion String
   | WorldGenerated World
   | Tick Time.Posix
   | UpdateView View
@@ -29,7 +30,8 @@ type ControlMsg
 -- Model Types
 
 type alias Model =
-  { view: View
+  { version: String
+  , view: View
   , time: Time.Posix
   , ticks: Int
   , controls: Dict String Control
