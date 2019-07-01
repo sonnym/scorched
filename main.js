@@ -6727,7 +6727,7 @@ var author$project$Scorched$Model$Noise$rounds = F3(
 		var bumpiness = _n0.X;
 		var slopes = _n0.ar;
 		var octaves = 8;
-		var fallout = bumpiness / 50;
+		var fallout = (bumpiness + 64) / 256;
 		return elm$core$List$sum(
 			A2(
 				elm$core$List$map,
@@ -6751,7 +6751,7 @@ var author$project$Scorched$Model$Noise$generator = F3(
 var elm$core$Basics$round = _Basics_round;
 var author$project$Scorched$Model$Terrain$scale = F2(
 	function (max, n) {
-		return elm$core$Basics$round(n * (max / 3));
+		return elm$core$Basics$round(n * (max / 2));
 	});
 var elm$core$Basics$modBy = _Basics_modBy;
 var elm$time$Time$toMillis = F2(
@@ -6812,7 +6812,7 @@ var author$project$Scorched$Model$Terrain$altitudesGenerator = F4(
 				A2(
 					elm$core$List$map,
 					function (n) {
-						return (config.a6.ar / 1000) * n;
+						return ((worldConfig.ar + 50) / 10000) * n;
 					},
 					A2(elm$core$List$range, 1, width))));
 	});
