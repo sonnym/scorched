@@ -7,6 +7,10 @@
 </head>
 <body>
   <div id="scorched"></div>
-  <script>Elm.Main.init({ node: document.getElementById("scorched") });</script>
+  <script>
+    var app = Elm.Main.init({ node: document.getElementById("scorched") });
+
+    app.ports.setVersion.send("");
+  </script>
 </body>
 </html>
