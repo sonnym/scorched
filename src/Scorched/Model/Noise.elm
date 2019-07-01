@@ -13,8 +13,8 @@ generator permutation {worldConfig} time =
 rounds : Permutation -> WorldConfig -> Float -> Float
 rounds permutation {bumpiness, slopes} x =
   let
-    fallout = (toFloat bumpiness) / 40
-    octaves = round ((toFloat slopes) * 0.4)
+    fallout = (toFloat bumpiness) / 50
+    octaves = 8
   in
     List.sum
       (List.map

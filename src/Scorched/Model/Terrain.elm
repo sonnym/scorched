@@ -17,17 +17,17 @@ generator permutation config time dimensions =
     colorGenerator
 
 altitudesGenerator : Permutation -> Config -> Time.Posix -> Dimension -> Random.Generator (List Int)
-altitudesGenerator permutation config time {width, height} =
+altitudesGenerator permutation ({worldConfig} as config) time {width, height} =
   Random.Extra.combine
     (List.map
       (\x -> Random.map (scale height) (Noise.generator permutation config (toFloat (Time.toMillis Time.utc time) + x)))
-      (List.map (\n -> (0.002 * toFloat n)) (List.range 1 width)))
+      (List.map (\n -> ((toFloat config.worldConfig.slopes / 1000) * toFloat n)) (List.range 1 width)))
 
 colorGenerator : Random.Generator Color
 colorGenerator = Random.uniform background colors
 
 scale : Int -> Float -> Int
-scale max n = round (n * (toFloat (max // 3)))
+scale max n = round (n * (toFloat max / 3))
 
 empty : Terrain
 empty = create [] background
