@@ -2,6 +2,8 @@
 
 set -e
 
+COMMIT=$(git log master --format=format:%H -n 1)
+
 yarn elm make --output=main.js --optimize src/Main.elm
 
 git add main.js
@@ -10,7 +12,10 @@ git stash
 git checkout gh-pages
 
 git rm main.js
-git commit -m "make $(git show master | awk '$1 == "commit" { print $2 }')"
+git commit -m "make $COMMIT"
+
+sed -i "s/setVersion\.send(\".*\")/setVersion.send(\"$COMMIT\")/" index.html
+git add -f index.html
 
 git stash pop
 git commit --amend
