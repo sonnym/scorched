@@ -3,6 +3,8 @@ module Scorched.Model.Types exposing (..)
 import Dict exposing (Dict)
 import Time
 
+import Scorched.View.Palette exposing (Color)
+
 -- Messages
 
 type Msg
@@ -73,7 +75,10 @@ type PlayerColor
   | Mint
   | Blue
 
-type alias Terrain = List Int
+type alias Terrain =
+  { altitudes: List Int
+  , color: Color
+  }
 
 type alias World =
   { sky: Sky
