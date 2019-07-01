@@ -82,7 +82,13 @@ bottomText version =
       [ Attr.transform "translate(364, 744)"
       , Attr.fill "black"
       ]
-      [ Svg.text ("Version " ++ version) ]
+      [ Svg.text "Version "
+      , Svg.a
+        [ Attr.xlinkHref ("https://github.com/sonnym/scorched/commit/" ++ version)
+        , Attr.fill "#0000ff"
+        ]
+        [ Svg.text version ]
+      ]
     , Svg.text_
       [ Attr.transform "translate(300, 758)"
       , Attr.fill "black"
