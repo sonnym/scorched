@@ -21,13 +21,13 @@ altitudesGenerator permutation ({worldConfig} as config) time {width, height} =
   Random.Extra.combine
     (List.map
       (\x -> Random.map (scale height) (Noise.generator permutation config (toFloat (Time.toMillis Time.utc time) + x)))
-      (List.map (\n -> ((toFloat config.worldConfig.slopes / 1000) * toFloat n)) (List.range 1 width)))
+      (List.map (\n -> ((toFloat (worldConfig.slopes + 50) / 10000) * toFloat n)) (List.range 1 width)))
 
 colorGenerator : Random.Generator Color
 colorGenerator = Random.uniform background colors
 
 scale : Int -> Float -> Int
-scale max n = round (n * (toFloat max / 3))
+scale max n = round (n * (toFloat max / 2))
 
 empty : Terrain
 empty = create [] background
