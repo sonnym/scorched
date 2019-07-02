@@ -26,7 +26,7 @@ random permutation config time dimensions =
 generator : Permutation -> Config -> Time.Posix -> Dimension -> Random.Generator World
 generator permutation config time dimensions =
   Random.map2
-    (\sky terrain -> {sky=sky, terrain=terrain, dimensions=dimensions})
+    (create dimensions)
     (Sky.generator config)
     (Terrain.generator permutation config time dimensions)
 
@@ -39,6 +39,13 @@ defaultConfig =
   , dimensions = menuWorldSize
   , bumpiness = 20
   , slopes = 20
+  }
+
+create : Dimension -> Sky -> Terrain -> World
+create dimensions sky terrain =
+  { sky=sky
+  , terrain=terrain
+  , dimensions=dimensions
   }
 
 menuWorldSize : Dimension
