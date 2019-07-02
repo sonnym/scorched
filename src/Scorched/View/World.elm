@@ -17,4 +17,4 @@ build {terrain, sky, players, dimensions} =
     ]
     (List.append
       [ Sky.build sky dimensions, Terrain.build terrain dimensions ]
-      (List.map Tank.build players))
+      (List.map (Tank.build dimensions) players))
