@@ -60,12 +60,13 @@ update_ msg model =
       ({ model | permutation = permutation }, generateWorld permutation model)
 
     UpdateView view ->
-      case view of
-        MenuView _ -> reset model view
-
-        ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
-
-        GamePlay -> ({ model | view = view }, Cmd.none)
+      let
+        model_ = { model | view = view }
+      in
+        case view of
+          MenuView _ -> reset model_ view
+          ModalView modal -> ({ model_ | controls = Modal.controls modal }, Cmd.none)
+          GamePlay -> (model_, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -84,9 +85,7 @@ reset ({world} as model) view =
   let
     newWorld = { world | players = [ ] }
   in
-    (
-      { model |
-        view = view,
-        controls = Control.dictFromList MainMenu.controls,
-        world = newWorld
-      }, generateWorld model.permutation model)
+    ({ model |
+       controls = Control.dictFromList MainMenu.controls,
+       world = newWorld
+     }, generateWorld model.permutation model)
