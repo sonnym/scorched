@@ -62,3 +62,33 @@ shadows =
   , { r = 200, g = 200, b = 200 }
   , { r = 255, g = 255, b = 255 }
   ]
+
+redPlayer : Color
+redPlayer = { r = 255, g = 40, b = 40 }
+
+greenPlayer : Color
+greenPlayer = { r = 142, g = 223, b = 40 }
+
+purplePlayer : Color
+purplePlayer = { r = 162, g = 81, b = 255 }
+
+yellowPlayer : Color
+yellowPlayer = { r = 255, g = 255, b = 40 }
+
+aquaPlayer : Color
+aquaPlayer = { r = 40, g = 255, b = 255 }
+
+fuchsiaPlayer : Color
+fuchsiaPlayer = { r = 255, g = 40, b = 255 }
+
+whitePlayer : Color
+whitePlayer = { r = 243, g = 243, b = 243 }
+
+orangePlayer : Color
+orangePlayer = { r = 255, g = 162, b = 81 }
+
+mintPlayer : Color
+mintPlayer = { r = 81, g = 255, b = 162 }
+
+bluePlayer : Color
+bluePlayer = { r = 0, g = 0, b = 255 }

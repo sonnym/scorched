@@ -3,7 +3,19 @@ module Scorched.View.Transition exposing (build)
 import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
-import Scorched.View.Palette as Palette exposing (Color)
+import Scorched.View.Palette as Palette exposing (
+  Color,
+  redPlayer,
+  greenPlayer,
+  purplePlayer,
+  yellowPlayer,
+  aquaPlayer,
+  fuchsiaPlayer,
+  whitePlayer,
+  orangePlayer,
+  mintPlayer,
+  bluePlayer)
+
 import Scorched.Model.Types exposing (Model, Msg, Dimension, PlayerColor(..))
 
 build : Model -> PlayerColor -> Svg Msg
@@ -80,7 +92,7 @@ colorsRed =
   , { r = 223, g = 32, b = 32 }
   , { r = 231, g = 36, b = 36 }
   , { r = 243, g = 36, b = 36 }
-  , { r = 255, g = 40, b = 40 }
+  , redPlayer
   ]
 
 colorsGreen : List Color
@@ -104,7 +116,7 @@ colorsGreen =
   , { r = 121, g = 195, b = 32 }
   , { r = 130, g = 203, b = 36 }
   , { r = 134, g = 211, b = 36 }
-  , { r = 142, g = 223, b = 40 }
+  , greenPlayer
   ]
 
 colorsPurple : List Color
@@ -128,7 +140,7 @@ colorsPurple =
   , { r = 142, g = 69, b = 223 }
   , { r = 146, g = 73, b = 231 }
   , { r = 154, g = 77, b = 243 }
-  , { r = 162, g = 81, b = 255 }
+  , purplePlayer
   ]
 
 colorsYellow : List Color
@@ -152,7 +164,7 @@ colorsYellow =
   , { r = 223, g = 223, b = 32 }
   , { r = 231, g = 231, b = 36 }
   , { r = 243, g = 243, b = 36 }
-  , { r = 255, g = 255, b = 40 }
+  , yellowPlayer
   ]
 
 colorsAqua : List Color
@@ -176,7 +188,7 @@ colorsAqua =
   , { r = 32, g = 223, b = 223 }
   , { r = 36, g = 231, b = 231 }
   , { r = 36, g = 243, b = 243 }
-  , { r = 40, g = 255, b = 255 }
+  , aquaPlayer
   ]
 
 colorsFuchsia : List Color
@@ -200,7 +212,7 @@ colorsFuchsia =
   , { r = 223, g = 32, b = 223 }
   , { r = 231, g = 36, b = 231 }
   , { r = 243, g = 36, b = 243 }
-  , { r = 255, g = 40, b = 255 }
+  , fuchsiaPlayer
   ]
 
 colorsWhite : List Color
@@ -224,7 +236,7 @@ colorsWhite =
   , { r = 211, g = 211, b = 211 }
   , { r = 223, g = 223, b = 223 }
   , { r = 231, g = 231, b = 231 }
-  , { r = 243, g = 243, b = 243 }
+  , whitePlayer
   ]
 
 colorsOrange : List Color
@@ -248,7 +260,7 @@ colorsOrange =
   , { r = 223, g = 142, b = 69 }
   , { r = 231, g = 146, b = 73 }
   , { r = 243, g = 154, b = 77 }
-  , { r = 255, g = 162, b = 81 }
+  , orangePlayer
   ]
 
 colorsMint : List Color
@@ -272,7 +284,7 @@ colorsMint =
   , { r = 69, g = 223, b = 142 }
   , { r = 73, g = 231, b = 146 }
   , { r = 77, g = 243, b = 154 }
-  , { r = 81, g = 255, b = 162 }
+  , mintPlayer
   ]
 
 colorsBlue : List Color
@@ -296,7 +308,7 @@ colorsBlue =
   , { r = 0, g = 0, b = 223 }
   , { r = 0, g = 0, b = 231 }
   , { r = 0, g = 0, b = 243 }
-  , { r = 0, g = 0, b = 255 }
+  , bluePlayer
   ]
 
 colorCount : Int
