@@ -33,7 +33,12 @@ generator permutation config time dimensions =
     (Player.generator config)
 
 default : World
-default = { sky=Sky.empty, terrain=Terrain.empty, dimensions={width=0,height=0} }
+default =
+  { sky=Sky.empty
+  , terrain=Terrain.empty
+  , dimensions={width=0,height=0}
+  , players=[ ]
+  }
 
 defaultConfig : WorldConfig
 defaultConfig =
@@ -48,6 +53,7 @@ create dimensions sky terrain playerPositions =
   { sky=sky
   , terrain=terrain
   , dimensions=dimensions
+  , players=[]
   }
 
 menuWorldSize : Dimension

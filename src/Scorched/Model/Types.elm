@@ -45,7 +45,6 @@ type alias Model =
   , dimensions: Dimension
   , config: Config
   , world: World
-  , players: List Player
   }
 
 type View = MenuView Menu | ModalView Modal | GamePlay
@@ -86,6 +85,7 @@ type alias World =
   { sky: Sky
   , terrain: Terrain
   , dimensions: Dimension
+  , players: List Player
   }
 
 type alias Player = { color: PlayerColor }

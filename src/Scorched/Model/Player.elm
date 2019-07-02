@@ -24,10 +24,12 @@ firstPlayer : PlayerColor
 firstPlayer = Red
 
 cycleSelection : Model -> PlayerColor -> (Model, Cmd Msg)
-cycleSelection ({config, players} as model) playerColor =
+cycleSelection ({config, world} as model) playerColor =
   let
-    newPlayers = players ++ List.singleton (create playerColor)
-    newModel = { model | players = newPlayers }
+    newPlayers = world.players ++ List.singleton (create playerColor)
+
+    newWorld = { world | players = newPlayers }
+    newModel = { model | world = newWorld }
 
     nextColor = List.head (List.drop (List.length newPlayers) colors)
   in

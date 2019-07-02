@@ -35,7 +35,6 @@ default =
   , dimensions = {width=1024, height=768}
   , config = Config.default
   , world = World.default
-  , players = []
   }
 
 init : Cmd Msg
@@ -62,12 +61,7 @@ update_ msg model =
 
     UpdateView view ->
       case view of
-        MenuView _ -> (
-          { model |
-            view = view,
-            controls = Control.dictFromList MainMenu.controls,
-            players = []
-          }, generateWorld model.permutation model)
+        MenuView _ -> reset model view
 
         ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
 
@@ -84,3 +78,15 @@ subscriptions model =
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =
   World.random permutation model.config model.time model.config.worldConfig.dimensions
+
+reset : Model -> View -> (Model, Cmd Msg)
+reset ({world} as model) view =
+  let
+    newWorld = { world | players = [ ] }
+  in
+    (
+      { model |
+        view = view,
+        controls = Control.dictFromList MainMenu.controls,
+        world = newWorld
+      }, generateWorld model.permutation model)
