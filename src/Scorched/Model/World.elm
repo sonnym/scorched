@@ -6,32 +6,40 @@ import Time
 import Scorched.Model.Types exposing (
   Msg(..),
   BasicMsg(..),
-  Config,
   Permutation,
   WorldConfig,
+  Model,
   World,
   Sky,
   Terrain,
+  Player,
   Dimension)
 
+import Scorched.Model.Player as Player
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
 
-random : Permutation -> Config -> Time.Posix -> Dimension -> Cmd Msg
-random permutation config time dimensions =
+random : Permutation -> Model -> Dimension -> Cmd Msg
+random permutation ({config, time} as model) dimensions =
   Random.generate
     (\world -> BasicMsg_ (WorldGenerated world))
-    (generator permutation config time dimensions)
+    (generator permutation model dimensions)
 
-generator : Permutation -> Config -> Time.Posix -> Dimension -> Random.Generator World
-generator permutation config time dimensions =
-  Random.map2
-    (\sky terrain -> {sky=sky, terrain=terrain, dimensions=dimensions})
+generator : Permutation -> Model -> Dimension -> Random.Generator World
+generator permutation {config, world, time} dimensions =
+  Random.map3
+    (create dimensions)
     (Sky.generator config)
     (Terrain.generator permutation config time dimensions)
+    (Player.generator world.players dimensions.width)
 
 default : World
-default = { sky=Sky.empty, terrain=Terrain.empty, dimensions={width=0,height=0} }
+default =
+  { sky = Sky.empty
+  , terrain = Terrain.empty
+  , dimensions = {width=0,height=0}
+  , players = [ ]
+  }
 
 defaultConfig : WorldConfig
 defaultConfig =
@@ -41,5 +49,23 @@ defaultConfig =
   , slopes = 20
   }
 
+create : Dimension -> Sky -> Terrain -> List Player -> World
+create dimensions sky terrain players =
+  { sky = sky
+  , terrain = terrain
+  , dimensions = dimensions
+  , players = List.map (setYCoordinate terrain) players
+  }
+
+setYCoordinate : Terrain -> Player -> Player
+setYCoordinate {altitudes} ({position} as player) =
+  let
+    newPosition =
+      case List.head (List.drop position.x altitudes) of
+        Just y -> { position | y = y }
+        Nothing -> position
+  in
+    { player | position = newPosition}
+
 menuWorldSize : Dimension
-menuWorldSize = {width=906, height=724}
+menuWorldSize = { width = 906, height = 724 }

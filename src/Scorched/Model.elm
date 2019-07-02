@@ -17,8 +17,9 @@ import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Ports as Ports
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Control as Control
+import Scorched.Model.Game as Game
 import Scorched.Model.Modal as Modal
+import Scorched.Model.Control as Control
 import Scorched.Model.Menu.Main as MainMenu
 
 import Scorched.Model.World as World
@@ -34,7 +35,6 @@ default =
   , dimensions = {width=1024, height=768}
   , config = Config.default
   , world = World.default
-  , players = []
   }
 
 init : Cmd Msg
@@ -46,6 +46,7 @@ update msg model =
     BasicMsg_ msg_ -> update_ msg_ model
     KeyMsg_ msg_ -> Keyboard.update msg_ model
     ControlMsg_ msg_ -> Control.update msg_ model
+    GameMsg_ msg_ -> Game.update msg_ model
     NoOp -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
@@ -59,15 +60,13 @@ update_ msg model =
       ({ model | permutation = permutation }, generateWorld permutation model)
 
     UpdateView view ->
-      case view of
-        MenuView _ -> (
-          { model |
-            view = view,
-            controls = Control.dictFromList MainMenu.controls,
-            players = []
-          }, generateWorld model.permutation model)
-
-        ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
+      let
+        model_ = { model | view = view }
+      in
+        case view of
+          MenuView _ -> reset model_ view
+          ModalView modal -> ({ model_ | controls = Modal.controls modal }, Cmd.none)
+          GamePlay -> (model_, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -79,4 +78,14 @@ subscriptions model =
 
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =
-  World.random permutation model.config model.time model.config.worldConfig.dimensions
+  World.random permutation model model.config.worldConfig.dimensions
+
+reset : Model -> View -> (Model, Cmd Msg)
+reset ({world} as model) view =
+  let
+    newWorld = { world | players = [ ] }
+  in
+    ({ model |
+       controls = Control.dictFromList MainMenu.controls,
+       world = newWorld
+     }, generateWorld model.permutation model)

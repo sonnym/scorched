@@ -7,11 +7,14 @@ import Scorched.Model.Types exposing (World, Dimension)
 
 import Scorched.View.Sky as Sky
 import Scorched.View.Terrain as Terrain
+import Scorched.View.Tank as Tank
 
 build : World -> Svg msg
-build {terrain, sky, dimensions} =
+build {terrain, sky, players, dimensions} =
   Svg.g
     [ Attr.id "world"
     , Attr.transform "translate(1, 1)"
     ]
-    [ Sky.build sky dimensions, Terrain.build terrain dimensions ]
+    (List.append
+      [ Sky.build sky dimensions, Terrain.build terrain dimensions ]
+      (List.map Tank.build players))

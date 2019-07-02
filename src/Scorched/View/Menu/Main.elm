@@ -2,7 +2,7 @@ module Scorched.View.Menu.Main exposing (build)
 
 import Dict exposing (Dict)
 
-import Svg exposing(Svg)
+import Svg exposing (Svg)
 import Svg.Attributes as Attr
 
 import Scorched.Model.Types exposing (

@@ -11,6 +11,7 @@ type Msg
   = BasicMsg_ BasicMsg
   | KeyMsg_ KeyMsg
   | ControlMsg_ ControlMsg
+  | GameMsg_ GameMsg
   | NoOp
 
 type BasicMsg
@@ -29,6 +30,9 @@ type ControlMsg
   = ControlToggle Direction String
   | UpdateConfig Operation Specification
 
+type GameMsg
+  = Initialize
+
 -- Model Types
 
 type alias Model =
@@ -41,14 +45,11 @@ type alias Model =
   , dimensions: Dimension
   , config: Config
   , world: World
-  , players: List Player
   }
 
-type View = MenuView Menu | ModalView Modal
+type View = MenuView Menu | ModalView Modal | GamePlay
 type Menu = Main
 type Modal = Landscape | PlayerSelection PlayerColor
-
-type alias MainMenuData = { world: World }
 
 type alias Permutation = List Int
 
@@ -84,9 +85,13 @@ type alias World =
   { sky: Sky
   , terrain: Terrain
   , dimensions: Dimension
+  , players: List Player
   }
 
-type alias Player = { color: PlayerColor }
+type alias Player =
+  { color: PlayerColor
+  , position: Point
+  }
 
 type Specification
   = Button ButtonControlSpec
