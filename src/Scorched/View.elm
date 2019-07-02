@@ -9,7 +9,6 @@ import Scorched.Model.Types exposing (Model, Msg, View(..))
 
 import Scorched.View.Menu as Menu
 import Scorched.View.Modal as Modal
-import Scorched.View.Transition as Transition
 
 build : Model -> Html Msg
 build ({dimensions} as model) =
