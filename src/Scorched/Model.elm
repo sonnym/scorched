@@ -17,8 +17,9 @@ import Scorched.Model.Permutation as Permutation
 import Scorched.Model.Ports as Ports
 import Scorched.Model.Keyboard as Keyboard
 
-import Scorched.Model.Control as Control
+import Scorched.Model.Game as Game
 import Scorched.Model.Modal as Modal
+import Scorched.Model.Control as Control
 import Scorched.Model.Menu.Main as MainMenu
 
 import Scorched.Model.World as World
@@ -46,6 +47,7 @@ update msg model =
     BasicMsg_ msg_ -> update_ msg_ model
     KeyMsg_ msg_ -> Keyboard.update msg_ model
     ControlMsg_ msg_ -> Control.update msg_ model
+    GameMsg_ msg_ -> Game.update msg_ model
     NoOp -> (model, Cmd.none)
 
 update_ : BasicMsg -> Model -> (Model, Cmd Msg)
@@ -68,6 +70,8 @@ update_ msg model =
           }, generateWorld model.permutation model)
 
         ModalView modal -> ({ model | view = view, controls = Modal.controls modal }, Cmd.none)
+
+        GamePlay -> ({ model | view = view }, Cmd.none)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =

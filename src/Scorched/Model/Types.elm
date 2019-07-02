@@ -11,6 +11,7 @@ type Msg
   = BasicMsg_ BasicMsg
   | KeyMsg_ KeyMsg
   | ControlMsg_ ControlMsg
+  | GameMsg_ GameMsg
   | NoOp
 
 type BasicMsg
@@ -29,6 +30,9 @@ type ControlMsg
   = ControlToggle Direction String
   | UpdateConfig Operation Specification
 
+type GameMsg
+  = Initialize
+
 -- Model Types
 
 type alias Model =
@@ -44,7 +48,7 @@ type alias Model =
   , players: List Player
   }
 
-type View = MenuView Menu | ModalView Modal
+type View = MenuView Menu | ModalView Modal | GamePlay
 type Menu = Main
 type Modal = Landscape | PlayerSelection PlayerColor
 

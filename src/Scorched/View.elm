@@ -9,6 +9,7 @@ import Scorched.Model.Types exposing (Model, Msg, View(..))
 
 import Scorched.View.Menu as Menu
 import Scorched.View.Modal as Modal
+import Scorched.View.GamePlay as GamePlay
 
 build : Model -> Html Msg
 build ({dimensions} as model) =
@@ -26,3 +27,4 @@ build_ model =
   case model.view of
     MenuView menu -> Menu.build menu model
     ModalView modal -> Modal.build modal model
+    GamePlay -> GamePlay.build model

@@ -2,6 +2,7 @@ module Scorched.Model.Player exposing (firstPlayer, cycleSelection)
 
 import Scorched.Model.Types exposing (
   Msg(..),
+  GameMsg(..),
   BasicMsg(..),
   View(..),
   Modal(..),
@@ -27,7 +28,7 @@ cycleSelection ({config, players} as model) playerColor =
         Just color -> (newModel, Helper.send (BasicMsg_ (UpdateView (ModalView (PlayerSelection color)))))
         Nothing -> (newModel, Cmd.none)
     else
-      (newModel, Cmd.none)
+      (newModel, Helper.send (GameMsg_ Initialize))
 
 colors : List PlayerColor
 colors = [Red, Green, Purple, Yellow, Aqua, Fuchsia, White, Orange, Mint, Blue]
