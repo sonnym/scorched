@@ -54,8 +54,18 @@ create dimensions sky terrain players =
   { sky = sky
   , terrain = terrain
   , dimensions = dimensions
-  , players = players
+  , players = List.map (setYCoordinate terrain) players
   }
+
+setYCoordinate : Terrain -> Player -> Player
+setYCoordinate {altitudes} ({position} as player) =
+  let
+    newPosition =
+      case List.head (List.drop position.x altitudes) of
+        Just y -> { position | y = y }
+        Nothing -> position
+  in
+    { player | position = newPosition}
 
 menuWorldSize : Dimension
 menuWorldSize = { width = 906, height = 724 }
