@@ -14,6 +14,7 @@ import Scorched.Model.Types exposing (
   Terrain,
   Dimension)
 
+import Scorched.Model.Player as Player
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
 
@@ -25,10 +26,11 @@ random permutation config time dimensions =
 
 generator : Permutation -> Config -> Time.Posix -> Dimension -> Random.Generator World
 generator permutation config time dimensions =
-  Random.map2
+  Random.map3
     (create dimensions)
     (Sky.generator config)
     (Terrain.generator permutation config time dimensions)
+    (Player.generator config)
 
 default : World
 default = { sky=Sky.empty, terrain=Terrain.empty, dimensions={width=0,height=0} }
@@ -41,8 +43,8 @@ defaultConfig =
   , slopes = 20
   }
 
-create : Dimension -> Sky -> Terrain -> World
-create dimensions sky terrain =
+create : Dimension -> Sky -> Terrain -> List Int -> World
+create dimensions sky terrain playerPositions =
   { sky=sky
   , terrain=terrain
   , dimensions=dimensions

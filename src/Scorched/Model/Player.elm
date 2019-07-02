@@ -1,4 +1,6 @@
-module Scorched.Model.Player exposing (firstPlayer, cycleSelection)
+module Scorched.Model.Player exposing (generator, firstPlayer, cycleSelection)
+
+import Random
 
 import Scorched.Model.Types exposing (
   Msg(..),
@@ -8,9 +10,15 @@ import Scorched.Model.Types exposing (
   Modal(..),
   PlayerColor(..),
   Model,
-  Player)
+  Config,
+  Player,
+  Point)
 
 import Scorched.Model.Helper as Helper
+
+generator : Config -> Random.Generator (List Int)
+generator {playerCount, worldConfig} =
+  Random.list playerCount (Random.int 0 worldConfig.dimensions.width)
 
 firstPlayer : PlayerColor
 firstPlayer = Red
