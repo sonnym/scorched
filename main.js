@@ -8260,20 +8260,60 @@ var author$project$Scorched$View$Sky$build = F2(
 				return A2(elm$svg$Svg$g, _List_Nil, _List_Nil);
 		}
 	});
-var author$project$Scorched$View$Tank$build = function (_n0) {
-	var position = _n0.ai;
-	return A2(
-		elm$svg$Svg$circle,
-		_List_fromArray(
-			[
-				elm$svg$Svg$Attributes$cx(
-				elm$core$String$fromInt(position.h)),
-				elm$svg$Svg$Attributes$cy(
-				elm$core$String$fromInt(position.i)),
-				elm$svg$Svg$Attributes$r('10')
-			]),
-		_List_Nil);
+var author$project$Scorched$View$Palette$aquaPlayer = {B: 255, D: 255, F: 40};
+var author$project$Scorched$View$Palette$bluePlayer = {B: 255, D: 0, F: 0};
+var author$project$Scorched$View$Palette$fuchsiaPlayer = {B: 255, D: 40, F: 255};
+var author$project$Scorched$View$Palette$greenPlayer = {B: 40, D: 223, F: 142};
+var author$project$Scorched$View$Palette$mintPlayer = {B: 162, D: 255, F: 81};
+var author$project$Scorched$View$Palette$orangePlayer = {B: 81, D: 162, F: 255};
+var author$project$Scorched$View$Palette$purplePlayer = {B: 255, D: 81, F: 162};
+var author$project$Scorched$View$Palette$redPlayer = {B: 40, D: 40, F: 255};
+var author$project$Scorched$View$Palette$whitePlayer = {B: 243, D: 243, F: 243};
+var author$project$Scorched$View$Palette$yellowPlayer = {B: 40, D: 255, F: 255};
+var author$project$Scorched$View$Tank$color = function (player) {
+	var _n0 = player.aD;
+	switch (_n0) {
+		case 0:
+			return author$project$Scorched$View$Palette$redPlayer;
+		case 1:
+			return author$project$Scorched$View$Palette$greenPlayer;
+		case 2:
+			return author$project$Scorched$View$Palette$purplePlayer;
+		case 3:
+			return author$project$Scorched$View$Palette$yellowPlayer;
+		case 4:
+			return author$project$Scorched$View$Palette$aquaPlayer;
+		case 5:
+			return author$project$Scorched$View$Palette$fuchsiaPlayer;
+		case 6:
+			return author$project$Scorched$View$Palette$whitePlayer;
+		case 7:
+			return author$project$Scorched$View$Palette$orangePlayer;
+		case 8:
+			return author$project$Scorched$View$Palette$mintPlayer;
+		default:
+			return author$project$Scorched$View$Palette$bluePlayer;
+	}
 };
+var author$project$Scorched$View$Tank$build = F2(
+	function (_n0, player) {
+		var height = _n0.aI;
+		var position = player.ai;
+		return A2(
+			elm$svg$Svg$circle,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$cx(
+					elm$core$String$fromInt(position.h)),
+					elm$svg$Svg$Attributes$cy(
+					elm$core$String$fromInt(height - position.i)),
+					elm$svg$Svg$Attributes$r('10'),
+					elm$svg$Svg$Attributes$fill(
+					author$project$Scorched$View$Palette$toString(
+						author$project$Scorched$View$Tank$color(player)))
+				]),
+			_List_Nil);
+	});
 var author$project$Scorched$View$Terrain$buildLine = F4(
 	function (color, bottom, xOffset, height) {
 		return A2(
@@ -8334,7 +8374,10 @@ var author$project$Scorched$View$World$build = function (_n0) {
 					A2(author$project$Scorched$View$Sky$build, sky, dimensions),
 					A2(author$project$Scorched$View$Terrain$build, terrain, dimensions)
 				]),
-			A2(elm$core$List$map, author$project$Scorched$View$Tank$build, players)));
+			A2(
+				elm$core$List$map,
+				author$project$Scorched$View$Tank$build(dimensions),
+				players)));
 };
 var author$project$Scorched$View$GamePlay$world = function (model) {
 	return A2(
@@ -9155,7 +9198,7 @@ var author$project$Scorched$View$Transition$colorsAqua = _List_fromArray(
 		{B: 223, D: 223, F: 32},
 		{B: 231, D: 231, F: 36},
 		{B: 243, D: 243, F: 36},
-		{B: 255, D: 255, F: 40}
+		author$project$Scorched$View$Palette$aquaPlayer
 	]);
 var author$project$Scorched$View$Transition$colorsBlue = _List_fromArray(
 	[
@@ -9178,7 +9221,7 @@ var author$project$Scorched$View$Transition$colorsBlue = _List_fromArray(
 		{B: 223, D: 0, F: 0},
 		{B: 231, D: 0, F: 0},
 		{B: 243, D: 0, F: 0},
-		{B: 255, D: 0, F: 0}
+		author$project$Scorched$View$Palette$bluePlayer
 	]);
 var author$project$Scorched$View$Transition$colorsFuchsia = _List_fromArray(
 	[
@@ -9201,7 +9244,7 @@ var author$project$Scorched$View$Transition$colorsFuchsia = _List_fromArray(
 		{B: 223, D: 32, F: 223},
 		{B: 231, D: 36, F: 231},
 		{B: 243, D: 36, F: 243},
-		{B: 255, D: 40, F: 255}
+		author$project$Scorched$View$Palette$fuchsiaPlayer
 	]);
 var author$project$Scorched$View$Transition$colorsGreen = _List_fromArray(
 	[
@@ -9224,7 +9267,7 @@ var author$project$Scorched$View$Transition$colorsGreen = _List_fromArray(
 		{B: 32, D: 195, F: 121},
 		{B: 36, D: 203, F: 130},
 		{B: 36, D: 211, F: 134},
-		{B: 40, D: 223, F: 142}
+		author$project$Scorched$View$Palette$greenPlayer
 	]);
 var author$project$Scorched$View$Transition$colorsMint = _List_fromArray(
 	[
@@ -9247,7 +9290,7 @@ var author$project$Scorched$View$Transition$colorsMint = _List_fromArray(
 		{B: 142, D: 223, F: 69},
 		{B: 146, D: 231, F: 73},
 		{B: 154, D: 243, F: 77},
-		{B: 162, D: 255, F: 81}
+		author$project$Scorched$View$Palette$mintPlayer
 	]);
 var author$project$Scorched$View$Transition$colorsOrange = _List_fromArray(
 	[
@@ -9270,7 +9313,7 @@ var author$project$Scorched$View$Transition$colorsOrange = _List_fromArray(
 		{B: 69, D: 142, F: 223},
 		{B: 73, D: 146, F: 231},
 		{B: 77, D: 154, F: 243},
-		{B: 81, D: 162, F: 255}
+		author$project$Scorched$View$Palette$orangePlayer
 	]);
 var author$project$Scorched$View$Transition$colorsPurple = _List_fromArray(
 	[
@@ -9293,7 +9336,7 @@ var author$project$Scorched$View$Transition$colorsPurple = _List_fromArray(
 		{B: 223, D: 69, F: 142},
 		{B: 231, D: 73, F: 146},
 		{B: 243, D: 77, F: 154},
-		{B: 255, D: 81, F: 162}
+		author$project$Scorched$View$Palette$purplePlayer
 	]);
 var author$project$Scorched$View$Transition$colorsRed = _List_fromArray(
 	[
@@ -9316,7 +9359,7 @@ var author$project$Scorched$View$Transition$colorsRed = _List_fromArray(
 		{B: 32, D: 32, F: 223},
 		{B: 36, D: 36, F: 231},
 		{B: 36, D: 36, F: 243},
-		{B: 40, D: 40, F: 255}
+		author$project$Scorched$View$Palette$redPlayer
 	]);
 var author$project$Scorched$View$Transition$colorsWhite = _List_fromArray(
 	[
@@ -9339,7 +9382,7 @@ var author$project$Scorched$View$Transition$colorsWhite = _List_fromArray(
 		{B: 211, D: 211, F: 211},
 		{B: 223, D: 223, F: 223},
 		{B: 231, D: 231, F: 231},
-		{B: 243, D: 243, F: 243}
+		author$project$Scorched$View$Palette$whitePlayer
 	]);
 var author$project$Scorched$View$Transition$colorsYellow = _List_fromArray(
 	[
@@ -9362,7 +9405,7 @@ var author$project$Scorched$View$Transition$colorsYellow = _List_fromArray(
 		{B: 32, D: 223, F: 223},
 		{B: 36, D: 231, F: 231},
 		{B: 36, D: 243, F: 243},
-		{B: 40, D: 255, F: 255}
+		author$project$Scorched$View$Palette$yellowPlayer
 	]);
 var author$project$Scorched$View$Transition$colors = function (playerColor) {
 	switch (playerColor) {
