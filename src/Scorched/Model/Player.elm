@@ -22,7 +22,7 @@ cycleSelection ({config, players} as model) playerColor =
 
     nextColor = List.head (List.drop (List.length newPlayers) colors)
   in
-    if List.length players < config.playerCount then
+    if List.length newPlayers < config.playerCount then
       case nextColor of
         Just color -> (newModel, Helper.send (BasicMsg_ (UpdateView (ModalView (PlayerSelection color)))))
         Nothing -> (newModel, Cmd.none)
