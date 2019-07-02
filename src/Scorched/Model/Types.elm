@@ -52,8 +52,6 @@ type View = MenuView Menu | ModalView Modal | GamePlay
 type Menu = Main
 type Modal = Landscape | PlayerSelection PlayerColor
 
-type alias MainMenuData = { world: World }
-
 type alias Permutation = List Int
 
 -- Core Types
