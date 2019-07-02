@@ -1,6 +1,7 @@
 module Scorched.Model.Player exposing (generator, firstPlayer, cycleSelection)
 
 import Random
+import Random.Extra
 
 import Scorched.Model.Types exposing (
   Msg(..),
@@ -16,9 +17,12 @@ import Scorched.Model.Types exposing (
 
 import Scorched.Model.Helper as Helper
 
-generator : Config -> Random.Generator (List Int)
-generator {playerCount, worldConfig} =
-  Random.list playerCount (Random.int 0 worldConfig.dimensions.width)
+generator : List Player -> Int -> Random.Generator (List Player)
+generator players max =
+  Random.map2
+    (List.map2 updatePosition)
+      (Random.list (List.length players) (Random.map (\x -> { x = x, y = 0 }) (Random.int 0 max)))
+      (Random.Extra.sequence (List.map (Random.constant) players))
 
 firstPlayer : PlayerColor
 firstPlayer = Red
@@ -44,4 +48,10 @@ colors : List PlayerColor
 colors = [Red, Green, Purple, Yellow, Aqua, Fuchsia, White, Orange, Mint, Blue]
 
 create : PlayerColor -> Player
-create playerColor = { color = playerColor }
+create playerColor =
+  { color = playerColor
+  , position = { x = 0, y = 0 }
+  }
+
+updatePosition : Point -> Player -> Player
+updatePosition position player = { player | position = position }

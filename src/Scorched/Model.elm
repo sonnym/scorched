@@ -78,7 +78,7 @@ subscriptions model =
 
 generateWorld : Permutation -> Model -> Cmd Msg
 generateWorld permutation model =
-  World.random permutation model.config model.time model.config.worldConfig.dimensions
+  World.random permutation model model.config.worldConfig.dimensions
 
 reset : Model -> View -> (Model, Cmd Msg)
 reset ({world} as model) view =

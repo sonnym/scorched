@@ -6,31 +6,32 @@ import Time
 import Scorched.Model.Types exposing (
   Msg(..),
   BasicMsg(..),
-  Config,
   Permutation,
   WorldConfig,
+  Model,
   World,
   Sky,
   Terrain,
+  Player,
   Dimension)
 
 import Scorched.Model.Player as Player
 import Scorched.Model.Sky as Sky
 import Scorched.Model.Terrain as Terrain
 
-random : Permutation -> Config -> Time.Posix -> Dimension -> Cmd Msg
-random permutation config time dimensions =
+random : Permutation -> Model -> Dimension -> Cmd Msg
+random permutation ({config, time} as model) dimensions =
   Random.generate
     (\world -> BasicMsg_ (WorldGenerated world))
-    (generator permutation config time dimensions)
+    (generator permutation model dimensions)
 
-generator : Permutation -> Config -> Time.Posix -> Dimension -> Random.Generator World
-generator permutation config time dimensions =
+generator : Permutation -> Model -> Dimension -> Random.Generator World
+generator permutation {config, world, time} dimensions =
   Random.map3
     (create dimensions)
     (Sky.generator config)
     (Terrain.generator permutation config time dimensions)
-    (Player.generator config)
+    (Player.generator world.players dimensions.width)
 
 default : World
 default =
@@ -48,12 +49,12 @@ defaultConfig =
   , slopes = 20
   }
 
-create : Dimension -> Sky -> Terrain -> List Int -> World
-create dimensions sky terrain playerPositions =
+create : Dimension -> Sky -> Terrain -> List Player -> World
+create dimensions sky terrain players =
   { sky = sky
   , terrain = terrain
   , dimensions = dimensions
-  , players = [ ]
+  , players = players
   }
 
 menuWorldSize : Dimension

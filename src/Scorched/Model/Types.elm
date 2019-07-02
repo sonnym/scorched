@@ -88,7 +88,10 @@ type alias World =
   , players: List Player
   }
 
-type alias Player = { color: PlayerColor }
+type alias Player =
+  { color: PlayerColor
+  , position: Point
+  }
 
 type Specification
   = Button ButtonControlSpec

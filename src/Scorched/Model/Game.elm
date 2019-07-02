@@ -17,7 +17,7 @@ update msg model =
     Initialize -> start model
 
 start : Model -> (Model, Cmd Msg)
-start ({config, permutation, time} as model) =
+start ({config, permutation} as model) =
   let
     oldWorldConfig = config.worldConfig
     newWorldConfig = { oldWorldConfig | dimensions = gameWorldSize }
@@ -25,7 +25,7 @@ start ({config, permutation, time} as model) =
   in
     ( { model | config = newConfig }
     ,  Cmd.batch
-        [ World.random permutation config time gameWorldSize
+        [ World.random permutation model gameWorldSize
         , Helper.send (BasicMsg_ (UpdateView GamePlay))
         ]
     )
