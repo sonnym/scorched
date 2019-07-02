@@ -1,5 +1,6 @@
 module Scorched.Model.Sky exposing (empty, default, all, generator, toString, fromString)
 
+import Dict exposing (Dict)
 import Random
 
 import Scorched.Model.Types exposing (Config, Sky(..))
@@ -31,10 +32,13 @@ toString sky =
     Sunset -> "Sunset"
 
 fromString : String -> Sky
-fromString sky =
-  case sky of
-    "Random" -> Random
-    "Pitch Black" -> PitchBlack
-    "Plain" -> Plain
-    "Sunset" -> Sunset
-    _ -> empty
+fromString name =
+  case Dict.get name mapping of
+    Just sky -> sky
+    Nothing -> empty
+
+names : List String
+names = ["Random", "Pitch Black", "Plain", "Sunset"]
+
+mapping : Dict String Sky
+mapping = Dict.fromList (List.map2 Tuple.pair names all)
