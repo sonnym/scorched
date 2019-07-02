@@ -25,7 +25,7 @@ start ({config, permutation, time} as model) =
   in
     ( { model | config = newConfig }
     ,  Cmd.batch
-        [ World.random permutation config time config.worldConfig.dimensions
+        [ World.random permutation config time gameWorldSize
         , Helper.send (BasicMsg_ (UpdateView GamePlay))
         ]
     )
