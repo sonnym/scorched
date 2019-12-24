@@ -1,3 +1,5 @@
+module Scorched exposing (main)
+
 import Browser
 
 import Scorched.Model.Types exposing (Model, Msg)
